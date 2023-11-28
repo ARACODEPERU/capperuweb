@@ -153,17 +153,14 @@ class AcaTeacherController extends Controller
             'mother_lastname'       => $request->get('mother_lastname')
         ]);
 
-        $user = new User([
-            'name' => $request->get('names'),
-            'email' => $request->get('email')
+        DB::table('users')->insert([
+            'name'          => $request->get('names'),
+            'email'         => $request->get('email'),
+            'password'      => Hash::make($request->get('number')),
+            'information'   => $request->get('description'),
+            'avatar'        => $path,
+            'person_id'     => $per->id
         ]);
-
-        $user->password = Hash::make($request->get('number'));
-        $user->information = $request->get('description');
-        $user->avatar = $path;
-        $user->person_id = $per->id;
-
-        $user->save();
 
         AcaTeacher::create([
             'person_id'     => $per->id,
