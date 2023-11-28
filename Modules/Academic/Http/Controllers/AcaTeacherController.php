@@ -129,8 +129,11 @@ class AcaTeacherController extends Controller
                 $file_name,
                 'public'
             );
+
+            $path = asset("storage/" . $path); //guardar la ruta COMPLETA
         }
-        $path = asset("storage/" . $path); //guardar la ruta COMPLETA
+
+
         $per = Person::create([
             'document_type_id'      => $request->get('document_type_id'),
             'short_name'            => $request->get('names'),
@@ -150,7 +153,6 @@ class AcaTeacherController extends Controller
             'mother_lastname'       => $request->get('mother_lastname')
         ]);
 
-        #el docente no inicia session por ahora
         User::create([
             'name'          => $request->get('names'),
             'email'         => $request->get('email'),
