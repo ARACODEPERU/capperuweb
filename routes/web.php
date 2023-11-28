@@ -29,7 +29,6 @@ Route::get('/contacto', [KenthaController::class, 'contacto'])->name('web_contac
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 Route::get('/capperu', [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
-Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
 Route::get('/categoria-sector/{sector}', [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad', [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
 Route::get('/categoria-modalidad-en-vivo', [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
@@ -49,8 +48,11 @@ Route::get('/convenios', [CapperuController::class, 'convenios'])->name('web_con
 Route::get('/contacto', [CapperuController::class, 'contacto'])->name('web_contacto');
 
 
+Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
 
 
+
+Route::get('/download/brochure/{id}', [CapperuController::class, 'download_brochure'])->name('download_brochure');
 
 Route::get('/blog/home', [BlogController::class, 'index'])->name('blog_principal');
 Route::get('/article/{url}', [BlogController::class, 'article'])->name('blog_article_by_url');

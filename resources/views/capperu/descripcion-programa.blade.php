@@ -23,9 +23,9 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 align-self-center">
                     <div class="banner-inner text-center">
-                        <h4 style="color: #fff;">
+                        <h3 style="color: #fff;">
                             {{ $course->description }}
-                        </h4>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                                                 <span style="color:orange;">
                                                     <i>Modalidad:</i>
                                                 </span>
-                                                <b>{{ $course->modality->description }}</b>
+                                                <b>{{ $item->additional1 }}</b>
                                             </div>
                                         @endif
                                         @if ($course->category)
@@ -73,14 +73,16 @@
                                                     <i>Tipo:</i>
                                                 </span>
                                                 <b>{{ $course->type_description }}</b>
-                                            </div>
+                                            </div> 
                                         @endif
+                                        @if ( $item->additional1 != "E-Learning")
                                         <div class="user-rating">
                                             <span style="color:orange;">
                                                 <i>Inicio:</i>
                                             </span>
                                             <b>{{ $course->course_day . '/' . $course->course_month . '/' . $course->course_year }}</b>
                                         </div>
+                                        @endif                                        
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +95,7 @@
                             @endphp
                             @foreach ($agreements as $agreement)
                                 <a href="">
-                                    <img style="100%;" src="{{ $agreement->institution->image }}" alt="img">
+                                    <img style="height: 80px;" src="{{ $agreement->institution->image }}" alt="img">
                                 </a>
                             @endforeach
                         </div>
@@ -104,20 +106,19 @@
                                 <button class="nav-link active" id="pill-1" data-bs-toggle="pill"
                                     data-bs-target="#pills-01" type="button" role="tab" aria-controls="pills-01"
                                     aria-selected="true">
-                                    Presentación
+                                    Presentación <span style="color: orange;">></span>
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button class="nav-link" id="pill-2" data-bs-toggle="pill" data-bs-target="#pills-02"
                                     type="button" role="tab" aria-controls="pills-02" aria-selected="false">
-                                    Beneficios
+                                    Beneficios <span style="color: orange;">></span>
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button class="nav-link" id="pill-3" data-bs-toggle="pill" data-bs-target="#pills-03"
                                     type="button" role="tab" aria-controls="pills-03" aria-selected="false">
-                                    Plana Docente
-                                </button>
+                                    Plana Docente <span style="color: orange;">></span>
                             </li>
                             <li class="nav-item">
                                 <button class="nav-link" id="pill-4" data-bs-toggle="pill" data-bs-target="#pills-04"
@@ -171,27 +172,60 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="reviewers-area">
-                            <div class="meta-area d-flex">
-                                <div class="user-rating ms-0">
-                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                    <b>Modalidad de Estudios Mixta</b>
-                                </div>
-                                <div class="ms-auto">
-                                    <i class="fa fa-video" aria-hidden="true"></i>
-                                    Google Meet
-                                </div>
-                                <div class="ms-md-5 ms-auto mb-0">
-                                    <a href="">
-                                        <i class="fa fa-laptop" aria-hidden="true"></i>
-                                        Campus Virtual
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>          
+
+                   @if ($item->additional1 == "E-Learning")
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h6>ESTA MODALIDAD PERMITE:</h6>
+                                                <ul>
+                                                    <li>
+                                                        Una formación completamente a distancia, donde los alumnos acceden a
+                                                        los contenidos, actividades, tareas, tutores del curso, etc.
+                                                    </li>
+                                                    <li>
+                                                        El proceso de aprendizaje se lleve a cabo a través de cualquier dispositivo 
+                                                        electrónico. (laptop, Tablet, PC o dispositivo móvil).
+                                                    </li>
+                                                    <li>
+                                                        FLEXIBILIDAD DE ESTUDIO: permite que el estudiante pueda estudiar conforme a su disponibilidad de tiempo y desde el lugar físico que él elija. 
+                                                        (las 24 horas y los 7 días de la semana).
+                                                    </li>
+                                                    <li>
+                                                        DISPOSICIÓN DE RECURSOS ON-LINE Y MULTIMEDIA, como PPTS, PDF, formatos en Excel y Word, que forman parte de los estudios.
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                   @else
+                                    <div class="row">
+                                        <div class="reviewers-area">
+                                            <div class="meta-area d-flex">
+                                                <div class="user-rating ms-0">
+                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                    <b>Modalidad de Estudios Mixta</b>
+                                                </div>
+                                                <div class="ms-auto">
+                                                    <i class="fa fa-video" aria-hidden="true"></i>
+                                                    Google Meet
+                                                </div>
+                                                <div class="ms-md-5 ms-auto mb-0">
+                                                    <a href="">
+                                                        <i class="fa fa-laptop" aria-hidden="true"></i>
+                                                        Campus Virtual
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                   @endif
+
+
+                    <br>
                     <div class="row overview-area">
                         <div class="col-md-12 bg-gray">
                             El alumno obtendrá su diplomado con la siguiente mención:
@@ -220,12 +254,20 @@
                     </div>
 
                     <div class="price-wrap">
-                        <div class="row align-items-center">
+                        <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
                                 <a class="btn btn-primary" href="#" style="width: 100%;" onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                     &nbsp;&nbsp;Comprar Ahora
                                     <b style="text-end"> &nbsp;&nbsp; S/. {{ $item->price }}</b>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a class="btn btn-light" href="#" style="width: 100%;">
+                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                    &nbsp;&nbsp;Descargar Brochure
                                 </a>
                             </div>
                         </div>
