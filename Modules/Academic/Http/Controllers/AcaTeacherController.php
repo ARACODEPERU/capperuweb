@@ -13,6 +13,7 @@ use Inertia\Inertia;
 use Modules\Academic\Entities\AcaTeacher;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Academic\Entities\AcaTeachingResume;
+use Illuminate\Support\Facades\Hash;
 
 class AcaTeacherController extends Controller
 {
@@ -150,14 +151,14 @@ class AcaTeacherController extends Controller
         ]);
 
         #el docente no inicia session por ahora
-        // User::create([
-        //     'name'          => $request->get('names'),
-        //     'email'         => $request->get('email'),
-        //     'password'      => Hash::make($request->get('password')),
-        //     'information'   => $request->get('description'),
-        //     'avatar'        => $path,
-        //     'person_id'     => $per->id
-        // ]);
+        User::create([
+            'name'          => $request->get('names'),
+            'email'         => $request->get('email'),
+            'password'      => Hash::make($request->get('number')),
+            'information'   => $request->get('description'),
+            'avatar'        => $path,
+            'person_id'     => $per->id
+        ]);
 
         AcaTeacher::create([
             'person_id'     => $per->id,
@@ -274,13 +275,13 @@ class AcaTeacherController extends Controller
             'mother_lastname'       => $request->get('mother_lastname')
         ]);
 
-        // User::where('person_id', $person_id)->update([
-        //     'name'          => $request->get('names'),
-        //     'email'         => $request->get('email'),
-        //     'password'      => Hash::make($request->get('password')),
-        //     'information'   => $request->get('description'),
-        //     'avatar'        => $path
-        // ]);
+        User::where('person_id', $person_id)->update([
+            'name'          => $request->get('names'),
+            'email'         => $request->get('email'),
+            'password'      => Hash::make($request->get('number')),
+            'information'   => $request->get('description'),
+            'avatar'        => $path
+        ]);
 
         AcaTeacher::find($student_id)->update([
             'teacher_code'  => $request->get('number'),
