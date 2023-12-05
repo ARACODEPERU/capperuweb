@@ -347,8 +347,8 @@
                             <div class="col-md-12">
                                 <a class="btn btn-primary" href="#" style="width: 100%;">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                    &nbsp;&nbsp;Comprar Ahora
-                                    <b style="text-end"> &nbsp;&nbsp; S/. 250</b>  
+                                    Comprar Ahora
+                                    <b style="text-end">  S/. 250</b>  
                                 </a>
                             </div>
                         </div>
