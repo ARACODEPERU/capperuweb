@@ -73,16 +73,16 @@
                                                     <i>Tipo:</i>
                                                 </span>
                                                 <b>{{ $course->type_description }}</b>
-                                            </div> 
+                                            </div>
                                         @endif
-                                        @if ( $item->additional1 != "E-Learning")
-                                        <div class="user-rating">
-                                            <span style="color:orange;">
-                                                <i>Inicio:</i>
-                                            </span>
-                                            <b>{{ $course->course_day . '/' . $course->course_month . '/' . $course->course_year }}</b>
-                                        </div>
-                                        @endif                                        
+                                        @if ($item->additional1 != 'E-Learning')
+                                            <div class="user-rating">
+                                                <span style="color:orange;">
+                                                    <i>Inicio:</i>
+                                                </span>
+                                                <b>{{ $course->course_day . '/' . $course->course_month . '/' . $course->course_year }}</b>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,8 @@
                                                 </a>
                                             </div>
                                             <div class="col-md-10">
-                                                <h6>{{ $teach->teacher->person->father_lastname." ". $teach->teacher->person->mother_lastname." ". $teach->teacher->person->names }}</h6>
+                                                <h6>{{ $teach->teacher->person->father_lastname . ' ' . $teach->teacher->person->mother_lastname . ' ' . $teach->teacher->person->names }}
+                                                </h6>
                                                 @if (count($teach->teacher->person->resumes))
                                                     <ul>
                                                         @foreach ($teach->teacher->person->resumes as $resume)
@@ -172,57 +173,59 @@
                                 @endif
                             </div>
                         </div>
-                    </div>          
+                    </div>
 
-                   @if ($item->additional1 == "E-Learning")
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <h6>ESTA MODALIDAD PERMITE:</h6>
-                                                <ul>
-                                                    <li>
-                                                        Una formación completamente a distancia, donde los alumnos acceden a
-                                                        los contenidos, actividades, tareas, tutores del curso, etc.
-                                                    </li>
-                                                    <li>
-                                                        El proceso de aprendizaje se lleve a cabo a través de cualquier dispositivo 
-                                                        electrónico. (laptop, Tablet, PC o dispositivo móvil).
-                                                    </li>
-                                                    <li>
-                                                        FLEXIBILIDAD DE ESTUDIO: permite que el estudiante pueda estudiar conforme a su disponibilidad de tiempo y desde el lugar físico que él elija. 
-                                                        (las 24 horas y los 7 días de la semana).
-                                                    </li>
-                                                    <li>
-                                                        DISPOSICIÓN DE RECURSOS ON-LINE Y MULTIMEDIA, como PPTS, PDF, formatos en Excel y Word, que forman parte de los estudios.
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                   @else
-                                    <div class="row">
-                                        <div class="reviewers-area">
-                                            <div class="meta-area d-flex">
-                                                <div class="user-rating ms-0">
-                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                                    <b>Modalidad de Estudios Mixta</b>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <i class="fa fa-video" aria-hidden="true"></i>
-                                                    Google Meet
-                                                </div>
-                                                <div class="ms-md-5 ms-auto mb-0">
-                                                    <a href="">
-                                                        <i class="fa fa-laptop" aria-hidden="true"></i>
-                                                        Campus Virtual
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                    @if ($item->additional1 == 'E-Learning')
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
+                            </div>
+                            <div class="col-md-12">
+                                <h6>ESTA MODALIDAD PERMITE:</h6>
+                                <ul>
+                                    <li>
+                                        Una formación completamente a distancia, donde los alumnos acceden a
+                                        los contenidos, actividades, tareas, tutores del curso, etc.
+                                    </li>
+                                    <li>
+                                        El proceso de aprendizaje se lleve a cabo a través de cualquier dispositivo
+                                        electrónico. (laptop, Tablet, PC o dispositivo móvil).
+                                    </li>
+                                    <li>
+                                        FLEXIBILIDAD DE ESTUDIO: permite que el estudiante pueda estudiar conforme a su
+                                        disponibilidad de tiempo y desde el lugar físico que él elija.
+                                        (las 24 horas y los 7 días de la semana).
+                                    </li>
+                                    <li>
+                                        DISPOSICIÓN DE RECURSOS ON-LINE Y MULTIMEDIA, como PPTS, PDF, formatos en Excel y
+                                        Word, que forman parte de los estudios.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="reviewers-area">
+                                <div class="meta-area d-flex">
+                                    <div class="user-rating ms-0">
+                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                        <b>Modalidad de Estudios Mixta</b>
                                     </div>
-                   @endif
+                                    <div class="ms-auto">
+                                        <i class="fa fa-video" aria-hidden="true"></i>
+                                        Google Meet
+                                    </div>
+                                    <div class="ms-md-5 ms-auto mb-0">
+                                        <a href="">
+                                            <i class="fa fa-laptop" aria-hidden="true"></i>
+                                            Campus Virtual
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
 
                     <br>
@@ -256,21 +259,25 @@
                     <div class="price-wrap">
                         <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
-                                <a class="btn btn-primary" href="#" style="width: 100%;" onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
+                                <a class="btn btn-primary" href="#" style="width: 100%;"
+                                    onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                     &nbsp;&nbsp;Comprar Ahora
                                     <b style="text-end"> &nbsp;&nbsp; S/. {{ $item->price }}</b>
                                 </a>
                             </div>
                         </div>
-                        <div class="row align-items-center" style="padding: 5px 0px;">
-                            <div class="col-md-12">
-                                <a class="btn btn-light" href="#" style="width: 100%;">
-                                    <i class="fa fa-file" aria-hidden="true"></i>
-                                    &nbsp;&nbsp;Descargar Brochure
-                                </a>
+                        @if ($course->brochure)
+                            <div class="row align-items-center" style="padding: 5px 0px;">
+                                <div class="col-md-12">
+                                    <a class="btn btn-light" href="{{ $course->brochure->path_file ?? '#' }}"
+                                        style="width: 100%;">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                        &nbsp;&nbsp;Descargar Brochure
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

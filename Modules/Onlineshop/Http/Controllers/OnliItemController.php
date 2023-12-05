@@ -101,7 +101,7 @@ class OnliItemController extends Controller
             ///'description'               => 'required|max:255',
             'description'               => 'required',
 
-            'image'                     => 'required|image|mimes:jpeg,png,gif|max:2048'
+            //'image'                     => 'required|image|mimes:jpeg,png,gif|max:2048'
         ], [
             'item_id.required' => 'Elija un Curso',
             'item_id.unique'   => 'Ya existe como item para la web',
@@ -117,7 +117,7 @@ class OnliItemController extends Controller
 
         // $path = 'img' . DIRECTORY_SEPARATOR . 'imagen-no-disponible.jpeg';
         // $destination = 'uploads' . DIRECTORY_SEPARATOR . 'products';
-        $path = null;
+        $path = $request->get('image_view');
         $destination = 'uploads/onlineshop/items';
         $file = $request->file('image');
         if ($file) {
@@ -193,7 +193,7 @@ class OnliItemController extends Controller
             'name'                      => 'required|max:255',
             ///'description'               => 'required|max:255',
             'description'               => 'required',
-            'image'                     => 'required|image|mimes:jpeg,png,gif|max:2048'
+            //'image'                     => 'required|image|mimes:jpeg,png,gif|max:2048'
         ], [
             'item_id.required' => 'Elija un Curso',
             'item_id.unique'   => 'Ya existe como item para la web',
@@ -219,7 +219,7 @@ class OnliItemController extends Controller
 
         // $path = 'img' . DIRECTORY_SEPARATOR . 'imagen-no-disponible.jpeg';
         // $destination = 'uploads' . DIRECTORY_SEPARATOR . 'products';
-        $path = null;
+        $path = $request->get('image_view');
         $destination = 'uploads/onlineshop/items';
         $file = $request->file('image');
         if ($file) {
