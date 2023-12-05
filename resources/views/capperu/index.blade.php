@@ -164,7 +164,7 @@
                                                     onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
                                                     class="btn btn-primary">
                                                     <i class="fa fa-cart-plus"></i>
-                                                    Agregar  S/. {{ $program->price }}
+                                                    Agregar a Carrito S/. {{ $program->price }}
                                                 </button>
                                                 <div id="wallet_container"></div>
                                             </div>
