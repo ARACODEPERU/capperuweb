@@ -347,7 +347,7 @@
                             <div class="col-md-12">
                                 <a class="btn btn-primary" href="#" style="width: 100%;">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                    Agregar a Carrito
+                                    Comprar Ahora
                                     <b style="text-end">  S/. 250</b>  
                                 </a>
                             </div>

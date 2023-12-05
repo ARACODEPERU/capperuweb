@@ -262,7 +262,7 @@
                                 <a class="btn btn-primary" href="#" style="width: 100%;"
                                     onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                    Agregar a Carrito
+                                    Comprar Ahora
                                     <b style="text-end">  S/. {{ $item->price }}</b>
                                 </a>
                             </div>
