@@ -146,7 +146,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -179,7 +179,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -212,7 +212,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -245,7 +245,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -278,7 +278,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -311,7 +311,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -344,7 +344,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -377,7 +377,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
@@ -409,7 +409,7 @@
                                             <div class="col-md-12">
                                                 <a href="#" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-                                                    Agregar a Carrito
+                                                    Agregar 
                                                     <b style="text-end"> S/. 250</b>  
                                                 </a>
                                             </div>
