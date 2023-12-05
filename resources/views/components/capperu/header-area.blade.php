@@ -10,7 +10,7 @@
                     </button>
                 </div>
                 <div class="logo">
-                    <a class="main-logo" href="">
+                    <a class="main-logo" href="{{ route('cms_principal') }}">
                         <img style="width:196px; height:61px;"
                             src="{{ asset('themes/capperu/assets/img/logo-cap.png') }}" alt="img">
                     </a>
