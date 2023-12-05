@@ -45,9 +45,9 @@ class AcaCourse extends Model
         return $this->hasMany(AcaModule::class, 'course_id');
     }
 
-    public function teacher(): HasMany
+    public function teacher(): HasOne
     {
-        return $this->hasMany(AcaTeacher::class, 'id', 'teacher_id');
+        return $this->hasOne(AcaTeacher::class, 'id', 'teacher_id');
     }
 
     public function brochure(): HasOne
@@ -63,5 +63,10 @@ class AcaCourse extends Model
     public function teachers(): HasMany
     {
         return $this->hasMany(AcaTeacherCourse::class, 'course_id');
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(AcaCapRegistration::class, 'course_id');
     }
 }
