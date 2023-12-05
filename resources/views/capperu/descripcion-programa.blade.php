@@ -89,16 +89,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
                             @php
                                 $agreements = $course->agreements;
                             @endphp
                             @foreach ($agreements as $agreement)
+                            <div class="col-md-4">
                                 <a href="">
                                     <img style="height: 80px;" src="{{ $agreement->institution->image }}" alt="img">
                                 </a>
+                            </div>
                             @endforeach
-                        </div>
                     </div>
                     <div class="row">
                         <ul class="course-tab nav nav-pills pd-top-100">
@@ -177,7 +177,7 @@
 
                     @if ($item->additional1 == 'E-Learning')
                         <br>
-                        <div class="row">
+                        <div class="row bg-gray" style="padding: 15px;">
                             <div class="col-md-12">
                                 <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
                             </div>
