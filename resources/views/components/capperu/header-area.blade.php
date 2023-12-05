@@ -89,7 +89,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ env('URL_CAMPUS') }}" class="btn btn-primary">
+                            <a target="_blank" href="{{ env('URL_CAMPUS') }}" class="btn btn-primary">
                                 Campus Virtual
                             </a>
                         </li>
