@@ -69,13 +69,14 @@ class OnliItemController extends Controller
                 $query->select('item_id')
                     ->from('onli_items');
             })
+            ->orderBy('id', 'DESC')
             ->get();
 
         $products = Product::whereNotIn('id', function ($query) {
             $query->select('item_id')
                 ->from('onli_items')
                 ->where('onli_items.entitie', 'App-Models-Product');
-        })->get();
+        })->orderBy('id', 'DESC')->get();
 
 
         return Inertia::render('Onlineshop::Items/Create', [
