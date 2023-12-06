@@ -28,7 +28,7 @@ Route::get('/contacto', [KenthaController::class, 'contacto'])->name('web_contac
 
 //Route::redirect('/cvinnova', 'http://campus.capperu.com');
 Route::get('/cvinnova', function () {
-    return redirect()->away('http://campus.capperu.com');
+    return redirect()->away('http://campus.capperu.com'); //ruta del campus https de ser necesario cambiar
 });
 
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
