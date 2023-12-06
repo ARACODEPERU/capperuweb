@@ -27,7 +27,7 @@ Route::get('/contacto', [KenthaController::class, 'contacto'])->name('web_contac
 */
 
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
-Route::get('/capperu', [WebController::class, 'capperu'])->name('cms_principal');
+Route::get('/', [WebController::class, 'capperu'])->name('cms_principal');          /////////////// INICIO HOME
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/categoria-sector/{sector}', [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad', [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
@@ -83,7 +83,7 @@ Route::get('/email', function () {
     return 'mensaje enviado';
 });
 
-Route::get('/', function () {
+Route::get('/capperu', function () {  /////////////////////////////////////////////////////////// login erp
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
