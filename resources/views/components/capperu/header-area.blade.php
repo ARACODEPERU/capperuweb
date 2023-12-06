@@ -18,7 +18,7 @@
                 <div class="nav-right-part nav-right-part-mobile">
                     <ul>
                         <li>
-                            <a href="" class="btn btn-primary" title="Campus Virtual">
+                            <a href="{{ env('URL_CAMPUS') }}" class="btn btn-primary" title="Campus Virtual">
                                 <i class="fa fa-university"></i> Campus
                             </a>
                         </li>
