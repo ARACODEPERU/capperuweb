@@ -8,11 +8,10 @@ import {
     faUserGear,
     faEarthAmericas,
     faCartShopping,
-    faKitMedical,
-    faBook,
     faGlobe
  } from "@fortawesome/free-solid-svg-icons";
 import { Link } from '@inertiajs/vue3';
+import menuAcademic from '../../../Modules/Academic/Resources/assets/js/Menu.js';
 
 const props = defineProps({
     sidebarToggle: {
@@ -272,60 +271,7 @@ const menu = ref([
             }
         ]
     },
-    {
-        status:false,
-        text: 'Salud',
-        icom: faKitMedical,
-        route: null,
-        permissions: 'heal_dashboard',
-        items: [
-            {
-                route: route('heal_patients_list'),
-                status: false,
-                text: 'Pacientes',
-                permissions: 'heal_pacientes_listado',
-            },
-            {
-                route: route('dental_dashboard'),
-                status: false,
-                text: 'Odontología',
-                permissions: 'cms_seccion',
-            },
-        ]
-    },
-    {
-        status:false,
-        text: 'Académico',
-        icom: faBook,
-        route: null,
-        permissions: 'aca_dashboard',
-        items: [
-            {
-                route: route('aca_institutions_list'),
-                status: false,
-                text: 'Instituciones',
-                permissions: 'aca_institucion_listado',
-            },
-            {
-                route: route('aca_teachers_list'),
-                status: false,
-                text: 'Docentes',
-                permissions: 'aca_docente_listado',
-            },
-            {
-                route: route('aca_students_list'),
-                status: false,
-                text: 'Estudiantes',
-                permissions: 'aca_estudiante_listado',
-            },
-            {
-                route: route('aca_courses_list'),
-                status: false,
-                text: 'Cursos',
-                permissions: 'aca_cursos_listado',
-            },
-        ]
-    },
+    menuAcademic,
     
 ]);
 
