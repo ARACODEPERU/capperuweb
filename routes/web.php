@@ -26,6 +26,8 @@ Route::get('/proyectos', [KenthaController::class, 'proyectos'])->name('web_proy
 Route::get('/contacto', [KenthaController::class, 'contacto'])->name('web_contacto');
 */
 
+Route::redirect('/cvinnova', 'http://campus.capperu.com');
+
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 Route::get('/', [WebController::class, 'capperu'])->name('cms_principal');          /////////////// INICIO HOME
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
