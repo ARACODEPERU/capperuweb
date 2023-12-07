@@ -65,11 +65,12 @@ watch(() => props.theme, (data) => {
             contentsLoading.value = data.contents.map(() => ({ loading: false, editable: false }));
         }
     }
-
 });
 
 const closeModalContents = () => {
+    contentsLoading.value = [];
     displayModalContent.value = false;
+    formContents.reset();
 }
 
 const newHeight = ref(280);
