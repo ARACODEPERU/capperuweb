@@ -159,6 +159,37 @@ Route::middleware('auth')->group(function () {
     Route::get('parameters/list', [ParametersController::class, 'index'])->name('parameters');
     Route::get('parameters/create', [ParametersController::class, 'create'])->name('parameters_create');
     Route::post('parameters/store', [ParametersController::class, 'store'])->name('parameters_store');
+	
+	    ////////////////actualizar informacion de personas
+    Route::get('person/update_information', function () {
+        $person = Person::find(Auth::user()->person_id);
+        $identityDocumentTypes = DB::table('identity_document_type')->get();
+
+        $ubigeo = District::join('provinces', 'province_id', 'provinces.id')
+            ->join('departments', 'provinces.department_id', 'departments.id')
+            ->select(
+                'districts.id AS district_id',
+                'districts.name AS district_name',
+                'provinces.name AS province_name',
+                'departments.name AS department_name'
+            )
+            ->get();
+
+        if (Auth::user()->hasRole('Alumno')) {
+            return Inertia::render('Person/UpdateInformation', [
+                'person' => $person,
+                'identityDocumentTypes' => $identityDocumentTypes,
+                'ubigeo' => $ubigeo
+            ]);
+        } else {
+            return back();
+        }
+    })->name('user-update-profile');
+
+    Route::post(
+        'person/update_information/store',
+        [PersonController::class, 'updateInformationPerson']
+    )->name('user-update-profile-store');
 });
 
 require __DIR__ . '/auth.php';
