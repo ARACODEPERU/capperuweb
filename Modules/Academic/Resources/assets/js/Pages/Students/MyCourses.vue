@@ -66,7 +66,7 @@ const expandedKeys = ref([]);
 const selectedKeys = ref([]);
 const videoHtml = ref(null);
 const newWidth = ref(100);
-const newHeight = ref('auto');
+const newHeight = ref(200);
 
 const modifiedContent = (content) => {
   // Copia el contenido original
@@ -74,7 +74,7 @@ const modifiedContent = (content) => {
 
   // Realiza la sustitución de la altura con un valor dinámico
   modifiedContent = modifiedContent.replace(/width="\d+"/g, `width="${newWidth.value}%"`);
-  //modifiedContent = modifiedContent.replace(/height="\d+"/g, `height="${newHeight.value}"`);
+  modifiedContent = modifiedContent.replace(/height="\d+"/g, `height="${newHeight.value}"`);
   return modifiedContent;
 };
 
