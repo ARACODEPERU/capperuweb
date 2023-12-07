@@ -145,7 +145,7 @@ class ProductController extends Controller
                 $total = $total + $item['quantity'];
             }
         } else {
-            $total = $request->get('stock');
+            $total = $request->get('stock') ?? 1;
         }
 
 
@@ -517,7 +517,7 @@ class ProductController extends Controller
         if (PHP_OS == 'WINNT') {
             $tempFile = tempnam(sys_get_temp_dir(), 'img');
         } else {
-            $tempFile = tempnam('/var/www/html/store-calzado/public', 'img');
+            $tempFile = tempnam('/var/www/html', 'img');
         }
         file_put_contents($tempFile, $fileData);
         $mime = mime_content_type($tempFile);
@@ -765,7 +765,7 @@ class ProductController extends Controller
                 'is_product' => true,
                 'type_sale_affectation_id' => $data[6],
                 'type_purchase_affectation_id' => $data[8],
-                'type_unit_measure_id' => $data[8],
+                'type_unit_measure_id' => $data[10],
                 'status' => true
             ]);
 
