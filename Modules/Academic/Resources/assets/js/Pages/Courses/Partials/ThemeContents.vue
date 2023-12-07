@@ -58,7 +58,7 @@ watch(() => props.theme, (data) => {
     displayModalContent.value = true;
     formContents.theme_id = data.theme_id;
     formContents.theme_name = data.theme_name
-
+    
     if(data.contents){
         if(data.contents.length > 0){
             formContents.contents = data.contents
@@ -70,7 +70,7 @@ watch(() => props.theme, (data) => {
 const closeModalContents = () => {
     contentsLoading.value = [];
     displayModalContent.value = false;
-    formContents.reset();
+    formContents.contents = [];
 }
 
 const newHeight = ref(280);
