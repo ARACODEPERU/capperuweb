@@ -23,8 +23,8 @@
                             las acciones concretas de enseñanza - aprendizaje, investigación, proyección social y 
                             responsabilidad social.
                         </p>
-                        <a class="btn btn-base me-4" href="#"><i class="fa fa-university" aria-hidden="true"></i> Convenios</a>
-                        <a class="btn btn-base-light-border" href="#">Contactanos</a>
+                        <a class="btn btn-base me-4" href="{{ route('web_convenios') }}"><i class="fa fa-university" aria-hidden="true"></i> Convenios</a>
+                        <a class="btn btn-base-light-border" href="{{ route('web_contacto') }}">Contactanos</a>
                     </div>
                 </div>                
             </div>
