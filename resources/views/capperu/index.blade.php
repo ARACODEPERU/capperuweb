@@ -173,9 +173,10 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach                    
                 @endif
             </div>
+            {{ $programs->links() }}
         </div>
     </section>
     <!-- enllor courses Area End -->

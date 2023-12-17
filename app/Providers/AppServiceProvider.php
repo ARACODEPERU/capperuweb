@@ -8,6 +8,7 @@ use App\Rules\SizeExistence;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,5 +50,6 @@ class AppServiceProvider extends ServiceProvider
                 'isotipo_dark'
             )->first();
         });
+        Paginator::useBootstrap();
     }
 }

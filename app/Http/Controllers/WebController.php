@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Response;
 
 class WebController extends Controller
 {
+    protected $paginationTheme = 'tailwind';
     public function index()
     {
         //return view('kentha/index');
@@ -41,8 +42,8 @@ class WebController extends Controller
                 'aca_category_courses.description as category_description'
             )
             ->where('onli_items.status', true)->orderBy('onli_items.id', 'DESC')
-            ->limit(8)
-            ->get();
+            ->limit(32)
+            ->paginate(8);
 
         return view('capperu/index', [
             'programs' => $programs
