@@ -94,7 +94,6 @@
     </div>
     <!-- intro Area End -->
 
-
     <!-- enllor courses Area Start-->
     <section class="enllor-courses-area pd-top-50 pd-bottom-100">
         <div class="container">
@@ -180,14 +179,14 @@
         </div>
     </section>
     <!-- enllor courses Area End -->
+    
+    <!-- Más Populares Area Start-->
+    <x-capperu.programas-populares-area></x-capperu.programas-populares-area>
+    <!-- Más Populares Area End -->
 
     <!-- Nuestros Beneficios Area Start-->
     <x-capperu.nuestros-beneficios-area></x-capperu.nuestros-beneficios-area>
     <!-- Nuestros Beneficios Area End -->
-
-    <!-- Más Populares Area Start-->
-    <x-capperu.programas-populares-area></x-capperu.programas-populares-area>
-    <!-- Más Populares Area End -->
 
     <!-- Testimonios Area Start-->
     <x-capperu.testimonios-area></x-capperu.testimonios-area>

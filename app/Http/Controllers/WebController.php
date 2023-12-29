@@ -43,7 +43,7 @@ class WebController extends Controller
             )
             ->where('onli_items.status', true)->orderBy('onli_items.id', 'DESC')
             ->limit(32)
-            ->paginate(8);
+            ->paginate(12);
 
         return view('capperu/index', [
             'programs' => $programs
