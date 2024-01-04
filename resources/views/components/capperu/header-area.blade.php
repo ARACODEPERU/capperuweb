@@ -48,7 +48,7 @@
                             <a href="{{ route('web_nosotros') }}">Nosotros</a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="#">Programa de Estudios</a>
+                            <a href="#">Diplomados / Cursos</a>
                             <ul class="sub-menu">
                                 <li>
                                     <a href="{{ route('web_categoria_sector', "Empresarial") }}">Sector: <b>Empresarial</b></a>
