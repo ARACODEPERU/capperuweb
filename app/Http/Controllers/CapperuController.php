@@ -33,7 +33,7 @@ class CapperuController extends Controller
 
     public function categoriasector($sector)
     {
-        
+
         return view('capperu/categoria-sector', [
             'sector' => $sector
         ]);
@@ -94,7 +94,7 @@ class CapperuController extends Controller
             ->where('onli_items.status', true)->orderBy('onli_items.id', 'DESC')
             ->where('onli_items.additional', $tipo)     //Curso o Diplomado
             ->where('onli_items.additional2', $sector)->get();  //Sector publico , derecho ,etc
-            
+
         return view('capperu/sector-cursos', [
             'programs' => $programs
         ]);
@@ -103,7 +103,7 @@ class CapperuController extends Controller
     public function descripcionPrograma($id)
     {
         $item = OnliItem::find($id);
-        
+
         $course = AcaCourse::with('category')
             ->with('modality')
             ->with('modules')
@@ -330,14 +330,14 @@ class CapperuController extends Controller
             $fileName = pathinfo($filePath, PATHINFO_FILENAME);
             // Obtener la extensión del archivo
             $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-    
+
             // Definir el nombre del archivo para descarga
             $downloadFileName = $brochure->description . '.' . $extension;
-    
+
             // Generar la respuesta de descarga
             return response()->download(storage_path('app/' . $filePath), $downloadFileName);
         }
-        
+
         // Si el archivo no existe, puedes retornar una respuesta de error o redireccionar a otra página
         abort(404, 'El archivo no existe');
     }

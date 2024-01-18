@@ -31,27 +31,27 @@ Route::get('/cvinnova', function () {
     return redirect()->away('http://campus.capperu.com'); //ruta del campus https de ser necesario cambiar
 });
 
-Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
-Route::get('/', [WebController::class, 'capperu'])->name('cms_principal');         
-Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
-Route::get('/categoria-sector/{sector}', [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
-Route::get('/categoria-modalidad', [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
-Route::get('/categoria-modalidad-en-vivo', [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
-Route::get('/categoria-modalidad-e-learning', [CapperuController::class, 'categoriamodalidadelearning'])->name('web_categoria_modalidad_e_learning');
-Route::get('/categoria-programa-cursos', [CapperuController::class, 'categoriaprogramacursos'])->name('web_categoria_programa_cursos');
-Route::get('/categoria-programa-diplomados', [CapperuController::class, 'categoriaprogramadiplomados'])->name('web_categoria_programa_diplomados');
-Route::get('/modalidad-presencial', [CapperuController::class, 'modalidadpresencial'])->name('web_modalidad_presencial');
-Route::get('/sectors/{sector}/{tipo}', [CapperuController::class, 'sector_programs'])->name('web_sectors');
-Route::get('/descripcion-programa/{id}', [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
-Route::get('/descripcion-e-learning', [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
-Route::get('/perfil-docente/{teacher_id}', [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');      
-Route::get('/blog', [CapperuController::class, 'blog'])->name('web_blog');
-Route::get('/carrito', [CapperuController::class, 'carrito'])->name('web_carrito');
-Route::get('/pagar', [CapperuController::class, 'pagar'])->name('web_pagar');
-Route::get('/gracias/{sale_id}', [CapperuController::class, 'gracias'])->name('web_gracias');
+Route::get('/test-image/{content}/{fecha?}',[WebController::class, 'testimage'])                       ->name('test-image');
+Route::get('/',                             [WebController::class, 'capperu'])                          ->name('cms_principal');
+Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])                     ->name('web_nosotros');
+Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])              ->name('web_categoria_sector');
+Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])           ->name('web_categoria_modalidad');
+Route::get('/categoria-modalidad-en-vivo',  [CapperuController::class, 'categoriamodalidadenvivo'])      ->name('web_categoria_modalidad_en_vivo');
+Route::get('/categoria-modalidad-e-learning',[CapperuController::class, 'categoriamodalidadelearning'])->name('web_categoria_modalidad_e_learning');
+Route::get('/categoria-programa-cursos',    [CapperuController::class, 'categoriaprogramacursos'])      ->name('web_categoria_programa_cursos');
+Route::get('/categoria-programa-diplomados',[CapperuController::class, 'categoriaprogramadiplomados']) ->name('web_categoria_programa_diplomados');
+Route::get('/modalidad-presencial',         [CapperuController::class, 'modalidadpresencial'])          ->name('web_modalidad_presencial');
+Route::get('/sectors/{sector}/{tipo}',      [CapperuController::class, 'sector_programs'])              ->name('web_sectors');
+Route::get('/descripcion-programa/{id}',    [CapperuController::class, 'descripcionPrograma'])          ->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
+Route::get('/descripcion-e-learning',       [CapperuController::class, 'descripcionelearning'])         ->name('web_descripcion_e_learning');
+Route::get('/perfil-docente/{teacher_id}',  [CapperuController::class, 'perfildocente'])                ->name('web_perfil_docente');
+Route::get('/blog',                         [CapperuController::class, 'blog'])                         ->name('web_blog');
+Route::get('/carrito',                      [CapperuController::class, 'carrito'])                      ->name('web_carrito');
+Route::get('/pagar',                        [CapperuController::class, 'pagar'])                        ->name('web_pagar');
+Route::get('/gracias/{sale_id}',            [CapperuController::class, 'gracias'])                      ->name('web_gracias');
 
-Route::get('/convenios', [CapperuController::class, 'convenios'])->name('web_convenios');
-Route::get('/contacto', [CapperuController::class, 'contacto'])->name('web_contacto');
+Route::get('/convenios',                    [CapperuController::class, 'convenios'])                    ->name('web_convenios');
+Route::get('/contacto',                     [CapperuController::class, 'contacto'])                     ->name('web_contacto');
 
 
 Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
@@ -106,10 +106,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('clients', ClientController::class);
     Route::resource('users', UserController::class);
     Route::resource('establishments', LocalSaleController::class);
-	
+
 	Route::delete('establishments/destroies/{id}', [LocalSaleController::class, 'destroy'])->name('establishment_destroies');
     Route::post('establishments/updated', [LocalSaleController::class, 'update'])->name('establishment_updated');
-	
+
     Route::get(
         'inventory/product/establishment',
         [KardexController::class, 'index']
@@ -160,7 +160,7 @@ Route::middleware('auth')->group(function () {
     Route::get('parameters/list', [ParametersController::class, 'index'])->name('parameters');
     Route::get('parameters/create', [ParametersController::class, 'create'])->name('parameters_create');
     Route::post('parameters/store', [ParametersController::class, 'store'])->name('parameters_store');
-	
+
 	    ////////////////actualizar informacion de personas
     Route::get('person/update_information', function () {
         $person = Person::find(Auth::user()->person_id);

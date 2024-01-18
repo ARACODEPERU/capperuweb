@@ -96,7 +96,7 @@
             </div>
         </nav>
     </header>
-    <div class="category-navbar navbar-area d-xl-block d-none ara-header-bottom-cap" 
+    <div class="category-navbar navbar-area d-xl-block d-none ara-header-bottom-cap"
                 style="border-bottom: 4px solid orange;">
         <nav class="navbar navbar-expand-lg">
             <div class="container nav-container">
