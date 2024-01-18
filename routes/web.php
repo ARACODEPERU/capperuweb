@@ -32,7 +32,7 @@ Route::get('/cvinnova', function () {
 });
 
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
-Route::get('/', [WebController::class, 'capperu'])->name('cms_principal');          /////////////// INICIO HOME
+Route::get('/', [WebController::class, 'capperu'])->name('cms_principal');         
 Route::get('/nosotros', [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/categoria-sector/{sector}', [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad', [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
@@ -44,7 +44,8 @@ Route::get('/modalidad-presencial', [CapperuController::class, 'modalidadpresenc
 Route::get('/sectors/{sector}/{tipo}', [CapperuController::class, 'sector_programs'])->name('web_sectors');
 Route::get('/descripcion-programa/{id}', [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
 Route::get('/descripcion-e-learning', [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
-Route::get('/perfil-docente/{teacher_id}', [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
+Route::get('/perfil-docente/{teacher_id}', [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');      
+Route::get('/blog', [CapperuController::class, 'blog'])->name('web_blog');
 Route::get('/carrito', [CapperuController::class, 'carrito'])->name('web_carrito');
 Route::get('/pagar', [CapperuController::class, 'pagar'])->name('web_pagar');
 Route::get('/gracias/{sale_id}', [CapperuController::class, 'gracias'])->name('web_gracias');

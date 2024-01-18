@@ -265,6 +265,11 @@ class CapperuController extends Controller
         return view('capperu/convenios');
     }
 
+    public function blog()
+    {
+        return view('capperu/blog');
+    }
+
     public function gracias(Request $request, $sale_id)
     {
         $sale = OnliSale::find($sale_id);
