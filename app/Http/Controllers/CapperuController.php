@@ -269,6 +269,11 @@ class CapperuController extends Controller
     {
         return view('capperu/blog');
     }
+    
+    public function blogdescripcion()
+    {
+        return view('capperu/blog-descripcion');
+    }
 
     public function gracias(Request $request, $sale_id)
     {
