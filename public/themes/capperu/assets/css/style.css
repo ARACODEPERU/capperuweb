@@ -4672,3 +4672,80 @@ a.showMore-cat.showLess::after {
 .footer-area.style-white .widget-title {
   color: #fff;
 }
+
+
+
+
+
+
+/**********************/
+/****** Facebook ******/
+/**********************/
+
+.appFacebook{
+	position: fixed;
+	right: 26px;
+	bottom: 315px;
+	width: 50px;
+	z-index: 1000;
+  }
+  
+  .appFacebook img{
+	width: 100%;
+	height: auto;
+  }
+
+/***********************/
+/****** Instagram ******/
+/**********************/
+
+.appInstagram{
+	position: fixed;
+	right: 26px;
+	bottom: 250px;
+	width: 50px;
+	z-index: 1000;
+  }
+  
+  .appInstagram img{
+	width: 100%;
+	height: auto;
+  }
+
+/**********************/
+/****** Youtube ******/
+/**********************/
+
+.appYoutube{
+	position: fixed;
+	right: 26px;
+	bottom: 185px;
+	width: 50px;
+	z-index: 1000;
+  }
+  
+  .appYoutube img{
+	width: 100%;
+	height: auto;
+  }
+
+/**********************/
+/****** Whatsapp ******/
+/**********************/
+
+.appWhatsapp{
+	position: fixed;
+	right: 26px;
+	bottom: 120px;
+	width: 53px;
+	z-index: 1000;
+  }
+  
+  .appWhatsapp img{
+	width: 100%;
+	height: auto;
+  }
+  
+  /**********************/
+  /**********************/
+  /**********************/

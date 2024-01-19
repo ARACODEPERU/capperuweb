@@ -1,4 +1,47 @@
 <div>
+
+    <a class="appFacebook" target="_blanck" href="https://web.facebook.com/capperuoficial">
+        <img src="themes/capperu/assets/img/redes/facebook.png" alt="Facebook">
+    </a>
+    
+    <a class="appInstagram" target="_blanck" href="">
+        <img src="themes/capperu/assets/img/redes/instagram.png" alt="Instagram">
+    </a>
+    
+    <a class="appYoutube" target="_blanck" href="">
+        <img src="themes/capperu/assets/img/redes/youtube.png" alt="Youtube">
+    </a>
+    
+    
+    <a class="appWhatsapp" target="_blanck" href="https://api.whatsapp.com/send?phone=51946943887&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?">
+        <img src="themes/capperu/assets/img/redes/whatsapp.png" alt="Whatsapp">
+    </a>
+    
+          <!-- Load Facebook SDK for JavaScript -->
+          <div id="fb-root"></div>
+          <script>
+            window.fbAsyncInit = function() {
+              FB.init({
+                xfbml            : true,
+                version          : 'v10.0'
+              });
+            };
+    
+            (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
+    
+          <!-- Your Chat Plugin code -->
+          <div class="fb-customerchat"
+            attribution="setup_tool"
+            page_id="1938133419799820">
+          </div>
+
+
     <!-- footer area start -->
     <footer class="footer-area">
         <div class="footer-inner">
