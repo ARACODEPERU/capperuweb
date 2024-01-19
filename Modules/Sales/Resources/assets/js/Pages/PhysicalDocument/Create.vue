@@ -10,6 +10,7 @@
     import { ref, onMounted } from 'vue';
     import Swal2 from 'sweetalert2';
     import { Link, router } from '@inertiajs/vue3';
+    import { ConfigProvider, Dropdown,Menu,Tooltip, Button, message } from 'ant-design-vue';
 
     const props = defineProps({
         payments: {
@@ -47,28 +48,24 @@
         taxes: {
             type: Object,
             default: () => ({}),
-        },
-        sale: {
-            type: Object,
-            default: () => ({}),
         }
     });
 
     const formDocument = useForm({
-        sale_id: props.sale.id,
         client_id: props.client.id,
         client_name: props.client.number+"-"+props.client.full_name,
         client_rzn_social: props.client.full_name,
         client_ubigeo: props.client.ubigeo,
         client_dti: props.client.document_type_id,
         client_number: props.client.number,
-        client_ubigeo_description: props.client.city,
-        client_direction: props.client.address,
+        client_ubigeo_description: props.company.city,
+        client_direction: props.company.fiscal_address,
         client_phone: props.client.telephone,
         client_email: props.client.email,
         sale_documenttype_id: 2,
         type_operation: props.type_operation,
         serie: null,
+        corelative: null,
         date_issue: null,
         date_end: null,
         items:[],
@@ -77,63 +74,19 @@
         percentage_igv: 0,
         total: 0,
         total_taxed: 0, //operaciones gravadas
-        payments: JSON.parse(props.sale.payments),
+        payments: [{
+            type:1,
+            reference: null,
+            amount:0
+        }],
     });
 
-    const series = ref([]);
-
-    const getSeriesByDocumentType = () => {
-        let did = formDocument.sale_documenttype_id;
-        axios.get(route('sale_document_series',did)).then((res) => {
-            if (res.data.status) {
-                series.value = res.data.series;
-                formDocument.serie = series.value[0].id;
-            } else {
-                Swal2.fire({
-                    title: 'Información Importante',
-                    text: 'No existe serie para este local o tipo de documento',
-                    icon: 'info',
-                    showDenyButton: true,
-                    showCancelButton: false,
-                    confirmButtonText: 'Ok',
-                    denyButtonText: `Crear serie`,
-                }).then((result) => {
-                    if (result.isDenied) {
-                        router.visit(route('establishments.index'),{
-                            method: 'get'
-                        });
-                    }
-                })
-            }
-        });
-    }
 
     onMounted(() => {
-        getSeriesByDocumentType();
         getCurrentDate();
         startTaxes();
-
-        for(const row of Object.values(props.sale.sale_product)){
-            let data = {
-                id: JSON.parse(row.product)['id'],
-                interne: JSON.parse(row.product)['interne'],
-                description: JSON.parse(row.product)['description'],
-                is_product: JSON.parse(row.product)['is_product'] == 1 ? true : false,
-                unit_type: JSON.parse(row.product)['type_unit_measure_id'] ?? 'NIU',
-                quantity: row.quantity,
-                unit_price: row.price,
-                discount: row.discount,
-                total: parseFloat(row.total).toFixed(2),
-                afe_igv: JSON.parse(row.product)['type_sale_affectation_id'] ?? '10',
-                presentations: JSON.parse(row.product)['presentations'],
-                m_igv: 0,
-                v_sale: 0,
-                icbper: false
-            }
-            getDataTable(data);
-        }
     });
-
+    
     const taxes = ref({});
     const startTaxes = () => {
         
@@ -201,10 +154,33 @@
         displayModalClientSearch.value = true;
         saleDocumentTypesId.value = formDocument.sale_documenttype_id
     }
-
     const closeModalClientSearch = () => {
         saleDocumentTypesId.value =  null;
         displayModalClientSearch.value = false;
+    }
+    const newItems = () => {
+        let item = {
+            id: null,
+            description: null,
+            is_product: true,
+            unit_type: 'NIU',
+            quantity: 1,
+            unit_price: 0,
+            discount: 0,
+            total: 0,
+            afe_igv: 10,
+            size: null,
+            m_igv: 0,
+            presentations: null,
+            icbper: false
+        }
+        formDocument.items.push(item);
+    }
+    
+    const removeItem = (key) => {
+        let t = parseFloat(formDocument.items[key].total);
+        formDocument.total = parseFloat(formDocument.total) - t;
+        formDocument.items.splice(key,1);
     }
 
     const calculateTotals = (key) => {
@@ -244,16 +220,13 @@
     ////imprimir documento
     const downloadDocument = (id,type,file) => {
         let url = route('saledocuments_download',[id, type,file])
-        window.open(url, "_blank"); 
-        router.get(route('sales.index'));
-
+        window.open(url, "_blank");      
     }
 
     const saveDocument = () => {
         
         formDocument.processing = true
 
-        if(formDocument.serie){
             if(formDocument.client_dti != 6 && formDocument.sale_documenttype_id == 1){
                 Swal2.fire({
                     title: 'Información Importante',
@@ -265,19 +238,20 @@
                 
             }
 
-            axios.post(route('saledocuments_store_from_ticket'), formDocument ).then((res) => {
-                formDocument.client_id = props.client.id,
-                formDocument.client_name = props.client.number+"-"+props.client.full_name,
-                formDocument.client_ubigeo = props.client.ubigeo,
-                formDocument.client_dti = props.client.document_type_id,
-                formDocument.client_number = props.client.number,
-                formDocument.client_ubigeo_description = props.company.city,
-                formDocument.client_direction = props.company.fiscal_address,
-                formDocument.client_phone = props.client.telephone,
-                formDocument.client_email = props.client.email,
-                formDocument.sale_documenttype_id = 2,
-                formDocument.type_operation = props.type_operation,
-                formDocument.serie = null
+            axios.post(route('sale_physical_document_store'), formDocument ).then((res) => {
+                formDocument.client_id = props.client.id;
+                formDocument.client_name = props.client.number+"-"+props.client.full_name;
+                formDocument.client_ubigeo = props.client.ubigeo;
+                formDocument.client_dti = props.client.document_type_id;
+                formDocument.client_number = props.client.number;
+                formDocument.client_ubigeo_description = props.company.city;
+                formDocument.client_direction = props.company.fiscal_address;
+                formDocument.client_phone = props.client.telephone;
+                formDocument.client_email = props.client.email;
+                formDocument.sale_documenttype_id = 2;
+                formDocument.type_operation = props.type_operation;
+                formDocument.serie = null;
+                formDocument.corelative = null;
                 formDocument.items = [];
                 formDocument.total_discount = 0;
                 formDocument.total_igv = 0;
@@ -289,49 +263,60 @@
                     amount:0
                 }];
                 formDocument.processing =  false;
-                Swal2.fire({
-                    title: 'Comprobante creado con éxito',
-                    text: "¿deseas enviar a sunat y/o Imprimir?",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Enviar Ahora',
-                    cancelButtonText: 'Seguir vendiendo',
-                    showDenyButton: true,
-                    denyButtonText: `Solo Imprimir`,
-                    denyButtonColor: '#5E5A5A'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        if(res.data.invoice_type_doc == '01'){
-                            sendSunatDocumentCreated(res.data)
-                        }else{
-                            Swal2.fire({
-                                title: 'Información Importante',
-                                text: "Las boletas se envian mediante un resumen",
-                                icon: 'info',
-                            }).then(() => {
-                                router.get(route('sales.index'));
-                            });
-                        }
-                    } else if (result.isDenied) {
-                        downloadDocument(res.data.id,res.data.invoice_type_doc,'PDF')
-                    }else{
-                        router.get(route('sales.create'))
-                    }
-                });
+                message.success('El documento se registró correctamente',10)
             }).catch(function (error) {
-                console.log(error)
+                let validationErrors = error.response.data.errors;
+                
+                if (validationErrors && validationErrors.corelative) {
+                    const corelativeErrors = validationErrors.corelative;
+                    for (let i = 0; i < corelativeErrors.length; i++) {
+                        formDocument.setError('corelative', corelativeErrors[i]);
+                    }
+                }
+                if (validationErrors && validationErrors.serie) {
+                    const serieErrors = validationErrors.serie;
+                    for (let i = 0; i < serieErrors.length; i++) {
+                        formDocument.setError('serie', serieErrors[i]);
+                    }
+                }
+                if (validationErrors && validationErrors.client_name) {
+                    const client_nameErrors = validationErrors.client_name;
+                    for (let i = 0; i < client_nameErrors.length; i++) {
+                        formDocument.setError('client_name', client_nameErrors[i]);
+                    }
+                }
+                if (validationErrors && validationErrors.total) {
+                    const totalErrors = validationErrors.total;
+                    for (let i = 0; i < totalErrors.length; i++) {
+                        formDocument.setError('total', totalErrors[i]);
+                    }
+                }
+
+                if (validationErrors && validationErrors.client_rzn_social) {
+                    const client_rzn_socialErrors = validationErrors.client_rzn_social;
+                    for (let i = 0; i < client_rzn_socialErrors.length; i++) {
+                        formDocument.setError('client_rzn_social', client_rzn_socialErrors[i]);
+                    }
+                }
+
+                if (validationErrors && validationErrors.items) {
+                    const itemsErrors = validationErrors.items;
+
+                    for (let i = 0; i < itemsErrors.length; i++) {
+                        formDocument.setError('items.'+index+'.quantity', itemsErrors[i]);
+                    }
+                }
+                if (validationErrors && validationErrors.payments) {
+                    const paymentsErrors = validationErrors.payments;
+
+                    for (let i = 0; i < paymentsErrors.length; i++) {
+                        formDocument.setError('payments.'+index+'.amount', paymentsErrors[i]);
+                    }
+                }
+                message.error('Faltan ingresar datos importantes',10)
+                formDocument.processing =  false;
             });
-        }else{
-            Swal2.fire({
-                title: 'Información Importante',
-                text: "Elejir serie de documento",
-                icon: 'error',
-            });
-            formDocument.processing = false
-            return;
-        }
+        
     }
     const addPayment = () => {
         let ar = {
@@ -347,6 +332,10 @@
         }
     };
 
+    const displaySearchProducts = ref(false);
+    const closeSearchProducus = () => {
+        displaySearchProducts.value = false;
+    }
     
     const getDataTable = async (data) => {
         let c = parseFloat(data.quantity) ?? 0;
@@ -390,7 +379,7 @@
         formDocument.total_igv = ti.toFixed(2);
         formDocument.items.push(data);
         formDocument.payments[0].amount = formDocument.total;
-
+        displaySearchProducts.value = false;
     }
 
     const sendSunatDocumentCreated = (document) => {
@@ -410,8 +399,7 @@
                             cadena += `<br>Nota: ${notes}`;
                         }
                         Swal2.showValidationMessage(cadena)
-                        router.get(route('sales.index'));
-
+                        router.visit(route('saledocuments_list'), { replace: true });
                     }
                     return res
                 });
@@ -430,7 +418,9 @@
                     html: `${cadena}`,
                     icon: 'success',
                 }).then(() => {
-                    router.get(route('sales.index'));
+                    router.visit(route('saledocuments_list'),{
+                        method: 'get'
+                    });
                 });
 
             }
@@ -439,6 +429,7 @@
 </script>
 <template>
     <AppLayout title="Punto de Ventas">
+        <ConfigProvider>
         <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
             <!-- Breadcrumb Start -->
             <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
@@ -452,14 +443,13 @@
                     <li>
                         <div class="flex items-center">
                             <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Facturación Electrónica</span>
+                            <Link :href="route('sale_physical_document_list')" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Documento Físico</Link>
                         </div>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
                             <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Crear Documentos</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Registrar Documentos</span>
                         </div>
                     </li>
                 </ol>
@@ -475,7 +465,7 @@
                             <p class="text-sm">Ancash, Chimbote<br>{{ company.fiscal_address }}</p>
                         </div>
                         <div style="width: 180px;" class="text-4xl uppercase font-bold">
-                            <select @change="getSeriesByDocumentType" v-model="formDocument.sale_documenttype_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select v-model="formDocument.sale_documenttype_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option v-for="(type, index) in saleDocumentTypes" :value="type.id"> {{  type.description  }}</option>
                             </select>
                         </div>
@@ -483,9 +473,17 @@
                     <div class="flex flex-row justify-between py-2">
                         <div class="flex-1 pr-4 ">
                             <div class="grid grid-cols-3 gap-4 justify-between mb-1">
-                                <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Cliente:</div>
+                                <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">
+                                    Cliente:
+                                    <Tooltip placement="right">
+                                        <template #title>
+                                        <span>Buscar Cliente</span>
+                                        </template>
+                                        <Button @click="openModalClientSearch" type="dashed" size="small"><font-awesome-icon :icon="faMagnifyingGlass" /></Button>
+                                    </Tooltip> 
+                                </div>
                                 <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
-                                    <input @click="openModalClientSearch" @input="openModalClientSearch" :value="formDocument.client_name" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                    <input v-model="formDocument.client_name" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
                                     <SearchClients 
                                         :display="displayModalClientSearch" 
                                         :closeModalClient="closeModalClientSearch"
@@ -496,18 +494,25 @@
                                         :ubigeo="departments"
                                     />
                                    <div><InputError :message="formDocument.errors.client_id" class="mt-2" /></div> 
+                                   <InputError :message="formDocument.errors.client_name" class="mt-2" />
                                 </div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 justify-between mb-1">
                                 <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Ciudad:</div>
                                 <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
-                                    <input :value="formDocument.client_ubigeo_description" class="invoice-imput bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
+                                    <input v-model="formDocument.client_ubigeo_description" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
                                 </div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 justify-between mb-1">
                                 <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Dirección:</div>
                                 <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
-                                    <input :value="formDocument.client_direction" class="invoice-imput bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
+                                    <input v-model="formDocument.client_direction" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 justify-between mb-1">
+                                <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Email:</div>
+                                <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
+                                    <input v-model="formDocument.client_email" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
                                 </div>
                             </div>
                         </div>
@@ -515,10 +520,15 @@
                             <div class="flex justify-between mb-1">
                                 <div style="font-size: 14px;" class="flex-1 uppercase">Serie:</div>
                                 <div class="flex-1 ltr:text-right rtl:text-left">
-                                    <select v-model="formDocument.serie" class="invoice-select dark:text-gray-400 dark:bg-gray-700">
-                                        <option v-for="(serie) in series" :value="serie.id" >{{ serie.description }}</option>
-                                    </select>
+                                    <input v-model="formDocument.serie" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
                                     <InputError :message="formDocument.errors.serie" class="mt-2" />
+                                </div>
+                            </div>
+                            <div class="flex justify-between mb-1">
+                                <div style="font-size: 14px;" class="flex-1 uppercase">Numero:</div>
+                                <div class="flex-1 ltr:text-right rtl:text-left">
+                                    <input v-model="formDocument.corelative" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                    <InputError :message="formDocument.errors.corelative" class="mt-2" />
                                 </div>
                             </div>
                             <div class="flex justify-between mb-1">
@@ -541,7 +551,17 @@
                         <table class="table-bordered w-full ltr:text-left rtl:text-right text-gray-600">
                             <thead class="border-b border-t border-gray-400 dark:border-gray-700">
                                 <tr class="bg-gray-100 dark:bg-gray-900 dark:bg-opacity-20">
+                                    <th style="width: 70px;" class="text-right py-1">
+                                        <button @click="newItems" type="button" style="width: 28px;" title="Agregar Nuevo" class="mr-1 text-center  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-xs p-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <font-awesome-icon :icon="faPlus" />
+                                        </button>
+                                        <button @click="displaySearchProducts = !displaySearchProducts" type="button" style="width: 28px;" title="Abrir Buscar" class="text-center  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium text-xs p-2 text-center inline-flex items-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                                            <font-awesome-icon :icon="faMagnifyingGlass" />
+                                        </button>
+                                        <SearchProducts @eventdata="getDataTable" :displaySearch="displaySearchProducts" :close="closeSearchProducus" />
+                                    </th>                                    
                                     <th class="text-left text-xs uppercase px-2 py-1">Item</th>
+                                    <th class="text-center text-xs uppercase px-2 py-1">Producto</th>
                                     <th class="text-center text-xs uppercase px-2 py-1">Tipo de Unidad</th>
                                     <th class="text-center text-xs uppercase px-2 py-1">Cantidad</th>
                                     <th class="text-center text-xs uppercase px-2 py-1">Precio unitario</th>
@@ -550,79 +570,90 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template v-for="(row, key) in formDocument.items">
+                                <template v-if="formDocument.items && formDocument.items.length > 0">
+                                    <template v-for="(row, key) in formDocument.items">
+                                        <tr>
+                                            <td class="text-right" >
+                                                <button @click="removeItem(key)" type="button" style="width: 28px;" class="text-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-xs p-2 text-center inline-flex items-center  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                    <font-awesome-icon :icon="faXmark"  />
+                                                </button>
+                                            </td>
+                                            <td class="">
+                                                <input v-model="row.description" 
+                                                :ref="'item-description-' + key" 
+                                                 class="invoice-imput text-left dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                            </td>
+                                            <td style="width: 80px;" class="text-center">
+                                                <input v-model="row.is_product" 
+                                                type="checkbox">
+                                            </td>
+                                            <td style="width: 110px;">
+                                                <select v-model="row.unit_type" 
+                                                class="invoice-select dark:text-gray-400 dark:bg-gray-700">
+                                                    <template v-for="(unitType) in unitTypes">
+                                                        <option :value="unitType.id" >{{ unitType.description }}</option>
+                                                    </template>
+                                                </select>
+                                            </td>
+                                            <td style="width: 70px;" class="text-center">
+                                                <input v-model="row.quantity" 
+                                                @input="calculateTotals(key)" 
+                                                class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                                <InputError :message="formDocument.errors[`items.${key}.quantity`]" class="mt-2" />
+                                            </td>
+                                            <td style="width: 120px;" class="text-right">
+                                                <input v-model="row.unit_price" 
+                                                @input="calculateTotals(key)" 
+                                                class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                            </td>
+                                            <td style="width: 90px;" class="text-right">
+                                                <input v-model="row.discount" @input="calculateTotals(key)" 
+                                                class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                            </td>
+                                            <td style="width: 110px;" class="text-right ">
+                                                <input v-model="row.total" 
+                                                style="cursor: not-allowed"
+                                                class="invoice-imput text-right bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
+                                                <InputError :message="formDocument.errors[`items.${key}.total`]" class="mt-2" />
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template v-else>
                                     <tr>
-                                        <td class="">
-                                            <input v-model="row.description" 
-                                            :disabled="row.id ? true : false" 
-                                            :class="row.id ? 'bg-gray-100' : ''" 
-                                            :ref="'item-description-' + key" 
-                                            :style="row.id ? 'cursor: not-allowed': ''"
-                                            class="invoice-imput text-left dark:text-gray-400 dark:bg-gray-700" type="text" />
-                                        </td>
-                                        <td style="width: 110px;">
-                                            <select v-model="row.unit_type" 
-                                            :disabled="row.id ? true : false" 
-                                            :class="row.id ? 'bg-gray-100' : ''" 
-                                            :style="row.id ? 'cursor: not-allowed': ''"
-                                            class="invoice-select dark:text-gray-400 dark:bg-gray-700">
-                                                <template v-for="(unitType) in unitTypes">
-                                                    <option :value="unitType.id" >{{ unitType.description }}</option>
-                                                </template>
-                                            </select>
-                                        </td>
-                                        <td style="width: 70px;" class="text-center">
-                                            <input v-model="row.quantity" 
-                                            @input="calculateTotals(key)" 
-                                            :disabled="row.id ? true : false" 
-                                            :class="row.id ? 'bg-gray-100' : ''" 
-                                            :style="row.id ? 'cursor: not-allowed': ''"
-                                            class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
-                                        </td>
-                                        <td style="width: 120px;" class="text-right">
-                                            <input v-model="row.unit_price" 
-                                            @input="calculateTotals(key)" 
-                                            :disabled="row.id ? true : false" 
-                                            :style="row.id ? 'cursor: not-allowed': ''"
-                                            :class="row.id ? 'bg-gray-100' : ''" 
-                                            class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
-                                        </td>
-                                        <td style="width: 90px;" class="text-right">
-                                            <input v-model="row.discount" @input="calculateTotals(key)" 
-                                            :disabled="row.id ? true : false" 
-                                            :class="row.id ? 'bg-gray-100' : ''" 
-                                            :style="row.id ? 'cursor: not-allowed': ''"
-                                            class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
-                                        </td>
-                                        <td style="width: 110px;" class="text-right ">
-                                            <input v-model="row.total" 
-                                            style="cursor: not-allowed"
-                                            class="invoice-imput text-right bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
-                                            <InputError :message="formDocument.errors[`items.${key}.total`]" class="mt-2" />
+                                        <td colspan="8">
+                                            <div class="flex items-center mt-1 p-2 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
+                                                <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                                </svg>
+                                                <span class="sr-only">Info</span>
+                                                <div>
+                                                    Click en <span class="p-1 bg-blue-700 text-white"><font-awesome-icon @click="newItems" :icon="faPlus" /></span> para agregar o click en <span class="p-1 bg-gray-700 text-white"><font-awesome-icon @click="displaySearchProducts = true" :icon="faMagnifyingGlass" /></span> para buscar producto o servicio
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </template>
-
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="3" class="text-right text-xs uppercase"><b>OP. GRAVADAS: S/</b></td>
+                                    <td colspan="3"></td>
+                                    <td colspan="4" class="text-right text-xs uppercase"><b>OP. GRAVADAS: S/</b></td>
                                     <td class="text-right text-xs">{{ formDocument.total_taxed }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="3" class="text-right text-xs uppercase"><b>descuento: S/</b></td>
+                                    <td colspan="3"></td>
+                                    <td colspan="4" class="text-right text-xs uppercase"><b>descuento: S/</b></td>
                                     <td class="text-right text-xs">{{ formDocument.total_discount  }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="3" class="text-right text-xs uppercase"><b>IGV: S/</b></td>
+                                    <td colspan="3"></td>
+                                    <td colspan="4" class="text-right text-xs uppercase"><b>IGV: S/</b></td>
                                     <td class="text-right text-xs">{{ formDocument.total_igv }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="3" class="text-right text-xs uppercase"><b>TOTAL A PAGAR: S/</b></td>
+                                    <td colspan="3"></td>
+                                    <td colspan="4" class="text-right text-xs uppercase"><b>TOTAL A PAGAR: S/</b></td>
                                     <td class="text-right font-bold text-xs">
                                         {{ formDocument.total }}
                                         <InputError :message="formDocument.errors.total" class="mt-2" />
@@ -664,18 +695,22 @@
                         
                     </div>
                     <div class="flex justify-end">
-                        <Link :href="route('sales.index')"  class="mr-2 inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">Ir al Listado</Link>
+                        <SecondaryButton class="mr-2">
+                            Cancelar
+                        </SecondaryButton> 
                         <DangerButton @click="saveDocument" :class="{ 'opacity-25': formDocument.processing }" :disabled="formDocument.processing">
                             <svg v-show="formDocument.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
                                 <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
                             </svg>
                             Generar
-                        </DangerButton>
+                        </DangerButton> 
+                        <Link :href="route('sale_physical_document_list')"  class="ml-2 inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">Ir al Listado</Link>
                     </div>
                 </div>
             </div>
         </div>
+        </ConfigProvider>
     </AppLayout>
 </template>
 <style scoped>

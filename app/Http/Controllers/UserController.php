@@ -29,8 +29,9 @@ class UserController extends Controller
             $users->latest();
         }
 
+        $users = $users->with('tokens');
         $users = $users->paginate(10)->onEachSide(2);
-
+        //dd($users);
         return Inertia::render('Users/List', [
             'users' => $users
         ]);
@@ -39,7 +40,8 @@ class UserController extends Controller
     public function create()
     {
         return Inertia::render('Users/Create', [
-            'establishments' => LocalSale::all()
+            'establishments' => LocalSale::all(),
+            'roles' => Role::all()
         ]);
     }
     public function store(Request $request)
@@ -52,14 +54,21 @@ class UserController extends Controller
             'password' => 'required|string'
         ]);
 
-        User::create([
+        $user = User::create([
             'name'          => $request->get('name'),
             'email'         => $request->get('email'),
             'password'      => Hash::make($request->get('password')),
             'local_id'      => $request->get('local_id')
         ]);
 
-        return redirect()->route('users.create')
+        $user->assignRole($request->get('role'));
+
+        $token = $user->createToken($request->get('email'))->plainTextToken;
+
+        $user->api_token = $token;
+        $user->save();
+
+        return redirect()->route('users.index')
             ->with('message', __('Usuario creado con éxito'));
     }
 
@@ -75,7 +84,7 @@ class UserController extends Controller
         return Inertia::render('Users/Edit', [
             'establishments' => LocalSale::all(),
             'xuser' => $user,
-            'xrole' => $user->roles->pluck('name')->first(),
+            'xrole' => $user->getRoleNames(),
             'roles' => Role::all()
         ]);
     }
@@ -96,12 +105,15 @@ class UserController extends Controller
         ]);
 
 
+        $user->syncRoles([]);
+
         $user->name = $request->get('name');
         $user->email = $request->get('email');
 
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));
         }
+
         $user->assignRole($request->get('role'));
 
         $user->save();
