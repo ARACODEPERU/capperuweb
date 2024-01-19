@@ -1,5 +1,5 @@
 <script setup>
-    import { useForm } from "@inertiajs/vue3"
+    import { useForm, Link } from "@inertiajs/vue3"
     import AppLayout from '@/Layouts/AppLayout.vue';
     import Pagination from '@/Components/Pagination.vue';
     import { faTrashAlt, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -60,7 +60,7 @@
                         <div class="text-right">
                             <Keypad>
                                 <template #botones>
-                                    <a :href="route('blog-category.create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</a>
+                                    <Link :href="route('blog-category.create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</Link>
                                 </template>
                             </Keypad>
                         </div>
@@ -75,17 +75,17 @@
                                     <th scope="col" class="px-6 py-4">
                                         <div class="flex items-center">
                                             Nombre
-                                            <a :href="route('blog-category.index', {sort:'description',sort_order: filters.sort_order})">
+                                            <Link :href="route('blog-category.index', {sort:'description',sort_order: filters.sort_order})">
                                                 <img style="max-width: 12px;height: auto;" class="svg-img" src="/icons-svg/clasificar.svg" alt="Descripción de la imagen">
-                                            </a>
+                                            </Link>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-6 py-4">
                                         <div class="flex items-center">
                                             Estado
-                                            <a :href="route('blog-category.index', {sort:'status',sort_order: filters.sort_order})">
+                                            <Link :href="route('blog-category.index', {sort:'status',sort_order: filters.sort_order})">
                                                 <img style="max-width: 12px;height: auto;" class="svg-img" src="/icons-svg/clasificar.svg" alt="Descripción de la imagen">
-                                            </a>
+                                            </Link>
                                         </div>
                                     </th>
                                 </tr>
@@ -93,9 +93,9 @@
                             <tbody>
                                 <tr v-for="(category, index) in categories.data" :key="category.id" class="bg-white border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="border px-6 py-4">
-                                        <a :href="route('blog-category.edit',category.id)" class="mr-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <Link :href="route('blog-category.edit',category.id)" class="mr-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             <font-awesome-icon :icon="faPencilAlt" />
-                                        </a>
+                                        </Link>
                                         <button @click="destroyCategory(category.id)" type="button" class="mr-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                             <font-awesome-icon :icon="faTrashAlt" />
                                         </button>

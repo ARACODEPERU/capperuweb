@@ -18,6 +18,8 @@ use Modules\Academic\Entities\AcaCapRegistration;
 use Modules\Academic\Entities\AcaCourse;
 use Modules\Academic\Entities\AcaStudent;
 use Modules\Academic\Entities\AcaBrochure;
+use Modules\Blog\Entities\BlogArticle;
+use Modules\Blog\Entities\BlogCategory;
 
 class CapperuController extends Controller
 {
@@ -267,12 +269,23 @@ class CapperuController extends Controller
 
     public function blog()
     {
-        return view('capperu/blog');
+        $articles = BlogArticle::with('author')->where('status', true)->paginate(12);
+
+        return view('capperu/blog', [
+            'articles' => $articles
+        ]);
     }
-    
-    public function blogdescripcion()
+
+    public function blogdescripcion($url)
     {
-        return view('capperu/blog-descripcion');
+        $article = BlogArticle::with('category')
+            ->with('author')
+            ->where('url', $url)
+            ->first();
+
+        return view('capperu/blog-descripcion', [
+            'article' => $article
+        ]);
     }
 
     public function gracias(Request $request, $sale_id)
@@ -325,8 +338,8 @@ class CapperuController extends Controller
 
     public function download_brochure($id)
     {
-        $brochure = AcaBrochure::find($id);//AcaBrochure::where('aca_brochures.id', $id)->join('aca_courses', 'aca_courses.id', 'aca_brochures.course_id')
-                    //->select('*.aca_brochures', 'aca_courses.description as description')->first();
+        $brochure = AcaBrochure::find($id); //AcaBrochure::where('aca_brochures.id', $id)->join('aca_courses', 'aca_courses.id', 'aca_brochures.course_id')
+        //->select('*.aca_brochures', 'aca_courses.description as description')->first();
         $filePath = $brochure->path_file;
 
         // Verificar si el archivo existe
