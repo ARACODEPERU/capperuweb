@@ -13,7 +13,6 @@
 
 
 Route::prefix('blog')->group(function () {
-    Route::get('/blog2', 'BlogController@index')->name('web_blog_module');
 
     Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', 'BlogController@dashboard')->name('blog_dashboard');
