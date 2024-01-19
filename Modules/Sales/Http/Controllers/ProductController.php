@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sales\Entities\SaleProductBrand;
+use Modules\Sales\Entities\SaleProductCategory;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ProductController extends Controller
@@ -81,8 +83,13 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $categories = SaleProductCategory::whereNull('category_id')->get();
+        $brands = SaleProductBrand::get();
+
         return Inertia::render('Sales::Products/Create', [
             'establishments' => LocalSale::all(),
+            'categories'     => $categories ?? [],
+            'brands'         => $brands ?? []
         ]);
     }
     public function createService()
@@ -105,16 +112,23 @@ class ProductController extends Controller
             $request,
             [
                 'interne' => 'required|unique:products,interne',
-                'description' => 'required',
+                'description' => 'required|max:300',
                 'purchase_prices' => 'required',
-                'sale_prices.high' => 'required'
+                'sale_prices.high' => 'required|numeric',
+                'sale_prices.medium' => 'nullable|numeric',
+                'sale_prices.under' => 'nullable|numeric',
+            ],
+            [
+                'sale_prices.high.numeric' => 'Ingrese solo numeros',
+                'sale_prices.medium.numeric' => 'Ingrese solo numeros',
+                'sale_prices.under.numeric' => 'Ingrese solo numeros',
             ]
         );
         if ($presentations) {
             $this->validate(
                 $request,
                 [
-                    'sizes.*.size' => 'required|numeric',
+                    'sizes.*.size' => 'required',
                     'sizes.*.quantity' => 'required|numeric',
                 ],
                 [
@@ -123,22 +137,7 @@ class ProductController extends Controller
                 ]
             );
         }
-        // $path = 'img' . DIRECTORY_SEPARATOR . 'imagen-no-disponible.jpeg';
-        // $destination = 'uploads' . DIRECTORY_SEPARATOR . 'products';
-        $path = 'img/imagen-no-disponible.jpg';
-        $destination = 'uploads/products';
-        $file = $request->file('image');
-        if ($file) {
-            $original_name = strtolower(trim($file->getClientOriginalName()));
-            $original_name = str_replace(" ", "_", $original_name);
-            $extension = $file->getClientOriginalExtension();
-            $file_name = date('YmdHis') . '.' . $extension;
-            $path = $request->file('image')->storeAs(
-                $destination,
-                $file_name,
-                'public'
-            );
-        }
+
         $total = 0;
         if ($presentations) {
             foreach ($request->get('sizes') as $k => $item) {
@@ -149,12 +148,10 @@ class ProductController extends Controller
         }
 
 
-        //dd($request->get('sale_prices'));
         $pr = Product::create([
             'usine' => $request->get('usine'),
             'interne' => $request->get('interne'),
             'description' => $request->get('description'),
-            'image' => $path,
             'purchase_prices' => $request->get('purchase_prices'),
             'sale_prices' => json_encode($request->get('sale_prices')),
             'sizes' => $presentations ? json_encode($request->get('sizes')) : null,
@@ -165,8 +162,30 @@ class ProductController extends Controller
             'type_sale_affectation_id' => '10',
             'type_purchase_affectation_id' => '10',
             'type_unit_measure_id' => 'NIU',
-            'status' => true
+            'status' => true,
+            'category_id' => $request->get('category_id') ?? null,
+            'brand_id' => $request->get('brand_id') ?? null
         ]);
+
+        $path = 'img/imagen-no-disponible.jpg';
+        $destination = 'uploads/products';
+        $file = $request->file('image');
+        if ($file) {
+            $original_name = strtolower(trim($file->getClientOriginalName()));
+            $original_name = str_replace(" ", "_", $original_name);
+            $extension = $file->getClientOriginalExtension();
+            $file_name = $pr->id . '.' . $extension;
+            $path = $request->file('image')->storeAs(
+                $destination,
+                $file_name,
+                'public'
+            );
+
+            $pr->image = $path;
+            $pr->save();
+        }
+
+
 
         $k = Kardex::create([
             'date_of_issue' => Carbon::now()->format('Y-m-d'),
@@ -230,8 +249,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $categories = SaleProductCategory::whereNull('category_id')->get();
+        $brands = SaleProductBrand::get();
+
         return Inertia::render('Sales::Products/Edit', [
-            'product' => $product,
+            'product'       => $product,
+            'categories'    => $categories,
+            'brands'        => $brands
         ]);
     }
 
@@ -247,7 +271,7 @@ class ProductController extends Controller
         //dd($request->all());
         $this->validate($request, [
             'interne' => 'required|unique:products,interne,' . $product->id,
-            'description' => 'required',
+            'description' => 'required|max:300',
             'purchase_prices' => 'required',
             'sale_prices.high' => 'required',
         ]);
@@ -258,6 +282,8 @@ class ProductController extends Controller
         $product->purchase_prices = $request->get('purchase_prices');
         $product->sale_prices = $request->get('sale_prices');
         $product->sizes = $request->get('sizes');
+        $product->category_id = $request->get('category_id') ?? null;
+        $product->brand_id = $request->get('brand_id') ?? null;
         $product->save();
 
         return redirect()->route('products.edit', $product->id)
@@ -279,15 +305,35 @@ class ProductController extends Controller
 
     public function searchProduct(Request $request)
     {
+        // dd($request->all());
         $local_id = Auth::user()->local_id;
         $search = $request->get('search');
         $products = [];
         $success = false;
         $message = null;
         if ($local_id) {
+            //dd($local_id);
             $products = DB::table('products as t1')
                 ->select(
-                    't1.*',
+                    't1.id',
+                    't1.usine',
+                    't1.interne',
+                    't1.description',
+                    't1.image',
+                    't1.purchase_prices',
+                    't1.sale_prices',
+                    't1.sizes',
+                    't1.stock_min',
+                    't1.stock',
+                    't1.presentations',
+                    't1.is_product',
+                    't1.type_sale_affectation_id',
+                    't1.type_purchase_affectation_id',
+                    't1.type_unit_measure_id',
+                    't1.status',
+                    't1.category_id',
+                    't1.brand_id',
+                    't1.icbper',
                     DB::raw(`
                 SELECT
                     JSON_ARRAYAGG(JSON_OBJECT('size', size, 'quantity', quantity_sum)) AS productos
@@ -310,7 +356,27 @@ class ProductController extends Controller
                         ->orWhere('t1.description', 'like', '%' . $search . '%');
                 })
                 ->where('kardexes.local_id', '=', $local_id)
-                ->groupBy('t1.id')
+                ->groupBy([
+                    't1.id',
+                    't1.usine',
+                    't1.interne',
+                    't1.description',
+                    't1.image',
+                    't1.purchase_prices',
+                    't1.sale_prices',
+                    't1.sizes',
+                    't1.stock_min',
+                    't1.stock',
+                    't1.presentations',
+                    't1.is_product',
+                    't1.type_sale_affectation_id',
+                    't1.type_purchase_affectation_id',
+                    't1.type_unit_measure_id',
+                    't1.status',
+                    't1.category_id',
+                    't1.brand_id',
+                    't1.icbper',
+                ])
                 ->get();
 
             if (count($products) > 0) {
@@ -439,6 +505,7 @@ class ProductController extends Controller
         ]);
 
         $json_pro_sizes = null;
+        $pt = 0;
 
         if ($presentations) {
             $c = 0;
@@ -489,7 +556,7 @@ class ProductController extends Controller
                 }
             }
 
-            $pt = 0;
+
             for ($r = 0; $r < count($pro_sizes); $r++) {
                 $pt = $pt + $pro_sizes[$r]['quantity'];
             }
@@ -517,7 +584,7 @@ class ProductController extends Controller
         if (PHP_OS == 'WINNT') {
             $tempFile = tempnam(sys_get_temp_dir(), 'img');
         } else {
-            $tempFile = tempnam('/var/www/html', 'img');
+            $tempFile = tempnam('/var/www/html/img_temp', 'img');
         }
         file_put_contents($tempFile, $fileData);
         $mime = mime_content_type($tempFile);
@@ -528,7 +595,9 @@ class ProductController extends Controller
         $path = null;
         if ($file) {
             $original_name = strtolower(trim($file->getClientOriginalName()));
-            $file_name = time() . rand(100, 999) . $original_name;
+            $original_name = str_replace(" ", "_", $original_name);
+            $extension = $file->getClientOriginalExtension();
+            $file_name = $product_id . '_up.' . $extension;
             $path = Storage::disk('public')->putFileAs($destination, $file, $file_name);
         }
         $product = [];
@@ -639,18 +708,31 @@ class ProductController extends Controller
             'description.required' => 'Debe ingresar el Motivo del traslado',
         ]);
 
+        if ($request->get('presentations')) {
+            $this->validate($request, [
+                'item.*.quantity_relocate' => 'required',
+            ], [
+                'item.*.quantity_relocate.required' => 'Ingrese cantidad de traslado'
+            ]);
+        }
+
         try {
             DB::beginTransaction();
-            $tallas = $request->get('sizes');
 
-            $t = 0;
-            foreach ($request->get('sizes') as $item) {
-                if ($item['quantity'] >= $item['quantity_relocate']) {
-                    $t += $item['quantity_relocate'];
-                } else {
-                    return Inertia::location('/products/');
-                    break;
+            if ($request->get('presentations')) {
+                $tallas = $request->get('sizes');
+
+                $t = 0;
+                foreach ($request->get('sizes') as $item) {
+                    if ($item['quantity'] >= $item['quantity_relocate']) {
+                        $t += $item['quantity_relocate'];
+                    } else {
+                        return Inertia::location('/products/');
+                        break;
+                    }
                 }
+            } else {
+                $t = $request->get('quantity');
             }
 
             $kardex_id_origin = 0;
@@ -677,24 +759,26 @@ class ProductController extends Controller
                     'description' => $request->get('description'),
                 ]);
 
-                $kardex_id_destiny = $kardex->id;
+                if ($request->get('presentations')) {
+                    $kardex_id_destiny = $kardex->id;
 
-                foreach ($tallas as $talla) {
-                    if ($talla['quantity_relocate'] > 0) {
-                        KardexSize::create([
-                            'kardex_id' => $kardex_id_origin,
-                            'product_id' => $request->get('product_id'),
-                            'local_id' => $request->get('local_id_origin'),
-                            'size' => $talla['size'],
-                            'quantity' => -$talla['quantity_relocate'],
-                        ]);
-                        KardexSize::create([
-                            'kardex_id' => $kardex_id_destiny,
-                            'product_id' => $request->get('product_id'),
-                            'local_id' => $request->get('local_id_destiny'),
-                            'size' => $talla['size'],
-                            'quantity' => $talla['quantity_relocate'],
-                        ]);
+                    foreach ($tallas as $talla) {
+                        if ($talla['quantity_relocate'] > 0) {
+                            KardexSize::create([
+                                'kardex_id' => $kardex_id_origin,
+                                'product_id' => $request->get('product_id'),
+                                'local_id' => $request->get('local_id_origin'),
+                                'size' => $talla['size'],
+                                'quantity' => -$talla['quantity_relocate'],
+                            ]);
+                            KardexSize::create([
+                                'kardex_id' => $kardex_id_destiny,
+                                'product_id' => $request->get('product_id'),
+                                'local_id' => $request->get('local_id_destiny'),
+                                'size' => $talla['size'],
+                                'quantity' => $talla['quantity_relocate'],
+                            ]);
+                        }
                     }
                 }
             }
