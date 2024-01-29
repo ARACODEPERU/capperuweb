@@ -119,6 +119,18 @@
             </div>
         </nav>
     </div>
+    <script>
+        function ocultarLoader() {
+        loader.style.display = 'none';
+        }
+       try {
+        var loader = document.getElementById('preloader');
+
+        setTimeout(ocultarLoader, 1000); // Ocultar después de 1 segundo (1000 milisegundos)
+       } catch (error) {
+
+       }
+    </script>
     <style>
         .contador {
             position: absolute;
