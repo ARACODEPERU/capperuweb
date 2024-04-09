@@ -30,7 +30,12 @@
                 <div class="col-lg-4">
                     <div class="instructor-details-area text-center">
                         <div class="thumb">
-                            <img src="{{ $student[0]->student_image }}" alt="img">
+                            @if ($student[0]->student_image == null)
+                                <img src="https://www.capperu.com/storage/uploads/students/20231206124645.png" alt="img">
+                            @else
+                                <img src="{{ $student[0]->student_image }}" alt="img">
+                            @endif
+
                         </div>
                         <h3>{{ $student[0]->full_name }}
                         </h3>
@@ -50,22 +55,24 @@
                     <br>
                     <div class="row">
 
-                            @foreach ($student as $certificate)
-                                <div class="col-md-6">
-                                    <div class="single-course-wrap">
-                                        <div class="thumb">
-                                            <a href="">
-                                                <img style="height: 260px; object-fit: cover;" src={{ $certificate->certificate_image }}" alt="img">
-                                            </a>
-                                        </div>
-                                        <div class="wrap-details">
-                                            <h6 title="" class="texto-oculto2">
-                                                <a href="">{{ $certificate->course }}</a>
-                                            </h6>
+                            @if (count($student)>0 && $student[0]->certificate_image !=null)
+                                    @foreach ($student as $certificate)
+                                    <div class="col-md-6">
+                                        <div class="single-course-wrap">
+                                            <div class="thumb">
+                                                <a href="">
+                                                    <img style="height: 260px; object-fit: cover;" src={{ $certificate->certificate_image }}" alt="img">
+                                                </a>
+                                            </div>
+                                            <div class="wrap-details">
+                                                <h6 title="" class="texto-oculto2">
+                                                    <a href="">{{ $certificate->course }}</a>
+                                                </h6>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                    @endforeach
+                            @endif
 
                     </div>
                     {{-- <div class="row">
