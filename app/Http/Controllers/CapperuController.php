@@ -20,6 +20,7 @@ use Modules\Academic\Entities\AcaStudent;
 use Modules\Academic\Entities\AcaBrochure;
 use Modules\Blog\Entities\BlogArticle;
 use Modules\Blog\Entities\BlogCategory;
+use Illuminate\Support\Facades\DB;
 
 class CapperuController extends Controller
 {
@@ -164,10 +165,21 @@ class CapperuController extends Controller
         ]);
     }
 
-    
-    public function perfilalumno()
+
+    public function perfilalumno($id)
     {
-        return view('capperu/perfil-alumno');
+
+        $student = DB::table('aca_students')
+                            ->join('people', 'people.id', 'aca_students.person_id')
+                            ->leftJoin('aca_certificates', 'aca_certificates.student_id', 'aca_students.id')
+                            ->leftJoin('aca_courses', 'aca_courses.id', 'aca_certificates.course_id')
+                            ->where('aca_students.id', $id)
+                            ->select('aca_students.id', 'people.full_name', 'aca_certificates.id as certificate_id', 'aca_courses.description as course',
+                            'people.image as student_image', 'aca_certificates.course_id as course_id', 'aca_certificates.image as certificate_image')
+                            ->get();
+        return view('capperu/perfil-alumno', [
+            'student' => $student
+        ]);
     }
 
     public function carrito(Request $request)

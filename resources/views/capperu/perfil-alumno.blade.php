@@ -6,18 +6,18 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
-    
+
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
     <!-- search popup area start -->
     <x-capperu.search-popup-area></x-capperu.search-popup-area>
     <!-- //. search Popup -->
-    
+
     <!-- Encabezado inicio -->
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
+
     <!-- Banner Area Start-->
     <section class="banner-area style-3" style="padding: 120px 0px; z-index: -1; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
     </section>
@@ -30,20 +30,18 @@
                 <div class="col-lg-4">
                     <div class="instructor-details-area text-center">
                         <div class="thumb">
-                            <img src="{{ asset('themes/capperu/assets/img/author/01.png') }}" alt="img">
+                            <img src="{{ $student[0]->student_image }}" alt="img">
                         </div>
-                        <h3>Jesús Anaya Aguirre
+                        <h3>{{ $student[0]->full_name }}
                         </h3>
                         <p>Alumno</p>
-                        
+
                         <ul class="achivement-fact">
                         </ul>
 
                         <div class="text-start px-30">
-                            <h5>Acerca de mí</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap </p>
+                            <h5> </h5>
+                            <p> </p>
                         </div>
                     </div>
                 </div>
@@ -52,48 +50,22 @@
                     <br>
                     <div class="row">
 
-                            <div class="col-md-6">
-                                <div class="single-course-wrap">
-                                    <div class="thumb">
-                                        <a href="">
-                                            <img style="height: 260px; object-fit: cover;" src="{{ asset('themes/capperu/assets/img/diploma.jpg') }}" alt="img">
-                                        </a>
-                                    </div>
-                                    <div class="wrap-details">
-                                        <h6 title="" class="texto-oculto2">
-                                            <a href="">Nombre del curso</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="single-course-wrap">
-                                    <div class="thumb">
-                                        <a href="">
-                                            <img style="height: 260px; object-fit: cover;" src="{{ asset('themes/capperu/assets/img/diploma.jpg') }}" alt="img">
-                                        </a>
-                                    </div>
-                                    <div class="wrap-details">
-                                        <h6 title="" class="texto-oculto2">
-                                            <a href="">Nombre del curso</a>
-                                        </h6>
+                            @foreach ($student as $certificate)
+                                <div class="col-md-6">
+                                    <div class="single-course-wrap">
+                                        <div class="thumb">
+                                            <a href="">
+                                                <img style="height: 260px; object-fit: cover;" src={{ $certificate->certificate_image }}" alt="img">
+                                            </a>
+                                        </div>
+                                        <div class="wrap-details">
+                                            <h6 title="" class="texto-oculto2">
+                                                <a href="">{{ $certificate->course }}</a>
+                                            </h6>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="single-course-wrap">
-                                    <div class="thumb">
-                                        <a href="">
-                                            <img style="height: 260px; object-fit: cover;" src="{{ asset('themes/capperu/assets/img/diploma.jpg') }}" alt="img">
-                                        </a>
-                                    </div>
-                                    <div class="wrap-details">
-                                        <h6 title="" class="texto-oculto2">
-                                            <a href="">Nombre del curso</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
 
                     </div>
                     {{-- <div class="row">
@@ -111,8 +83,8 @@
                     </div> --}}
                 </div>
             </div>
-            
-        </div>            
+
+        </div>
     </div>
     <!-- instructor Area End -->
 
@@ -162,7 +134,7 @@
                     </div>
                 </div>
             </div>
-        </div>            
+        </div>
     </div>
     <!-- intro Area End -->
 
