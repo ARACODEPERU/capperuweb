@@ -164,6 +164,12 @@ class CapperuController extends Controller
         ]);
     }
 
+    
+    public function perfilalumno()
+    {
+        return view('capperu/perfil-alumno');
+    }
+
     public function carrito(Request $request)
     {
         return view('capperu/carrito');
