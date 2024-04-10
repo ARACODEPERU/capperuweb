@@ -22,6 +22,7 @@ use Modules\Blog\Entities\BlogArticle;
 use Modules\Blog\Entities\BlogCategory;
 use Illuminate\Support\Facades\DB;
 
+
 class CapperuController extends Controller
 {
     public function nosotros()
@@ -165,10 +166,24 @@ class CapperuController extends Controller
         ]);
     }
 
-    
-    public function alumnos()
+
+    public function alumnos(Request $request)
     {
-        return view('capperu/alumnos');
+        $search = $request->input('search');
+        if ($search != null) {
+            $results = DB::table('people')
+                        ->join('aca_students', 'aca_students.person_id', 'people.id')
+                        ->select('people.full_name', 'aca_students.id')
+                        ->where('people.full_name', 'LIKE', '%' . $search . '%')
+                        ->take(20) // Limitar a los 5 primeros resultados
+                        ->get();
+        } else {
+            $results = [];
+        }
+
+        return view('capperu/alumnos', [
+            'results' => $results
+        ]);
     }
 
 

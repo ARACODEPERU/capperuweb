@@ -32,7 +32,7 @@ Route::get('/cvinnova', function () {
 });
 
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
-Route::match(['get', 'post'], '/',          [WebController::class, 'capperu'])->name('cms_principal');
+Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
@@ -45,7 +45,7 @@ Route::get('/sectors/{sector}/{tipo}',      [CapperuController::class, 'sector_p
 Route::get('/descripcion-programa/{id}',    [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
 Route::get('/descripcion-e-learning',       [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
 Route::get('/perfil-docente/{teacher_id}',  [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
-Route::get('/alumnos',                       [CapperuController::class, 'alumnos'])->name('web_alumnos');
+Route::match(['get', 'post'], '/alumnos',   [CapperuController::class, 'alumnos'])->name('web_alumnos');
 Route::get('/perfil-alumno/{id}',           [CapperuController::class, 'perfilalumno'])->name('web_perfil_alumno');
 Route::get('/articles',                     [CapperuController::class, 'blog'])->name('web_blog');
 Route::get('/article/{url}/article',        [CapperuController::class, 'blogdescripcion'])->name('web_blog_descripcion');

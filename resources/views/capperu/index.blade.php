@@ -211,7 +211,7 @@
                             </span>
                         </h1>
 
-                        <form action="{{ route('cms_principal') }}" method="POST">
+                        <form action="{{ route('web_alumnos') }}" method="POST">
                             @csrf
                             <div class="newslatter-inner mt-xl-4 me-xl-5">
                                 <input type="text" name="search" id="search" placeholder="Ingresar nombres o apellidos del alumno">
@@ -234,36 +234,7 @@
                 <div class="col-md-3"></div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    @if ( count($results) > 0 )
-                    <div id="results">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Alumno</th>
-                            <th scope="col">...</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($results as $key => $student)
-                          <tr>
-                            <th scope="row">{{ $key+1 }}</th>
-                            <td>{{ $student->full_name }}</td>
-                            <td>
-                                <a href="{{ route('web_perfil_alumno', $student->id) }}" target="_blank" class="btn-small btn-primary">Ver</a>
-                            </td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                    </table>
-                    </div>
-                    @endif
-                </div>
-                <div class="col-md-2"></div>
-            </div>
+
         </div>
         <script>
           document.addEventListener('DOMContentLoaded', function() {

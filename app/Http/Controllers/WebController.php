@@ -20,7 +20,7 @@ class WebController extends Controller
         return view('capperu/index');
     }
 
-    public function capperu(Request $request)
+    public function capperu()
     {
         $programs = OnliItem::join('aca_courses', 'onli_items.item_id', '=', 'aca_courses.id')
             ->join('aca_category_courses', 'aca_category_courses.id', 'aca_courses.category_id')
@@ -46,21 +46,8 @@ class WebController extends Controller
             ->limit(32)
             ->paginate(12);
 
-            $search = $request->input('search');
-            if ($search != null) {
-                $results = DB::table('people')
-                            ->join('aca_students', 'aca_students.person_id', 'people.id')
-                            ->select('people.full_name', 'aca_students.id')
-                            ->where('people.full_name', 'LIKE', '%' . $search . '%')
-                            ->take(20) // Limitar a los 5 primeros resultados
-                            ->get();
-            } else {
-                $results = [];
-            }
-
         return view('capperu/index', [
-            'programs' => $programs,
-            'results' => $results
+            'programs' => $programs
         ]);
     }
 
