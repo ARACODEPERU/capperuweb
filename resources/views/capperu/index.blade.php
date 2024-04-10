@@ -195,6 +195,42 @@
     <!-- Convenios Area - HOME - Start-->
     <x-capperu.convenios-area-home></x-capperu.convenios-area-home>
     <!-- Convenios Area - HOME - End -->
+    
+    <!-- Banner Area Start-->
+    <section class="banner-area style-4 bg-gray-2" style="padding: 80px 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 align-self-center">
+                    <div class="banner-inner">
+                        <h1>
+                            Perfil publico del
+                            <span class="bottom-line">
+                                Estudante
+                                <img src="{{ asset('themes/capperu/assets/img/banner/4.png') }}" alt="img">
+                            </span>
+                        </h1>
+                        <div class="newslatter-inner mt-xl-4 me-xl-5">
+                            <input type="text" placeholder="Ingresar DNI del alumno">
+                            <button class="btn btn-base">Buscar</button>
+                        </div>
+                        <div class="banner-multi-user mt-xl-5 mt-4">
+                            <div class="media">
+                                <div class="media-left me-3">
+                                    <img src="{{ asset('themes/capperu/assets/img/banner/5.png') }}" alt="img">
+                                </div>
+                                <div class="media-body align-self-center">
+                                    Record de certificados 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area End -->
 
     <x-capperu.footer-area></x-capperu.footer-area>
 

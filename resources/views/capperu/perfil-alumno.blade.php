@@ -54,7 +54,6 @@
                     <h5>Lista de Diplomados y/o Cursos:</h5>
                     <br>
                     <div class="row">
-
                             @if (count($student)>0 && $student[0]->certificate_image !=null)
                                     @foreach ($student as $certificate)
                                     <div class="col-md-6">
@@ -73,7 +72,6 @@
                                     </div>
                                     @endforeach
                             @endif
-
                     </div>
                     {{-- <div class="row">
                         <div class="col-lg-12 text-center">
