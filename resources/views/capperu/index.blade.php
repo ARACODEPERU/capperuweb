@@ -272,7 +272,7 @@
         if (resultsComponent) {
             resultsComponent.focus();
         }
-});
+        });
             </script>
     </section>
     <!-- Banner Area End -->
