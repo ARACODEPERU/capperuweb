@@ -571,6 +571,23 @@ ul {
   border-radius: 8px;
 }
 
+.btn-small {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  overflow: hidden;
+  position: relative;
+  border: 0;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-block;
+  -webkit-transform: perspective(1px) translateZ(0);
+          transform: perspective(1px) translateZ(0);
+  border-radius: 8px;
+}
+
 .btn i,
 .btn svg {
   margin-left: 5px;
