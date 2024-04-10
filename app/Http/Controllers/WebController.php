@@ -52,7 +52,7 @@ class WebController extends Controller
                             ->join('aca_students', 'aca_students.person_id', 'people.id')
                             ->select('people.full_name', 'aca_students.id')
                             ->where('people.full_name', 'LIKE', '%' . $search . '%')
-                            ->take(5) // Limitar a los 5 primeros resultados
+                            ->take(10) // Limitar a los 5 primeros resultados
                             ->get();
             } else {
                 $results = [];
