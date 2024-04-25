@@ -44,7 +44,7 @@
                             <div class="single-course-wrap">
                                 <div class="thumb">
                                     <a href="{{ route ('web_sectors', [$sector, 'Curso']) }}">
-                                        <img src="{{ asset('themes/capperu/assets/img/course/7.png') }}" alt="img">
+                                        <img src="{{ asset('themes/capperu/assets/img/course/1.png') }}" alt="img">
                                     </a>
                                 </div>
                                 <div>
