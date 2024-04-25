@@ -19,7 +19,7 @@
 
     <!-- Banner Area Start-->
     <section class="banner-area style-3"
-        style="background-image: url({{ asset('themes/capperu/assets/img/portada.jpg') }});">
+        style="background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }});">
         <br>
         <div class="container">
             <div class="row justify-content-center">

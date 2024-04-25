@@ -172,13 +172,13 @@
                     <div class="col-md-6 align-self-center">
                         <div class="d-md-flex align-items-center mb-4 mb-xl-0">
                             <div class="copyright-area">
-                                <p>© 2023 - CAP PERU. Todos los derechos reservados | by <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
+                                <p>© 2024 - CAP PERU. Todos los derechos reservados | by <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
                             </div>
                         </div>                        
                     </div>
                     <div class="col-md-6 align-self-center text-xl-end">
                         <ul class="social-area d-inline-block">
-                            <li><a class="active" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a class="active" href="https://web.facebook.com/capperuoficial"><i class="fab fa-facebook-f"></i></a></li>
                             <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                             <li><a href="#"><i class="fab fa-youtube"></i></a></li>
