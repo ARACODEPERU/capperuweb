@@ -196,6 +196,7 @@ class CapperuController extends Controller
                             ->leftJoin('aca_courses', 'aca_courses.id', 'aca_certificates.course_id')
                             ->where('aca_students.id', $id)
                             ->select('aca_students.id', 'people.full_name', 'aca_certificates.id as certificate_id', 'aca_courses.description as course',
+                            DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname) AS full_name2"),
                             'people.image as student_image', 'aca_certificates.course_id as course_id', 'aca_certificates.image as certificate_image')
                             ->get();
         return view('capperu/perfil-alumno', [

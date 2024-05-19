@@ -37,8 +37,11 @@
                             @endif
 
                         </div>
-                        <h3>{{ $student[0]->full_name }}
-                        </h3>
+                        @if(strlen($student[0]->full_name) > 0)
+                            <h3>{{ $student[0]->full_name }}</h3>
+                        @else
+                            <h3>{{ $student[0]->full_name2 }}</h3>
+                        @endif
                         <p>Alumno</p>
 
                         <ul class="achivement-fact">
