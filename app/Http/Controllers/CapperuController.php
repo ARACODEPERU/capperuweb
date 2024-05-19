@@ -169,14 +169,15 @@ class CapperuController extends Controller
 
     public function alumnos(Request $request)
     {
-        $search = $request->input('search');
+        $search = trim($request->input('search'));
         if ($search != null) {
             $results = DB::table('people')
-                            ->join('aca_students', 'aca_students.person_id', 'people.id')
-                            ->select(DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname) AS full_name"), 'aca_students.id')
-                            ->where(DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname)"), 'LIKE', '%' . $search . '%')
-                            ->take(20) // Limitar a los 5 primeros resultados
-                            ->get();
+                        ->join('aca_students', 'aca_students.person_id', 'people.id')
+                        ->select(DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname) AS full_name"), 'aca_students.id')
+                        ->where(DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname)"), 'LIKE', '%' . $search . '%')
+                        ->orWhere(DB::raw("CONCAT(people.father_lastname, ' ', people.mother_lastname, ' ', people.names)"), 'LIKE', '%' . $search . '%')
+                        ->take(22) // Limitar a los 20 primeros resultados
+                        ->get();
         } else {
             $results = [];
         }
