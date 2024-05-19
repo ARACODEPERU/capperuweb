@@ -172,11 +172,11 @@ class CapperuController extends Controller
         $search = $request->input('search');
         if ($search != null) {
             $results = DB::table('people')
-                        ->join('aca_students', 'aca_students.person_id', 'people.id')
-                        ->select('people.full_name', 'aca_students.id')
-                        ->where('people.full_name', 'LIKE', '%' . $search . '%')
-                        ->take(20) // Limitar a los 5 primeros resultados
-                        ->get();
+                            ->join('aca_students', 'aca_students.person_id', 'people.id')
+                            ->select(DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname) AS full_name"), 'aca_students.id')
+                            ->where(DB::raw("CONCAT(people.names, ' ', people.father_lastname, ' ', people.mother_lastname)"), 'LIKE', '%' . $search . '%')
+                            ->take(20) // Limitar a los 5 primeros resultados
+                            ->get();
         } else {
             $results = [];
         }
