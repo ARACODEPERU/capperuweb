@@ -33,7 +33,7 @@
                             @if ($student[0]->student_image == null)
                                 <img src="https://www.capperu.com/storage/uploads/students/20231206124645.png" alt="img">
                             @else
-                                <img src="{{ $student[0]->student_image }}" alt="img">
+                            <img src="{{ file_exists($student[0]->student_image) ? $student[0]->student_image : 'https://www.capperu.com/storage/uploads/students/20231206124645.png' }}" alt="">
                             @endif
 
                         </div>
