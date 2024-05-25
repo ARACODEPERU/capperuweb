@@ -63,12 +63,21 @@
                                         <div class="single-course-wrap">
                                             <div class="thumb">
                                                 <a href="">
-                                                    <a target="_blank" href="{{ $certificate->certificate_image }}"><img style="height: 260px; object-fit: cover;" src="{{ $certificate->certificate_image }}" alt="img"></a>
+                                                    <a><img style="height: 260px; object-fit: cover;" src="{{ $certificate->course_image }}" alt="img"></a>
                                                 </a>
                                             </div>
                                             <div class="wrap-details">
                                                 <h6 title="" class="texto-oculto2">
                                                     <a href="">{{ $certificate->course }}</a>
+                                                </h6>
+                                            </div>
+                                            <div class="wrap-details">
+                                                <h6 title="" class="texto-oculto2">
+                                                    @if ($certificate->link_pdf==null)
+                                                        <a target="_blank" href="{{ $certificate->certificate_image }}">Descargar Certificado</a>
+                                                    @else
+                                                        <a target="_blank" href="{{ $certificate->link_pdf }}">Descargar Certificado</a>
+                                                    @endif
                                                 </h6>
                                             </div>
                                         </div>
