@@ -202,6 +202,7 @@ class CapperuController extends Controller
                             'people.image as student_image', 'aca_certificates.course_id as course_id', 'aca_courses.image as course_image', 'aca_certificates.image as certificate_image',
                             'aca_certificates.content as link_pdf') //cambie el aca_certificates.image por aca_courses.image
                             ->get();
+
         return view('capperu/perfil-alumno', [
             'student' => $student
         ]);
