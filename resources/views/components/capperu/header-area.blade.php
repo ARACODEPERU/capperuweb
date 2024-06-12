@@ -44,8 +44,16 @@
                         <li>
                             <a href="{{ route('cms_principal') }}">Home</a>
                         </li>
-                        <li>
-                            <a href="{{ route('web_nosotros') }}">Nosotros</a>
+                        <li class="menu-item-has-children">
+                            <a href="#">Nosotros</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ route('web_nosotros') }}">¿Quienes somos?</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('web_politicas_calidad') }}">Política de Calidad</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">Diplomados / Cursos</a>

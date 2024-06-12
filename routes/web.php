@@ -34,6 +34,7 @@ Route::get('/cvinnova', function () {
 Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
+Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
 Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
 Route::get('/categoria-modalidad-en-vivo',  [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
