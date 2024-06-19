@@ -106,7 +106,7 @@
         </template>
 
         <template #form>
-            
+
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="title" value="Titulo *" />
                 <TextInput
@@ -127,7 +127,7 @@
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="content" value="Contenido *" />
                 <Editor
-                    api-key="qv97v3surg08i8vhwvqxnj7ek17sk8xx2aqimzrrsgav6003"
+                    api-key="xmpsrss1dh49by6nnf83jicfv477cz0o31h0xu3ejsnnhsnz"
                     v-model="form.content_text"
                     :init="{
                         plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
