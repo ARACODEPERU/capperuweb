@@ -41,9 +41,22 @@
                         <div class="wrap-details">
                             <h3><a href="#">VALORES</a></h3>
                             <p>
-                                Los valores que caracterizan al centro CAP son: Verdad, Justicia, 
-                                Libertad, Honestidad, Respeto, Lealtad, Trabajo en equipo, Tolerancia, 
-                                Solidaridad, Responsabilidad Social, Innovación, Persistencia.
+                                <b>•	Excelencia Académica:</b> Es alcanzar el máximo logro de aprendizaje en todos y 
+                                cada uno de los alumnos logrando una formación futura.
+                            </p>
+                            <p>
+                                <b>•	Equidad:</b> Proporcionar un trato justo en el trabajo, sin importar género, 
+                                raza, discapacidades u otras características personales.
+                            </p>
+                            <p>
+                                <b>•	Ética: </b> Conjunto de normas morales que rigen la conducta de acciones de la empresa.
+                            </p>
+                            <p>
+                                <b>•	Liderazgo: </b> Establecer una meta común, inspirar al equipo de trabajo, retarlos y seguir avanzando.
+                            </p>
+                            <p>
+                                <b>•	Innovación: </b> Nos valemos del aprendizaje y la creatividad para encontrar nuevas formas 
+                                de enseñanza generando un sistema de mejora continua.
                             </p>
                         </div>
                     </div>

@@ -35,6 +35,11 @@ class CapperuController extends Controller
         return view('capperu/politicas-de-calidad');
     }
 
+    public function gestioncalidad()
+    {
+        return view('capperu/gestion-de-calidad');
+    }
+
     public function categorias()
     {
         return view('capperu/categorias');
