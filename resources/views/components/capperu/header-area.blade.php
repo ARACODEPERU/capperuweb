@@ -54,7 +54,7 @@
                                     <a href="{{ route('web_politicas_calidad') }}">Política de Calidad</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('web_gestion_calidad') }}">Gestión de Calidad</a>
+                                    <a href="{{ route('web_gestion_calidad') }}">Alcance del SIG</a>
                                 </li>
                             </ul>
                         </li>

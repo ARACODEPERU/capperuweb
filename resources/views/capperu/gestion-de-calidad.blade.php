@@ -23,7 +23,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 align-self-center">
                     <div class="banner-inner text-center">
-                        <h1>Gestión de Calidad</h1>
+                        <h1>Alcance del SIG</h1>
                     </div>
                 </div>
             </div>
