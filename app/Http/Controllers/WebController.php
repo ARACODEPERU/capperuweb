@@ -56,7 +56,7 @@ class WebController extends Controller
 
 
         if ($fecha == null) {
-            echo "Agrega un Slash '/' y agrega la fecha ejemplo 'test-image/Miguel de Cervantes Saavedra/23-01-2021'";
+            echo "Agrega un Slash --> '/' y agrega la fecha ejemplo 'test-image/Miguel de Cervantes Saavedra/23-01-2021'";
         } else {
             // create Image from file
             $img = Image::make('https://aprendiendoconsira.com/wp-content/uploads/2022/06/5-2000x1000.png');
