@@ -31,7 +31,7 @@ Route::get('/cvinnova', function () {
     return redirect()->away('http://campus.capperu.com'); //ruta del campus https de ser necesario cambiar
 });
 
-Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
+Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
