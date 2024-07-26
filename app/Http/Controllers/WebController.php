@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\CertificatesParam;
 use Modules\Academic\Entities\AcaStudent;
 
+//qr generator
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Choowx\RasterizeSvg\Svg;
 
 class WebController extends Controller
 {
@@ -57,6 +60,7 @@ class WebController extends Controller
 
     public function testimage($student_id, $certificate_id, $fecha = null)
     {
+
         $student = AcaStudent::with('person')->find($student_id);
         //dd($student->person->full_name);
         $this->certificates_param = CertificatesParam::with('AcaCourse')->find($certificate_id);
@@ -154,6 +158,17 @@ class WebController extends Controller
             // Establecer el tipo de contenido de la respuesta como imagen PNG
             $response->header('Content-Type', 'image/png');
 
+
+
+
+            //QR GENERATOR
+            // Generar el código QR con un texto específico
+            //$qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
+
+           // $qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
+//TRATA DE CREAR UN HTML CON LA IMAGEN Y MONTA EL SVG ENCIMA
+
+           // return $qr2;
             // Retornar la respuesta
             return $response;
         }
