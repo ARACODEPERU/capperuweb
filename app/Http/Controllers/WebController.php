@@ -157,18 +157,27 @@ class WebController extends Controller
 
             // Establecer el tipo de contenido de la respuesta como imagen PNG
             $response->header('Content-Type', 'image/png');
+            //mostrar las extensiones activas de php
+            //dd(get_loaded_extensions());
+            //dd(phpinfo());
+            //mostrar la ruta donde se ubica el php
+            //dd(php_ini_loaded_file());
+            //dd(get_include_path());
+            //dd(ini_get('include_path'));
+            //dd(ini_get('extension_dir'));
+            //dd(ini_get('extension_dir'));
 
 
 
 
             //QR GENERATOR
             // Generar el código QR con un texto específico
-            //$qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
+            $qr2 = QrCode::format('png')->size(300)->generate('Aracode Smart Solutions');
 
            // $qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
 //TRATA DE CREAR UN HTML CON LA IMAGEN Y MONTA EL SVG ENCIMA
 
-           // return $qr2;
+            return $qr2;
             // Retornar la respuesta
             return $response;
         }
