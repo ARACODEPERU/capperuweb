@@ -1,5 +1,23 @@
 <div>
     <header class="navbar-area">
+        <div style="border-bottom: 4px solid orange; background: #0c161f; padding: 10px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{route('web_contacto')}}" style="text-transform: none; color: #fff;">
+                            <i class="fa fa-envelope" aria-hidden="true" style="color: orange;"></i>
+                            capperuacademica@gmail.com
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="" style="text-transform: none; color: #fff;">
+                            <i class="fa fa-phone" aria-hidden="true" style="color: orange;"></i>
+                            (01)7397026 – (043) 200324 - 977 66 24 60 - 946 94 38 87
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-expand-lg">
             <div class="container nav-container">
                 <div class="responsive-mobile-menu">
@@ -107,29 +125,6 @@
             </div>
         </nav>
     </header>
-    <div class="category-navbar navbar-area d-xl-block d-none ara-header-bottom-cap"
-                style="border-bottom: 4px solid orange;">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container nav-container">
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav menu-open" style="text-align:center;">
-                        <li>
-                            <a href="{{route('web_contacto')}}" style="text-transform: none; color: #fff;">
-                                <i class="fa fa-envelope" aria-hidden="true" style="color: orange;"></i>
-                                capperuacademica@gmail.com
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" style="text-transform: none; color: #fff;">
-                                <i class="fa fa-phone" aria-hidden="true" style="color: orange;"></i>
-                                (01)7397026 – (043) 200324 - 977 66 24 60 - 946 94 38 87
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
     <script>
         function ocultarLoader() {
         loader.style.display = 'none';
