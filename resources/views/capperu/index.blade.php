@@ -18,7 +18,7 @@
 
 
     <!-- Banner Area Start-->
-    <section class="banner-area style-3" 
+    {{-- <section class="banner-area style-3" 
         style="background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }}); margin-top: 90px;">
         <br>
         <div class="container">
@@ -39,11 +39,37 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Banner Area End -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ asset('themes/capperu/assets/img/elearning2.jpg') }}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ asset('themes/capperu/assets/img/elearning2.jpg') }}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ asset('themes/capperu/assets/img/elearning2.jpg') }}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <script>
+        var myCarousel = document.querySelector('#myCarousel')
+        var carousel = new bootstrap.Carousel(myCarousel)
+    </script>
 
     <!-- intro Area Start-->
-    <div class="container">
+    {{-- <div class="container">
         <div class="intro-area-2">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -91,9 +117,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- intro Area End -->
 
+    <br>
     <!-- enllor courses Area Start-->
     <section class="enllor-courses-area pd-top-50 pd-bottom-100">
         <div class="container">

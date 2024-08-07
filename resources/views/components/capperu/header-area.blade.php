@@ -1,4 +1,4 @@
-<div>
+
     <header class="navbar-area">
         <div style="border-bottom: 4px solid orange; background: #0c161f; padding: 10px 0px;">
             <div class="container">
@@ -150,4 +150,3 @@
         }
     </style>
 
-</div>
