@@ -1,6 +1,6 @@
 <div>
 
-    <a class="appFacebook" target="_blanck" href="https://web.facebook.com/capperuoficial">
+    {{-- <a class="appFacebook" target="_blanck" href="https://web.facebook.com/capperuoficial">
         <img src="themes/capperu/assets/img/redes/facebook.png" alt="Facebook">
     </a>
     
@@ -10,7 +10,7 @@
     
     <a class="appYoutube" target="_blanck" href="">
         <img src="themes/capperu/assets/img/redes/youtube.png" alt="Youtube">
-    </a>
+    </a> --}}
     
     
     <a class="appWhatsapp" target="_blanck" href="https://api.whatsapp.com/send?phone=51946943887&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?">

@@ -45,6 +45,8 @@ Version: 1.0.1
   /* --main-color: rgb(0, 113, 220);  Plantilla */
   --main-color: rgb(5, 18, 67); /* CAPPERU */
   --main-color2: rgb(139, 14, 6); /* CAPPERU 2*/
+  --main-color3: #8B0E06; /* CAPPERU 3*/
+  --main-color4: #FAC823; /* CAPPERU 4*/
   --main-color-opacity: 255, 255, 255;
   --body-font: "Inter", sans-serif; 
   --paragraph-color: #808191; 
@@ -3206,7 +3208,7 @@ a.showMore-cat.showLess::after {
 }
 .single-service-wrap:hover p,
 .single-service-wrap:hover h6 {
-  color: var(--main-color);
+  color: var(--main-color4);
 }
 .single-service-wrap h6 {
   font-weight: bold;
@@ -4753,7 +4755,7 @@ a.showMore-cat.showLess::after {
 .appWhatsapp{
 	position: fixed;
 	right: 26px;
-	bottom: 120px;
+	bottom: 80px;
 	width: 53px;
 	z-index: 1000;
   }

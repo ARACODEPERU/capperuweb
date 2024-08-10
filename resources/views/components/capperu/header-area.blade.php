@@ -229,6 +229,9 @@
                             <a href="{{ route('web_convenios') }}">Convenios</a>
                         </li>
                         <li>
+                            <a href="{{ env('URL_CAMPUS') }}">Aula Virtual</a>
+                        </li>
+                        <li>
                             <a href="{{ route('web_blog') }}">Blog</a>
                         </li>
                         <li>
@@ -245,11 +248,6 @@
                                 <b>
                                     <span id="contadorCarritoWeb" class="contador" style="font-size: 18px;"></span>
                                 </b>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ env('URL_CAMPUS') }}" class="btn btn-primary" target="_blank" >
-                                Campus Virtual
                             </a>
                         </li>
                     </ul>

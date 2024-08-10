@@ -122,12 +122,13 @@
 
     <br>
     <!-- enllor courses Area Start-->
-    <section class="enllor-courses-area pd-top-50 pd-bottom-100">
+
+    {{-- <section class="enllor-courses-area pd-top-50 pd-bottom-100">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3>Programas de especialización</h3>
+                        <h4>Programas de Especialización</h4>
                         <div class="ara-linea-cap"></div>
                     </div>
                 </div>
@@ -187,6 +188,59 @@
                                         <div class="row align-items-center">
                                             <div class="col-md-12">
                                                 <button
+                                                    onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
+                                                    class="btn btn-primary">
+                                                    <i class="fa fa-cart-plus"></i>
+                                                    Comprar Ahora S/. {{ $program->price }}
+                                                </button>
+                                                <div id="wallet_container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            {{ $programs->links() }}
+        </div>
+    </section> --}}
+    
+    <section class="enllor-courses-area pd-top-50 pd-bottom-100">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h5 style="font-weight: 700; color: #8B0E06;">Programas de Especialización</h5>
+                        <div class="ara-linea-cap"></div>
+                    </div>
+                </div>
+                @if (count($programs) > 0)
+                    @foreach ($programs as $key => $program)
+                        <div class="col-md-3">
+                            <div class="single-course-wrap" style="background-color: #F9FAFD;">
+                                <div class="thumb ara-portada-programas-exterior">
+                                    <a  href="{{ route('web_descripcion_programa', $program->id) }}">
+                                        <img class="img" src="{{ asset($program->image) }}" alt="img">
+                                    </a>
+                                </div>
+                                <div class="wrap-details">
+                                    <h6 title="{{ $program->name }}" class="texto-oculto2" 
+                                        style="background: #8B0E06; color: #fff; padding: 10px 15px;">
+                                        <a href="{{ route('web_descripcion_programa', $program->id) }}" style="font-size: 14px;">
+                                            {{ $program->name }}
+                                        </a>
+                                    </h6>
+                                    <style>
+                                        h6 a:hover{
+                                            color: #FAC823;
+                                        }
+                                    </style>
+                                    <div class="price-wrap" style="margin-top: -15px;">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-12">
+                                                <button style="width: 100%;"
                                                     onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
                                                     class="btn btn-primary">
                                                     <i class="fa fa-cart-plus"></i>
