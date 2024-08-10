@@ -127,7 +127,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3>Nuevos Programas</h3>
+                        <h3>Programas de especialización</h3>
                         <div class="ara-linea-cap"></div>
                     </div>
                 </div>
