@@ -261,7 +261,7 @@
                             <div class="col-md-12">
                                 <a class="btn btn-primary" href="#" style="width: 100%;"
                                     onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
-                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;&nbsp;
                                     Comprar Ahora
                                     <b style="text-end">  S/. {{ $item->price }}</b>
                                 </a>
@@ -270,14 +270,23 @@
                         @if ($course->brochure)
                             <div class="row align-items-center" style="padding: 5px 0px;">
                                 <div class="col-md-12">
-                                    <a class="btn btn-light" href="{{ $course->brochure->path_file ?? '#' }}"
+                                    <a class="btn btn-secundary" href="{{ $course->brochure->path_file ?? '#' }}"
                                         style="width: 100%;">
-                                        <i class="fa fa-file" aria-hidden="true"></i>
-                                        &nbsp;&nbsp;Descargar Brochure
+                                        <i class="fa fa-file" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;&nbsp;
+                                        Descargar Brochure
                                     </a>
                                 </div>
                             </div>
                         @endif
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a href="https://api.whatsapp.com/send?phone=51977662460&text=Hola&nbsp;CAPPERU&nbsp;me&nbsp;pueden&nbsp;ayudar?"
+                                target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    ¡Escribenos al whatsapp!
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
