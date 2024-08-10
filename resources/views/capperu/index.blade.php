@@ -223,7 +223,7 @@
                                 <a  href="{{ route('web_descripcion_programa', $program->id) }}">
                                     <img class="img" src="{{ asset($program->image) }}" alt="img">
                                     <h6 title="{{ $program->name }}" class="texto-oculto2" 
-                                        style="background: #8B0E06; color: #fff; padding: 10px 15px;">
+                                        style="background: #8B0E06; color: #fff; padding: 15px;">
                                         <a href="{{ route('web_descripcion_programa', $program->id) }}" style="font-size: 14px;">
                                             {{ $program->name }}
                                         </a>

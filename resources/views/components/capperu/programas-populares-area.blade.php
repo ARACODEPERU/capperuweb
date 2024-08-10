@@ -31,14 +31,10 @@
                                 @foreach ($programs as $program)                                
                                 <div class="item">
                                     <div class="single-course-wrap">
-                                        <div class="thumb ara-portada-programas-exterior">
-                                            <a  href="{{ route('web_descripcion_programa', $program->id) }}">
-                                                <img style="height: 260px; object-fit: cover;" src="{{ $program->image }}" alt="img">
-                                            </a>
-                                        </div>
-                                        <div class="wrap-details">
+                                        <a  href="{{ route('web_descripcion_programa', $program->id) }}">
+                                            <img class="img" src="{{ asset($program->image) }}" alt="img">
                                             <h6 title="{{ $program->name }}" class="texto-oculto2" 
-                                                style="background: #8B0E06; color: #fff; padding: 10px 15px;">
+                                                style="background: #8B0E06; color: #fff; padding: 15px;">
                                                 <a href="{{ route('web_descripcion_programa', $program->id) }}" style="font-size: 14px;">
                                                     {{ $program->name }}
                                                 </a>
@@ -48,17 +44,17 @@
                                                     color: #FAC823;
                                                 }
                                             </style>
-                                            <div class="price-wrap" style="margin-top: -15px;">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-12">
-                                                        <button style="width: 100%;"
-                                                            onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
-                                                            class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus"></i>
-                                                            Comprar Ahora S/. {{ $program->price }}
-                                                        </button>
-                                                        <div id="wallet_container"></div>
-                                                    </div>
+                                        </a>
+                                        <div class="price-wrap" style="margin-top: -15px;">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-12">
+                                                    <button style="width: 100%;"
+                                                        onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
+                                                        class="btn btn-primary">
+                                                        <i class="fa fa-cart-plus"></i>
+                                                        Comprar Ahora S/. {{ $program->price }}
+                                                    </button>
+                                                    <div id="wallet_container"></div>
                                                 </div>
                                             </div>
                                         </div>
