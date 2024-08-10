@@ -270,7 +270,7 @@
                         @if ($course->brochure)
                             <div class="row align-items-center" style="padding: 5px 0px;">
                                 <div class="col-md-12">
-                                    <a class="btn btn-secundary" href="{{ $course->brochure->path_file ?? '#' }}"
+                                    <a class="btn btn-primary" href="{{ $course->brochure->path_file ?? '#' }}"
                                         style="width: 100%;">
                                         <i class="fa fa-file" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;&nbsp;
                                         Descargar Brochure
