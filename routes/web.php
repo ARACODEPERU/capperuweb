@@ -196,6 +196,21 @@ Route::middleware('auth')->group(function () {
         'person/update_information/store',
         [PersonController::class, 'updateInformationPerson']
     )->name('user-update-profile-store');
+
+    Route::post('/mostrar-svg', function (Request $request) {
+        $svgData = $request->svg;
+
+        // Asegúrate de que el archivo es un SVG
+        $isSvg = Str::startsWith($svgData, '<svg');
+
+        if ($isSvg) {
+            // Devolver una respuesta para mostrar el SVG
+            return response($svgData)->header('Content-Type', 'image/svg+xml');
+        } else {
+            // En caso de que no sea un SVG válido, devolver un error o una respuesta alternativa
+            return response('No es un archivo SVG válido.', 400);
+        }
+    })->name('ruta-svg');
 });
 
 require __DIR__ . '/auth.php';

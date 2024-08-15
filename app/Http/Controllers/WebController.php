@@ -15,7 +15,7 @@ use Modules\Academic\Entities\AcaStudent;
 
 //qr generator
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Choowx\RasterizeSvg\Svg;
+use Spatie\Browsershot\Browsershot;
 
 class WebController extends Controller
 {
@@ -157,29 +157,48 @@ class WebController extends Controller
 
             // Establecer el tipo de contenido de la respuesta como imagen PNG
             $response->header('Content-Type', 'image/png');
-            //mostrar las extensiones activas de php
-            //dd(get_loaded_extensions());
-            //dd(phpinfo());
-            //mostrar la ruta donde se ubica el php
-            //dd(php_ini_loaded_file());
-            //dd(get_include_path());
-            //dd(ini_get('include_path'));
-            //dd(ini_get('extension_dir'));
-            //dd(ini_get('extension_dir'));
-
-
 
 
             //QR GENERATOR
-            // Generar el código QR con un texto específico
-            $qr2 = QrCode::format('png')->size(300)->generate('Aracode Smart Solutions');
+            // Incluir la librería PHP puro
+            require_once(app_path() . '\\Phpqr\\qrlib.php');
 
-           // $qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
-//TRATA DE CREAR UN HTML CON LA IMAGEN Y MONTA EL SVG ENCIMA
+            $files = [
+                "qrconst.php",
+                "qrconfig.php",
+                "qrtools.php",
+                "qrspec.php",
+                "qrimage.php",
+                "qrinput.php",
+                "qrbitstream.php",
+                "qrsplit.php",
+                "qrrscode.php",
+                "qrmask.php",
+                "qrencode.php"
+            ];
 
+            foreach ($files as $file) {
+                require_once(app_path() . '\\Phpqr\\'.$file);
+            }
+
+
+            // Datos que deseas codificar en el código QR
+            $data = 'https://www.aracodeperu.com'; // Puedes cambiar esto por tus propios datos
+
+            // Generar el código QR y almacenarlo en una variable
+            $qr2 = QRcode::png($data,false ,'H', 10);
             return $qr2;
+
+
+            // // Generar el código QR con un texto específico
+            // $qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
+
+            // //$qr2 = base64_decode($qr2);
+            // //$qr2 = $qr2->encode('png');
+            // echo $qr2;
+
             // Retornar la respuesta
-            return $response;
+            //return $response;
         }
     }
 

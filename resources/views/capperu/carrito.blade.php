@@ -147,9 +147,9 @@
                                 <p><b id="totalid"></b></p>
                             </div>
                             <div class="col-md-12">
-                                <button class="btn btn-primary g-recaptcha" style="width: 100%;" id="btn-crear-cuenta" 
-                                data-sitekey="reCAPTCHA_site_key" 
-                                data-callback='onSubmit' 
+                                <button class="btn btn-primary g-recaptcha" style="width: 100%;" id="btn-crear-cuenta"
+                                data-sitekey="reCAPTCHA_site_key"
+                                data-callback='onSubmit'
                                 data-action='submit'
                                 disabled>
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -178,7 +178,7 @@
 
                 myIds.push(parseInt(item.id));
             });
-            
+
             btnCrear = document.getElementById("btn-crear-cuenta");
                         btnCrear.setAttribute("disabled", "disabled");
             realizarConsulta(myIds);
@@ -215,7 +215,7 @@
                         // Agrega el input al div
                         divCartHidden.appendChild(inputHidden);
                     });
-                    
+
                     btnCrear = document.getElementById("btn-crear-cuenta");
                         btnCrear.removeAttribute("disabled");
 
@@ -249,7 +249,7 @@
                                 <div class="col-md-2">
                                     <div class="single-course-wrap">
                                         <div class="thumb">
-                                            <img style="height: 90px; object-fit: cover;" src="` + image + `" alt="img"> 
+                                            <img style="height: 90px; object-fit: cover;" src="` + image + `" alt="img">
                                         </div>
                                     </div>
                                 </div>
@@ -260,13 +260,13 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4 user-details"> 
+                                        <div class="col-md-4 user-details">
                                             <img style="width: 30px; height: 30px; border-radius: 50%;" src="` +
                     url_campus + avatar + `" alt="img">
                                             <a>` + teacher + `</a>
                                         </div>
                                         <div class="col-md-4">
-                                            
+
                                         </div>
                                         <div class="col-md-4">
                                             <a href="">
@@ -308,8 +308,8 @@
     console.log(event);
     event.target.form.submit();
  }else
- alert("No has elegido ningún curso");   
-  
+ alert("No has elegido ningún curso");
+
 }
 </script>
 
@@ -319,7 +319,7 @@
       document.getElementById("CartForm").submit();
     }
   </script>
- 
+
 
     <!-- zoom courses Area End -->
 
@@ -340,7 +340,7 @@
     </style>
     {!! htmlScriptTagJsApi([
         'callback_then' => 'callbackThen',
-    
+
         'callback_catch' => 'callbackCatch',
     ]) !!}
 @endsection
