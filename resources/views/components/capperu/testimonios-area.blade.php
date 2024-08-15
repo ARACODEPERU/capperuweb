@@ -1,7 +1,7 @@
 <div>
     <section class="testimonial-courses-area pd-top-100 pd-bottom-150">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2><i style="color: var(--main-color);" class="fa fa-heart"></i> Testimonios</h2>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
 </div>
