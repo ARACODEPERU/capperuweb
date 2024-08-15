@@ -49,7 +49,9 @@ class WebController extends Controller
                 'aca_courses.id as course_id',
                 'aca_category_courses.description as category_description'
             )
-            ->where('onli_items.status', true)->orderBy('onli_items.id', 'DESC')
+            ->where('onli_items.status', true)
+            ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
+            ->orderBy('onli_items.id', 'DESC')
             ->limit(32)
             ->paginate(12);
 
