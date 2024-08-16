@@ -239,7 +239,7 @@
                             <div class="single-course-wrap" style="background-color: #F9FAFD;">
                                 <a  href="{{ route('web_descripcion_programa', $program->id) }}">
                                     <img class="img" src="{{ asset($program->image) }}" alt="img">
-                                    <h6 title="{{ $program->name }}" class="texto-oculto2" 
+                                    {{-- <h6 title="{{ $program->name }}" class="texto-oculto2" 
                                         style="background: #8B0E06; color: #fff; padding: 15px;">
                                         <a href="{{ route('web_descripcion_programa', $program->id) }}" style="font-size: 14px;">
                                             {{ $program->name }}
@@ -249,7 +249,7 @@
                                         h6 a:hover{
                                             color: #FAC823;
                                         }
-                                    </style>
+                                    </style> --}}
                                 </a>
                                 <div class="price-wrap" style="margin-top: -15px;">
                                     <div class="row align-items-center">
