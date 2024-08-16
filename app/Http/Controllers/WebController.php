@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use App\Models\CertificatesParam;
 use Modules\Academic\Entities\AcaStudent;
-
+use Modules\CMS\Entities\CmsSection;
 //qr generator
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Spatie\Browsershot\Browsershot;
@@ -29,6 +29,18 @@ class WebController extends Controller
 
     public function capperu()
     {
+
+        
+        $sliders = CmsSection::where('component_id', 'peru_slider_area_9')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
         $programs = OnliItem::join('aca_courses', 'onli_items.item_id', '=', 'aca_courses.id')
             ->join('aca_category_courses', 'aca_category_courses.id', 'aca_courses.category_id')
             ->join('aca_teachers', 'aca_teachers.id', '=', 'aca_courses.teacher_id')
@@ -56,6 +68,7 @@ class WebController extends Controller
             ->paginate(12);
 
         return view('capperu/index', [
+            'sliders' => $sliders,
             'programs' => $programs
         ]);
     }
