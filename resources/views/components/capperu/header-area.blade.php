@@ -254,6 +254,27 @@
                 </div>
             </div>
         </nav>
+        <div class="container" style="margin-top: -40px; padding: 10px 0px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/peru.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/argentina.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/bolivia.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/brasil.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/chile.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/colombia.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/costa.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/cuba.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/venezuela.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/guatemala.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/honduras.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/mexico.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/paraguay.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/redo.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/uruguay.png') }}" alt="">
+                </div>
+            </div>
+        </div>
     </header>
 
 
