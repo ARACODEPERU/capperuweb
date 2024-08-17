@@ -44,7 +44,7 @@
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
         <div class="carousel-inner">
             @foreach ($sliders as $key => $slide)
-            <div class="carousel-item {{ $key==0 ? 'Active' : '' }}">
+            <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
                 <img src="{{ $slide->content }}" class="d-block w-100" alt="...">
             </div>
             @endforeach
