@@ -18,7 +18,7 @@
 
 
     <!-- Banner Area Start-->
-    {{-- <section class="banner-area style-3" 
+    {{-- <section class="banner-area style-3"
         style="background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }}); margin-top: 90px;">
         <br>
         <div class="container">
@@ -44,7 +44,7 @@
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
         <div class="carousel-inner">
             @foreach ($sliders as $slide)
-            <div class="carousel-item active">
+            <div class="carousel-item">
                 <img src="{{ $slide->content }}" class="d-block w-100" alt="...">
             </div>
             @endforeach
@@ -223,7 +223,7 @@
             {{ $programs->links() }}
         </div>
     </section> --}}
-    
+
     <section class="enllor-courses-area pd-top-50 pd-bottom-100">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -239,7 +239,7 @@
                             <div class="single-course-wrap" style="background-color: #F9FAFD;">
                                 <a  href="{{ route('web_descripcion_programa', $program->id) }}">
                                     <img class="img" src="{{ asset($program->image) }}" alt="img">
-                                    <h6 title="{{ $program->name }}" class="texto-oculto2" 
+                                    <h6 title="{{ $program->name }}" class="texto-oculto2"
                                         style="background: #8B0E06; color: #fff; padding: 15px;">
                                         <a href="{{ route('web_descripcion_programa', $program->id) }}" style="font-size: 14px;">
                                             {{ $program->name }}
@@ -249,7 +249,7 @@
                                         h6 a:hover{
                                             color: #FAC823;
                                         }
-                                    </style> 
+                                    </style>
                                 </a>
                                 <div class="price-wrap" style="margin-top: -15px;">
                                     <div class="row align-items-center">
