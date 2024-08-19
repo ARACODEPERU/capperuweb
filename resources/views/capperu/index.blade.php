@@ -43,9 +43,16 @@
     <!-- Banner Area End -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
         <div class="carousel-inner">
-            @foreach ($sliders as $key => $slide)
+            {{-- @foreach ($sliders as $key => $slide)
             <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
                 <a href="https://www.capperu.com/descripcion-programa/105"><img src="{{ $slide->content }}" class="d-block w-100" alt="..."></a>
+            </div>
+            @endforeach --}}
+            @foreach ($sliders as $k => $slide)
+            <div class="carousel-item">
+                <a href="{{ asset('storage/'.$slide->item->items[0]->content) }}">
+                    <img src="{{ $slide->item->items[1]->content }}" class="d-block w-100" alt="...">
+                </a>
             </div>
             @endforeach
         </div>
