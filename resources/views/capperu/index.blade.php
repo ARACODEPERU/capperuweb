@@ -48,8 +48,8 @@
                 <a href="https://www.capperu.com/descripcion-programa/105"><img src="{{ $slide->content }}" class="d-block w-100" alt="..."></a>
             </div>
             @endforeach --}}
-            @foreach ($sliders as $k => $slide)
-            <div class="carousel-item">
+            @foreach ($sliders as $key => $slide)
+            <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
                 <a href="{{ $slide->item->items[1]->content }}">
                     <img src="{{ $slide->item->items[0]->content }}" class="d-block w-100" alt="...">
                 </a>
