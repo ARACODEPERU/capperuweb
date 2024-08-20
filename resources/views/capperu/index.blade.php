@@ -50,8 +50,8 @@
             @endforeach --}}
             @foreach ($sliders as $k => $slide)
             <div class="carousel-item">
-                <a href="{{ $slide->item->items[0]->content }}">
-                    <img src="{{ $slide->item->items[1]->content }}" class="d-block w-100" alt="...">
+                <a href="{{ $slide->item->items[1]->content }}">
+                    <img src="{{ $slide->item->items[0]->content }}" class="d-block w-100" alt="...">
                 </a>
             </div>
             @endforeach
