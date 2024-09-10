@@ -32,7 +32,7 @@ class StudentRegistrationMailable extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
-            subject: 'Student Registration Mailable',
+            subject: 'Cursos Adquiridos CapPeru',
         );
     }
 

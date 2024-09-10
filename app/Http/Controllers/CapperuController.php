@@ -378,7 +378,7 @@ class CapperuController extends Controller
         }
 
         //////////codigo enviar correo /////
-        Mail::to('elrodriguez2423@gmail.com')
+        Mail::to($person->email)
             ->send(new StudentRegistrationMailable([
                 'courses'   => $courses,
                 'user'      => $person->email,
