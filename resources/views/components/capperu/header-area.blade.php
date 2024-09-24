@@ -195,7 +195,7 @@
                 <div class="collapse navbar-collapse" id="themefie_main_menu">
                     <ul class="navbar-nav menu-open text-end">
                         <li>
-                            <a href="{{ route('cms_principal') }}">Home</a>
+                            <a href="{{ route('cms_principal') }}">Inicio</a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">Nosotros</a>

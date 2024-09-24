@@ -43,7 +43,7 @@
                                                 }
                                             </style>
                                         </a>
-                                        <div class="price-wrap" style="margin-top: -15px;">
+                                        {{-- <div class="price-wrap" style="margin-top: -15px;">
                                             <div class="row align-items-center">
                                                 <div class="col-md-12">
                                                     <button style="width: 100%;"
@@ -55,12 +55,13 @@
                                                     <div id="wallet_container"></div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 @endforeach
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="pills-2"> <!-- Empresarial -->
                             <div class="course-slider owl-carousel">
                                 @foreach ($programs as $program)                                
@@ -109,7 +110,7 @@
                                                             <b><div style="text-align: right;">{{ $program->additional1 }}</div></b>
                                                         </div>
                                                     </div>
-                                                    <div class="price-wrap">
+                                                    {{-- <div class="price-wrap">
                                                         <div class="row align-items-center">
                                                             <div class="col-md-12">
                                                                 <button onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} });" class="btn btn-primary">
@@ -118,7 +119,7 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +180,7 @@
                                                         <b>{{ $program->additional1 }}</b>
                                                     </div>
                                                 </div>
-                                                <div class="price-wrap">
+                                                {{-- <div class="price-wrap">
                                                     <div class="row align-items-center">
                                                         <div class="col-md-12">
                                                             <button onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} });" class="btn btn-primary">
@@ -188,7 +189,7 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -246,7 +247,7 @@
                                                             <b>{{ $program->additional1 }}</b>
                                                         </div>
                                                     </div>
-                                                    <div class="price-wrap">
+                                                    {{-- <div class="price-wrap">
                                                         <div class="row align-items-center">
                                                             <div class="col-md-12">
                                                                 <button onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} });" class="btn btn-primary">
@@ -255,7 +256,7 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>

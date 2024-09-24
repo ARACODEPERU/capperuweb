@@ -258,7 +258,7 @@
                                         }
                                     </style>
                                 </a>
-                                <div class="price-wrap" style="margin-top: -15px;">
+                                {{-- <div class="price-wrap" style="margin-top: -15px;">
                                     <div class="row align-items-center">
                                         <div class="col-md-12">
                                             <button style="width: 100%;"
@@ -270,7 +270,7 @@
                                             <div id="wallet_container"></div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     @endforeach
