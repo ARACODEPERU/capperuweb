@@ -30,6 +30,16 @@ class WebController extends Controller
 
     public function capperu()
     {
+        $popup = CmsSection::where('component_id', 'peru_popup_home_10')
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
         $sliders = CmsSectionItem::with('item.items')->where('section_id', 9)->get();
         
         // $sliders = CmsSection::where('component_id', 'peru_slider_area_9')  //siempre cambiar el id del componente
@@ -69,6 +79,7 @@ class WebController extends Controller
             ->paginate(12);
 
         return view('capperu/index', [
+            'popup' => $popup,
             'sliders' => $sliders,
             'programs' => $programs
         ]);

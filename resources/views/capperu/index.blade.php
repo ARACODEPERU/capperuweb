@@ -5,6 +5,45 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
+    <!-- Modal-->
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img style="width: 100%;" src="{{ $popup[0]->content }}" alt="">
+            </div>
+            <div class="modal-footer">
+              <a href="{{ $popup[1]->content }}" type="button" class="btn btn-secondary">Más Información</a>
+              <a href="{{ $popup[2]->content }}" type="button" class="btn btn-primary">Matricularse</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    {{-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" >
+        <div class="modal-content" style="width: 100%;">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Promoción del Mes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <img style="width: 100%;" src="images/promo/diplomado.jpg" alt="">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="https://forms.gle/y1HZf5UBxZYFxs5G6" class="main-btn">inscribete</a>
+            </div>
+        </div>
+        </div>
+    </div> --}}
+     
+    
 
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
