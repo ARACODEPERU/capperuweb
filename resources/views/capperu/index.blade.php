@@ -7,7 +7,11 @@
     <!-- preloader area end -->
     <!-- Modal-->
     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered" style="display: flex; justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 20%;">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"></h5>
