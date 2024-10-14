@@ -472,6 +472,15 @@
   }
 }
 @media all and (max-width: 575px) {
+  
+  .header-pc{
+    display: none;
+  }
+
+  .header-mobile{
+    display: block;
+  }
+
   .container,
   .container-fluid,
   .container-lg,

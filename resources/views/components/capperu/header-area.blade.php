@@ -124,7 +124,7 @@
         </nav>
     </header> --}}
 
-    <header class="navbar-area">
+    <header class="navbar-area header-pc">
         <div style=" background: #8B0E06; padding: 10px 0px;">
             <div class="container">
                 <div class="row">
@@ -255,6 +255,146 @@
             </div>
         </nav>
         <div class="container" style="margin-top: -40px; padding: 10px 0px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/peru.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/argentina.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/bolivia.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/brasil.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/chile.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/colombia.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/costa.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/cuba.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/venezuela.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/guatemala.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/honduras.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/mexico.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/paraguay.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/redo.png') }}" alt="">
+                    <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/uruguay.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <header class="navbar-area header-mobile">
+        <div style=" background: #8B0E06; padding: 10px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="wrapper">
+                            <a href="{{$header[1]->content }}" target="_blanck" class="icon facebook">
+                                <div class="tooltip">Facebook</div>
+                                <span><i class="fab fa-facebook-f"></i></span>
+                            </a>
+                            <a href="{{$header[2]->content }}" target="_blanck"  class="icon youtube">
+                                <div class="tooltip">Youtube</div>
+                                <span><i class="fab fa-youtube"></i></span>
+                            </a>
+                            <a href="{{$header[3]->content }}" target="_blanck"  class="icon instagram">
+                                <div class="tooltip">Instagram</div>
+                                <span><i class="fab fa-instagram"></i></span>
+                            </a>
+                            <a href="{{route('web_contacto')}}" style="text-transform: none; color: #fff;">
+                                &nbsp;
+                                {{$header[5]->content }}
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container nav-container">
+                <div class="responsive-mobile-menu">
+                    <button class="menu toggle-btn d-block d-lg-none" data-target="#themefie_main_menu"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-left"></span>
+                        <span class="icon-right"></span>
+                    </button>
+                </div>
+                <div class="logo">
+                    <a class="main-logo" href="{{ route('cms_principal') }}">
+                        <img style="width:196px; height:61px;"
+                            src="{{$header[0]->content }}" alt="img">
+                    </a>
+                </div>
+                <div class="nav-right-part nav-right-part-mobile">
+                    <ul>
+                        <li>
+                            <a href="{{ route('web_carrito') }}" class="btn btn-base"><i
+                                    class="fa fa-cart-plus"></i>&nbsp;&nbsp;
+                                <b>
+                                    <span id="contadorCarritoMovil" class="contador" style="font-size: 18px;"></span>
+                                </b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse" id="themefie_main_menu">
+                    <ul class="navbar-nav menu-open text-end">
+                        <li>
+                            <a href="{{ route('cms_principal') }}">Inicio</a>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Nosotros</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ route('web_nosotros') }}">¿Quienes somos?</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('web_politicas_calidad') }}">Política de Calidad</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('web_gestion_calidad') }}">Alcance del SIG</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Diplomados / Cursos</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ route('web_categoria_sector', "Empresarial") }}">Sector: <b>Empresarial</b></a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('web_categoria_sector', "Derecho") }}">Sector: <b>Derecho</b></a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('web_categoria_sector', "Publico") }}">Sector: <b>Público</b></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('web_convenios') }}">Convenios</a>
+                        </li>
+                        <li>
+                            <a href="{{ env('URL_CAMPUS') }}">Aula Virtual</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('web_blog') }}">Blog</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('web_contacto') }}">Contacto</a>
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="nav-right-part nav-right-part-desktop">
+                    <ul>
+                        <li>
+                            <a href="{{ route('web_carrito') }}" class="btn btn-base">
+                                <i class="fa fa-cart-plus "></i>&nbsp;&nbsp;
+                                <b>
+                                    <span id="contadorCarritoWeb" class="contador" style="font-size: 18px;"></span>
+                                </b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" style="padding: 10px;">
             <div class="row">
                 <div class="col-md-12" style="text-align: center;">
                     <img style="width: 30px; padding: 0px 3px;" src="{{ asset('themes/capperu/assets/img/country/peru.png') }}" alt="">
