@@ -13,7 +13,7 @@
     </a> --}}
     
     
-    <a class="appWhatsapp" target="_blanck" href="https://api.whatsapp.com/send?phone=51946943887&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?">
+    <a class="appWhatsapp" target="_blanck" href="https://api.whatsapp.com/send?phone=51{{$footer[0]->content }}&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?">
         <img src="themes/capperu/assets/img/redes/whatsapp.png" alt="Whatsapp">
     </a>
     
