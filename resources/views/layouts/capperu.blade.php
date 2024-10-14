@@ -12,10 +12,11 @@
     <link rel="icon" href="assets/img/fevicon.png">
     -->
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     --}}
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/animate.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/bootstrap.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/bootstrap.min.css') }}"> 
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/magnific.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/nice-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/owl.min.css') }}">

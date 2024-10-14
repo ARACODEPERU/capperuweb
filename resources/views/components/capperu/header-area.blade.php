@@ -128,7 +128,7 @@
         <div style=" background: #8B0E06; padding: 10px 0px;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="wrapper">
                             <a href="{{$header[1]->content }}" target="_blanck" class="icon facebook">
                                 <div class="tooltip">Facebook</div>
@@ -142,19 +142,26 @@
                                 <div class="tooltip">Instagram</div>
                                 <span><i class="fab fa-instagram"></i></span>
                             </a>
+                            <a href="{{$header[4]->content }}" target="_blanck"  class="icon linkedin">
+                                <div class="tooltip">Instagram</div>
+                                <span><i class="fab fa-linkedin"></i></span>
+                            </a>
+                            <a href="{{$header[5]->content }}" target="_blanck"  class="icon tiktok">
+                                <div class="tooltip">Instagram</div>
+                                <span><i class="fab fa-tiktok"></i></span>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-5">
-                        <a href="" style="text-transform: none; color: #fff;">
+                    <div class="col-md-6">
+                        <a href="" style="text-transform: none; color: #fff; line-height: 40px;">
                             <i class="fa fa-phone" aria-hidden="true" style="font-size: 18px;"></i>&nbsp;
-                            {{$header[4]->content }}
+                            {{$header[6]->content }}
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="{{route('web_contacto')}}" style="text-transform: none; color: #fff;">
+                        <a href="{{route('web_contacto')}}" style="text-transform: none; color: #fff; line-height: 40px;">
                             <i class="fa fa-envelope" aria-hidden="true" style="font-size: 18px;"></i>&nbsp;
-                            {{$header[5]->content }}
+                            {{$header[7]->content }}
                         </a>
                     </div>
                 </div>

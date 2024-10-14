@@ -190,6 +190,16 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{$footer[12]->content }}" target="_blank">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[13]->content }}" target="_blank">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#" target="_blank">
                                     <i class="fa fa-key"></i>
                                 </a>
