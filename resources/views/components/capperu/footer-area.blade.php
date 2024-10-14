@@ -53,11 +53,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>
-                                        El Centro de Actualización Profesional CAP – PERÚ 
-                                        SAC tiene como objetivo contribuir a la actualización 
-                                        y perfeccionamiento académico de profesionales y 
-                                        egresados de las diferentes carreras profesionales. 
-                                        
+                                        {{$footer[1]->content }} 
                                     </p>
                                 </div>
                             </div>
@@ -74,28 +70,28 @@
                                                 <i class="fa fa-home" style="color: orange;"></i> 
                                                 Sede Lima:
                                             </b> 
-                                            Av. 2 de mayo 516 Of.201 - Miraflores
+                                            {{$footer[2]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-home" style="color: orange;"></i> 
                                                 Sede Chimbote:
                                             </b> 
-                                            Av. Francisco Bolognesi 549 Of.119
+                                            {{$footer[3]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-phone" style="color: orange;"></i> 
                                                 Teléfonos:
                                             </b> 
-                                            <br>(01)7397026 – (043) 200324
+                                            <br>{{$footer[4]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-envelope" style="color: orange;"></i> 
                                                 E-mail:
                                             </b> 
-                                            <br>capperuacademica@gmail.com
+                                            <br>{{$footer[5]->content }}
                                         </li>
                                     </ul>
                                 </div>
