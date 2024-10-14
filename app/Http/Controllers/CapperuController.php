@@ -21,6 +21,7 @@ use Modules\Academic\Entities\AcaBrochure;
 use Modules\Blog\Entities\BlogArticle;
 use Modules\Blog\Entities\BlogCategory;
 use Illuminate\Support\Facades\DB;
+use Modules\CMS\Entities\CmsSection;
 
 
 class CapperuController extends Controller
@@ -313,7 +314,19 @@ class CapperuController extends Controller
 
     public function contacto()
     {
-        return view('capperu/contacto');
+        $contacto = CmsSection::where('component_id', 'peru_contacto_area_12')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view('capperu/contacto', [
+            'contacto' => $contacto
+        ]);
     }
 
     public function convenios()

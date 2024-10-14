@@ -64,7 +64,7 @@
                                 <i class="fa fa-home"></i>
                             </div>
                             <div class="col-md-10">
-                                <p><b>Sede Lima:</b> Av. 2 de mayo 516 Of.201 - Miraflores</p>
+                                <p><b>Sede Lima:</b> {{$contacto[0]->content }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -72,7 +72,7 @@
                                 <i class="fa fa-home"></i>
                             </div>
                             <div class="col-md-10">
-                                <p><b>Sede Chimbote:</b> Av. Francisco Bolognesi 549. Of. 119</p>
+                                <p><b>Sede Chimbote:</b> {{$contacto[1]->content }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -82,8 +82,7 @@
                             <div class="col-md-10">
                                 <p>
                                     <b>Teléfono:</b>
-                                    <br>(01) 7397026
-                                    <br>(043) 200324
+                                    <br>{{$contacto[2]->content }}
                                 </p>
                             </div>
                         </div>
@@ -94,7 +93,7 @@
                             <div class="col-md-10">
                                 <p>
                                     <b>E-mail:</b>
-                                    <br>capperuacademica@gmail.com
+                                    <br>{{$contacto[3]->content }}
                                 </p>
                             </div>
                         </div>
