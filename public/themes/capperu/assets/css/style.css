@@ -43,8 +43,8 @@ Version: 1.0.1
   --body-font-size: 16px;
   --line-height30: 1.8;
   /* --main-color: rgb(0, 113, 220);  Plantilla */
-  --main-color: rgb(5, 18, 67); /* CAPPERU */
-  --main-color2: rgb(139, 14, 6); /* CAPPERU 2*/
+  --main-color: #051243; /* CAPPERU */
+  --main-color2: #8b0e06; /* CAPPERU 2*/
   --main-color3: #8B0E06; /* CAPPERU 3*/
   --main-color4: #FAC823; /* CAPPERU 4*/
   --main-color-opacity: 255, 255, 255;
@@ -4768,3 +4768,16 @@ a.showMore-cat.showLess::after {
   /**********************/
   /**********************/
   /**********************/
+
+  .head-page{
+    margin-top: 180px; 
+    padding: 40px; 
+    background: rgb(17,20,45);
+    background: radial-gradient(circle, rgba(17,20,45,1) 0%, rgba(5,18,67,1) 50%, rgba(17,20,45,1) 100%);
+  }
+
+  .head-page h2{
+    color: #fff; 
+    text-transform: uppercase;
+    text-align: center;
+  }
