@@ -112,15 +112,15 @@
                                                 <i class="fa fa-clock" style="color: orange;"></i> 
                                                 Lunes - Viernes:
                                             </b> 
-                                            <br> 9:00 a. m. a 1:00 p. m.
-                                            <br> 2:00 p. m. a 6:00 p. m.
+                                            <br> {{$footer[6]->content }}
+                                            <br> {{$footer[7]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-clock" style="color: orange;"></i> 
                                                 Sabados:
                                             </b> 
-                                            <br> 9:00 a. m. a 1:00 p. m.
+                                            <br> {{$footer[8]->content }}
                                         </li>
                                     </ul>
                                 </div>
@@ -168,18 +168,31 @@
                     <div class="col-md-6 align-self-center">
                         <div class="d-md-flex align-items-center mb-4 mb-xl-0">
                             <div class="copyright-area">
-                                <p>© 2024 - CAP PERU. Todos los derechos reservados | by <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
+                                <p>© 2024 - CAP PERU. Todos los derechos reservados | por <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
                             </div>
                         </div>                        
                     </div>
                     <div class="col-md-6 align-self-center text-xl-end">
                         <ul class="social-area d-inline-block">
-                            <li><a class="active" href="https://web.facebook.com/capperuoficial"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
                             <li>
-                                <a href="convenios"><i class="fa fa-key"></i></a>
+                                <a class="active" href="{{$footer[9]->content }}" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[10]->content }}" target="_blank">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[11]->content }}" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-key"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
