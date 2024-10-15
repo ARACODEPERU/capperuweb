@@ -128,7 +128,7 @@ class CapperuController extends Controller
             ->where('id', $item->item_id)
             ->first();
         
-        $whatsappAsesor = CmsSection::where('component_id', 'peru_contacto_area_12')  //siempre cambiar el id del componente
+        $whatsappAsesor = CmsSection::where('component_id', 'peru_whatsapp_asesora_area_13')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
             ->select(
