@@ -295,7 +295,25 @@
                         @endif
                         <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
-                                <a href="https://api.whatsapp.com/send?phone=51977662460&text=Hola&nbsp;CAPPERU&nbsp;me&nbsp;pueden&nbsp;ayudar?"
+                                <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[0]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
+                                target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    ¡Escribenos al whatsapp!
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[1]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
+                                target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    ¡Escribenos al whatsapp!
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[2]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
                                 target="_blanck" class="btn btn-success" style="width: 100%;">
                                     <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
                                     ¡Escribenos al whatsapp!
