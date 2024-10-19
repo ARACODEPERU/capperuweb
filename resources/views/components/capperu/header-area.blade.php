@@ -134,20 +134,20 @@
                                 <div class="tooltip">Facebook</div>
                                 <span><i class="fab fa-facebook-f"></i></span>
                             </a>
-                            <a href="{{$header[2]->content }}" target="_blanck"  class="icon youtube">
+                            {{-- <a href="{{$header[2]->content }}" target="_blanck"  class="icon youtube">
                                 <div class="tooltip">Youtube</div>
                                 <span><i class="fab fa-youtube"></i></span>
-                            </a>
+                            </a> --}}
                             <a href="{{$header[3]->content }}" target="_blanck"  class="icon instagram">
                                 <div class="tooltip">Instagram</div>
                                 <span><i class="fab fa-instagram"></i></span>
                             </a>
                             <a href="{{$header[4]->content }}" target="_blanck"  class="icon linkedin">
-                                <div class="tooltip">Instagram</div>
+                                <div class="tooltip">Linkedin</div>
                                 <span><i class="fab fa-linkedin"></i></span>
                             </a>
                             <a href="{{$header[5]->content }}" target="_blanck"  class="icon tiktok">
-                                <div class="tooltip">Instagram</div>
+                                <div class="tooltip">Tik Tok</div>
                                 <span><i class="fab fa-tiktok"></i></span>
                             </a>
                         </div>
