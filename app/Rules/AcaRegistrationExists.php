@@ -9,7 +9,6 @@ class AcaRegistrationExists implements Rule
 {
     protected $parameter;
 
-
     public function __construct($parameter)
     {
         $this->parameter = $parameter;

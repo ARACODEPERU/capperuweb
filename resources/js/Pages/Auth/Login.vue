@@ -30,6 +30,7 @@ const submit = () => {
 </script>
 
 <template>
+    
     <GuestLayout>
         <Head title="Acceso" />
         <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
