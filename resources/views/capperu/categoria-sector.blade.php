@@ -16,15 +16,12 @@
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
     <!-- Banner Area Start-->
-    <section class="banner-area style-3" style="padding: 80px; background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }});">
+    <section class="head-page">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 align-self-center">
-                    <div class="banner-inner text-center">
-                        <h1>Sector  {{ ucfirst($sector) }}</h1>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><b>Sector:</b>  {{ ucfirst($sector) }}</h2>
                 </div>
             </div>
         </div>
@@ -37,8 +34,8 @@
     <section class="trending-courses-area pd-top-135 pd-bottom-130">
         <div class="container">
             <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="single-course-wrap">
@@ -49,7 +46,7 @@
                                 </div>
                                 <div>
                                     <a href="{{ route ('web_sectors', [$sector, 'Curso']) }}" class="btn btn-base" style="width: 100%; text-align:center; border-radius: 0px;">
-                                        CURSOS DEL SECTOR {{ strtoupper($sector) }}    
+                                            CURSOS DEL SECTOR <b>{{ strtoupper($sector) }}</b>  
                                     </a>
                                 </div>
                             </div>
@@ -63,14 +60,14 @@
                                 </div>
                                 <div>
                                     <a href="{{ route ('web_sectors', [$sector, 'Diplomado']) }}" class="btn btn-base2" style="width: 100%; text-align:center; border-radius: 0px;">
-                                        DIPLOMADOS DEL SECTOR {{ strtoupper($sector) }}      
+                                        DIPLOMADOS DEL SECTOR <b>{{ strtoupper($sector) }}</b>      
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
             </div>
         </div>
     </section>

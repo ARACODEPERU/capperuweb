@@ -31,9 +31,11 @@ Route::get('/cvinnova', function () {
     return redirect()->away('http://campus.capperu.com'); //ruta del campus https de ser necesario cambiar
 });
 
-Route::get('/test-image/{content}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
+Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
 Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
+Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
+Route::get('/gestion-de-calidad',         [CapperuController::class, 'gestioncalidad'])->name('web_gestion_calidad');
 Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
 Route::get('/categoria-modalidad-en-vivo',  [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
@@ -194,6 +196,21 @@ Route::middleware('auth')->group(function () {
         'person/update_information/store',
         [PersonController::class, 'updateInformationPerson']
     )->name('user-update-profile-store');
+
+    Route::post('/mostrar-svg', function (Request $request) {
+        $svgData = $request->svg;
+
+        // Asegúrate de que el archivo es un SVG
+        $isSvg = Str::startsWith($svgData, '<svg');
+
+        if ($isSvg) {
+            // Devolver una respuesta para mostrar el SVG
+            return response($svgData)->header('Content-Type', 'image/svg+xml');
+        } else {
+            // En caso de que no sea un SVG válido, devolver un error o una respuesta alternativa
+            return response('No es un archivo SVG válido.', 400);
+        }
+    })->name('ruta-svg');
 });
 
 require __DIR__ . '/auth.php';

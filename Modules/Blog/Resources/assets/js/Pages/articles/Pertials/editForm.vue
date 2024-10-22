@@ -147,7 +147,7 @@
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="content" value="Contenido *" />
                 <Editor
-                    api-key="qv97v3surg08i8vhwvqxnj7ek17sk8xx2aqimzrrsgav6003"
+                    api-key="uagdjh3gnmgu2a70drzt9pm7s1apm5oxmq4kk65vyuhxub0x"
                     v-model="form.content_text"
                     :init="{
                         plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',

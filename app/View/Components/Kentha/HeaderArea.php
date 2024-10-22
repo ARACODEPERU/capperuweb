@@ -16,7 +16,7 @@ class HeaderArea extends Component
 
     public function __construct()
     {
-        $this->data = CmsSectionItem::with('item.items')->where('section_id', 14)->get();
+        $this->data = CmsSectionItem::with('item.items')->where('section_id', 1)->get();
         //dd($this->data);
     }
 

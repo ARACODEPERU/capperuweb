@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -184,7 +184,7 @@
     <footer>
         <p>
             &copy; Derechos Reservados a CAP PERU | Desarrollado por <a href="https://aracodeperu.com/"
-                style="">Aracode Smart Solutión</a>
+                style="">Aracode Smart Solutions</a>
         </p>
     </footer>
 </body>

@@ -1,6 +1,6 @@
 <div>
 
-    <a class="appFacebook" target="_blanck" href="https://web.facebook.com/capperuoficial">
+    {{-- <a class="appFacebook" target="_blanck" href="https://web.facebook.com/capperuoficial">
         <img src="themes/capperu/assets/img/redes/facebook.png" alt="Facebook">
     </a>
     
@@ -10,10 +10,10 @@
     
     <a class="appYoutube" target="_blanck" href="">
         <img src="themes/capperu/assets/img/redes/youtube.png" alt="Youtube">
-    </a>
+    </a> --}}
     
     
-    <a class="appWhatsapp" target="_blanck" href="https://api.whatsapp.com/send?phone=51946943887&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?">
+    <a class="appWhatsapp" target="_blanck" href="https://api.whatsapp.com/send?phone=51{{$footer[0]->content }}&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?">
         <img src="themes/capperu/assets/img/redes/whatsapp.png" alt="Whatsapp">
     </a>
     
@@ -53,11 +53,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>
-                                        El Centro de Actualización Profesional CAP – PERÚ 
-                                        SAC tiene como objetivo contribuir a la actualización 
-                                        y perfeccionamiento académico de profesionales y 
-                                        egresados de las diferentes carreras profesionales. 
-                                        
+                                        {{$footer[1]->content }} 
                                     </p>
                                 </div>
                             </div>
@@ -74,28 +70,28 @@
                                                 <i class="fa fa-home" style="color: orange;"></i> 
                                                 Sede Lima:
                                             </b> 
-                                            Av. 2 de mayo 516 Of.201 - Miraflores
+                                            {{$footer[2]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-home" style="color: orange;"></i> 
-                                                Sede Chimbote:
+                                                Sede Nvo. Chimbote:
                                             </b> 
-                                            Av. Francisco Bolognesi 549 Of.119
+                                            {{$footer[3]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-phone" style="color: orange;"></i> 
                                                 Teléfonos:
                                             </b> 
-                                            <br>(01)7397026 – (043) 200324
+                                            <br>{{$footer[4]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-envelope" style="color: orange;"></i> 
                                                 E-mail:
                                             </b> 
-                                            <br>capperuacademica@gmail.com
+                                            <br>{{$footer[5]->content }}
                                         </li>
                                     </ul>
                                 </div>
@@ -116,15 +112,15 @@
                                                 <i class="fa fa-clock" style="color: orange;"></i> 
                                                 Lunes - Viernes:
                                             </b> 
-                                            <br> 9:00 a. m. a 1:00 p. m.
-                                            <br> 2:00 p. m. a 6:00 p. m.
+                                            <br> {{$footer[6]->content }}
+                                            <br> {{$footer[7]->content }}
                                         </li>
                                         <li>
                                             <b>
                                                 <i class="fa fa-clock" style="color: orange;"></i> 
                                                 Sabados:
                                             </b> 
-                                            <br> 9:00 a. m. a 1:00 p. m.
+                                            <br> {{$footer[8]->content }}
                                         </li>
                                     </ul>
                                 </div>
@@ -172,18 +168,41 @@
                     <div class="col-md-6 align-self-center">
                         <div class="d-md-flex align-items-center mb-4 mb-xl-0">
                             <div class="copyright-area">
-                                <p>© 2024 - CAP PERU. Todos los derechos reservados | by <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
+                                <p>© 2024 - CAP PERU. Todos los derechos reservados | por <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
                             </div>
                         </div>                        
                     </div>
                     <div class="col-md-6 align-self-center text-xl-end">
                         <ul class="social-area d-inline-block">
-                            <li><a class="active" href="https://web.facebook.com/capperuoficial"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
                             <li>
-                                <a href="convenios"><i class="fa fa-key"></i></a>
+                                <a class="active" href="{{$footer[9]->content }}" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[10]->content }}" target="_blank">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[11]->content }}" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[12]->content }}" target="_blank">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{$footer[13]->content }}" target="_blank">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-key"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>

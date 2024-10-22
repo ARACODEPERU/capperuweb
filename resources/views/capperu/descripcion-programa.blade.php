@@ -17,7 +17,7 @@
 
 
     <!-- Banner Area Start-->
-    <section class="banner-area style-3"
+    {{-- <section class="banner-area style-3"
         style="padding: 40px; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
         <div class="container">
             <div class="row justify-content-center">
@@ -30,14 +30,14 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Banner Area End -->
-
+    
     <!-- courses-details Area Start-->
-    <section class="courses-details-area pd-top-100 pd-bottom-100">
+    <section class="courses-details-area pd-top-190 pd-bottom-100">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="single-course-wrap mb-0">
@@ -45,7 +45,7 @@
                                     {{-- <span class="play-btn"><i class="fa fa-play"></i></span> --}}
                                     <img style="width: 100%; heigth: 210px;" src="{{ $course->image }}" alt="img">
                                 </div>
-                                <div class="wrap-details">
+                                {{-- <div class="wrap-details">
                                     <h5>{{ $course->description }}</h5>
                                     @if ($course->brochure)
                                         <p>{!! $course->brochure->resolution !!}</p>
@@ -84,45 +84,48 @@
                                             </div>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-8">
                     <div class="row">
-                            @php
-                                $agreements = $course->agreements;
-                            @endphp
-                            @foreach ($agreements as $agreement)
-                            <div class="col-md-4">
-                                <a href="">
-                                    <img style="height: 80px;" src="{{ $agreement->institution->image }}" alt="img">
-                                </a>
-                            </div>
-                            @endforeach
-                    </div>
-                    <div class="row">
-                        <ul class="course-tab nav nav-pills pd-top-100">
+                        <ul class="course-tab nav nav-pills">
                             <li class="nav-item">
                                 <button class="nav-link active" id="pill-1" data-bs-toggle="pill"
                                     data-bs-target="#pills-01" type="button" role="tab" aria-controls="pills-01"
                                     aria-selected="true">
-                                    Presentación <span style="color: orange;">></span>
+                                    Presentación <span style="color: #8B0E06;"> ></span>
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-2" data-bs-toggle="pill" data-bs-target="#pills-02"
-                                    type="button" role="tab" aria-controls="pills-02" aria-selected="false">
-                                    Beneficios <span style="color: orange;">></span>
+                                <button class="nav-link" id="pill-2" data-bs-toggle="pill"
+                                    data-bs-target="#pills-02" type="button" role="tab" aria-controls="pills-02"
+                                    aria-selected="true">
+                                    Malla Curricular <span style="color: #8B0E06;"> ></span>
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-3" data-bs-toggle="pill" data-bs-target="#pills-03"
-                                    type="button" role="tab" aria-controls="pills-03" aria-selected="false">
-                                    Plana Docente <span style="color: orange;">></span>
+                                <button class="nav-link" id="pill-3" data-bs-toggle="pill" 
+                                    data-bs-target="#pills-03" type="button" role="tab" aria-controls="pills-03" 
+                                    aria-selected="false">
+                                    Beneficios <span style="color: #8B0E06;"> ></span>
+                                </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-4" data-bs-toggle="pill" data-bs-target="#pills-04"
-                                    type="button" role="tab" aria-controls="pills-04" aria-selected="false">
+                                <button class="nav-link" id="pill-4" data-bs-toggle="pill" 
+                                    data-bs-target="#pills-04" type="button" role="tab" aria-controls="pills-04" 
+                                    aria-selected="false">
+                                    Plana Docente <span style="color: #8B0E06;"> ></span>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="pill-5" data-bs-toggle="pill" 
+                                    data-bs-target="#pills-05" type="button" role="tab" aria-controls="pills-05" 
+                                    aria-selected="false">
                                     Preguntas Frecuentes
                                 </button>
                             </li>
@@ -136,11 +139,25 @@
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="pills-02" role="tabpanel" aria-labelledby="pill-2">
+                                @php
+                                    $modules = $course->modules;
+                                    $c = 1;
+                                @endphp
+                                @foreach ($modules as $k => $module)
+                                    <div class="accordion-item">
+                                        <p style="padding: 5px 15px;"><b>{{ $c . '. ' . $module->description }}</b></p>
+                                    </div>
+                                    @php
+                                        $c++;
+                                    @endphp
+                                @endforeach
+                            </div>
+                            <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
                                 @if ($course->brochure)
                                     {!! $course->brochure->benefits !!}
                                 @endif
                             </div>
-                            <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
+                            <div class="tab-pane fade" id="pills-04" role="tabpanel" aria-labelledby="pill-4">
                                 @if (count($course->teachers) > 0)
                                     @foreach ($course->teachers as $teach)
                                         <div class="row" style="margin-bottom: 20px;">
@@ -167,7 +184,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="tab-pane fade" id="pills-04" role="tabpanel" aria-labelledby="pill-4">
+                            <div class="tab-pane fade" id="pills-05" role="tabpanel" aria-labelledby="pill-5">
                                 @if ($course->brochure)
                                     {!! $course->brochure->frequent_questions !!}
                                 @endif
@@ -226,9 +243,8 @@
                             </div>
                         </div>
                     @endif
-
-
                     <br>
+
                     <div class="row overview-area">
                         <div class="col-md-12 bg-gray">
                             El alumno obtendrá su diplomado con la siguiente mención:
@@ -237,7 +253,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 sidebar-area">
-                    <div class="widget widget-accordion-inner">
+                    {{-- <div class="widget widget-accordion-inner">
                         <h5 class="widget-title border-0" style="padding: 10px; background-color: #F9FAFD;">Estructura
                             Curricular</h5>
                         <div class="accordion" id="accordionExample">
@@ -254,14 +270,13 @@
                                 @endphp
                             @endforeach
                         </div>
-                    </div>
-
+                    </div> --}}
                     <div class="price-wrap">
                         <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
                                 <a class="btn btn-primary" href="#" style="width: 100%;"
                                     onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
-                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;&nbsp;
                                     Comprar Ahora
                                     <b style="text-end">  S/. {{ $item->price }}</b>
                                 </a>
@@ -270,14 +285,41 @@
                         @if ($course->brochure)
                             <div class="row align-items-center" style="padding: 5px 0px;">
                                 <div class="col-md-12">
-                                    <a class="btn btn-light" href="{{ $course->brochure->path_file ?? '#' }}"
+                                    <a class="btn btn-primary" href="{{ $course->brochure->path_file ?? '#' }}"
                                         style="width: 100%;">
-                                        <i class="fa fa-file" aria-hidden="true"></i>
-                                        &nbsp;&nbsp;Descargar Brochure
+                                        <i class="fa fa-file" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;&nbsp;
+                                        Descargar Brochure
                                     </a>
                                 </div>
                             </div>
                         @endif
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[0]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
+                                target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    ¡Escribenos al whatsapp!
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[1]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
+                                target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    ¡Escribenos al whatsapp!
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center" style="padding: 5px 0px;">
+                            <div class="col-md-12">
+                                <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[2]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
+                                target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    ¡Escribenos al whatsapp!
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

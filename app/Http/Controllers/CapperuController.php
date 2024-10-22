@@ -21,6 +21,7 @@ use Modules\Academic\Entities\AcaBrochure;
 use Modules\Blog\Entities\BlogArticle;
 use Modules\Blog\Entities\BlogCategory;
 use Illuminate\Support\Facades\DB;
+use Modules\CMS\Entities\CmsSection;
 
 
 class CapperuController extends Controller
@@ -28,6 +29,16 @@ class CapperuController extends Controller
     public function nosotros()
     {
         return view('capperu/nosotros');
+    }
+
+    public function politicascalidad()
+    {
+        return view('capperu/politicas-de-calidad');
+    }
+
+    public function gestioncalidad()
+    {
+        return view('capperu/gestion-de-calidad');
     }
 
     public function categorias()
@@ -116,10 +127,21 @@ class CapperuController extends Controller
             ->with('agreements')
             ->where('id', $item->item_id)
             ->first();
+        
+        $whatsappAsesor = CmsSection::where('component_id', 'peru_whatsapp_asesora_area_13')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
 
         return view('capperu/descripcion-programa', [
             'course' => $course,
-            'item' => $item
+            'item' => $item,
+            'whatsappAsesor' => $whatsappAsesor
         ]);
     }
 
@@ -303,7 +325,19 @@ class CapperuController extends Controller
 
     public function contacto()
     {
-        return view('capperu/contacto');
+        $contacto = CmsSection::where('component_id', 'peru_contacto_area_12')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view('capperu/contacto', [
+            'contacto' => $contacto
+        ]);
     }
 
     public function convenios()
@@ -368,7 +402,7 @@ class CapperuController extends Controller
         }
 
         //////////codigo enviar correo /////
-        Mail::to('elrodriguez2423@gmail.com')
+        Mail::to($person->email)
             ->send(new StudentRegistrationMailable([
                 'courses'   => $courses,
                 'user'      => $person->email,

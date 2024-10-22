@@ -18,13 +18,11 @@
 
     
     <!-- Banner Area Start-->
-    <section class="banner-area style-3" style="padding: 40px; background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }});">
+    <section class="head-page">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 align-self-center">
-                    <div class="banner-inner text-center">
-                        <h1>Contacto</h1>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Contactanos</h2>
                 </div>
             </div>
         </div>
@@ -64,7 +62,7 @@
                                 <i class="fa fa-home"></i>
                             </div>
                             <div class="col-md-10">
-                                <p><b>Sede Lima:</b> Av. 2 de mayo 516 Of.201 - Miraflores</p>
+                                <p><b>Sede Lima:</b> {{$contacto[0]->content }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -72,7 +70,7 @@
                                 <i class="fa fa-home"></i>
                             </div>
                             <div class="col-md-10">
-                                <p><b>Sede Chimbote:</b> Av. Francisco Bolognesi 549. Of. 119</p>
+                                <p><b>Sede Chimbote:</b> {{$contacto[1]->content }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -82,8 +80,7 @@
                             <div class="col-md-10">
                                 <p>
                                     <b>Teléfono:</b>
-                                    <br>(01) 7397026
-                                    <br>(043) 200324
+                                    <br>{{$contacto[2]->content }}
                                 </p>
                             </div>
                         </div>
@@ -94,7 +91,7 @@
                             <div class="col-md-10">
                                 <p>
                                     <b>E-mail:</b>
-                                    <br>capperuacademica@gmail.com
+                                    <br>{{$contacto[3]->content }}
                                 </p>
                             </div>
                         </div>

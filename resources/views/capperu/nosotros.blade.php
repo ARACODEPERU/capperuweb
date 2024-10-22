@@ -16,20 +16,18 @@
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
     <!-- Banner Area Start-->
-    <section class="banner-area style-3" style="padding: 40px; background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }});">
+    <section class="head-page">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 align-self-center">
-                    <div class="banner-inner text-center">
-                        <h1>Nosotros</h1>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>¿Quienes Somos?</h2>
                 </div>
             </div>
         </div>
     </section>
     <!-- Banner Area End -->
+    
     
     
     <!-- Bienvenidos Area Start-->

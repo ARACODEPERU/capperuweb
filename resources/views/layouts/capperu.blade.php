@@ -12,9 +12,11 @@
     <link rel="icon" href="assets/img/fevicon.png">
     -->
 
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     --}}
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/bootstrap.min.css') }}"> 
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/magnific.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/nice-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/capperu/assets/css/owl.min.css') }}">
@@ -43,7 +45,7 @@
 
     <!-- all plugins here -->
     <script src="{{ asset('themes/capperu/assets/js/jquery.3.6.min.js') }}"></script>
-    <script src="{{ asset('themes/capperu/assets/js/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ asset('themes/capperu/assets/js/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('themes/capperu/assets/js/imageloded.min.js') }}"></script>
     <script src="{{ asset('themes/capperu/assets/js/counterup.js') }}"></script>
     <script src="{{ asset('themes/capperu/assets/js/waypoint.js') }}"></script>
@@ -58,6 +60,23 @@
 
     <!-- main js  -->
     <script src="{{ asset('themes/capperu/assets/js/main.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> --}}
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    
+    <!--script para javascript para que carga el modal -->
+    <script>
+            
+        $(document).ready(function()
+        {
+            $("#Modal").modal("show");
+        });
+    </script> 
 
 </body>
 

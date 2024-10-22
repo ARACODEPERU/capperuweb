@@ -5,6 +5,50 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
+    <!-- Modal-->
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" 
+            style="display: flex; justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 20%;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img style="width: 100%;" src="{{ $popup[0]->content }}" alt="">
+            </div>
+            <div class="modal-footer">
+              <a href="{{ $popup[1]->content }}" type="button" class="btn btn-secondary">Más Información</a>
+              <a href="{{ $popup[2]->content }}" type="button" class="btn btn-primary">Matricularse</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    {{-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" >
+        <div class="modal-content" style="width: 100%;">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Promoción del Mes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <img style="width: 100%;" src="images/promo/diplomado.jpg" alt="">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="https://forms.gle/y1HZf5UBxZYFxs5G6" class="main-btn">inscribete</a>
+            </div>
+        </div>
+        </div>
+    </div> --}}
+     
+    
 
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
@@ -18,8 +62,8 @@
 
 
     <!-- Banner Area Start-->
-    <section class="banner-area style-3"
-        style="background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }});">
+    {{-- <section class="banner-area style-3"
+        style="background-image: url({{ asset('themes/capperu/assets/img/elearning.jpg') }}); margin-top: 90px;">
         <br>
         <div class="container">
             <div class="row justify-content-center">
@@ -39,11 +83,61 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Banner Area End -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
+        <div class="carousel-inner">
+            {{-- @foreach ($sliders as $key => $slide)
+            <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
+                <a href="https://www.capperu.com/descripcion-programa/105"><img src="{{ $slide->content }}" class="d-block w-100" alt="..."></a>
+            </div>
+            @endforeach --}}
+            @foreach ($sliders as $key => $slide)
+            <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
+                <a href="{{ $slide->item->items[1]->content }}">
+                    <img src="{{ $slide->item->items[0]->content }}" class="d-block w-100" alt="...">
+                </a>
+            </div>
+            @endforeach
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    {{-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ asset('themes/capperu/assets/img/elearning2.jpg') }}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ asset('themes/capperu/assets/img/elearning2.jpg') }}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ asset('themes/capperu/assets/img/elearning2.jpg') }}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div> --}}
+
+    <script>
+        var myCarousel = document.querySelector('#myCarousel')
+        var carousel = new bootstrap.Carousel(myCarousel)
+    </script>
 
     <!-- intro Area Start-->
-    <div class="container">
+    {{-- <div class="container">
         <div class="intro-area-2">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -91,16 +185,18 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- intro Area End -->
 
+    <br>
     <!-- enllor courses Area Start-->
-    <section class="enllor-courses-area pd-top-50 pd-bottom-100">
+
+    {{-- <section class="enllor-courses-area pd-top-50 pd-bottom-100">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3>Nuevos Programas</h3>
+                        <h4>Programas de Especialización</h4>
                         <div class="ara-linea-cap"></div>
                     </div>
                 </div>
@@ -170,6 +266,55 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            {{ $programs->links() }}
+        </div>
+    </section> --}}
+
+    <section class="enllor-courses-area pd-top-50 pd-bottom-100">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h5 style="font-weight: 700; color: #8B0E06;">Programas de Especialización</h5>
+                        <div class="ara-linea-cap"></div>
+                    </div>
+                </div>
+                @if (count($programs) > 0)
+                    @foreach ($programs as $key => $program)
+                        <div class="col-md-3">
+                            <div class="single-course-wrap" style="background-color: #F9FAFD;">
+                                <a  href="{{ route('web_descripcion_programa', $program->id) }}">
+                                    <img class="img" src="{{ asset($program->image) }}" alt="img">
+                                    <h6 title="{{ $program->name }}" class="texto-oculto2"
+                                        style="background: #8B0E06; color: #fff; padding: 15px;">
+                                        <a href="{{ route('web_descripcion_programa', $program->id) }}" style="font-size: 14px;">
+                                            {{ $program->name }}
+                                        </a>
+                                    </h6>
+                                    <style>
+                                        h6 a:hover{
+                                            color: #FAC823;
+                                        }
+                                    </style>
+                                </a>
+                                {{-- <div class="price-wrap" style="margin-top: -15px;">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-12">
+                                            <button style="width: 100%;"
+                                                onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
+                                                class="btn btn-primary">
+                                                <i class="fa fa-cart-plus"></i>
+                                                Comprar Ahora S/. {{ $program->price }}
+                                            </button>
+                                            <div id="wallet_container"></div>
+                                        </div>
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                     @endforeach
