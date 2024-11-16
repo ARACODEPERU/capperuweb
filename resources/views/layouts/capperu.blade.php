@@ -29,6 +29,8 @@
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 </head>
 
@@ -37,9 +39,9 @@
     @yield('content')
 
     <!-- back-to-top end -->
-    <div class="back-to-top">
+    {{-- <div class="back-to-top">
         <span class="back-top"><i class="fas fa-angle-double-up"></i></span>
-    </div>
+    </div> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
