@@ -287,7 +287,7 @@
                 @if (count($programs) > 0)
                     @foreach ($programs as $key => $program)
                         <div class="col-md-3">
-                            <div class="single-course-wrap" style="background-color: #F9FAFD;">
+                            <div class="single-course-wrap  box-producto" style="background-color: #F9FAFD;">
                                 <a  href="{{ route('web_descripcion_programa', $program->id) }}">
                                     <img class="img" src="{{ asset($program->image) }}" alt="img">
                                     <h6 title="{{ $program->name }}" class="texto-oculto2"

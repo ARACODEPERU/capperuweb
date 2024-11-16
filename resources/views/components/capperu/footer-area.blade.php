@@ -150,7 +150,7 @@
                                                 border-left: 5px solid #25D366; 
                                                 padding-left: 10px; 
                                                 background: #f8f8f8;
-                                                box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra en todos los lados */">
+                                                box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);">
                             <div class="col-md-2" style="display: flex; align-items: center;">
                                 <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
                             </div>
