@@ -27,6 +27,13 @@ Route::get('/contacto', [KenthaController::class, 'contacto'])->name('web_contac
 */
 
 //Route::redirect('/cvinnova', 'http://campus.capperu.com');
+
+Route::get('cookies_policy', function () {
+    return view('cookies_policy');
+})->name('cookies_policy');
+
+
+
 Route::get('/cvinnova', function () {
     return redirect()->away('http://campus.capperu.com'); //ruta del campus https de ser necesario cambiar
 });
