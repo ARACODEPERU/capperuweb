@@ -126,7 +126,7 @@
 
     <header class="navbar-area header-pc">
         <div style=" background: #8B0E06; padding: 10px 0px;">
-            <div class="container">
+            <div class="container-xl">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="wrapper">
@@ -134,10 +134,6 @@
                                 <div class="tooltip">Facebook</div>
                                 <span><i class="fab fa-facebook-f"></i></span>
                             </a>
-                            {{-- <a href="{{$header[2]->content }}" target="_blanck"  class="icon youtube">
-                                <div class="tooltip">Youtube</div>
-                                <span><i class="fab fa-youtube"></i></span>
-                            </a> --}}
                             <a href="{{$header[3]->content }}" target="_blanck"  class="icon instagram">
                                 <div class="tooltip">Instagram</div>
                                 <span><i class="fab fa-instagram"></i></span>
@@ -284,6 +280,7 @@
         </div>
     </header>
 
+
     <header class="navbar-area header-mobile">
         <div style=" background: #8B0E06; padding: 10px 0px;">
             <div class="container">
@@ -302,9 +299,9 @@
                                 <div class="tooltip">Instagram</div>
                                 <span><i class="fab fa-instagram"></i></span>
                             </a>
-                            <a href="{{route('web_contacto')}}" style="text-transform: none; color: #fff;">
-                                &nbsp;
-                                {{$header[5]->content }}
+                            <a href="{{$header[5]->content }}" target="_blanck"  class="icon tiktok">
+                                <div class="tooltip">Tik Tok</div>
+                                <span><i class="fab fa-tiktok"></i></span>
                             </a>
                         </div>
                         

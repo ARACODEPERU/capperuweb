@@ -204,7 +204,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="footer-widget widget widget_link">
-                            <h4 class="widget-title">Sobre Nosotros</h4>
+                            <h4 class="widget-title">SOBRE NOSOTROS?</h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>
@@ -216,7 +216,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="footer-widget widget widget_link">
-                            <h4 class="widget-title">Oficinas</h4>
+                            <h4 class="widget-title">OFICINAS</h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="pe-5">
@@ -255,7 +255,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="footer-widget widget widget_link">
-                            <h4 class="widget-title">Horarios</h4>
+                            <h4 class="widget-title">HORARIOS</h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>
@@ -284,13 +284,19 @@
                     </div>
                     <div class="col-md-3">
                         <div class="footer-widget widget widget_link">
-                            <h4 class="widget-title">Blog & Noticias</h4>
+                            <h4 class="widget-title">LEGAL</h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="pe-4">
                                         <li>
-                                            <a href="">
-                                                Planificación de Posible escasez de refrigerantes
+                                            <a href="{{ route('web_gestion_calidad') }}">Alcance del SIG</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('web_politicas_calidad') }}">Política de Calidad</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('web_politicas_privacidad') }}">
+                                                Politicas de Privacidad
                                             </a>
                                         </li>
                                     </ul>
@@ -305,25 +311,25 @@
         <div class="container">
             <div class="footer-bottom">
                 <div class="row">
-                    <div class="col-md-6 align-self-center">
+                    <div class="col-md-8 align-self-center">
                         <div class="d-md-flex align-items-center mb-4 mb-xl-0">
                             <div class="copyright-area">
-                                <p>© 2024 - CAP PERU. Todos los derechos reservados | por <a href="https://aracodeperu.com/">Aracode Peru</a></p>       
+                                <p>© 2024 - CAP PERU. Todos los derechos reservados | por <a href="https://aracodeperu.com/">Aracode Smart Solutions</a></p>       
                             </div>
                         </div>                        
                     </div>
-                    <div class="col-md-6 align-self-center text-xl-end">
+                    <div class="col-md-4 align-self-center text-xl-end">
                         <ul class="social-area d-inline-block">
                             <li>
                                 <a class="active" href="{{$footer[9]->content }}" target="_blank">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                            </li>
+                            {{-- </li>
                             <li>
                                 <a href="{{$footer[10]->content }}" target="_blank">
                                     <i class="fab fa-youtube"></i>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{$footer[11]->content }}" target="_blank">
                                     <i class="fab fa-instagram"></i>
@@ -340,7 +346,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" target="_blank">
+                                <a href="https://capperu.com/login" target="_blank">
                                     <i class="fa fa-key"></i>
                                 </a>
                             </li>

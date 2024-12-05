@@ -42,6 +42,7 @@ Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController:
 Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
+Route::get('/politicas-de-privacidad',         [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
 Route::get('/gestion-de-calidad',         [CapperuController::class, 'gestioncalidad'])->name('web_gestion_calidad');
 Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');

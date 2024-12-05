@@ -76,7 +76,7 @@ class WebController extends Controller
             ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
             ->orderBy('onli_items.id', 'DESC')
             ->limit(32)
-            ->paginate(12);
+            ->paginate(15);
 
         return view('capperu/index', [
             'popup' => $popup,

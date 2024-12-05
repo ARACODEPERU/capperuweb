@@ -1,5 +1,5 @@
 <div>
-    <div class="text-center pd-top-135 pd-top-50 pd-bottom-100" style="background-color: #F9FAFD;">
+    <div class="text-center pd-top-135 pd-top-50 pd-bottom-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
