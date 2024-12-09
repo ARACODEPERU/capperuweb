@@ -26,7 +26,7 @@ class ProgramasPopularesArea extends Component
                 ->join('aca_teachers', 'aca_teachers.id', '=', 'aca_courses.teacher_id')
                 ->join('people', 'people.id', '=', 'aca_teachers.person_id')
                 ->join('users', 'users.person_id', '=', 'people.id')
-                ->join('aca_category_courses', 'aca_category_courses.id', 'aca_courses.category_id')
+                ->join('aca_category_courses', 'aca_category_courses.id', '=', 'aca_courses.category_id')
                 ->select(
                 'onli_items.id as id', 
                 'onli_items.name as name', 
