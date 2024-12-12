@@ -42,7 +42,7 @@ class ProgramasPopularesArea extends Component
                 'aca_category_courses.description as category_description'
                 )
                 ->where('onli_items.status', true)->inRandomOrder()->get();
-
+                    
         return view('components.capperu.programas-populares-area')
         ->with('programs', $programs);
     }
