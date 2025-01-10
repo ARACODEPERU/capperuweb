@@ -11,6 +11,7 @@
 |
 */
 
+use Modules\CMS\Http\Controllers\CMSController;
 use Modules\CMS\Http\Controllers\CmsItemController;
 use Modules\CMS\Http\Controllers\CmsPageController;
 use Modules\CMS\Http\Controllers\CmsPageSectionController;
@@ -20,6 +21,7 @@ use Modules\CMS\Http\Controllers\CmsSubscriberController;
 use Modules\CMS\Http\Controllers\CmsTestimonyController;
 
 Route::middleware(['auth', 'verified'])->prefix('cms')->group(function () {
+    Route::get('dashboard', [CMSController::class, 'dashboard'])->name('cms_dashboard');
     Route::get('pages', [CmsPageController::class, 'index'])->name('cms_pages_list');
     Route::get('pages/create', [CmsPageController::class, 'create'])->name('cms_pages_create');
     Route::post('pages/store', [CmsPageController::class, 'store'])->name('cms_pages_store');
@@ -55,6 +57,7 @@ Route::middleware(['auth', 'verified'])->prefix('cms')->group(function () {
     Route::get('items/edit/{id}', [CmsItemController::class, 'edit'])->name('cms_items_edit');
     Route::post('items/update', [CmsItemController::class, 'update'])->name('cms_items_update');
     Route::delete('items/destroy/{id}', [CmsItemController::class, 'destroy'])->name('cms_items_destroy');
+    Route::get('items/data', [CmsItemController::class, 'getData'])->name('cms_items_data');
 
     Route::get('blog-subscriber', 'CmsSubscriberController@list_subscribers')->name('blog_subscriber');
 
@@ -65,3 +68,6 @@ Route::middleware(['auth', 'verified'])->prefix('cms')->group(function () {
     Route::middleware(['permission:cms_testimonios_editar'])->get('testimonies/edit/{id}', [CmsTestimonyController::class, 'edit'])->name('cms_testimonies_edit');
     Route::middleware(['permission:cms_testimonios_eliminar'])->delete('testimonies/destroy/{id}', [CmsTestimonyController::class, 'destroy'])->name('cms_testimonies_destroy');
 });
+
+
+Route::post('subscriber', 'CmsSubscriberController@store')->name('subscriber_public');

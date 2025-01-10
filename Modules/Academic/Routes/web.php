@@ -11,6 +11,11 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use Modules\Academic\Http\Controllers\AcaModuleController;
+use Modules\Academic\Http\Controllers\AcaStudentController;
+use Modules\Academic\Http\Controllers\MercadopagoController;
+
 Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('academic')->group(function () {
     Route::middleware(['middleware' => 'permission:aca_dashboard'])
         ->get('dashboard', 'AcademicController@index')
@@ -99,6 +104,7 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
     Route::middleware(['middleware' => 'permission:aca_cursos_nuevo'])
         ->get('courses/create', 'AcaCourseController@create')
         ->name('aca_courses_create');
+
     Route::post('courses/store', 'AcaCourseController@store')->name('aca_courses_store');
 
     Route::middleware(['middleware' => 'permission:aca_cursos_editar'])
@@ -123,6 +129,8 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
         ->delete('agreement/destroy/{id}', 'AcaAgreementController@destroy')
         ->name('aca_agreements_destroy');
 
+    Route::get('courses/modules/{id}/panel', [AcaModuleController::class, 'index'])->name('aca_courses_module_panel');
+
     Route::post('courses/modules/store', 'AcaModuleController@store')->name('aca_courses_module_store');
     Route::put('courses/modules/update/{id}', 'AcaModuleController@update')->name('aca_courses_module_update');
     Route::delete('courses/modules/destroy/{id}', 'AcaModuleController@destroy')->name('aca_courses_module_destroy');
@@ -146,4 +154,76 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
 
     Route::get('courses_teacher_null', 'AcaCourseController@getCoursesTeacherNull')
         ->name('courses_teacher_null');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->get('course/student/{id}/modules', 'AcaStudentController@courseLessons')
+        ->name('aca_mycourses_lessons');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->get('course/student/{id}/module/themes', 'AcaStudentController@courseLessonThemes')
+        ->name('aca_mycourses_lesson_themes');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->get('course/comments/theme/list/{id}', 'AcaThemeCommentController@list')
+        ->name('aca_lesson_comments');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->post('course/comments/theme/store', 'AcaThemeCommentController@store')
+        ->name('aca_lesson_comments_store');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->put('course/comments/theme/update/{id}', 'AcaThemeCommentController@update')
+        ->name('aca_lesson_comments_update');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->delete('course/comments/theme/destroy/{id}', 'AcaThemeCommentController@destroy')
+        ->name('aca_lesson_comments_destroy');
+
+    Route::middleware(['middleware' => 'permission:aca_estudiante_cobrar'])
+        ->get('student/invoice/create/{id}', 'AcaStudentController@invoice')
+        ->name('aca_student_invoice');
+
+    Route::middleware(['middleware' => 'permission:aca_estudiante_cobrar'])
+        ->post('student/sale/store', 'AcaSalesController@store')
+        ->name('aca_student_invoice_store');
+
+    Route::middleware(['middleware' => 'permission:aca_miscursos'])
+        ->post('student/dashboard/courses', 'AcaStudentController@getCourses')
+        ->name('aca_student_dashboard_courses');
+
+
+    Route::middleware(['middleware' => 'permission:aca_dashboard'])
+        ->get('dashboard/total/registration/student', 'AcademicController@studentsEnrolledMonth')
+        ->name('aca_student_registration_total');
+
+    ////subscriptions/////
+    Route::middleware(['middleware' => 'permission:aca_suscripciones'])
+        ->get('subscriptions/list', 'AcaSubscriptionTypeController@index')
+        ->name('aca_subscriptions_list');
+
+    Route::middleware(['middleware' => 'permission:aca_suscripciones_nuevo'])
+        ->get('subscriptions/create', 'AcaSubscriptionTypeController@create')
+        ->name('aca_subscriptions_create');
+
+    Route::middleware(['middleware' => 'permission:aca_suscripciones_nuevo'])
+        ->post('subscriptions/store', 'AcaSubscriptionTypeController@store')
+        ->name('aca_subscriptions_store');
+
+    Route::middleware(['middleware' => 'permission:aca_suscripciones_editar'])
+        ->get('subscriptions/edit/{id}', 'AcaSubscriptionTypeController@edit')
+        ->name('aca_subscriptions_edit');
+
+    Route::middleware(['middleware' => 'permission:aca_suscripciones_editar'])
+        ->put('subscriptions/update/{id}', 'AcaSubscriptionTypeController@update')
+        ->name('aca_subscriptions_update');
+
+    Route::middleware(['middleware' => 'permission:aca_suscripciones_eliminar'])
+        ->delete('subscriptions/destroy/{id}', 'AcaSubscriptionTypeController@destroy')
+        ->name('aca_subscriptions_destroy');
+
+    Route::post('subscriptions/free/user', [AcaStudentController::class, 'startStudentFree'])
+        ->name('aca_subscriptions_free_user');
+
+    Route::put('mercadopago/{id}/processpayment', [MercadopagoController::class, 'processPayment'])
+        ->name('aca_mercadopago_processpayment');
 });

@@ -1,7 +1,7 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import DangerButton from '@/Components/PrimaryButton.vue';
-    import SecondaryButton from '@/Components/SecondaryButton.vue';
+ import AppLayout from '@/Layouts/Vristo/AppLayout.vue';
+    import PrimaryButton from '@/Components/PrimaryButton.vue';
+    import DangerButton from '@/Components/DangerButton.vue';
     import SearchClients from './Partials/SearchClients.vue';
     import SearchProducts from './Partials/SearchProducts.vue';
     import { faPlus, faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,7 @@
     import { ref, onMounted } from 'vue';
     import Swal2 from 'sweetalert2';
     import { Link, router } from '@inertiajs/vue3';
+    import Navigation from '@/Components/vristo/layout/Navigation.vue';
 
     const props = defineProps({
         payments: {
@@ -77,6 +78,7 @@
             reference: null,
             amount:0
         }],
+        additional_description: null
     });
 
     const series = ref([]);
@@ -96,6 +98,8 @@
                     showCancelButton: false,
                     confirmButtonText: 'Ok',
                     denyButtonText: `Crear serie`,
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 }).then((result) => {
                     if (result.isDenied) {
                         router.visit(route('establishments.index'),{
@@ -166,6 +170,8 @@
                     title: 'Información Importante',
                     text: "El cliente no cuenta con ruc para emitir una factura",
                     icon: 'info',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 });
             }
         }
@@ -204,9 +210,11 @@
     }
     
     const removeItem = (key) => {
-        let t = parseFloat(formDocument.items[key].total);
-        formDocument.total = parseFloat(formDocument.total) - t;
+        //let t = parseFloat(formDocument.items[key].total);
+        //formDocument.total = parseFloat(formDocument.total) - t;
+        removeCalculateTotals(key);
         formDocument.items.splice(key,1);
+
     }
 
     const calculateTotals = (key) => {
@@ -231,6 +239,7 @@
         if (isNaN(vs)) {
             vs = 0;
         }
+
         formDocument.items[key].m_igv = mi.toFixed(2);
         formDocument.items[key].total = st.toFixed(2);
         formDocument.items[key].v_sale = vs.toFixed(2);
@@ -243,6 +252,22 @@
         formDocument.payments[0].amount = formDocument.total;
         
     }
+
+    const removeCalculateTotals = (key) => {
+        formDocument.payments = [];
+        formDocument.total = (parseFloat(formDocument.total) - parseFloat(formDocument.items[key].total)).toFixed(2);
+        formDocument.total_discount = (parseFloat(formDocument.total_discount) - parseFloat(formDocument.items[key].discount)).toFixed(2);
+        formDocument.total_taxed = (parseFloat(formDocument.total_taxed) - parseFloat(formDocument.items[key].v_sale)).toFixed(2);
+        formDocument.total_igv = (parseFloat(formDocument.total_igv) - parseFloat(formDocument.items[key].m_igv)).toFixed(2);
+
+        formDocument.payments.push({
+            type:1,
+            reference: null,
+            amount: formDocument.total
+        });
+        
+    }
+
     ////imprimir documento
     const downloadDocument = (id,type,file) => {
         let url = route('saledocuments_download',[id, type,file])
@@ -259,6 +284,8 @@
                     title: 'Información Importante',
                     text: "El cliente debe tener ruc para emitir una factura",
                     icon: 'error',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 });
                 formDocument.processing = false
                 return;
@@ -288,6 +315,7 @@
                     reference: null,
                     amount:0
                 }];
+                formDocument.additional_description = null;
                 getSeriesByDocumentType();
                 formDocument.processing =  false;
                 Swal2.fire({
@@ -301,7 +329,9 @@
                     cancelButtonText: 'Seguir vendiendo',
                     showDenyButton: true,
                     denyButtonText: `Solo Imprimir`,
-                    denyButtonColor: '#5E5A5A'
+                    denyButtonColor: '#5E5A5A',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         if(res.data.invoice_type_doc == '01'){
@@ -311,6 +341,8 @@
                                 title: 'Información Importante',
                                 text: "Las boletas se envian mediante un resumen",
                                 icon: 'info',
+                                padding: '2em',
+                                customClass: 'sweet-alerts',
                             });
                         }
                     } else if (result.isDenied) {
@@ -325,6 +357,8 @@
                 title: 'Información Importante',
                 text: "Elejir serie de documento",
                 icon: 'error',
+                padding: '2em',
+                customClass: 'sweet-alerts',
             });
             formDocument.processing = false
             return;
@@ -402,6 +436,8 @@
             confirmButtonText: 'Enviar',
             showLoaderOnConfirm: true,
             clickOutside: false,
+            padding: '2em',
+            customClass: 'sweet-alerts',
             preConfirm: () => {
                 return axios.get(route('saledocuments_send', [document.id,document.invoice_type_doc])).then((res) => {
                     if (!res.data.success) {
@@ -429,6 +465,8 @@
                     title: `${result.value.data.message}`,
                     html: `${cadena}`,
                     icon: 'success',
+                    padding: '2em',
+                    customClass: 'sweet-alerts',
                 }).then(() => {
                     router.visit(route('saledocuments_list'),{
                         method: 'get'
@@ -438,46 +476,28 @@
             }
         });
     }
+    const asetUrl = assetUrl;
 </script>
 <template>
     <AppLayout title="Punto de Ventas">
-        <div class="max-w-screen-2xl  mx-auto p-4 md:p-6 2xl:p-10">
-            <!-- Breadcrumb Start -->
-            <nav class="flex px-4 py-3 border border-stroke text-gray-700 mb-4 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <Link :href="route('dashboard')" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                            <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                            Inicio
-                        </Link>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <!-- <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Productos</a> -->
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Facturación Electrónica</span>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Crear Documentos</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-
+        <Navigation :routeModule="route('sales_dashboard')" :titleModule="'Facturación Electrónica'">
+            <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+                <span>Crear Documentos</span>
+            </li>
+        </Navigation>
+        <div class="mt-5">
             <div class="flex-shrink max-w-full w-full mb-6">
-                <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                <div class="panel">
                     <div class="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-700 mb-3">
                         <div class="flex flex-col">
                             <div class="text-3xl font-bold mb-1">
-                                <img style="width: 242px;height: 53.2333px;" class="inline-block h-auto ltr:mr-2 rtl:ml-2" :src="company.logo">
+                                <img v-if="company.logo == '/img/logo176x32.png'" style="width: 242px;height: 53.2333px;" class="inline-block h-auto ltr:mr-2 rtl:ml-2" :src="company.logo">
+                                <img v-else style="width: 242px;height: 53.2333px;" class="inline-block h-auto ltr:mr-2 rtl:ml-2" :src="asetUrl+'storage/'+company.logo">
                             </div>
                             <p class="text-sm">Ancash, Chimbote<br>{{ company.fiscal_address }}</p>
                         </div>
                         <div style="width: 180px;" class="text-4xl uppercase font-bold">
-                            <select @change="getSeriesByDocumentType" v-model="formDocument.sale_documenttype_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select @change="getSeriesByDocumentType" v-model="formDocument.sale_documenttype_id" class="form-select text-white-dark">
                                 <option v-for="(type, index) in saleDocumentTypes" :value="type.id"> {{  type.description  }}</option>
                             </select>
                         </div>
@@ -487,7 +507,7 @@
                             <div class="grid grid-cols-3 gap-4 justify-between mb-1">
                                 <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Cliente:</div>
                                 <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
-                                    <input @click="openModalClientSearch" @input="openModalClientSearch" :value="formDocument.client_name" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                    <input @click="openModalClientSearch" @input="openModalClientSearch" :value="formDocument.client_name" class="form-input form-input-sm" type="text" />
                                     <SearchClients 
                                         :display="displayModalClientSearch" 
                                         :closeModalClient="closeModalClientSearch"
@@ -503,13 +523,13 @@
                             <div class="grid grid-cols-3 gap-4 justify-between mb-1">
                                 <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Ciudad:</div>
                                 <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
-                                    <input :value="formDocument.client_ubigeo_description" class="invoice-imput bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
+                                    <input :value="formDocument.client_ubigeo_description" class="form-input form-input-sm" disabled type="text" />
                                 </div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 justify-between mb-1">
                                 <div style="font-size: 14px;" class="col-span-3 sm:col-span-1 uppercase">Dirección:</div>
                                 <div class="col-span-3 sm:col-span-2 ltr:text-right rtl:text-left">
-                                    <input :value="formDocument.client_direction" class="invoice-imput bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
+                                    <input :value="formDocument.client_direction" class="form-input form-input-sm" disabled type="text" />
                                 </div>
                             </div>
                         </div>
@@ -517,7 +537,7 @@
                             <div class="flex justify-between mb-1">
                                 <div style="font-size: 14px;" class="flex-1 uppercase">Serie:</div>
                                 <div class="flex-1 ltr:text-right rtl:text-left">
-                                    <select v-model="formDocument.serie" class="invoice-select dark:text-gray-400 dark:bg-gray-700">
+                                    <select v-model="formDocument.serie" class="form-select text-white-dark py-1.5 text-xs">
                                         <option v-for="(serie) in series" :value="serie.id" >{{ serie.description }}</option>
                                     </select>
                                     <InputError :message="formDocument.errors.serie" class="mt-2" />
@@ -526,31 +546,33 @@
                             <div class="flex justify-between mb-1">
                                 <div style="font-size: 14px;" class="flex-1 uppercase">Fecha de Emisión:</div>
                                 <div class="flex-1 ltr:text-right rtl:text-left">
-                                    <input v-model="formDocument.date_issue" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="date" />
+                                    <input v-model="formDocument.date_issue" class="form-input form-input-sm" type="date" />
                                     <InputError :message="formDocument.errors.date_issue" class="mt-2" />
                                 </div>
                             </div>
                             <div class="flex justify-between mb-1">
                                 <div style="font-size: 14px;" class="flex-1 uppercase">Fecha de vencimiento:</div>
                                 <div class="flex-1 ltr:text-right rtl:text-left">
-                                    <input v-model="formDocument.date_end" class="invoice-imput dark:text-gray-400 dark:bg-gray-700" type="date" />
+                                    <input v-model="formDocument.date_end" class="form-input form-input-sm" type="date" />
                                     <InputError :message="formDocument.errors.date_end" class="mt-2" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="max-w-full overflow-x-auto py-2">
+                    <div class="max-w-full py-2">
                         <table class="table-bordered w-full ltr:text-left rtl:text-right text-gray-600">
                             <thead class="border-b border-t border-gray-400 dark:border-gray-700">
                                 <tr class="bg-gray-100 dark:bg-gray-900 dark:bg-opacity-20">
-                                    <th style="width: 70px;" class="text-right py-1">
-                                        <button @click="newItems" type="button" style="width: 28px;" title="Agregar Nuevo" class="mr-1 text-center  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-xs p-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <font-awesome-icon :icon="faPlus" />
-                                        </button>
-                                        <button @click="displaySearchProducts = !displaySearchProducts" type="button" style="width: 28px;" title="Abrir Buscar" class="text-center  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium text-xs p-2 text-center inline-flex items-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                                            <font-awesome-icon :icon="faMagnifyingGlass" />
-                                        </button>
-                                        <SearchProducts @eventdata="getDataTable" :displaySearch="displaySearchProducts" :close="closeSearchProducus" />
+                                    <th style="width: 60px;" class="text-right py-1">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button v-can="'sale_registar_producto_alvender'" @click="newItems" type="button" title="Agregar Nuevo" class="btn btn-sm btn-outline-success">
+                                                <font-awesome-icon :icon="faPlus" />
+                                            </button>
+                                            <SearchProducts 
+                                                @eventdata="getDataTable" 
+                                                :iconSearch="faMagnifyingGlass" 
+                                             />
+                                        </div>
                                     </th>                                    
                                     <th class="text-left text-xs uppercase px-2 py-1">Item</th>
                                     <th class="text-center text-xs uppercase px-2 py-1">Producto</th>
@@ -566,17 +588,22 @@
                                     <template v-for="(row, key) in formDocument.items">
                                         <tr>
                                             <td class="text-right" >
-                                                <button @click="removeItem(key)" type="button" style="width: 28px;" class="text-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-xs p-2 text-center inline-flex items-center  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                <button @click="removeItem(key)" type="button" class="btn btn-sm btn-outline-danger">
                                                     <font-awesome-icon :icon="faXmark"  />
                                                 </button>
                                             </td>
                                             <td class="">
-                                                <input v-model="row.description" 
+                                                <!-- <input v-model="row.description" 
                                                 :disabled="row.id ? true : false" 
                                                 :class="row.id ? 'bg-gray-100' : ''" 
                                                 :ref="'item-description-' + key" 
                                                 :style="row.id ? 'cursor: not-allowed': ''"
-                                                class="invoice-imput text-left dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                                class="form-input form-input-sm" type="text" /> -->
+
+                                                <textarea v-model="row.description" 
+                                                    :ref="'item-description-' + key" 
+                                                    class="form-textarea form-input-sm">
+                                                </textarea>
                                             </td>
                                             <td style="width: 80px;" class="text-center">
                                                 <input v-model="row.is_product" 
@@ -590,7 +617,7 @@
                                                 :disabled="row.id ? true : false" 
                                                 :class="row.id ? 'bg-gray-100' : ''" 
                                                 :style="row.id ? 'cursor: not-allowed': ''"
-                                                class="invoice-select dark:text-gray-400 dark:bg-gray-700">
+                                                class="form-select form-select-sm text-white-dark">
                                                     <template v-for="(unitType) in unitTypes">
                                                         <option :value="unitType.id" >{{ unitType.description }}</option>
                                                     </template>
@@ -599,10 +626,8 @@
                                             <td style="width: 70px;" class="text-center">
                                                 <input v-model="row.quantity" 
                                                 @input="calculateTotals(key)" 
-                                                :disabled="row.id ? true : false" 
-                                                :class="row.id ? 'bg-gray-100' : ''" 
-                                                :style="row.id ? 'cursor: not-allowed': ''"
-                                                class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                             
+                                                class="form-input form-input-sm" type="text" />
                                             </td>
                                             <td style="width: 120px;" class="text-right">
                                                 <input v-model="row.unit_price" 
@@ -610,19 +635,19 @@
                                                 :disabled="row.id ? true : false" 
                                                 :style="row.id ? 'cursor: not-allowed': ''"
                                                 :class="row.id ? 'bg-gray-100' : ''" 
-                                                class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                                class="form-input form-input-sm text-right" type="text" />
                                             </td>
                                             <td style="width: 90px;" class="text-right">
                                                 <input v-model="row.discount" @input="calculateTotals(key)" 
                                                 :disabled="row.id ? true : false" 
                                                 :class="row.id ? 'bg-gray-100' : ''" 
                                                 :style="row.id ? 'cursor: not-allowed': ''"
-                                                class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" type="text" />
+                                                class="form-input form-input-sm text-right" type="text" />
                                             </td>
                                             <td style="width: 110px;" class="text-right ">
                                                 <input v-model="row.total" 
                                                 style="cursor: not-allowed"
-                                                class="invoice-imput text-right bg-gray-100 dark:text-gray-400 dark:bg-gray-700" disabled type="text" />
+                                                class="form-input form-input-sm text-right" disabled type="text" />
                                                 <InputError :message="formDocument.errors[`items.${key}.total`]" class="mt-2" />
                                             </td>
                                         </tr>
@@ -636,8 +661,11 @@
                                                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                                                 </svg>
                                                 <span class="sr-only">Info</span>
-                                                <div>
-                                                    Click en <span class="p-1 bg-blue-700 text-white"><font-awesome-icon @click="newItems" :icon="faPlus" /></span> para agregar o click en <span class="p-1 bg-gray-700 text-white"><font-awesome-icon @click="displaySearchProducts = true" :icon="faMagnifyingGlass" /></span> para buscar producto o servicio
+                                                <div class="flex">
+                                                <div v-can="'sale_registar_producto_alvender'">
+                                                    Click en <span class="p-1 bg-blue-700 text-white"><font-awesome-icon @click="newItems" :icon="faPlus" /></span> para agregar o 
+                                                </div>
+                                                    Click en <span class="p-1 bg-gray-700 text-white"><font-awesome-icon :icon="faMagnifyingGlass" /></span> para buscar producto o servicio
                                                 </div>
                                             </div>
                                         </td>
@@ -671,18 +699,18 @@
                             </tfoot>
                         </table>
                     </div>
-                    <div class="max-w-full overflow-x-auto py-2">
-                        <label style="font-size: 14px;" class="italic font-bold uppercase mb-4">Medio de Pago <button @click="addPayment()" type="button" class="inline-block px-0 py-2 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded transition duration-150 ease-in-out">Agregar (+)</button></label>
+                    <div class="max-w-full py-2">
+                        <p style="font-size: 14px;" class="italic font-bold uppercase mb-4">Medio de Pago <button @click="addPayment()" type="button" class="inline-block px-0 py-2 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded transition duration-150 ease-in-out">Agregar (+)</button></p>
                         <table class="table-bordered w-full ltr:text-left rtl:text-right text-gray-600">
                             <tbody>
                                 <tr v-for="(row, index) in formDocument.payments" v-bind:key="index">
                                     <td style="width: 70px;" class="text-right">
-                                        <button @click="removePayment(index)" type="button" style="width: 28px;" class="text-xs p-1.5 inline-block bg-red-700 text-white leading-normal uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                        <button @click="removePayment(index)" type="button" class="btn btn-sm btn-outline-danger">
                                             <font-awesome-icon :icon="faXmark" />
                                         </button>
                                     </td>
                                     <td >
-                                        <select v-model="row.type" class="invoice-select dark:text-gray-400 dark:bg-gray-700">
+                                        <select v-model="row.type" class="form-select text-white-dark py-1.5 text-xs">
                                             <template v-for="(payment) in payments">
                                                 <option :value="payment.id">{{ payment.description }}</option>
                                             </template>
@@ -690,11 +718,11 @@
                                         <InputError :message="formDocument.errors[`payments.${index}.id`]" class="mt-2" />
                                     </td>
                                     <td>
-                                        <input v-model="row.reference" type="text" id="first_name" class="invoice-imput text-left dark:text-gray-400 dark:bg-gray-700" placeholder="Referencia">
+                                        <input v-model="row.reference" type="text" id="first_name" class="form-input form-input-sm text-right" placeholder="Referencia">
                                         <InputError :message="formDocument.errors[`payments.${index}.reference`]" class="mt-2" />
                                     </td>
                                     <td style="width: 110px;">
-                                        <input v-model="row.amount" type="text" id="first_name" class="invoice-imput text-right dark:text-gray-400 dark:bg-gray-700" placeholder="Monto" required>
+                                        <input v-model="row.amount" type="text" id="first_name" class="form-input form-input-sm text-right" autofocus placeholder="Monto" required>
                                         <InputError :message="formDocument.errors[`payments.${index}.amount`]" class="mt-2" />
                                     </td>
                                     
@@ -703,36 +731,27 @@
                         </table>
                         
                     </div>
-                    <div class="flex justify-end">
-                        <SecondaryButton class="mr-2">
-                            Cancelar
-                        </SecondaryButton> 
-                        <DangerButton @click="saveDocument" :class="{ 'opacity-25': formDocument.processing }" :disabled="formDocument.processing">
-                            <svg v-show="formDocument.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
-                            </svg>
-                            Generar
-                        </DangerButton> 
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-4 sm:col-span-3">
+                            <label for="additional_description">Descripcion adicional (Opcional)</label>
+                            <textarea v-model="formDocument.additional_description" ref="additional_description" class="form-textarea sm:w-10/12"></textarea>
+                        </div>
+                        <div class="col-span-4 sm:col-span-1 space-y-2">
+                            <PrimaryButton @click="saveDocument" :class="{ 'opacity-25': formDocument.processing }" :disabled="formDocument.processing" class="w-full">
+                                <svg v-show="formDocument.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                                </svg>
+                                Generar
+                            </PrimaryButton> 
+                            <DangerButton class="w-full">
+                                Cancelar
+                            </DangerButton> 
+                            
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </AppLayout>
 </template>
-<style scoped>
-.invoice-select{
-    margin: 0px !important;
-    padding: 1px !important;
-    height: 26px !important;
-    width: 100% !important;
-    font-size: 12px;
-}
-.invoice-imput{
-    margin: 0px !important;
-    padding: 1px !important;
-    height: 26px !important;
-    width: 100% !important;
-    font-size: 12px;
-}
-</style>

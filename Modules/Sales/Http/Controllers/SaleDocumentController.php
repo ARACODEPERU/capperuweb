@@ -28,6 +28,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Helpers\Invoice\Documents\Factura;
+use Modules\Sales\Entities\SaleSummary;
+use Modules\Sales\Entities\SaleSummaryDetail;
+use App\Helpers\Invoice\Documents\Resumen;
+use DataTables;
+use Greenter\Model\Sale\SaleDetail;
 
 class SaleDocumentController extends Controller
 {
@@ -101,7 +106,8 @@ class SaleDocumentController extends Controller
                 'sale_documents.client_phone',
                 'sale_documents.client_email',
                 'sale_documents.invoice_broadcast_date',
-                'sale_documents.invoice_due_date'
+                'sale_documents.invoice_due_date',
+                'sale_documents.reason_cancellation'
             )
             ->whereIn('series.document_type_id', [1, 2])
             //->whereDate('sales.created_at', '=', $current_date)
@@ -131,6 +137,56 @@ class SaleDocumentController extends Controller
         ]);
     }
 
+    public function tableDocument()
+    {
+        $sales = (new Sale())->newQuery();
+
+        $isAdmin = Auth::user()->hasRole('admin');
+
+        $sales = $sales->join('people', 'client_id', 'people.id')
+            ->join('sale_documents', 'sale_documents.sale_id', 'sales.id')
+            ->join('series', 'sale_documents.serie_id', 'series.id')
+            ->select(
+                'sales.id',
+                'sales.client_id',
+                'sale_documents.id AS document_id',
+                'people.full_name',
+                'total',
+                'advancement',
+                'total_discount',
+                'payments',
+                'sales.created_at',
+                'sales.local_id',
+                'sale_documents.invoice_status',
+                'sale_documents.invoice_response_description',
+                'sale_documents.invoice_response_code',
+                'sale_documents.invoice_notes',
+                'sale_documents.status',
+                'series.description AS serie',
+                'sale_documents.number',
+                'sale_documents.invoice_correlative',
+                'sale_documents.invoice_type_doc',
+                'sale_documents.client_number',
+                'sale_documents.client_rzn_social',
+                'sale_documents.client_address',
+                'sale_documents.client_ubigeo_code',
+                'sale_documents.client_ubigeo_description',
+                'sale_documents.client_phone',
+                'sale_documents.client_email',
+                'sale_documents.invoice_broadcast_date',
+                'sale_documents.invoice_due_date',
+                'sale_documents.reason_cancellation'
+            )
+            ->whereIn('series.document_type_id', [1, 2])
+            ->when(!$isAdmin, function ($q) {
+                return $q->where('sales.user_id', Auth::id());
+            })
+            ->with('documents.items')
+            ->orderBy('sales.id', 'DESC');
+
+        return DataTables::of($sales)->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -152,7 +208,8 @@ class SaleDocumentController extends Controller
                 'districts.id AS district_id',
                 'districts.name AS district_name',
                 'provinces.name AS province_name',
-                'departments.name AS department_name'
+                'departments.name AS department_name',
+                DB::raw("CONCAT(departments.name,'-',provinces.name,'-',districts.name) AS city_name")
             )
             ->get();
 
@@ -276,7 +333,10 @@ class SaleDocumentController extends Controller
                     'invoice_send_date'             => Carbon::now()->format('Y-m-d'),
                     'invoice_legend_code'           => '1000',
                     'invoice_legend_description'    => $numberletters->convertToLetter($request->get('total')),
-                    'invoice_status'                => 'registrado'
+                    'invoice_status'                => 'registrado',
+                    'user_id'                       => Auth::id(),
+                    'additional_description'        => $request->get('additional_description'),
+                    'overall_total'                 => $request->get('total')
                 ]);
 
                 ///obtenemos los productos o servicios para insertar en los 
@@ -438,6 +498,16 @@ class SaleDocumentController extends Controller
 
                     ]);
 
+                    SaleProduct::create([
+                        'sale_id' => $sale->id,
+                        'product_id' => $product_id,
+                        'product' => json_encode(Product::find($product_id)),
+                        'saleProduct' => json_encode($produc),
+                        'price' => $produc['unit_price'],
+                        'discount' => $produc['discount'],
+                        'quantity' => $produc['quantity'],
+                        'total' => round($total_item, 2)
+                    ]);
 
                     if ($produc['is_product']) {
                         $k = Kardex::create([
@@ -516,6 +586,7 @@ class SaleDocumentController extends Controller
             return response()->json($res);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
+            // Devuelve una respuesta de error
         }
     }
 
@@ -772,15 +843,16 @@ class SaleDocumentController extends Controller
         }
     }
 
-    public function printDocument($id, $type, $file)
+    public function printDocument($id, $type, $file, $format = 'A4')
     {
+
         $res = array();
         $content_type = null;
         switch ($type) {
             case '01':
                 $factura = new Factura();
                 if ($file == 'PDF') {
-                    $res = $factura->getFacturaPdf($id);
+                    $res = $factura->getFacturaDomPdf($id, $format);
                     $content_type = 'application/pdf';
                 } else if ($file == 'XML') {
                     $content_type =  'application/xml';
@@ -795,7 +867,7 @@ class SaleDocumentController extends Controller
                 $boleta = new Boleta();
                 if ($file == 'PDF') {
                     $content_type = 'application/pdf';
-                    $res = $boleta->getBoletatPdf($id);
+                    $res = $boleta->getBoletatDomPdf($id, $format);
                 } else if ($file == 'XML') {
                     $content_type =  'application/xml';
                     $res = $boleta->getBoletaXML($id);
@@ -809,6 +881,7 @@ class SaleDocumentController extends Controller
                 echo "i es igual a 2";
                 break;
         }
+        //dd($res);
         //return response()->file($res['filePath'], ['content-type' => 'application/pdf']);
         return response()->download($res['filePath'], $res['fileName'], ['content-type' => $content_type]);
     }
@@ -945,6 +1018,12 @@ class SaleDocumentController extends Controller
                 ]);
                 ///se crea la venta
                 $sale = Sale::find($sale_id);
+                $sale->update([
+                    'status' => 9,
+                ]);
+                SaleDocument::where('sale_id', $sale_id)->update([
+                    'status' => 9
+                ]);
 
                 ///obtenemos la serie elejida para hacer la venta
                 ///para traer tambien su numero correlativo
@@ -979,7 +1058,9 @@ class SaleDocumentController extends Controller
                     'invoice_send_date'             => Carbon::now()->format('Y-m-d'),
                     'invoice_legend_code'           => '1000',
                     'invoice_legend_description'    => $numberletters->convertToLetter($request->get('total')),
-                    'invoice_status'                => 'registrado'
+                    'invoice_status'                => 'registrado',
+                    'additional_description'        => $request->get('additional_description'),
+                    'overall_total'                 => $request->get('total')
                 ]);
 
                 ///obtenemos los productos o servicios para insertar en los 
@@ -1121,6 +1202,8 @@ class SaleDocumentController extends Controller
                     'invoice_status'            => 'Pendiente',
                 ]);
 
+
+
                 $serie->increment('number', 1);
 
                 return $document;
@@ -1129,6 +1212,71 @@ class SaleDocumentController extends Controller
             return response()->json($res);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
+        }
+    }
+
+    public function cancelDocument(Request $request)
+    {
+        $type = $request->get('type');
+        $document = SaleDocument::find($request->get('id'));
+
+        $res = [];
+
+        if ($type == '03') {
+            $document->status = 3;
+            $document->reason_cancellation = $request->get('reason');
+            $document->invoice_status = 'Enviada Por Anular';
+            $document->save();
+            $res = $this->createSumamry($document);
+            $boleta = new Boleta();
+            $boleta->updateStockSale($document->id);
+        }
+
+        return response()->json($res);
+    }
+
+    public function createSumamry($document)
+    {
+
+        $generation_date = $document->invoice_broadcast_date;
+
+        try {
+            $res = DB::transaction(function () use ($document, $generation_date) {
+
+                $summary = SaleSummary::create([
+                    'generation_date'   => $generation_date . ' ' . Carbon::parse($document->created_at)->format('H:i:s'),
+                    'summary_date'      => Carbon::now()->format('Y-m-d H:i:s'),
+                    'status'            => 'registrado',
+                    'reason'            => $document->reason_cancellation,
+                    'user_id'           => Auth::id()
+                ]);
+
+                SaleSummaryDetail::create([
+                    'document_id'               => $document->id,
+                    'summary_id'                => $summary->id,
+                    'model_name'                => SaleDocument::class,
+                    'invoice_type_doc'          => $document->invoice_type_doc,
+                    'invoice_serie'             => $document->invoice_serie,
+                    'invoice_document_name'     => $document->invoice_serie . '-' . $document->number,
+                    'invoice_correlative'       => $document->invoice_correlative,
+                    'status'                    => $document->status,
+                    'total'                     => $document->invoice_mto_imp_sale
+                ]);
+
+                $factura = new Resumen();
+                $result = $factura->create($summary, [$document]);
+
+                return [
+                    'success' => $result['success'],
+                    'code'  => $result['code'],
+                    'message'   => $result['message'],
+                    'notes'   => $result['notes']
+                ];
+            });
+
+            return $res;
+        } catch (\Exception $e) {
+            return ['message' => $e->getMessage()];
         }
     }
 }

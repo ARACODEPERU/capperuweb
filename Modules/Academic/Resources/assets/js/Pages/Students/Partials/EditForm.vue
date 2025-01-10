@@ -24,6 +24,11 @@ const props = defineProps({
     }
 });
 
+const baseUrl = assetUrl;
+
+const getImage = (path) => {
+    return baseUrl + 'storage/'+ path;
+}
 
 const form = useForm({
     id: props.student.id,
@@ -33,7 +38,7 @@ const form = useForm({
     telephone: props.student.telephone,
     email: props.student.email,
     image: props.student.image,
-    image_preview: props.student.image_preview,
+    image_preview: props.student.image ? getImage(props.student.image) : null,
     address: props.student.address,
     ubigeo: props.student.ubigeo,
     birthdate: props.student.birthdate,
@@ -53,6 +58,8 @@ const createPatient = () => {
                 title: 'Enhorabuena',
                 text: 'Se Actualizó correctamente',
                 icon: 'success',
+                padding: '2em',
+                customClass: 'sweet-alerts',
             });
         },
     });
@@ -94,6 +101,8 @@ const loadFile = (event) => {
         URL.revokeObjectURL(imageFile); // libera memoria
     }
 };
+
+
 </script>
 
 <template>
@@ -143,14 +152,7 @@ const loadFile = (event) => {
                         <img id='preview_img' class="h-16 w-16 object-cover rounded-full" :src="form.image_preview" alt="Current profile photo" />
                     </div>
                     <label class="block ml-1">
-                        <span class="sr-only">Elige foto</span>
-                        <input  type="file" @change="loadFile" class="block w-full text-sm text-slate-500
-                            mr-4 py-2 px-4
-                            rounded-full border-0
-                            text-sm font-semibold
-                            bg-violet-50 text-violet-700
-                            hover:bg-violet-100
-                        " />
+                        <input @change="loadFile" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                     </label>
                 </div>
             </div>

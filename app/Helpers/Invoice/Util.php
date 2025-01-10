@@ -16,6 +16,7 @@ use Greenter\Report\Resolver\DefaultTemplateResolver;
 use Greenter\Report\XmlUtils;
 use Greenter\See;
 use Greenter\Ws\Services\SunatEndpoints;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 final class Util
 {
@@ -59,12 +60,12 @@ final class Util
     protected function setCredentials($company)
     {
         if ($this->mode == 'prod') {
-            $this->certificate = $company->certificate_sunat;
+            $this->certificate = __DIR__ . DIRECTORY_SEPARATOR . 'Certificates' . DIRECTORY_SEPARATOR . $company->certificate_sunat;
             $this->ruc = $company->ruc;
             $this->user = $company->user_sunat;
             $this->password = $company->key_sunat;
         } else if ($this->mode == 'demo') {
-            $this->certificate = __DIR__ . DIRECTORY_SEPARATOR . 'certificates' . DIRECTORY_SEPARATOR . 'certificate.pem';
+            $this->certificate = __DIR__ . DIRECTORY_SEPARATOR . 'Certificates' . DIRECTORY_SEPARATOR . 'certificate.pem';
             $this->ruc = '20000000001';
             $this->user = 'MODDATOS';
             $this->password = 'moddatos';
@@ -81,6 +82,7 @@ final class Util
         $see = new See();
 
         $certificate = file_get_contents($this->certificate);
+
         if ($certificate === false) {
             throw new Exception('No se pudo cargar el certificado');
         }
@@ -98,7 +100,9 @@ final class Util
             'auth' => 'https://gre-test.nubefact.com/v1',
             'cpe' => 'https://gre-test.nubefact.com/v1',
         ]);
-        $certificate = file_get_contents(__DIR__ . '/../resources/cert.pem');
+        //$certificate = file_get_contents(__DIR__ . '/../resources/cert.pem');
+        $certificate = file_get_contents($this->certificate);
+
         if ($certificate === false) {
             throw new Exception('No se pudo cargar el certificado');
         }
@@ -152,21 +156,61 @@ final class Util
             mkdir($fileDir, 0777, true);
         }
         $filePath = $fileDir . DIRECTORY_SEPARATOR . $filename;
+
+
         file_put_contents($filePath, $content);
 
         return $filePath;
     }
 
-    public function getPdf(DocumentInterface $document): ?string
+    public function generatePdf(DocumentInterface $document, $seller = null, $qr_path = null, $format = 'A4')
     {
+
+        $params = self::getParametersPdf($this->company, $seller);
+
+        $fileDir = public_path();
+
+        if (!file_exists($fileDir)) {
+            mkdir($fileDir, 0777, true);
+        }
+        $filename = $document->getName() . '.pdf';
+        $filePath = $fileDir . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'invoice' . DIRECTORY_SEPARATOR . $filename;
+
+        if ($format == 'A4') {
+            $pdf = Pdf::loadView('sales::sales.invoice_pdf', [
+                'document' => $document,
+                'params' => $params,
+                'qr_path' => $qr_path
+            ]);
+            $pdf->setPaper('a4', 'portrait');
+        } else if ($format == 't80') {
+            $pdf = Pdf::loadView('sales::sales.invoice_ticket_pdf', [
+                'document' => $document,
+                'params' => $params,
+                'qr_path' => $qr_path
+            ]);
+            $pdf->setPaper(array(0, 0, 273, 500), 'portrait');
+        }
+
+        $pdf->save($filePath);
+
+        return $filePath;
+    }
+
+    public function getPdf(DocumentInterface $document, $seller = null): ?string
+    {
+
         $fileDir = $this->folder . DIRECTORY_SEPARATOR . 'cache';
+
         $html = new HtmlReport('', [
             'cache' => $fileDir,
             'strict_variables' => true,
         ]);
 
         $resolver = new DefaultTemplateResolver();
+
         $template = $resolver->getTemplate($document);
+
         $html->setTemplate($template);
 
         $render = new PdfReport($html);
@@ -180,15 +224,17 @@ final class Util
         ]);
 
         $binPath = self::getPathBin();
+
         if (file_exists($binPath)) {
             $render->setBinPath($binPath);
         }
 
         $hash = $this->getHash($document);
-        $params = self::getParametersPdf($this->company);
+
+        $params = self::getParametersPdf($this->company, $seller);
 
         $params['system']['hash'] = $hash;
-        $params['user']['footer'] = '<div>consulte en <a href="https://github.com/giansalex/sufel">sufel.com</a></div>';
+        $params['user']['footer'] = '<div>consulte en <a href="' . route("find_electronic_invoice") . '">BUSCAR</a></div>';
 
         $pdf = $render->render($document, $params);
 
@@ -243,9 +289,11 @@ final class Util
 
     public static function getPathBin(): string
     {
-        $path = __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'wkhtmltopdf';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
         if (self::isWindows()) {
-            $path .= '.exe';
+            $path .= 'wkhtmltopdf.exe';
+        } else {
+            $path .= 'wkhtmltox.deb';
         }
 
         return $path;
@@ -259,19 +307,33 @@ final class Util
     private function getHash(DocumentInterface $document): ?string
     {
         $see = $this->getSee('');
+
         $xml = $see->getXmlSigned($document);
 
         return (new XmlUtils())->getHashSign($xml);
+        //return null;
     }
 
     /**
      * @return array<string, array<string, array<int, array<string, string>>|bool|string>>
      */
-    private static function getParametersPdf($company): array
+    private static function getParametersPdf($company, $seller = null): array
     {
-        $img = public_path($company->logo);
+        $img = null;
+
+        if ($company->logo == '/img/logo176x32.png') {
+            $img = public_path($company->logo);
+        } else {
+            $img = public_path('storage/' . $company->logo);
+        }
 
         $logo = file_get_contents($img);
+
+        $seller_name = 'ARACODE SELLER';
+
+        if ($seller) {
+            $seller_name  = $seller->name;
+        }
 
         return [
             'system' => [
@@ -282,8 +344,14 @@ final class Util
                 'resolucion' => '212321',
                 'header' => $company->phone,
                 'extras' => [
-                    ['name' => 'FORMA DE PAGO', 'value' => 'Contado'],
-                    ['name' => 'VENDEDOR', 'value' => 'GITHUB SELLER'],
+                    [
+                        'name' => 'FORMA DE PAGO',
+                        'value' => 'Contado'
+                    ],
+                    [
+                        'name' => 'VENDEDOR',
+                        'value' => $seller_name
+                    ],
                 ],
             ]
         ];

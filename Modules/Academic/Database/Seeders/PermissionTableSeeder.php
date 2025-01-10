@@ -22,6 +22,10 @@ class PermissionTableSeeder extends Seeder
         $permissions = [];
 
         array_push($permissions, Permission::create(['name' => 'aca_dashboard']));
+        array_push($permissions, Permission::create(['name' => 'aca_suscripciones']));
+        array_push($permissions, Permission::create(['name' => 'aca_suscripciones_nuevo']));
+        array_push($permissions, Permission::create(['name' => 'aca_suscripciones_editar']));
+        array_push($permissions, Permission::create(['name' => 'aca_suscripciones_eliminar']));
         array_push($permissions, Permission::create(['name' => 'aca_institucion_listado']));
         array_push($permissions, Permission::create(['name' => 'aca_institucion_nuevo']));
         array_push($permissions, Permission::create(['name' => 'aca_institucion_editar']));
@@ -43,12 +47,16 @@ class PermissionTableSeeder extends Seeder
 
         array_push($permissions, Permission::create(['name' => 'aca_miscursos']));
 
+        array_push($permissions, Permission::create(['name' => 'aca_estudiante_cobrar']));
+
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission->name);
         }
 
-        // $user = User::find(1);
+        $alumno = Role::create(['name' => 'Alumno']);
+        $alumno->givePermissionTo('aca_miscursos');
 
-        // $user->assignRole('webAdmin');
+        $docente = Role::create(['name' => 'Docente']);
+        $docente->givePermissionTo('aca_cursos_listado');
     }
 }

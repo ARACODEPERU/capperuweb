@@ -5,11 +5,19 @@
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import TextInput from '@/Components/TextInput.vue';
-    import { library } from "@fortawesome/fontawesome-svg-core";
-    import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
+    import { Select, TreeSelect } from 'ant-design-vue';
 
     const props = defineProps({
         client: {
+            type: Object,
+            default: () => ({}),
+        },
+        identityDocumentTypes: {
+            type: Object,
+            default: () => ({}),
+        },
+        ubigeo: {
             type: Object,
             default: () => ({}),
         }
@@ -21,8 +29,8 @@
         document_type_id: props.client.document_type_id,
         telephone: props.client.telephone,
         email: props.client.email,
-        address: props.client.address
-
+        address: props.client.address,
+        ubigeo: props.client.ubigeo
     });
 
     const editClient = () => {
@@ -33,7 +41,11 @@
         });
     };
 
-    library.add(faTrashAlt);
+    const filterOption = (input, option) => {
+        const inputValueLower = input.toLowerCase();
+        const optionTitleLower = option.label.toLowerCase();
+        return optionTitleLower.includes(inputValueLower);
+    };
 
 </script>
 
@@ -44,41 +56,33 @@
         </template>
 
         <template #description>
-            Editar Cliente
+            <span>Editar cliente, los campos con * son obligatorios. También puedes verificar si el cliente ya existe en </span>
+
+            <a @click="openSwal2Search" href="javascript:;" class="text-primary font-semibold hover:underline group">
+                la base de datos 
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ltr:ml-1 rtl:mr-1 inline-block relative transition-all duration-300 group-hover:translate-x-2 rtl:group-hover:-translate-x-2 rtl:rotate-180">
+                    <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </a>
         </template>
 
         <template #form>
             <div class="col-span-4 sm:col-span-2">
-                        <InputLabel value="Tipo de Documento" class="mb-1" />
-                        <select class="form-select appearance-none
-                            block
-                            w-full
-                            text-base
-                            font-normal
-                            text-gray-700
-                            bg-white bg-clip-padding bg-no-repeat
-                            border border-solid border-gray-300
-                            rounded
-                            transition
-                            ease-in-out
-                            m-0
-                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            v-model="form.document_type_id"
-                            >
-                                <option value="" selected>Seleccionar</option>
-                                    <option :value="1" @click="document_type_id=1">DNI</option>
-                                    <option :value="6" @click="document_type_id=6">RUC</option>
-                                    <option :value="0" @click="document_type_id=0">Otros</option>
-                          </select>
-                        <InputError :message="form.errors.document_type_id" class="mt-2" />
+                <InputLabel value="Tipo de Documento *" class="mb-1" />
+                <select class="form-select text-white-dark"
+                    v-model="form.document_type_id"
+                    >
+                        <option value="" selected>Seleccionar</option>
+                        <option v-for="(item, key) in identityDocumentTypes" :value="item.id">{{ item.description }}</option>
+                    </select>
+                <InputError :message="form.errors.document_type_id" class="mt-2" />
              </div>
             <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="number" value="Número de Doc." />
+                <InputLabel for="number" value="Número de Doc. *" />
                 <TextInput
                     id="number"
                     v-model="form.number"
                     type="number"
-                    class="block w-full mt-1"
                     autofocus
                 />
                 <InputError :message="form.errors.number" class="mt-2" />
@@ -95,8 +99,8 @@
                 <InputError :message="form.errors.telephone" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel v-if="document_type_id==6" for="full_name" value="Razón Social" />
-                <InputLabel v-else for="full_name" value="Nombres" />
+                <InputLabel v-if="form.document_type_id==6" for="full_name" value="Razón Social" />
+                <InputLabel v-else for="full_name" value="Nombres *" />
                 <TextInput
                     id="full_name"
                     v-model="form.full_name"
@@ -106,8 +110,8 @@
                 />
                 <InputError :message="form.errors.full_name" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="email" value="Email" />
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="email" value="Email *" />
                 <TextInput
                     id="email"
                     v-model="form.email"
@@ -118,7 +122,7 @@
                 <InputError :message="form.errors.email" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="address" value="Dirección" />
+                <InputLabel for="address" value="Dirección *" />
                 <TextInput
                     id="address"
                     v-model="form.address"
@@ -126,6 +130,17 @@
                     class="block w-full mt-1"
                     autofocus
                 />
+                <InputError :message="form.errors.address" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="city" value="Ciudad *" />
+                <Select
+                    v-model:value="form.ubigeo"
+                    style="width: 100%"
+                    :options="ubigeo.map((obj) => ({value:obj.district_id,label: obj.department_name+'-'+obj.province_name+'-'+obj.district_name,distric_name: obj.district_name }))"
+                    show-search
+                    :filter-option="filterOption"
+                ></Select>
                 <InputError :message="form.errors.address" class="mt-2" />
             </div>
 

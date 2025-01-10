@@ -2,6 +2,7 @@
 
 namespace Modules\Sales\Http\Controllers;
 
+use App\Helpers\Invoice\Documents\Factura;
 use App\Helpers\Invoice\Documents\LowCommunication;
 use App\Models\SaleDocument;
 use Carbon\Carbon;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Modules\Sales\Entities\SaleLowCommunication;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use Modules\Sales\Entities\SaleLowcoDetail;
 
 class SaleLowCommunicationController extends Controller
@@ -85,9 +87,10 @@ class SaleLowCommunicationController extends Controller
         $lowco = SaleLowCommunication::create([
             'generation_date'       => $generation_date . ' ' . Carbon::now()->format('H:i:s'),
             'communication_date'    => Carbon::now()->format('Y-m-d H:i:s'),
-            'status'                => 'registrado'
+            'status'                => 'registrado',
+            'user_id'               => Auth::id()
         ]);
-
+        $factura = new Factura();
         foreach ($documents as $document) {
             if ($document['edit_low']) {
                 SaleLowcoDetail::create([
@@ -106,6 +109,7 @@ class SaleLowCommunicationController extends Controller
                         'status'            => 3,
                         'invoice_status'    => 'Enviada Por Anular'
                     ]);
+                $factura->updateStockSale($document['id']);
             }
         }
 

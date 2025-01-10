@@ -1,12 +1,14 @@
 <?php
 
-
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\KenthaController;
 use App\Http\Controllers\CapperuController;
 use App\Http\Controllers\KardexController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LocalSaleController;
+use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +17,10 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebController;
 use App\Mail\StudentRegistrationMailable;
+use App\Models\District;
+use App\Models\Person;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Modules\Blog\Http\Controllers\BlogController;
 
@@ -58,6 +64,13 @@ Route::get('/gracias/{sale_id}',            [CapperuController::class, 'gracias'
 Route::get('/convenios',                    [CapperuController::class, 'convenios'])->name('web_convenios');
 Route::get('/contacto',                     [CapperuController::class, 'contacto'])->name('web_contacto');
 
+Route::get('/main/vue', [LandingController::class, 'index'])->name('index_main');
+Route::get('/facturador', [LandingController::class, 'biller'])->name('biller_main');
+Route::get('/news', [LandingController::class, 'blog'])->name('blog_main');
+Route::get('/terms', [LandingController::class, 'terms'])->name('terms_main');
+Route::get('/computer/store', [LandingController::class, 'computerStore'])->name('index_computer_store');
+Route::get('/prices/academic', [LandingController::class, 'academicPrices'])->name('academic_prices');
+Route::get('/create/payment/{id}/academic', [LandingController::class, 'academiCreatePayment'])->name('academic_form_mercadopago');
 
 Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
 
@@ -211,6 +224,13 @@ Route::middleware('auth')->group(function () {
             return response('No es un archivo SVG válido.', 400);
         }
     })->name('ruta-svg');
+
+
+    Route::resource('modulos', ModuloController::class);
+    Route::get('modulos/permissions/{id}/add', [ModuloController::class, 'permissions'])->name('modulos_permissions');
+    Route::post('modulos/permissions/store', [ModuloController::class, 'storePermissions'])->name('modulos_permissions_store');
+
+    Route::get('calendar/index', [CalendarController::class, 'index'])->name('calendar');
 });
 
 require __DIR__ . '/auth.php';

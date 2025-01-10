@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SaleProduct extends Model
 {
@@ -16,7 +17,9 @@ class SaleProduct extends Model
         'price',
         'discount',
         'quantity',
-        'total'
+        'total',
+        'saleProduct',
+        'entity_name_product'
     ];
 
     public function sale()
