@@ -1,5 +1,5 @@
-<div>
-    <section class="trending-courses-area pd-top-100 pd-bottom-100">
+
+    <section class="trending-courses-area pd-top-100 pd-bottom-100"  style="background-color: #F9FAFD;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -270,4 +270,3 @@
         </div>
     </section>
     
-</div>

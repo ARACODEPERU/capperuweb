@@ -1,12 +1,13 @@
 <div>
-    <div class="text-center pd-top-135 pd-top-50 pd-bottom-100" style="background-color: #F9FAFD;">
+    <div class="text-center pd-top-135 pd-top-50 pd-bottom-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title">
                         <h2>Nuestros Beneficios</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget aenean accumsan bibendum gravida
-                            maecenas augue elementum et neque. Suspendisse imperdiet .</p>
+                        <p>
+                            ¿Listo para llevar tus conocimientos al siguiente nivel?
+                        </p>
                     </div>
                 </div>
             </div>
@@ -19,8 +20,10 @@
                         </div>
                         <div class="wrap-details">
                             <h4><a href="#">Convenios</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui praesent nam fermentum, est
-                                neque, dignissim. Phasellus feugiat elit vulputate convallis.</p>
+                            <p>
+                                Gracias a nuestras alianzas estratégicas, podrás acceder a 
+                                certificaciones reconocidas y contenido único que potencia tu aprendizaje. 
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -32,8 +35,10 @@
                         </div>
                         <div class="wrap-details">
                             <h4><a href="#">Campus Virtual</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui praesent nam fermentum, est
-                                neque, dignissim. Phasellus feugiat elit vulputate convallis.</p>
+                            <p>
+                                Nuestros cursos incluyen certificados oficiales que validan tus conocimientos y te abren 
+                                nuevas puertas profesionales. ¡Demuestra lo que sabes y alcanza tus metas! 
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -45,8 +50,10 @@
                         </div>
                         <div class="wrap-details">
                             <h4><a href="#">Certificados</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui praesent nam fermentum, est
-                                neque, dignissim. Phasellus feugiat elit vulputate convallis.</p>
+                            <p>
+                                Nuestros cursos incluyen certificados oficiales que validan tus conocimientos y 
+                                te abren nuevas puertas profesionales. ¡Demuestra lo que sabes y alcanza tus metas! 
+                            </p>
                         </div>
                     </div>
                 </div>

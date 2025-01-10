@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div class="single-about-wrap">
+                    <div class="single-about-wrap box-zoom">
                         <div class="thumb">
                             <img style="width: 80px;" src="{{ asset('themes/capperu/assets/img/about/vision.png') }}" alt="img">
                         </div>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="single-about-wrap">
+                    <div class="single-about-wrap box-zoom">
                         <div class="thumb">
                             <img style="width: 80px;" src="{{ asset('themes/capperu/assets/img/about/mision.png') }}" alt="img">
                         </div>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="single-about-wrap">
+                    <div class="single-about-wrap box-zoom">
                         <div class="thumb">
                             <img style="width: 80px;" src="{{ asset('themes/capperu/assets/img/about/valores.png') }}" alt="img">
                         </div>
