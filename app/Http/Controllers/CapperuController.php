@@ -62,7 +62,13 @@ class CapperuController extends Controller
             'banner' => $banner
         ]);
     }
-    
+
+    public function eclaims()
+    {
+
+        return view('capperu/email/e_complaints_book');
+    }
+
     public function categorias()
     {
         return view('capperu/categorias');
