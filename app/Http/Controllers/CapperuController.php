@@ -22,6 +22,7 @@ use Modules\Blog\Entities\BlogArticle;
 use Modules\Blog\Entities\BlogCategory;
 use Illuminate\Support\Facades\DB;
 use Modules\CMS\Entities\CmsSection;
+use App\Mail\ComplaintsBookMail;
 
 
 class CapperuController extends Controller
@@ -155,7 +156,7 @@ class CapperuController extends Controller
             ->with('agreements')
             ->where('id', $item->item_id)
             ->first();
-        
+
         $whatsappAsesor = CmsSection::where('component_id', 'peru_whatsapp_asesora_area_13')  //siempre cambiar el id del componente
             ->join('cms_section_items', 'section_id', 'cms_sections.id')
             ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -464,5 +465,19 @@ class CapperuController extends Controller
 
         // Si el archivo no existe, puedes retornar una respuesta de error o redireccionar a otra página
         abort(404, 'El archivo no existe');
+    }
+
+    public function send_claim(Request $request)
+    {
+        $data = $request->all();
+
+        $recipient = $data['email'];
+        Mail::to($recipient)->send(new ComplaintsBookMail($data));
+
+        $recipient = env('MAIL_FROM_ADDRESS');
+        $data['ours'] = true;
+        Mail::to($recipient)->send(new ComplaintsBookMail($data));
+
+        return view('capperu.email.e_complaints_book')->with('complaints', $data);
     }
 }

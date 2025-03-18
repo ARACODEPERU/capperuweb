@@ -1,32 +1,32 @@
 
     <!DOCTYPE html>
     <html lang="en">
-    
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Celmovil | Libro de reclamaciones</title>
-    
+
         <!--Google Fonts-->
         {{-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
             rel="stylesheet"> --}}
-    
+
         <style>
             * {
                 margin: 0;
                 padding: 0;
                 font-size: 18px;
             }
-    
+
             *:after,
             *:before {
                 box-sizing: border-box;
             }
-    
+
             .bienvenida {
                 padding: 50px 10px 0px 10px;
             }
-    
+
             /* Establece el ancho al 100% y la altura a 250px */
             .banner {
                 width: 100%;
@@ -34,13 +34,13 @@
                 /* Cambia el color de fondo según tus preferencias */
                 /* Puedes agregar más estilos según tus necesidades */
             }
-    
-    
+
+
             img {
                 max-width: 100%;
                 display: block;
             }
-    
+
             .icon-button {
                 border: 0;
                 background-color: #fff;
@@ -57,19 +57,19 @@
                 z-index: 1;
                 cursor: pointer;
                 color: #565656;
-    
+
                 svg {
                     width: 1em;
                     height: 1em;
                 }
-    
+
                 &:hover,
                 &:focus {
                     background-color: #ec4646;
                     color: #fff;
                 }
             }
-    
+
             .card-footer {
                 margin-top: 1.25rem;
                 border-top: 1px solid #ddd;
@@ -78,12 +78,12 @@
                 align-items: center;
                 flex-wrap: wrap;
             }
-    
+
             .card-meta {
                 display: flex;
                 align-items: center;
                 color: #787878;
-    
+
                 &:first-child:after {
                     display: block;
                     content: "";
@@ -94,7 +94,7 @@
                     margin-left: 0.75rem;
                     margin-right: 0.75rem;
                 }
-    
+
                 svg {
                     flex-shrink: 0;
                     width: 1em;
@@ -102,24 +102,24 @@
                     margin-right: 0.25em;
                 }
             }
-    
+
             .subTitle {
                 text-align: center;
                 font-size: 25px;
                 color: #808080;
             }
-    
+
             .title {
                 text-align: center;
                 font-size: 40px;
                 font-weight: 700;
                 color: #0c161f;
             }
-    
+
             h3{
                 color: #8B0E06;
             }
-    
+
             /* Estilos para la línea */
             .linea {
                 border: 2px solid #8B0E06;
@@ -129,8 +129,8 @@
                 width: 5%;
                 /* Establece el ancho de la línea al 50% de la página */
             }
-    
-    
+
+
             .contenedor {
                 place-items: center;
                 /* Esto centra tanto horizontal como verticalmente */
@@ -139,19 +139,19 @@
                 display: flex;
                 flex-wrap: wrap;
             }
-    
+
             .contenedor-texto {
                 margin: 0px auto;
                 width: 50%;
             }
-    
+
             .columna {
                 flex: 1;
                 padding: 10px;
                 border: 1px solid #ccc;
                 text-align: center;
             }
-    
+
             .btn {
                 border: none;
                 color: white;
@@ -159,32 +159,32 @@
                 cursor: pointer;
                 border-radius: 5px;
             }
-    
+
             .primary {
                 background-color: #ff8607;
             }
-    
+
             .primary:hover {
                 background: #010101;
             }
-    
+
             footer {
                 padding: 15px;
                 text-align: center;
                 background: #000;
                 color: #fff;
             }
-    
+
             footer a {
                 text-decoration: none;
                 color: yellow;
             }
-    
+
             footer a:hover {
                 text-decoration: none;
                 color: orange;
             }
-    
+
             /* Estilos adicionales para hacerlo adaptable y estilizado */
             @media (max-width: 768px) {
                 .contenedor {
@@ -192,7 +192,7 @@
                     margin: 0px auto;
                     width: 95%;
                 }
-    
+
                 .columna {
                     flex: 1;
                     margin: 5px;
@@ -200,41 +200,41 @@
             }
         </style>
     </head>
-    
+
     <body>
         <section>
             <img class="banner" src="{{ asset('themes/capperu/assets/img/bienvenida.jpg') }}" alt="">
         </section>
-    
+
         <section class="bienvenida">
             <h5 class="title">LIBRO DE RECLAMACIONES</h5>
             <hr class="linea">
         </section>
-    
+
         <section style="padding: 15px;">
             <div class="contenedor">
                 <div class="contenedor-texto">
                     <h3>1. IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE</h3>
                     <p style="margin-top: 10px;">
-                        <b>Nombre completo:</b> Jesús Anaya Aguirre <br>
-                        <b>DNI:</b> 42858706 <br>
-                        <b>Correo electrónico:</b> jesus@gmail.com <br>
-                        <b>Teléfono:</b> 977627207 <br>
+                        <b>Nombre completo:</b> {{ $complaints['names'] }} {{ $complaints['lastnames'] }}<br>
+                        <b>{{ $complaints['document_type'] }}:</b> {{ $complaints['number'] }} <br>
+                        <b>Correo electrónico:</b> {{ $complaints['email'] }} <br>
+                        <b>Teléfono:</b> {{ $complaints['phone'] }} <br>
                     </p>
                     <br>
                     <h3>2. IDENTIFICACIÓN DEL BIEN CONTRATADO</h3>
                     <p style="margin-top: 10px;">
-                        <b>Tipo del Producto: </b> Curso <br>
-                        <b>Nombre del producto: </b> Aprende de cero a pro <br>
-                        <b>Monto reclamación: </b> S/ 1260<br>
+                        <b>Tipo del Producto: </b> {{ $complaints['product_type'] }} <br>
+                        <b>Nombre del producto: </b> {{ $complaints['product_name'] }} <br>
+                        <b>Monto reclamación: </b> S/ {{ $complaints['amount'] }}<br>
                         <b>Detalle: </b><br>
-                        Aqui vendria toda la queja o reclamo. 
+                        {{ $complaints['details'] }}
                     </p>
                 </div>
             </div>
         </section>
         <br>
-    
+
         <section style="padding: 15px;">
             <div class="contenedor">
                 <div class="contenedor-texto" style="text-align: center; padding: 15px; background-color: #F9FAFD;">
@@ -249,6 +249,5 @@
             </p>
         </footer>
     </body>
-    
+
     </html>
-    
