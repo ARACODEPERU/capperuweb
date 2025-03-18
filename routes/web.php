@@ -24,15 +24,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Modules\Blog\Http\Controllers\BlogController;
 
-/* Sitio Webs KENTHA
-Route::get('/kentha', [WebController::class, 'index'])->name('cms_principal');
-Route::get('/nosotros', [KenthaController::class, 'nosotros'])->name('web_nosotros');
-Route::get('/servicios', [KenthaController::class, 'servicios'])->name('web_servicios');
-Route::get('/proyectos', [KenthaController::class, 'proyectos'])->name('web_proyectos');
-Route::get('/contacto', [KenthaController::class, 'contacto'])->name('web_contacto');
-*/
-
-//Route::redirect('/cvinnova', 'http://campus.capperu.com');
 
 Route::get('cookies_policy', function () {
     return view('cookies_policy');
@@ -45,11 +36,14 @@ Route::get('/cvinnova', function () {
 });
 
 Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController::class, 'testimage'])->name('test-image');
+
+// SITE WEB //
 Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
 Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
 Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
-Route::get('/politicas-de-privacidad',         [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
-Route::get('/gestion-de-calidad',         [CapperuController::class, 'gestioncalidad'])->name('web_gestion_calidad');
+Route::get('/politicas-de-privacidad',      [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
+Route::get('/gestion-de-calidad',           [CapperuController::class, 'gestioncalidad'])->name('web_gestion_calidad');
+Route::get('/libro-de-reclamaciones',       [CapperuController::class, 'claims'])->name('web_claims');
 Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
 Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
 Route::get('/categoria-modalidad-en-vivo',  [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
@@ -82,20 +76,25 @@ Route::get('/create/payment/{id}/academic', [LandingController::class, 'academiC
 
 Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
 
-
-
 Route::get('/download/brochure/{id}', [CapperuController::class, 'download_brochure'])->name('download_brochure');
 
+// BLOG //
 Route::get('/blog/home', [BlogController::class, 'index'])->name('blog_principal');
 Route::get('/article/{url}', [BlogController::class, 'article'])->name('blog_article_by_url');
 Route::get('/category/{id}', [BlogController::class, 'category'])->name('blog_category');
 Route::get('/policies', [BlogController::class, 'policies'])->name('blog_policies');
 Route::get('/contact-us', [BlogController::class, 'contactUs'])->name('blog_contact_us');
-
 Route::get('/stories/article/{url}', [BlogController::class, 'storiesArticle'])->name('blog_stories_article_by_url');
 Route::get('/stories/policies', [BlogController::class, 'storiesPolicies'])->name('blog_stories_policies');
 Route::get('/stories/contact-us', [BlogController::class, 'storiesContactUs'])->name('blog_stories_contact_us');
 
+// E-MAIL //
+Route::get('/e-libro-de-reclamaciones', [CapperuController::class, 'eclaims'])->name('web_e_claims');
+Route::get('/email', function () {
+    Mail::to('elrodriguez2423@gmail.com')
+        ->send(new StudentRegistrationMailable('data'));
+    return 'mensaje enviado';
+});
 
 Route::get('/mipais', function () {
     $ip = $_SERVER['REMOTE_ADDR']; // Esto contendrá la ip de la solicitud.
@@ -109,11 +108,6 @@ Route::get('/mipais', function () {
     dd($dataArray);
 });
 
-Route::get('/email', function () {
-    Mail::to('elrodriguez2423@gmail.com')
-        ->send(new StudentRegistrationMailable('data'));
-    return 'mensaje enviado';
-});
 
 Route::get('/capperu', function () {  /////////////////////////////////////////////////////////// login erp
     return Inertia::render('Welcome', [

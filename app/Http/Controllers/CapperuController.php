@@ -46,6 +46,29 @@ class CapperuController extends Controller
         return view('capperu/gestion-de-calidad');
     }
 
+    public function claims()
+    {
+        $banner = CmsSection::where('component_id', 'banner_nosotros_6')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view('pages/complaints-book', [
+            'banner' => $banner
+        ]);
+    }
+
+    public function eclaims()
+    {
+
+        return view('capperu/email/e_complaints_book');
+    }
+
     public function categorias()
     {
         return view('capperu/categorias');
