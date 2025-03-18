@@ -41,7 +41,7 @@ class WebController extends Controller
             ->get();
 
         $sliders = CmsSectionItem::with('item.items')->where('section_id', 9)->get();
-        
+
         // $sliders = CmsSection::where('component_id', 'peru_slider_area_9')  //siempre cambiar el id del componente
         //     ->join('cms_section_items', 'section_id', 'cms_sections.id')
         //     ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
@@ -186,46 +186,46 @@ class WebController extends Controller
             $response->header('Content-Type', 'image/png');
 
 
-            //QR GENERATOR
-            // Incluir la librería PHP puro
-            require_once(app_path() . '\\Phpqr\\qrlib.php');
+            // //QR GENERATOR
+            // // Incluir la librería PHP puro
+            // require_once(app_path() . '\\Phpqr\\qrlib.php');
 
-            $files = [
-                "qrconst.php",
-                "qrconfig.php",
-                "qrtools.php",
-                "qrspec.php",
-                "qrimage.php",
-                "qrinput.php",
-                "qrbitstream.php",
-                "qrsplit.php",
-                "qrrscode.php",
-                "qrmask.php",
-                "qrencode.php"
-            ];
+            // $files = [
+            //     "qrconst.php",
+            //     "qrconfig.php",
+            //     "qrtools.php",
+            //     "qrspec.php",
+            //     "qrimage.php",
+            //     "qrinput.php",
+            //     "qrbitstream.php",
+            //     "qrsplit.php",
+            //     "qrrscode.php",
+            //     "qrmask.php",
+            //     "qrencode.php"
+            // ];
 
-            foreach ($files as $file) {
-                require_once(app_path() . '\\Phpqr\\'.$file);
-            }
-
-
-            // Datos que deseas codificar en el código QR
-            $data = 'https://www.aracodeperu.com'; // Puedes cambiar esto por tus propios datos
-
-            // Generar el código QR y almacenarlo en una variable
-            $qr2 = QRcode::png($data,false ,'H', 10);
-            return $qr2;
+            // foreach ($files as $file) {
+            //     require_once(app_path() . '\\Phpqr\\'.$file);
+            // }
 
 
-            // // Generar el código QR con un texto específico
-            // $qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
+            // // Datos que deseas codificar en el código QR
+            // $data = 'https://www.aracodeperu.com'; // Puedes cambiar esto por tus propios datos
 
-            // //$qr2 = base64_decode($qr2);
-            // //$qr2 = $qr2->encode('png');
-            // echo $qr2;
+            // // Generar el código QR y almacenarlo en una variable
+            // $qr2 = QRcode::png($data,false ,'H', 10);
+            // return $qr2;
 
-            // Retornar la respuesta
-            //return $response;
+
+            // Generar el código QR con un texto específico
+            $qr2 = QrCode::size(300)->generate('Aracode Smart Solutions');
+
+            //$qr2 = base64_decode($qr2);
+            //$qr2 = $qr2->encode('png');
+            //echo $qr2;
+
+            //Retornar la respuesta
+            return $response;
         }
     }
 
