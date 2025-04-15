@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
+import { router } from '@inertiajs/vue3'
 
 const cardPaymentBrickContainer = ref(null);
 
@@ -16,6 +17,10 @@ const props = defineProps({
     subscription:{
         type: Object,
         default: () => ({}),
+    },
+    samount: {
+        type: Number,
+        default: null,
     }
 });
 
@@ -38,7 +43,7 @@ const renderCardPaymentBrick = async (bricksBuilder) => {
     const settings = {
         initialization: {
             preferenceId: props.preference,
-            amount: 300,
+            amount: props.samount,
         },
         customization: {
             visual: {
@@ -57,31 +62,25 @@ const renderCardPaymentBrick = async (bricksBuilder) => {
                 console.log("Brick está listo");
             },
             onSubmit: (cardFormData) => {
-                return fetch(route("aca_mercadopago_processpayment", subscription.id), {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    },
-                    body: JSON.stringify(cardFormData),
-                })
-                    .then((response) => {
-                        if (!response.ok) {
-                            return response.json().then((error) => {
-                                throw new Error(error.error);
-                            });
-                        }
-                        return response.json();
-                    })
-                    .then((data) => {
+                return axios({
+                        method: 'PUT',
+                        url: route("aca_mercadopago_processpayment", props.subscription.id),
+                        data: cardFormData
+                    }).then((response) => {
+                        return response.data;
+                    }).then((data) => {
                         if (data.status === "approved") {
-                            window.location.href = data.url;
+                            router.visit(data.url, {
+                                method: 'get',
+                                replace: true,
+                                preserveState: false,
+                                preserveScroll: false,
+                            });
                         } else {
                             alert(data.message);
                             window.location.reload();
                         }
-                    })
-                    .catch((error) => {
+                    }).catch((error) => {
                         alert(error.message || "Error al procesar el pago.");
                         window.location.reload();
                     });

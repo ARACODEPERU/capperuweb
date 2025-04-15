@@ -19,6 +19,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Modules\CRM\Emails\ClientHelpEmail;
+use Modules\CRM\Entities\CrmInformationBank;
 
 class CrmMessagesController extends Controller
 {
@@ -80,11 +81,12 @@ class CrmMessagesController extends Controller
                 'conversation_id' => $conversationId,
                 'person_id' => $personId,
                 'content' => htmlentities($request->get('text'), ENT_QUOTES, "UTF-8"),
-                'type' => $request->get('type')
+                'type' => $request->get('type'),
+                'answer_ai' => $request->has('answer_ai') ? $request->get('answer_ai') : false
             ]);
 
             // Devolver la conversación con los mensajes
-            broadcast(new SendMessage($participants, $message, ['ofUserId' => $personId]));
+            broadcast(new SendMessage($participants, $message, ['ofUserId' => $personId], $conversationId));
 
             CrmConversation::find($conversationId)->update([
                 'new_message' => true,
@@ -292,5 +294,21 @@ class CrmMessagesController extends Controller
         Mail::to($data[1]->email_for)->send(new ClientHelpEmail($data));
 
         return true;
+    }
+
+    public function frequentlyQuestionsStore(Request $request)
+    {
+        $iBank = CrmInformationBank::create([
+            'question_text' => $request->get('question_text'),
+            'response_text' => $request->get('response_text'),
+            'user_id' => $request->get('user_id'),
+            'likes_count' => 1,
+            'shared_count' => 1,
+            'status' => true
+        ]);
+
+        return  response()->json([
+            'ibank' => $iBank
+        ]);
     }
 }

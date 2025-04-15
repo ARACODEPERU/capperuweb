@@ -19,6 +19,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Modules\Academic\Entities\AcaCapRegistration;
+use Modules\Academic\Entities\AcaStudent;
 
 class AcaCourseController extends Controller
 {
@@ -105,7 +107,11 @@ class AcaCourseController extends Controller
             'category_id'       => $request->get('category_id'),
             'modality_id'       => $request->get('modality_id'),
             'type_description'  => $request->get('type_description'),
-            'sector_description' => $request->get('sector_description')
+            'sector_description' => $request->get('sector_description'),
+            'price'                     => $request->get('price') ?? 0,
+            'certificate_description'   => trim($request->get('certificate_description')) ?? null,
+            'discount'  => $request->get('discount'),
+            'discount_applies'  => $request->get('discount_applies')
         ]);
 
         $path = null;
@@ -226,6 +232,10 @@ class AcaCourseController extends Controller
         $course->modality_id       = $request->get('modality_id');
         $course->type_description  = $request->get('type_description');
         $course->sector_description = $request->get('sector_description');
+        $course->price                   = $request->get('price') ?? 0;
+        $course->certificate_description  = trim($request->get('certificate_description')) ?? null;
+        $course->discount = $request->get('discount') ?? 0;
+        $course->discount_applies = $request->get('discount_applies') ?? null;
 
         $destination = 'uploads/courses';
         $base64Image = $request->get('image');
@@ -305,6 +315,24 @@ class AcaCourseController extends Controller
 
         return response()->json([
             'courses' => $courses
+        ]);
+    }
+
+    public function enrolledStudents($id)
+    {
+        $course = AcaCourse::find($id);
+
+        $students = AcaCapRegistration::with('student.person')
+            ->where('course_id', $id)
+            ->get()
+            ->map(function ($student) {
+                $student->checkbox = false;
+                return $student;
+            });
+
+        return Inertia::render('Academic::Courses/EnrolledStudents', [
+            'course' => $course,
+            'students' => $students
         ]);
     }
 }

@@ -60,7 +60,7 @@
                     icon: 'success',
                 });
                 router.visit(route('aca_courses_list'), {
-                    replace: false, 
+                    replace: false,
                     method: 'get',
                     preserveState: true,
                     preserveScroll: true,
@@ -135,7 +135,7 @@
     const saveAgreements = () => {
         formAgreement.progress = true;
         axios.post(route('aca_agreements_store'), formAgreement ).then((res) => {
-            
+
             formAgreement.progress = false;
             Swal2.fire({
                 title: 'Enhorabuena',
@@ -155,7 +155,7 @@
                 for (let field in errors) {
                     formAgreement.setError(field, errors[field][0]);
                 }
-                
+
             }
             formAgreement.progress = false;
         });
@@ -169,13 +169,7 @@
 
 const dataModule = ref({});
 
-const openModalModules = (course) =>{
-    dataModule.value = {
-        course_id: course.id,
-        name_course: course.description,
-        modules: course.modules
-    };
-}
+
 const baseUrl = assetUrl;
 
 const getImage = (path) => {
@@ -183,9 +177,7 @@ const getImage = (path) => {
 }
 
 const dataModalContent = ref(null);
-const selectTheme = (data) => {
-    dataModalContent.value = data;
-}
+
 </script>
 
 <template>
@@ -238,6 +230,9 @@ const selectTheme = (data) => {
                                         Nombre
                                     </th>
                                     <th>
+                                        Categoría
+                                    </th>
+                                    <th>
                                         Sector
                                     </th>
                                     <th>
@@ -262,19 +257,22 @@ const selectTheme = (data) => {
                                                 <template #overlay>
                                                 <Menu>
                                                     <MenuItem>
-                                                        <Link :href="route('aca_courses_edit',course.id)" class="dark:text-gray-200 dark:hover:text-white">Editar</Link>
+                                                        <Link :href="route('aca_courses_edit',course.id)" >Editar</Link>
                                                     </MenuItem>
                                                     <MenuItem>
-                                                        <Link :href="route('aca_courses_information',course.id)" class="dark:text-gray-200 dark:hover:text-white">Información</Link>
+                                                        <Link :href="route('aca_enrolledstudents_list',course.id)" >Alumnos</Link>
                                                     </MenuItem>
                                                     <MenuItem>
-                                                        <a @click="openModalAgreements(course)" href="#" class="dark:text-gray-200 dark:hover:text-white">Convenios</a>
+                                                        <Link :href="route('aca_courses_information',course.id)" >Información</Link>
                                                     </MenuItem>
                                                     <MenuItem>
-                                                        <Link :href="route('aca_courses_module_panel',course.id)" class="dark:text-gray-200 dark:hover:text-white">Módulos</Link>
+                                                        <a @click="openModalAgreements(course)" href="#" >Convenios</a>
                                                     </MenuItem>
                                                     <MenuItem>
-                                                        <a @click="destroyCourse(course.id)" href="#" class="text-red-700 dark:text-gray-200 dark:hover:text-white">Eliminar</a>
+                                                        <Link :href="route('aca_courses_module_panel',course.id)" >Módulos</Link>
+                                                    </MenuItem>
+                                                    <MenuItem>
+                                                        <a @click="destroyCourse(course.id)" href="#" >Eliminar</a>
                                                     </MenuItem>
                                                 </Menu>
                                                 </template>
@@ -285,6 +283,9 @@ const selectTheme = (data) => {
                                         </td>
                                         <td class="whitespace-nowrap">
                                             {{ course.category.description }}
+                                        </td>
+                                        <td class="whitespace-nowrap">
+                                            {{ course.sector_description }}
                                         </td>
                                         <td class="whitespace-nowrap">
                                             {{ course.type_description }}
@@ -305,10 +306,10 @@ const selectTheme = (data) => {
                         <Pagination :data="courses" />
                     </ConfigProvider>
                 </div>
-                    
+
             </div>
         </div>
-        
+
         <ModalLarge
             :onClose = "closeModalAgreements"
             :show="displayModalAgreements"
@@ -338,7 +339,7 @@ const selectTheme = (data) => {
                         <InputError :message="formAgreement.errors.end_date" class="mt-2" />
                     </div>
                 </div>
-                
+
                 <div class="mt-4">
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <div class="border p-4" v-for="(xagreement) in arrayAgreements">

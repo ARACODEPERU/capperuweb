@@ -11,7 +11,7 @@ import Keypad from '@/Components/Keypad.vue';
 import swal from 'sweetalert';
 import { watchEffect, defineComponent, ref, onMounted } from 'vue';
 
-import { 
+import {
     ConfigProvider, Divider, Space, Button, Select, Input, message, TreeSelect
 } from 'ant-design-vue';
 
@@ -29,6 +29,10 @@ const props = defineProps({
     brands: {
         type: Object,
         default: () => ({}),
+    },
+    P000014: {
+        type: String,
+        default: "1",
     }
 });
 
@@ -36,14 +40,25 @@ const categoriesData = ref([]);
 const brandsData = ref([]);
 
 onMounted(()=>{
+    if(props.P000014 == "1"){
     // cuando las categorias no tiene sub niveles
-    // categoriesData.value = props.categories.map(item => ({ value: item.id, label: item.description }));
-    categoriesData.value = props.categories.map((obj) => ({
-        value: obj.id,
-        label: obj.description,
-        children: obj.subcategories.map(item => ({ value: item.id, label: item.description }))
-    }));
-
+        categoriesData.value = props.categories.map(item => ({ value: item.id, label: item.description }));
+    } else if(props.P000014 == "2"){
+        categoriesData.value = props.categories.map((obj) => ({
+            value: obj.id,
+            label: obj.description,
+            children: obj.subcategories.map(item => ({
+                value: item.id,
+                label: item.description,
+                children: item.subcategories && item.subcategories.length > 0
+                    ? item.subcategories.map(sub => ({
+                        value: sub.id,
+                        label: sub.description
+                    }))
+                    : null // Si item.subcategories no existe o está vacío, se asigna null
+            }))
+        }));
+    }
     brandsData.value = props.brands.map(item => ({ value: item.id, label: item.description }));
 });
 
@@ -101,7 +116,7 @@ const createProduct = () => {
         forceFormData: true,
         errorBag: 'createProduct',
         preserveScroll: true,
-        onSuccess: () =>{ 
+        onSuccess: () =>{
             form.reset()
             swal('Producto registrado con exito.')
         },
@@ -145,7 +160,7 @@ const addCategory = () => {
                 message.success('Se registró correctamente');
                 categoriesData.value.push({
                     value: res.data.category.id,
-                    label: res.data.category.description 
+                    label: res.data.category.description
                 })
             }
         }).then(() => {
@@ -165,7 +180,7 @@ const addBrand = () => {
                 message.success('Se registró correctamente');
                 brandsData.value.push({
                     value: res.data.brand.id,
-                    label: res.data.brand.description 
+                    label: res.data.brand.description
                 })
             }
         }).then(() => {
@@ -191,7 +206,7 @@ const addBrand = () => {
                 <div class="col-span-6 sm:col-span-3">
                     <InputLabel for="category_id" value="Categoría" />
                     <!-- cuando es solo un nivel de las categorias-->
-                    <!-- 
+                    <!--
                     <Select
                         id="category_id"
                         v-model:value="form.category_id"
@@ -260,10 +275,10 @@ const addBrand = () => {
                 </div>
                 <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="stablishment" value="Establecimiento" />
-                    <Select 
+                    <Select
                         style="width: 100%;"
-                        v-model:value="form.local_id" 
-                        id="stablishment" 
+                        v-model:value="form.local_id"
+                        id="stablishment"
                         :options="establishments.map((obj) => ({ value:obj.id, label:obj.description }))"
                     >
                     </Select>
@@ -322,7 +337,7 @@ const addBrand = () => {
                     <small>Solo Numeros</small>
                     <InputError :message="form.errors.purchase_prices" class="mt-2" />
                 </div>
-                
+
                 <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="sale_prices" value="Precio de venta" />
                     <TextInput
@@ -381,37 +396,39 @@ const addBrand = () => {
                     </label>
                     <div v-for="(item, index) in form.sizes" v-bind:key="index">
                         <table style="width: 100%;">
-                            <tr>
-                                <td style="padding: 4px;">
-                                    <div class="col-span-3 sm:col-span-2">
-                                        <InputLabel value="Descripcion" />
-                                        <TextInput
-                                            v-model="item.size"
-                                            type="text"
-                                            class="block w-full mt-1"
-                                            autofocus
-                                        />
-                                        <InputError :message="form.errors[`sizes.${index}.size`]" class="mt-2" />
-                                    </div>
-                                </td>
-                                <td style="padding: 4px;">
-                                    <div class="col-span-3 sm:col-span-2">
-                                        <InputLabel value="Cantidad" />
-                                        <TextInput
-                                            v-model="item.quantity"
-                                            type="number"
-                                            class="block w-full mt-1"
-                                            autofocus
-                                        />
-                                        <InputError :message="form.errors[`sizes.${index}.quantity`]" class="mt-2" />
-                                    </div>
-                                </td>
-                                <td style="padding: 4px;" valign="bottom">
-                                    <button @click="removeSize(index)" type="button" class="px-2 py-1 inline-block rounded-full bg-blue-600 text-white leading-normal uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                        <font-awesome-icon :icon="faTrashAlt" />
-                                    </button>
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 4px;">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <InputLabel value="Descripcion" />
+                                            <TextInput
+                                                v-model="item.size"
+                                                type="text"
+                                                class="block w-full mt-1"
+                                                autofocus
+                                            />
+                                            <InputError :message="form.errors[`sizes.${index}.size`]" class="mt-2" />
+                                        </div>
+                                    </td>
+                                    <td style="padding: 4px;">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <InputLabel value="Cantidad" />
+                                            <TextInput
+                                                v-model="item.quantity"
+                                                type="number"
+                                                class="block w-full mt-1"
+                                                autofocus
+                                            />
+                                            <InputError :message="form.errors[`sizes.${index}.quantity`]" class="mt-2" />
+                                        </div>
+                                    </td>
+                                    <td style="padding: 4px;" valign="bottom">
+                                        <button @click="removeSize(index)" type="button" class="px-2 py-1 inline-block rounded-full bg-blue-600 text-white leading-normal uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                            <font-awesome-icon :icon="faTrashAlt" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

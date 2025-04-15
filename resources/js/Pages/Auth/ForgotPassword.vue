@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm, usePage, Link } from '@inertiajs/vue3';
 import IconMail from '@/Components/vristo/icon/icon-mail.vue';
+import { useAppStore } from '@/stores/index';
 
 defineProps({
     status: {
@@ -22,6 +23,8 @@ const submit = () => {
 };
 const baseUrl = assetUrl;
 const company = usePage().props.company;
+
+const store = useAppStore();
 
 </script>
 
@@ -63,7 +66,14 @@ const company = usePage().props.company;
                     <div class="relative flex w-full flex-col items-center justify-center gap-6 px-4 pb-16 pt-6 sm:px-6 lg:max-w-[667px]">
                         <div class="flex w-full max-w-[440px] items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full">
                             <Link :href="route('index_main')" class="w-8 block lg:hidden">
-                                <img :src="`${baseUrl}/img/isotipo.png`" alt="Logo" class="mx-auto w-10" />
+                                <template v-if="store.theme === 'light'">
+                                    <img v-if="company.isotipo == '/img/isotipo.png'" :src="`${baseUrl}/img/isotipo.png`" alt="Logo" class="mx-auto w-10" />
+                                    <img v-else :src="`${baseUrl}storage/${company.isotipo}`" alt="Logo" class="mx-auto w-10" />
+                                </template>
+                                <template v-if="store.theme === 'dark'">
+                                    <img v-if="company.isotipo == '/img/isotipo_negativo.png'" :src="`${baseUrl}/img/isotipo_negativo.png`" alt="Logo" class="mx-auto w-10" />
+                                    <img v-else :src="`${baseUrl}storage/${company.isotipo_negative}`" alt="Logo" class="mx-auto w-10" />
+                                </template>
                             </Link>
                             <div class="dropdown ms-auto w-max">
                                 <!-- <Popper :placement="'bottom-start'" offsetDistance="8">
@@ -108,11 +118,11 @@ const company = usePage().props.company;
                                 <h1 class="mb-3 text-2xl font-bold !leading-snug dark:text-white">Has olvidado tu contraseña</h1>
                                 <p>¿Olvidaste tu contraseña? No hay problema. Solo indícanos tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña que te permitirá elegir una nueva.</p>
                             </div>
-                            <form class="space-y-5" @submit.prevent="submit">
+                            <form class="space-y-5" @submit.prevent="submit" novalidate>
                                 <div>
                                     <label for="Email">Correo electrónico</label>
                                     <div class="relative text-white-dark">
-                                        <input id="Email" type="email" placeholder="Introducir correo electrónico" 
+                                        <input id="Email" type="text" placeholder="Introducir correo electrónico" 
                                             class="form-input pl-10 placeholder:text-white-dark"
                                             v-model="form.email"
                                             required

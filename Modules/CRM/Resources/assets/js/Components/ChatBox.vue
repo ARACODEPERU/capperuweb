@@ -1,16 +1,19 @@
 <script setup>
-    import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
+    import { ref, watch, onMounted, onUnmounted, computed, nextTick } from 'vue';
     import { useSharedStore } from '../useSharedStore';
     import IconMaximizer from '@/Components/vristo/icon/icon-maximizer.vue';
     import IconMinimizer from '@/Components/vristo/icon/icon-minimizer.vue';
     import IconX from '@/Components/vristo/icon/icon-x.vue';
     import IconSend from '@/Components/vristo/icon/icon-send.vue';
     import AudioPlayer from '@/Components/AudioPlayer.vue';
-    import { usePage } from '@inertiajs/vue3';
+    import { usePage, router, Link } from '@inertiajs/vue3';
     import FileDownload from '../Pages/Chat/Partials/FileDownload.vue';
     import Swal from 'sweetalert2';
 
     // Instancia del store
+    const appCodeUnique = import.meta.env.VITE_APP_CODE ?? 'ARACODE';
+    const channelListenChat = "message-notification-" + appCodeUnique;
+
     const storeChatBox = useSharedStore();
 
       const privateChat = ref({
@@ -55,7 +58,7 @@
 
     const getMessagesChat = () => {
         privateChat.value.loading = true;
-        let myDiv = document.getElementById('header-total-news'); 
+        let myDiv = document.getElementById('header-total-news');
 
         // Verifica si el div existe
         if (myDiv) {
@@ -69,7 +72,7 @@
                 return response.data;
             }).then((res) => {
                 privateChat.value.messages = res;
-                
+
                 privateChat.value.loading = false;
                 return true;
             }).then(() => {
@@ -133,7 +136,7 @@
     };
 
     onMounted(() => {
-        window.socketIo.on('message-notification', (result) => {
+        window.socketIo.on(channelListenChat, (result) => {
             let participants = result.data.participants;
             let conversationId = result.data.message.conversation_id;
 
@@ -145,7 +148,7 @@
                 type: result.data.message.type,
                 id: result.data.message.id
             };
-            
+
             participants.forEach(item => {
                 if(authUser.id == item){
                     if(privateChat.value){
@@ -154,14 +157,14 @@
                             scrollToBottomChatBox();
                         }
                     }
-                    
+
                 }
             });
         });
     });
 
     onUnmounted(() => {
-        window.socketIo.off('message-notification'); // Dejar el canal cuando se desmonte el componente
+        window.socketIo.off(channelListenChat); // Dejar el canal cuando se desmonte el componente
     });
 
     onMounted(() => {
@@ -175,12 +178,12 @@
     const displayNoneDivs = () => {
         let crmlist = document.getElementById('crm-chatbox-list');
         let crmform = document.getElementById('crm-chatbox-form');
-        
+
         if (crmlist) {
             crmlist.classList.remove('chat-maximizer');
             crmlist.classList.add('chat-minimizer');
         }
-        
+
         if (crmform) {
             crmform.classList.remove('chat-maximizer');
             crmform.classList.add('chat-minimizer');
@@ -189,16 +192,30 @@
     const displayBlockDivs = () => {
         let crmlist = document.getElementById('crm-chatbox-list');
         let crmform = document.getElementById('crm-chatbox-form');
-        
+
         if (crmlist) {
             crmlist.classList.remove('chat-minimizer');
             crmlist.classList.add('chat-maximizer');
         }
-        
+
         if (crmform) {
             crmform.classList.remove('chat-minimizer');
             crmform.classList.add('chat-maximizer');
         }
+    }
+
+    const goMessengerMode = () => {
+        router.visit(route('crm_application_ai_prompt'), {
+            method: 'get',
+            replace: false,
+            data: {conv: privateChat.value.conversation},
+            onFinish: () => {
+                hideChatBox();
+                setTimeout(() => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, 100);
+            },
+        });
     }
 </script>
 <template>
@@ -206,7 +223,7 @@
         <form @submit.prevent="sendMessageChatBox" class="bg-white shadow-md rounded-t-lg max-w-lg w-full">
             <div class="p-2 border-b bg-blue-500 text-white rounded-t-lg">
                 <div class="flex justify-between items-center w-full">
-                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                    <div @click="goMessengerMode" class="flex items-center cursor-pointer space-x-2 rtl:space-x-reverse">
                         <div class="relative flex-none">
                             <img v-if="privateChat.avatar" :src="getImage(privateChat.avatar)" class="rounded-full w-6 h-6 sm:h-8 sm:w-8 object-cover" />
                             <img v-else :src="`https://ui-avatars.com/api/?name=${privateChat.full_name}&size=150&rounded=true`" class="rounded-full w-6 h-6 sm:h-8 sm:w-8 object-cover" />
@@ -246,25 +263,25 @@
                                 {{ message.text }}
                             </p>
                             <p v-if="message.type == 'audio'" class="bg-blue-500 text-white rounded-lg rounded-br-none py-2 px-4 inline-block">
-                                <AudioPlayer :audioSrc="message.text" :position="'right'" /> 
+                                <AudioPlayer :audioSrc="message.text" :position="'right'" />
                             </p>
                             <p v-if="message.type == 'file'" class="bg-blue-500 text-white rounded-lg rounded-br-none py-2 px-4 inline-block">
-                                <FileDownload 
-                                    :fileDate="message.text" 
+                                <FileDownload
+                                    :fileDate="message.text"
                                     :position="'right'"
                                 />
                             </p>
                         </div>
                         <div v-else class="mb-2">
-                            <p v-if="message.type == 'text'" class="bg-gray-200 text-gray-700 rounded-lg rounded-tl-none py-2 px-4 inline-block">
-                                {{ message.text }}
-                            </p>
+                            <template v-if="message.type == 'text'">
+                                <div v-html="message.text" class="bg-gray-200 text-gray-700 rounded-lg rounded-tl-none py-2 px-4 inline-block"></div>
+                            </template>
                             <p v-if="message.type == 'audio'" class="bg-gray-200 text-gray-700 rounded-lg rounded-tl-none py-2 px-4 inline-block">
-                                <AudioPlayer :audioSrc="message.text" :position="'left'" /> 
+                                <AudioPlayer :audioSrc="message.text" :position="'left'" />
                             </p>
                             <p v-if="message.type == 'file'" class="bg-gray-200 text-gray-700 rounded-lg rounded-tl-none py-2 px-4 inline-block">
-                                <FileDownload 
-                                    :fileDate="message.text" 
+                                <FileDownload
+                                    :fileDate="message.text"
                                     :position="'left'"
                                 />
                             </p>
@@ -294,7 +311,7 @@
                 <div class="p-4 border-t flex">
                     <input v-model="privateChatText" id="user-input" type="text" placeholder="Escribe un mensaje" class="w-full px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <button @click="sendMessageChatBox" type="button" id="send-button" class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">
-                    <icon-send /> 
+                    <icon-send />
                     </button>
                 </div>
             </div>

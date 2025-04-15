@@ -79,7 +79,7 @@ Route::get('/terms', [LandingController::class, 'terms'])->name('terms_main');
 Route::get('/computer/store', [LandingController::class, 'computerStore'])->name('index_computer_store');
 Route::get('/prices/academic', [LandingController::class, 'academicPrices'])->name('academic_prices');
 Route::get('/create/payment/{id}/academic', [LandingController::class, 'academiCreatePayment'])->name('academic_form_mercadopago');
-
+Route::get('/curso-descripcion/{id}', [WebPageController::class, 'cursodescripcion'])->name('web_curso_descripcion');
 Route::get('/categorias', [CapperuController::class, 'categorias'])->name('web_categorias');
 
 
@@ -239,6 +239,11 @@ Route::middleware('auth')->group(function () {
     Route::post('modulos/permissions/store', [ModuloController::class, 'storePermissions'])->name('modulos_permissions_store');
 
     Route::get('calendar/index', [CalendarController::class, 'index'])->name('calendar');
+	
+	Route::post(
+        'person/birthdays',
+        [PersonController::class, 'getBirthdays']
+    )->name('person-birthdays');
 });
 
 require __DIR__ . '/auth.php';

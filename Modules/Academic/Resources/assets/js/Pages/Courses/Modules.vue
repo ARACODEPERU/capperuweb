@@ -11,21 +11,18 @@
     import SecondaryButton from '@/Components/SecondaryButton.vue';
     import SpinnerLoading from '@/Components/SpinnerLoading.vue';
     import IconClipboardText from '@/Components/vristo/icon/icon-clipboard-text.vue';
-    import IconListCheck from '@/Components/vristo/icon/icon-list-check.vue';
-    import IconThumbUp from '@/Components/vristo/icon/icon-thumb-up.vue';
-    import IconStar from '@/Components/vristo/icon/icon-star.vue';
     import IconTrashLines from '@/Components/vristo/icon/icon-trash-lines.vue';
     import IconSquareRotated from '@/Components/vristo/icon/icon-square-rotated.vue';
     import IconPlus from '@/Components/vristo/icon/icon-plus.vue';
     import IconMenu from '@/Components/vristo/icon/icon-menu.vue';
-    import IconSearch from '@/Components/vristo/icon/icon-search.vue';
-    import IconCaretDown from '@/Components/vristo/icon/icon-caret-down.vue';
-    import IconUser from '@/Components/vristo/icon/icon-user.vue';
+    import IconUserPlus from '@/Components/vristo/icon/icon-user-plus.vue';
     import IconHorizontalDots from '@/Components/vristo/icon/icon-horizontal-dots.vue';
     import IconPencilPaper from '@/Components/vristo/icon/icon-pencil-paper.vue';
-    import IconRestore from '@/Components/vristo/icon/icon-restore.vue';
     import IconX from '@/Components/vristo/icon/icon-x.vue';
     import InputError from '@/Components/InputError.vue';
+    import switchCheerful from '@/Components/switch/switch-cheerful.vue';
+
+    import ModalLarge from "@/Components/ModalLarge.vue";
 
     const props = defineProps({
         course: {
@@ -37,17 +34,6 @@
     const dataModules = ref([]);
     const dataThemes = ref([]);
     const dataContents = ref([]);
-
-    const defaultParams = ref({
-        id: null,
-        title: '',
-        description: '',
-        descriptionText: '',
-        assignee: '',
-        path: '',
-        tag: '',
-        priority: 'low',
-    });
 
     const selectedTab = ref('');
     const isShowTaskMenu = ref(false);
@@ -105,7 +91,7 @@
         }else{
             dataThemes.value = [];
         }
-        
+
         isShowTaskMenu.value = false;
         selectedTab.value = module.id;
     };
@@ -194,6 +180,8 @@
                 }
             }
             btnContentLoading.value = false;
+        }).finally(() => {
+            btnContentLoading.value = false;
         });
     }
 
@@ -243,7 +231,7 @@
             themeForm.id = data.id;
             themeForm.position = data.position;
             themeForm.description = data.description;
-    
+
         }
         displayThemeModal.value = true;
     }
@@ -254,7 +242,7 @@
         }else{
             dataContents.value = [];
         }
-        
+
         contentForm.theme_name = item.description;
         contentForm.theme_id = item.id;
         contentForm.theme_key = key;
@@ -264,9 +252,9 @@
     };
 
     const saveTheme = () => {
-        
+
         btnThemeLoading.value = true;
-        
+
         let urrl = route('aca_courses_module_themes_store');
         let metthod = 'POST';
 
@@ -274,7 +262,7 @@
             urrl = route('aca_courses_module_themes_update',themeForm.id);
             metthod = 'PUT';
         }
-        
+
         axios({
             method: metthod,
             url: urrl,
@@ -368,14 +356,14 @@
             moduleForm.id = data.id;
             moduleForm.position = data.position;
             moduleForm.description = data.description;
-    
+
         }
         displayModuleModal.value = true;
     }
 
     const saveModule = () => {
         btnModuleLoading.value = true;
-        
+
         let urrl = route('aca_courses_module_store');
         let metthod = 'POST';
 
@@ -418,7 +406,7 @@
             btnModuleLoading.value = false;
             //displayModuleModal.value = false;
         });
-        
+
     }
 
     const replaceModuleById = (id, newItem = null) => {
@@ -469,17 +457,69 @@
     }
 
     const handleFileChangeContent = (event) => {
-      const file = event.target.files[0];
-      if (file && file.type === 'application/pdf') {
-        contentForm.content = file;
-        contentForm.clearErrors();
-      } else {
-        contentForm.setError({
-            content: 'Solo se permiten archivos PDF.',
-        });
-        event.target.value = null; // Resetea el campo de entrada si el archivo no es válido
-      }
+        const file = event.target.files[0];
+        const allowedTypes = [
+            'application/pdf',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-excel'
+        ];
+
+        if (file && allowedTypes.includes(file.type)) {
+            contentForm.content = file;
+            contentForm.clearErrors();
+        } else {
+            contentForm.setError({
+                content: 'Solo se permiten archivos PDF o Excel.',
+            });
+            event.target.value = null; // Resetea el campo de entrada si el archivo no es válido
+        }
     }
+
+    const displayModalDocents = ref(false);
+    const dataModalModule = ref({});
+    const formModuleTeacher = ref({
+        module_id: null,
+        teacher_id: null,
+        processing: false
+    });
+
+    const showModalDocents = (module) => {
+        formModuleTeacher.value.teacher_id = module.teacher_id;
+        dataModalModule.value = module;
+        formModuleTeacher.value.module_id = module.id
+        displayModalDocents.value = true;
+    }
+
+    const closeModalDocents = () => {
+        displayModalDocents.value = false;
+    }
+
+    const saveModuleTeacher = () => {
+        formModuleTeacher.value.processing = true;
+
+        axios({
+            method: 'POST',
+            url: route('aca_courses_module_teacher_update'),
+            data: formModuleTeacher.value
+        }).then(() => {
+            Swal2.fire({
+                title: 'Enhorabuena',
+                text: 'Se agrego al docente correctamente',
+                icon: 'success',
+                padding: '2em',
+                customClass: 'sweet-alerts',
+            });
+        }).catch(function (error) {
+            console.log(error);
+        }).finally(() => {
+            formModuleTeacher.value.processing = false;
+        });
+
+    }
+
+    const toggleTeacher = (teacherId, event) => {
+        formModuleTeacher.value.teacher_id = event.target.checked ? teacherId : null;
+    };
 </script>
 
 <template>
@@ -547,19 +587,19 @@
                                                                 </a>
                                                             </li>
                                                             <li>
+                                                                <a href="javascript:;" @click="showModalDocents(module)">
+                                                                    <icon-user-plus class="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
+                                                                    <span>
+                                                                        Docentes
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
                                                                 <a href="javascript:;" @click="deleteModule(module.id)">
                                                                     <icon-trash-lines class="ltr:mr-2 rtl:ml-2 shrink-0" />
                                                                     Eliminar
                                                                 </a>
                                                             </li>
-                                                            <!-- <li>
-                                                                <a href="javascript:;" @click="setImportant(module)">
-                                                                    <icon-star class="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
-                                                                    <span>
-                                                                        Preguntas
-                                                                    </span>
-                                                                </a>
-                                                            </li> -->
                                                         </ul>
                                                     </template>
                                                 </Popper>
@@ -623,10 +663,10 @@
                                                                 {{ theme.description }}
                                                         </div>
                                                     </td>
-                                                    
+
                                                     <td class="w-1">
                                                         <div class="flex items-center justify-between w-max">
-                                                            
+
                                                             <div class="dropdown">
                                                                 <Popper
                                                                     :placement="'bottom-start'"
@@ -728,7 +768,7 @@
                                                     </div>
                                                     <div class="ltr:text-right rtl:text-left flex justify-end items-center mt-8 space-x-4">
                                                         <PrimaryButton :class="{ 'opacity-25': btnThemeLoading }" :disabled="btnThemeLoading">
-                                                            <SpinnerLoading :display="btnThemeLoading" /> 
+                                                            <SpinnerLoading :display="btnThemeLoading" />
                                                             Cuardar
                                                         </PrimaryButton>
                                                         <SecondaryButton type="button" @click="closeModalTheme">Cerrar</SecondaryButton>
@@ -789,6 +829,7 @@
                                                             <select v-model="contentForm.is_file" id="ctnSelect2" class="form-select text-white-dark" required>
                                                                 <option value="1">Link de archivo</option>
                                                                 <option value="0">frame de vídeo</option>
+                                                                <option value="3">Link videoconferencia</option>
                                                                 <option value="2">Subir Archivo</option>
                                                             </select>
                                                             <div class="text-danger text-sm mt-1" v-if="contentForm.errors.is_file">{{ contentForm.errors.is_file }}</div>
@@ -809,14 +850,17 @@
                                                     </div>
                                                 </div>
                                                 <div v-if="dataContents.length > 0" class="mt-4 p-4 h-64 overflow-y-auto" >
-                                                    
-                                                    <ol class="relative border-s border-gray-200 dark:border-gray-700"> 
+
+                                                    <ol class="relative border-s border-gray-200 dark:border-gray-700">
                                                         <li v-for="(conte, hy) in dataContents"class="mb-10 ms-6">
                                                             <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                                                                <svg v-if="conte.is_file == 0" class="w-3 h-3 text-blue-800 dark:text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                                <svg v-if="conte.is_file == 0" class="w-3 h-3 text-blue-800 dark:text-blue-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                                                                     <path d="M256 0L576 0c35.3 0 64 28.7 64 64l0 224c0 35.3-28.7 64-64 64l-320 0c-35.3 0-64-28.7-64-64l0-224c0-35.3 28.7-64 64-64zM476 106.7C471.5 100 464 96 456 96s-15.5 4-20 10.7l-56 84L362.7 169c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6l80 0 48 0 144 0c8.9 0 17-4.9 21.2-12.7s3.7-17.3-1.2-24.6l-96-144zM336 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM64 128l96 0 0 256 0 32c0 17.7 14.3 32 32 32l128 0c17.7 0 32-14.3 32-32l0-32 160 0 0 64c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192c0-35.3 28.7-64 64-64zm8 64c-8.8 0-16 7.2-16 16l0 16c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-16 0zm0 104c-8.8 0-16 7.2-16 16l0 16c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-16 0zm0 104c-8.8 0-16 7.2-16 16l0 16c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-16 0zm336 16l0 16c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-16 0c-8.8 0-16 7.2-16 16z"/>
                                                                 </svg>
-                                                                <svg v-else class="w-3 h-3 text-blue-800 dark:text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                                                <svg v-else-if="conte.is_file == 3" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-blue-800 dark:text-blue-300" fill="currentColor" viewBox="0 0 384 512">
+                                                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+                                                                </svg>
+                                                                <svg v-else class="w-3 h-3 text-blue-800 dark:text-blue-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                                                                     <path d="M320 464c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l256 0zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64z"/>
                                                                 </svg>
                                                             </span>
@@ -834,6 +878,11 @@
                                                                         <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
                                                                     </svg> Descargar Archivo
                                                                 </a>
+                                                                <a v-else-if="conte.is_file == 3" :href="conte.content" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                                                                    <svg class="w-3.5 h-3.5 me-2.5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                                        <path d="M0 128C0 92.7 28.7 64 64 64l256 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 448c-35.3 0-64-28.7-64-64L0 128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2l0 256c0 11.8-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L416 337.1l0-17.1 0-128 0-17.1 14.2-9.5 96-64c9.8-6.5 22.4-7.2 32.9-1.6z"/>
+                                                                    </svg> Unirse
+                                                                </a>
                                                                 <a v-else :href="getPath(conte.content)" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                                                                     <svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                                                         <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
@@ -843,11 +892,11 @@
                                                             </div>
                                                         </li>
                                                     </ol>
-                                                    
+
                                                 </div>
                                                 <div class="flex justify-end items-center mt-8 space-x-2">
                                                     <PrimaryButton :type="'button'" @click="saveContent" :class="{ 'opacity-25': btnContentLoading }" :disabled="btnContentLoading">
-                                                        <SpinnerLoading :display="btnContentLoading" /> 
+                                                        <SpinnerLoading :display="btnContentLoading" />
                                                         Cuardar Contenido
                                                     </PrimaryButton>
                                                     <SecondaryButton type="button" @click="viewTaskModal = false">Cerrar</SecondaryButton>
@@ -912,7 +961,7 @@
                                                     </div>
                                                     <div class="ltr:text-right rtl:text-left flex justify-end items-center mt-8 space-x-4">
                                                         <PrimaryButton @click="saveModule" :class="{ 'opacity-25': btnModuleLoading }" :disabled="btnModuleLoading">
-                                                            <SpinnerLoading :display="btnModuleLoading" /> 
+                                                            <SpinnerLoading :display="btnModuleLoading" />
                                                             Cuardar
                                                         </PrimaryButton>
                                                         <SecondaryButton type="button" @click="closeModalModule">Cerrar</SecondaryButton>
@@ -928,5 +977,70 @@
                 </div>
             </div>
         </div>
+        <ModalLarge :show="displayModalDocents" :onClose="closeModalDocents">
+            <template #title>{{ dataModalModule.description }}</template>
+            <template #message>Docentes</template>
+            <template #content>
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Nombre completo
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(row, go) in course.teachers" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                    <img v-if="row.teacher.person.image" class="w-10 h-10 rounded-full" :src="getPath(row.teacher.person.image)" alt="Jese image">
+                                    <img v-else class="w-10 h-10 rounded-full" :src="`https://ui-avatars.com/api/?name=${row.teacher.person.names}&size=150&rounded=true`" :alt="row.teacher.person.names">
+                                    <div class="ps-3">
+                                        <div class="text-base font-semibold">{{ row.teacher.person.full_name }}</div>
+                                        <div class="font-normal text-gray-500">{{ row.teacher.person.email }}</div>
+                                    </div>
+                                </th>
+                                <td class="w-4 p-4 items-center">
+                                    <label v-if="course.teachers.length > 1" :for="`radio-teacher-${go}`" class="inline-flex">
+                                        <input
+                                            type="radio"
+                                            name="square_radio"
+                                            class="form-radio rounded-none"
+                                            :value="row.teacher_id"
+                                            :id="`radio-teacher-${go}`"
+                                            :checked="formModuleTeacher.teacher_id === row.teacher_id"
+                                            @change="formModuleTeacher.teacher_id = row.teacher_id"
+                                        />
+                                    </label>
+                                    <label v-else :for="`checkbox-teacher-${go}`" class="inline-flex">
+                                        <input
+                                            type="checkbox"
+                                            class="form-checkbox peer"
+                                            :value="row.teacher_id"
+                                            :id="`checkbox-teacher-${go}`"
+                                            :checked="formModuleTeacher.teacher_id === row.teacher_id"
+                                            @change="toggleTeacher(row.teacher_id, $event)"
+                                        />
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <template #buttons>
+                <PrimaryButton @click="saveModuleTeacher" :class="{ 'opacity-25': formModuleTeacher.processing }" :disabled="formModuleTeacher.processing">
+                    <svg v-show="formModuleTeacher.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                    </svg>
+                    Guardar
+                </PrimaryButton>
+            </template>
+        </ModalLarge>
     </AppLayout>
 </template>

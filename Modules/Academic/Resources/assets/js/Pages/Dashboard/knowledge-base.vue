@@ -1,6 +1,6 @@
 <script setup>
     import AppLayout from "@/Layouts/Vristo/AppLayout.vue";
-    import { ref } from 'vue';
+    import { ref, onMounted, nextTick } from "vue";
     import VueCollapsible from 'vue-height-collapsible/vue3';
     import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogOverlay, TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
     import { useForm, router, Link  } from '@inertiajs/vue3';
@@ -14,6 +14,7 @@
     import IconMinusCircle from '@/Components/vristo/icon/icon-minus-circle.vue';
     import IconArrowForward from '@/Components/vristo/icon/icon-arrow-forward.vue';
     import IconX from '@/Components/vristo/icon/icon-x.vue';
+    import { Tour } from 'ant-design-vue';
 
     defineProps({
         interests:{
@@ -58,10 +59,73 @@
         const options = { month: 'short', day: 'numeric', year: 'numeric', locale: 'es-ES' };
         return dateObj.toLocaleDateString('es-ES', options);
     }
+
+    const open = ref(false);
+    const btnMenuMycourses = ref(null);
+    const divSearchArticles = ref(null);
+    const btnHeaderPerfilUser = ref(null);
+    const h3CoursesPopulares = ref(null);
+    const h3ArticlesPopulares = ref(null);
+
+    onMounted(() => {
+        nextTick(() => {
+            btnMenuMycourses.value = document.getElementById("btnMenuMycourses");
+            btnHeaderPerfilUser.value = document.getElementById("btnHeaderPerfilUser");
+        });
+        if (!localStorage.getItem('tourShown')) {
+            open.value = true; // Mostrar el tour por primera vez
+        }
+    });
+
+    const steps = [
+        {
+            title: '¡Bienvenido a nuestro sistema académico!',
+            description: 'Aquí encontrarás todas las herramientas necesarias para gestionar tus cursos, explorar artículos y administrar tu perfil.',
+        },
+        {
+            title: 'Acceder a los cursos',
+            description: 'podrás ver todos los cursos en los que has sido matriculado y acceder a su contenido fácilmente.',
+            placement: 'right',
+            target: () => btnMenuMycourses.value,
+        },
+        {
+            title: 'Artículos',
+            description: 'Explora nuestra sección de blog, donde encontrarás artículos de interés sobre diferentes temas académicos y educativos.',
+            placement: 'bottom',
+            target: () => divSearchArticles.value,
+        },
+        {
+            title: 'Perfil',
+            description: 'Desde aquí, puedes acceder a tu perfil, actualizar tu información y cerrar sesión cuando lo necesites.',
+            placement: 'leftBottom',
+            target: () => btnHeaderPerfilUser.value,
+        },
+        {
+            title: 'Cursos populares',
+            description: 'Descubre los cursos más solicitados por nuestros alumnos y elige el que mejor se adapte a tus intereses.',
+            placement: 'bottom',
+            target: () => h3CoursesPopulares.value,
+        },
+        {
+            title: 'Blog Destacados',
+            description: 'En esta sección, encontrarás los artículos más leídos y recomendados por nuestra comunidad de estudiantes.',
+            placement: 'bottom',
+            target: () => h3ArticlesPopulares.value,
+        },
+    ];
+    const handleOpen = (val) => {
+        open.value = val;
+        if (!val) {
+            // Guardar en localStorage que el tour ya se mostró
+            localStorage.setItem('tourShown', 'true');
+        }
+    };
 </script>
 <template>
     <AppLayout title="Dashboard">
         <div>
+            <Tour :open="open" :steps="steps" @close="handleOpen(false)" />
+  
             <div :style="`background-image:url('${urlBasek}themes/vristo/images/knowledge/pattern.png');`" class="relative rounded-t-md bg-primary-light bg-contain bg-left-top bg-no-repeat px-5 py-10 dark:bg-black md:px-10" >
                 <div class="absolute -bottom-1 -end-6 hidden text-[#DBE7FF] rtl:rotate-y-180 dark:text-[#1B2E4B] lg:block xl:end-0">
                     <svg width="375" height="185" viewBox="0 0 375 185" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-72 max-w-xs xl:w-full">
@@ -181,7 +245,7 @@
                     </div>
                     <p class="mb-9 text-center text-base font-semibold">Busque informacion en nuestro blog y cursos libres</p>
                     <form @submit.prevent="searchArticles" class="mb-6">
-                        <div class="relative mx-auto max-w-[580px]">
+                        <div ref="divSearchArticles" class="relative mx-auto max-w-[580px]">
                             <input v-model="articleSearch"type="text" placeholder="Haz una pregunta" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]" />
                             <button :class="{ 'opacity-25': articlesLoading }" :disabled="articlesLoading" type="button" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">
                                 <svg v-if="articlesLoading" aria-hidden="true" role="status" class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,7 +301,7 @@
                     </template>
                 </div>
             </div>
-            <div class="panel mt-10 text-center md:mt-20">
+            <!-- <div class="panel mt-10 text-center md:mt-20">
                 <h3 class="mb-2 text-xl font-bold dark:text-white md:text-2xl">¿Necesitas ayuda?</h3>
                 <div class="text-lg font-medium text-white-dark">
                     Nuestros especialistas siempre están dispuestos a ayudar. Comuníquese con nosotros durante el horario comercial habitual o envíenos un correo electrónico las 24 horas del día, los 7 días de la semana y nos comunicaremos con usted.
@@ -246,9 +310,9 @@
                     <Link :href="route('crm_mailbox_dashboard')" type="button" class="btn btn-primary">Envia un correo</Link>
                     <button type="button" class="btn btn-primary">Chatea con nosotros</button>
                 </div>
-            </div>
+            </div> -->
             <div class="mt-10">
-                <h3 class="mb-6 text-xl font-bold md:text-3xl">Cursos populares</h3>
+                <h3 ref="h3CoursesPopulares" class="mb-6 text-xl font-bold md:text-3xl">Cursos populares</h3>
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
                     <template v-for="(item, index) in interests.popularCourses">
                         <div class="space-y-5 rounded-md border border-white-light bg-white p-5 shadow-[0px_0px_2px_0px_rgba(145,158,171,0.20),0px_12px_24px_-4px_rgba(145,158,171,0.12)] dark:border-[#1B2E4B] dark:bg-black" >

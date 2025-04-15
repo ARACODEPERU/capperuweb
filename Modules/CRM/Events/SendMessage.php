@@ -8,6 +8,7 @@ use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Support\Facades\Auth;
 
 class SendMessage implements ShouldBroadcastNow
 {
@@ -16,17 +17,22 @@ class SendMessage implements ShouldBroadcastNow
     private $participants;
     private $message;
     private $ofUserId;
+    private $channelListenCrm;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($participants, $message, $ofUserId)
+    public function __construct($participants, $message, $ofUserId, $conversationId)
     {
         $this->participants = $participants;
         $this->message  = $message;
         $this->ofUserId  = $ofUserId;
+
+        $appCodeUnique = env('VITE_APP_CODE', 'ARACODE');
+
+        $this->channelListenCrm = "message-notification-" . $appCodeUnique;
     }
     /**
      * Get the channels the event should broadcast on.
@@ -35,7 +41,7 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('message-notification');
+        return new Channel($this->channelListenCrm);
     }
 
     /**

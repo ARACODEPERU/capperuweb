@@ -163,7 +163,7 @@ final class Util
         return $filePath;
     }
 
-    public function generatePdf(DocumentInterface $document, $seller = null, $qr_path = null, $format = 'A4')
+    public function generatePdf(DocumentInterface $document, $seller = null, $qr_path = null, $format = 'A4', $status = 1,)
     {
 
         $params = self::getParametersPdf($this->company, $seller);
@@ -173,25 +173,32 @@ final class Util
         if (!file_exists($fileDir)) {
             mkdir($fileDir, 0777, true);
         }
+
         $filename = $document->getName() . '.pdf';
         $filePath = $fileDir . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'invoice' . DIRECTORY_SEPARATOR . $filename;
 
         if ($format == 'A4') {
-            $pdf = Pdf::loadView('sales::sales.invoice_pdf', [
+
+            $pdf = Pdf::loadView('sales::sales.invoice_a4', [
                 'document' => $document,
                 'params' => $params,
-                'qr_path' => $qr_path
+                'qr_path' => $qr_path,
+                'status' => $status
             ]);
+
             $pdf->setPaper('a4', 'portrait');
         } else if ($format == 't80') {
             $pdf = Pdf::loadView('sales::sales.invoice_ticket_pdf', [
                 'document' => $document,
                 'params' => $params,
-                'qr_path' => $qr_path
+                'qr_path' => $qr_path,
+                'status' => $status
             ]);
             $pdf->setPaper(array(0, 0, 273, 500), 'portrait');
         }
 
+
+        $pdf->render();
         $pdf->save($filePath);
 
         return $filePath;
@@ -319,15 +326,6 @@ final class Util
      */
     private static function getParametersPdf($company, $seller = null): array
     {
-        $img = null;
-
-        if ($company->logo == '/img/logo176x32.png') {
-            $img = public_path($company->logo);
-        } else {
-            $img = public_path('storage/' . $company->logo);
-        }
-
-        $logo = file_get_contents($img);
 
         $seller_name = 'ARACODE SELLER';
 
@@ -337,7 +335,7 @@ final class Util
 
         return [
             'system' => [
-                'logo' => $logo,
+                'logo' => null,
                 'hash' => ''
             ],
             'user' => [

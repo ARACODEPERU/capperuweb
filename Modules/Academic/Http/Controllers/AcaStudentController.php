@@ -8,6 +8,7 @@ use App\Models\PaymentMethod;
 use App\Models\Person;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -21,6 +22,12 @@ use Modules\Academic\Entities\AcaCapRegistration;
 use Modules\Academic\Entities\AcaCourse;
 use Modules\Academic\Entities\AcaModule;
 use Illuminate\Http\RedirectResponse;
+use Modules\Academic\Entities\AcaStudentSubscription;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Modules\Academic\Entities\AcaCertificate;
+use Modules\Academic\Entities\AcaStudentHistory;
 
 class AcaStudentController extends Controller
 {
@@ -59,7 +66,8 @@ class AcaStudentController extends Controller
                 'people.address',
                 'people.birthdate',
                 'people.image AS people_image',
-                'aca_students.created_at'
+                'aca_students.created_at',
+                'aca_students.new_student'
             );
         if (request()->has('search')) {
             $students->where('people.full_name', 'Like', '%' . request()->input('search') . '%');
@@ -126,7 +134,7 @@ class AcaStudentController extends Controller
                 'number'            => 'required|max:12',
                 'number'            => 'unique:people,number,' . $update_id . ',id,document_type_id,' . $request->get('document_type_id'),
                 'telephone'         => 'required|max:12',
-                'email'             => 'required|max:255',
+                'email'             => 'required|email|max:255',
                 'email'             => 'unique:people,email,' . $update_id . ',id',
                 'email'             => 'unique:users,email,' . ($user ? $user->id  : null) . ',id',
                 'address'           => 'required|max:255',
@@ -163,7 +171,8 @@ class AcaStudentController extends Controller
                 'birthdate'             => $request->get('birthdate'),
                 'names'                 => trim($request->get('names')),
                 'father_lastname'       => trim($request->get('father_lastname')),
-                'mother_lastname'       => trim($request->get('mother_lastname'))
+                'mother_lastname'       => trim($request->get('mother_lastname')),
+                'gender'                => $request->get('gender') ?? 'M'
             ]
         );
 
@@ -185,15 +194,16 @@ class AcaStudentController extends Controller
 
         $user = User::updateOrCreate(
             [
-                'email'         => $request->get('email'),
+                'email'         => trim($request->get('email')),
                 'person_id'     => $per->id
             ],
             [
-                'name'          => $request->get('names'),
-                'password'      => Hash::make($request->get('number')),
+                'name'          => trim($request->get('names')),
+                'password'      => Hash::make(trim($request->get('number'))),
                 'information'   => $request->get('description'),
                 'avatar'        => $path,
-                'person_id'     => $per->id
+                'person_id'     => $per->id,
+                'local_id'      => 1
             ]
         );
 
@@ -212,15 +222,6 @@ class AcaStudentController extends Controller
             ->with('message', __('Estudiante creado con éxito'));
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('academic::show');
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -282,7 +283,7 @@ class AcaStudentController extends Controller
                 'number'            => 'required|max:12',
                 'number'            => 'unique:people,number,' . $person_id . ',id,document_type_id,' . $request->get('document_type_id'),
                 'telephone'         => 'required|max:12',
-                'email'             => 'required|max:255',
+                'email'             => 'required|email|max:255',
                 'email'            => 'unique:people,email,' . $person_id . ',id',
                 'email'            => 'unique:users,email,' . $user->id . ',id',
                 'address'           => 'required|max:255',
@@ -318,9 +319,9 @@ class AcaStudentController extends Controller
             'short_name'            => trim($request->get('names')),
             'full_name'             => trim($request->get('father_lastname') . ' ' .  $request->get('mother_lastname') . ' ' . $request->get('names')),
             'description'           => $request->get('description'),
-            'number'                => $request->get('number'),
+            'number'                => trim($request->get('number')),
             'telephone'             => $request->get('telephone'),
-            'email'                 => $request->get('email'),
+            'email'                 => trim($request->get('email')),
             'image'                 => $path,
             'address'               => $request->get('address'),
             'is_provider'           => false,
@@ -329,7 +330,8 @@ class AcaStudentController extends Controller
             'birthdate'             => $request->get('birthdate'),
             'names'                 => trim($request->get('names')),
             'father_lastname'       => trim($request->get('father_lastname')),
-            'mother_lastname'       => trim($request->get('mother_lastname'))
+            'mother_lastname'       => trim($request->get('mother_lastname')),
+            'gender'                => $request->get('gender') ?? 'M'
         ]);
 
         $user->update([
@@ -363,6 +365,11 @@ class AcaStudentController extends Controller
         $user = Auth::user();
         $student_id = AcaStudent::where('person_id', $user->person_id)->value('id');
         $courses = [];
+
+        $studentSubscribed = AcaStudentSubscription::where('student_id', $student_id)
+            ->where('status', true)
+            ->first();
+
         // También puedes verificar múltiples roles a la vez
         if ($user->hasAnyRole(['admin', 'Docente', 'Administrador'])) {
             $courses = AcaCourse::with('modules.themes.contents')
@@ -370,30 +377,93 @@ class AcaStudentController extends Controller
                 ->with('category')
                 ->with('modality')
                 ->orderBy('id', 'DESC')
-                ->get();
+                ->get()
+                ->map(function ($course) {
+                    $course->can_view = true; // Campo adicional
+                    return $course;
+                });
         } else {
-            $courses = AcaCourse::with('modules.themes.contents')
-                ->with('modality')
-                ->with('category')
-                ->with('teacher.person')->whereHas('registrations', function ($query) use ($student_id) {
-                    $query->where('student_id', $student_id);
-                })->orderBy('id', 'DESC')
-                ->get();
+            $courses = AcaCourse::with(['modules.themes.contents', 'modality', 'category', 'teacher.person'])
+                ->with('registrations') // Para validar los cursos registrados
+                ->get()
+                ->map(function ($course) use ($studentSubscribed, $student_id) {
+                    // Verificar si el curso es gratuito
+                    $isFree = is_null($course->price) || floatval($course->price) == 0.00;
+                    $isProgram = $course->type_description == 'Programas de especialización' ? true : false;
+                    // Verificar si el alumno está registrado en este curso
+                    $isRegistered = $course->registrations->contains('student_id', $student_id);
+
+                    // Verificar si el alumno tiene una suscripción activa
+                    $hasActiveSubscription = $studentSubscribed !== null;
+
+                    // Lógica para determinar si puede ver
+                    if ($hasActiveSubscription || $isRegistered || $isFree) {
+                        if ($isProgram) {
+                            if ($isRegistered) {
+                                $course->can_view = true;
+                            } else {
+                                $course->can_view = false;
+                            }
+                        } else {
+                            $course->can_view = true;
+                        }
+                    } else {
+                        $course->can_view = false; // Campo adicional
+                    }
+
+                    return $course;
+                });
         }
-        //dd($courses);
+
+        $certificates = AcaCertificate::with('course')
+            ->where('student_id', $student_id)
+            ->get();
+
         return Inertia::render('Academic::Students/Courses', [
-            'courses' => $courses
+            'courses' => $courses,
+            'studentSubscribed' => $studentSubscribed,
+            'certificates' => $certificates
         ]);
     }
 
     public function courseLessons($id)
     {
-        $course = AcaCourse::with('modules')
-            ->where('id', $id)
-            ->first();
+        $course = AcaCourse::with([
+            'modules.themes.contents'
+        ])->where('id', $id)->first();
+
+        $courseSummary = [
+            'course' => $course->only(['id', 'description']), // o los campos que desees
+            'modules' => []
+        ];
+
+        foreach ($course->modules as $module) {
+            $totalThemes = $module->themes->count();
+            $totalFiles = 0;
+            $totalVideos = 0;
+
+            foreach ($module->themes as $theme) {
+                foreach ($theme->contents as $content) {
+                    if ($content->is_file == 1 || $content->is_file == 2) {
+                        $totalFiles++;
+                    } elseif ($content->type == 0) {
+                        $totalVideos++;
+                    }
+                }
+            }
+
+            $courseSummary['modules'][] = [
+                'id' => $module->id,
+                'description' => $module->description,
+                'position' => $module->position,
+                'total_themes' => $totalThemes,
+                'total_files' => $totalFiles,
+                'total_videos' => $totalVideos,
+            ];
+        }
 
         return Inertia::render('Academic::Students/Lessons', [
-            'course' => $course
+            'course' => $courseSummary
         ]);
     }
 
@@ -401,11 +471,12 @@ class AcaStudentController extends Controller
     {
 
 
-        $module = AcaModule::with(['themes' => function ($query) {
-            $query->orderBy('position')
-                ->with('contents')
-                ->with('comments.user'); // Cargar los contenidos de cada theme
-        }])
+        $module = AcaModule::with('teacher.person')
+            ->with(['themes' => function ($query) {
+                $query->orderBy('position')
+                    ->with('contents')
+                    ->with('comments.user'); // Cargar los contenidos de cada theme
+            }])
             ->where('id', $id)
             ->first();
 
@@ -422,8 +493,32 @@ class AcaStudentController extends Controller
     {
         $payments = PaymentMethod::all();
         $saleDocumentTypes = DB::table('sale_document_types')->whereIn('sunat_id', ['01', '03'])->get();
+
         $services = Product::where('is_product', false)->get();
-        $courses = AcaCourse::where('status', true)->get();
+        $courses = AcaCourse::where('status', true)
+            ->where(function ($query) {
+                $query->whereNotNull('price')->where('price', '>', 0);
+            })
+            ->get();
+
+        $registrationCourses = AcaCapRegistration::with('course')
+            ->with('salenote')
+            ->where('student_id', $id)
+            ->whereNull('document_id')
+            ->whereHas('course', function ($query) {
+                $query->whereNotNull('price')->where('price', '>', 0);
+            })
+            ->whereNull('sale_note_id')
+            ->get();
+
+        $subscriptions = AcaStudentSubscription::with('subscription')
+            ->where('student_id', $id)
+            ->whereNull('onli_sale_id')
+            ->whereNull('xdocument_id') ///si esta lleno es porque lo compro en linea
+            ->get();
+
+        $standardIdentityDocument = DB::table('identity_document_type')->get();
+
 
         return Inertia::render('Academic::Students/Invoice', [
             'payments' => $payments,
@@ -434,7 +529,10 @@ class AcaStudentController extends Controller
             'taxes' => array(
                 'igv' => $this->igv,
                 'icbper' => $this->icbper
-            )
+            ),
+            'registrationCourses' => $registrationCourses,
+            'subscriptions' => $subscriptions,
+            'standardIdentityDocument' => $standardIdentityDocument
         ]);
     }
 
@@ -483,11 +581,351 @@ class AcaStudentController extends Controller
                 ],
                 [
                     'student_code'  => $per->number,
+                    'new_student' => false
                 ]
             );
             return to_route('dashboard');
         } else {
             return to_route('profile.edit');
         }
+    }
+
+
+    public function import(Request $request)
+    {
+        try {
+            // Validar el archivo
+            $request->validate([
+                'file' => 'required|mimes:xlsx,xls',
+            ]);
+
+            $file = $request->file('file');
+            $spreadsheet = IOFactory::load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $rows = $sheet->toArray();
+
+            DB::beginTransaction();
+
+            $totalRows = count($rows) - 1; // Total de filas a procesar
+
+            // Usar una clave única para el progreso
+            $importKey = uniqid();
+
+            // Iniciar el progreso en 0
+            Cache::put($importKey, 0);
+
+            foreach ($rows as $index => $row) {
+                if ($index === 0) {
+                    continue;
+                }
+
+                if (array_filter($row) === []) {
+                    continue; // Ignorar filas completamente vacías
+                }
+
+                $cont = $index + 1;
+
+                // Validar datos obligatorios
+                if (!isset($row[0]) || !isset($row[1]) || !isset($row[4]) || !isset($row[9]) || trim($row[0]) === '' || trim($row[1]) === '' || trim($row[4]) === '' || trim($row[9]) === '') {
+                    throw new \Exception("Fila {$cont}: Faltan datos obligatorios.");
+                }
+
+                // Validar cada campo con detalles específicos
+                if (!$row[0]) {
+                    throw new \Exception("Fila {$cont}: El campo 'Nombre completo' (columna A) es obligatorio.");
+                }
+
+                if (!$row[1]) {
+                    throw new \Exception("Fila {$cont}: El campo 'Número' (columna B) es obligatorio.");
+                }
+                $dni = $row[1];
+                if (Person::where('number', $dni)->exists()) {
+                    throw new \Exception("Fila {$cont}: Número de identificación ya registrado ({$dni}).");
+                }
+                $fechaExcel = $row[2]; // Fecha en formato d/m/Y
+
+                // Validar fecha con strtotime
+                if (strtotime($fechaExcel) !== false) {
+                    $fechaMysql = Carbon::parse($fechaExcel)->format('Y-m-d');
+                } else {
+                    throw new \Exception("Fila {$cont}: Formato de fecha no válido: {$fechaExcel}");
+                }
+
+                $fechaMysql = Carbon::parse($fechaExcel)->format('Y-m-d');
+
+                if (!$row[4]) {
+                    throw new \Exception("Fila {$cont}: El campo 'Correo electrónico' (columna E) es obligatorio.");
+                }
+                $email = trim($row[4]); // Eliminar espacios al inicio y al final
+
+                // Opcional: eliminar caracteres no visibles
+                $email = preg_replace('/[^\P{C}\n]+/u', '', $email);
+
+                // Validar el correo
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    throw new \Exception("Fila {$index}: El correo '{$email}' no es válido.");
+                }
+
+                if (Person::where('email', $email)->exists()) {
+                    throw new \Exception("Fila {$cont}: Email ya registrado ({$email}).");
+                }
+
+                if (!isset($row[9]) || !$row[9]) {
+                    throw new \Exception("Fila {$cont}: El campo 'Género' (columna J) es obligatorio.");
+                }
+                // Validar género
+                $genero = trim(strtoupper($row[9]));
+                if (!in_array($genero, ['M', 'F'])) {
+                    throw new \Exception("Fila {$cont}: El campo 'Género' (columna J) debe ser 'M = Masculino' o 'F = Femenino'. Valor encontrado: '{$genero}'");
+                }
+
+                // Crear registro en la base de datos
+                $person = Person::create([
+                    'document_type_id' => 1,
+                    'full_name' => trim($row[0]),
+                    'number' => trim($row[1]),
+                    'birthdate' => $fechaMysql,
+                    'telephone' => $row[3],
+                    'email' => trim($row[4]),
+                    'company' => $row[5],
+                    'industry' => $row[6],
+                    'ocupacion' => $row[7],
+                    'profession' => $row[8],
+                    'gender' => $row[9],
+                    'is_provider' => false,
+                    'is_client' => true
+                ]);
+
+                User::updateOrCreate(
+                    [
+                        'email' => trim($row[4])
+                    ],
+                    [
+                        'name' => trim($row[0]),
+                        'password' => Hash::make(trim($row[1])),
+                        'local_id' => 1,
+                        'person_id' => $person->id,
+                        'status' => true
+                    ]
+                );
+
+                $student = AcaStudent::firstOrCreate(
+                    [
+                        'person_id' => $person->id,
+                        'student_code' => trim($row[1]),
+                    ],
+                    [
+                        'new_student' => true
+                    ]
+                );
+
+                // Actualizar el progreso en la caché
+                $currentProgress = (($index + 1) / $totalRows) * 100;
+                Cache::put($importKey, $currentProgress);
+            }
+
+            DB::commit();
+
+            // Al finalizar, actualizar el progreso al 100%
+            Cache::put($importKey, 100);
+
+            return response()->json([
+                'message' => 'Archivo importado exitosamente.',
+                'importKey' => $importKey, // Devolver la clave para que se pueda consultar el progreso
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Error de importación: {$e->getMessage()}");
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+
+
+    public function getProgress($importKey)
+    {
+        // Obtener el progreso desde la caché
+        $progress = Cache::get($importKey, 0);
+
+        return response()->json(['progress' => $progress]);
+    }
+
+
+    public function importByCourse(Request $request)
+    {
+        $student = $request->get('student');
+        $course_id = $request->get('course_id');
+        $index = $request->get('index');
+        $modality_id = $request->get('modality_id');
+
+        $cont = $index + 1;
+
+        try {
+            if (!isset($student[0]) || !isset($student[1]) || !isset($student[4]) || !isset($student[9]) || trim($student[0]) === '' || trim($student[1]) === '' || trim($student[4]) === '' || trim($student[9]) === '') {
+                throw new \Exception("Fila {$cont}: Faltan datos obligatorios. (Todos los campos son obligatorios)");
+            }
+
+            // Validar cada campo con detalles específicos
+            if (!$student[0]) {
+                throw new \Exception("Fila {$cont}: El campo 'Nombre completo' (columna A) es obligatorio.");
+            }
+
+            if (!$student[1]) {
+                throw new \Exception("Fila {$cont}: El campo 'Número' (columna B) es obligatorio.");
+            }
+            $dni = $student[1];
+            // if (Person::where('number', $dni)->exists()) {
+            //     throw new \Exception("Fila {$cont}: Número de identificación ya registrado ({$dni}).");
+            // }
+            $fechaExcel = $student[2]; // Fecha en formato d/m/Y
+
+            // Validar fecha con strtotime
+            if (strtotime($fechaExcel) !== false) {
+                $fechaMysql = Carbon::parse($fechaExcel)->format('Y-m-d');
+            } else {
+                throw new \Exception("Fila {$cont}: Formato de fecha no válido: {$fechaExcel}");
+            }
+
+            $fechaMysql = Carbon::parse($fechaExcel)->format('Y-m-d');
+
+            if (!$student[4]) {
+                throw new \Exception("Fila {$cont}: El campo 'Correo electrónico' (columna E) es obligatorio.");
+            }
+            $email = trim($student[4]); // Eliminar espacios al inicio y al final
+
+            // Opcional: eliminar caracteres no visibles
+            $email = preg_replace('/[^\P{C}\n]+/u', '', $email);
+
+            // Validar el correo
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception("Fila {$index}: El correo '{$email}' no es válido.");
+            }
+
+            // if (Person::where('email', $email)->exists()) {
+            //     throw new \Exception("Fila {$cont}: Email ya registrado ({$email}).");
+            // }
+
+            if (!isset($student[9]) || !$student[9]) {
+                throw new \Exception("Fila {$cont}: El campo 'Género' (columna J) es obligatorio.");
+            }
+            // Validar género
+            $genero = trim(strtoupper($student[9]));
+            if (!in_array($genero, ['M', 'F'])) {
+                throw new \Exception("Fila {$cont}: El campo 'Género' (columna J) debe ser 'M = Masculino' o 'F = Femenino'. Valor encontrado: '{$genero}'");
+            }
+
+
+            // Crear registro en la base de datos
+            $person = Person::firstOrCreate(
+                [
+                    'number' => trim($student[1]),
+                ],
+                [
+                    'document_type_id' => 1,
+                    'full_name' => trim($student[0]),
+                    'birthdate' => $fechaMysql,
+                    'telephone' => $student[3],
+                    'email' => trim($student[4]),
+                    'company' => $student[5] == "-" ? null : $student[5],
+                    'industry' => $student[6] == "-" ? null : $student[6],
+                    'ocupacion' => $student[7] == "-" ? null : $student[7],
+                    'profession' => $student[8] == "-" ? null : $student[8],
+                    'gender' => $student[9] == "-" ? null : $student[9],
+                    'is_provider' => false,
+                    'is_client' => true
+                ]
+            );
+
+            User::firstOrCreate(
+                [
+                    'email' => trim($student[4])
+                ],
+                [
+                    'name' => trim($student[0]),
+                    'password' => Hash::make(trim($student[1])),
+                    'local_id' => 1,
+                    'person_id' => $person->id,
+                    'status' => true
+                ]
+            );
+
+            $student = AcaStudent::firstOrCreate(
+                [
+                    'person_id' => $person->id,
+                    'student_code' => trim($student[1])
+                ],
+                [
+                    'new_student' => true
+                ]
+            );
+
+            AcaCapRegistration::firstOrCreate([
+                'student_id' => $student->id,
+                'course_id' => $course_id
+            ], [
+                'status' => true,
+                'modality_id' => $modality_id
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => "Se registro correctamente",
+            ]);
+        } catch (\Exception $e) {
+
+            //Log::error("Error de importación: {$e->getMessage()}");
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 200);
+        }
+    }
+
+    public function getCertificates()
+    {
+
+        // Verificar si el usuario tiene el rol de "Alumno"
+        if (!Auth::user()->hasRole('Alumno')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permiso para ver estos datos.'
+            ], 403);
+        }
+
+        // Obtener el student_id del usuario autenticado
+        $student_id = AcaStudent::where('person_id', Auth::user()->person_id)->value('id');
+
+        // Obtener los certificados del estudiante
+        $certificates = AcaCertificate::with('course')
+            ->where('student_id', $student_id)
+            ->get();
+
+        $items = [];
+        if ($certificates) {
+            $items = $certificates;
+        }
+
+        return response()->json([
+            'success' => true,
+            'certificates' => $items,
+        ], 200);
+    }
+
+    public function historyStore(Request $request)
+    {
+        AcaStudentHistory::create([
+            'user_id' => Auth::id(),
+            'person_id' => Auth::user()->person_id,
+            'course_id' => $request->get('course_id'),
+            'module_id' => $request->get('module_id'),
+            'theme_id' => $request->get('theme_id'),
+            'content_id' => $request->get('content_id'),
+            'type_content' => $request->get('type_content')
+        ]);
     }
 }

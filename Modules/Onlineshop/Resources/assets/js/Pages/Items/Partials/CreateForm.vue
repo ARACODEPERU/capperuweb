@@ -26,6 +26,22 @@ const props = defineProps({
     type: {
         type: String,
         default: null,
+    },
+    modalitiesCourses: {
+        type: Object,
+        default: () => ({}),
+    },
+    categoriesCourses: {
+        type: Object,
+        default: () => ({}),
+    },
+    typesCourses: {
+        type: Object,
+        default: () => ({}),
+    },
+    sectorsCourses: {
+        type: Object,
+        default: () => ({}),
     }
 });
 
@@ -95,6 +111,7 @@ const setItemsData = (data,type) => {
         form.additional = data.type_description;
         form.additional1 = data.modality.description;
         form.category_description = data.category.description;
+        form.price = data.price;
         form.entitie = 'Modules-Academic-Entities-AcaCourse';
 
     }else{
@@ -209,7 +226,7 @@ const removeSpecifications= (key) => {
                     </div>
                     <div v-if="form.type == 1" class="mt-2">
                         <InputLabel for="description" value="Descripción" />
-                        <textarea v-model="form.description" id="description" rows="2" autofocus class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribe descripción aquí..."></textarea>
+                        <textarea v-model="form.description" id="description" class="form-textarea" rows="8" placeholder="Escribe descripción aquí..."></textarea>
                         <span id="charCount">{{ form.countCharacters }}</span> caracteres de máximo 255
                         <InputError :message="form.errors.description" class="mt-2" />
                     </div>
@@ -231,9 +248,7 @@ const removeSpecifications= (key) => {
                         <InputLabel for="category_description" value="Sector" />                       
                         <select id="category_description" v-model="form.category_description" class="form-select text-white-dark">
                             <option selected value="">Seleccionar Sector</option>
-                            <option value="Derecho">Derecho</option>
-                            <option value="Empresarial">Empresarial</option>
-                            <option value="Publico">Público</option>
+                            <option v-for="(sector) in sectorsCourses" :value="sector" >{{ sector }}</option>
                             <!-- Agrega más opciones según tus necesidades -->
                         </select>
                         <InputError :message="form.errors.category_description" class="mt-2" />
@@ -271,8 +286,7 @@ const removeSpecifications= (key) => {
                         <InputLabel for="additional" :value="titles.additional+'*'" />
                         <select id="additional" v-model="form.additional" class="form-select text-white-dark">
                             <option value="">Seleccionar tipo</option>
-                            <option value="Curso">Curso</option>
-                            <option value="Diplomado">Diplomado</option>
+                            <option v-for="(type) in typesCourses" :value="type" > {{ type }}</option>
                         </select>
                         <InputError :message="form.errors.additional" class="mt-2" />
                     </div>

@@ -11,7 +11,7 @@
     import InputLabel from '@/Components/InputLabel.vue';
     import TextInput from '@/Components/TextInput.vue';
     import InputError from '@/Components/InputError.vue';
-    import SecondaryButton from '@/Components/SecondaryButton.vue';
+    import DangerButton from '@/Components/DangerButton.vue';
     import DialogModal from '@/Components/DialogModal.vue';
     import Swal from "sweetalert2";
     import { Link, router } from '@inertiajs/vue3';
@@ -22,20 +22,15 @@
     import 'datatables.net-responsive';
     import '@/Components/vristo/datatables/datatables.css'
     import '@/Components/vristo/datatables/style.css'
+    import 'datatables.net-buttons'; // Importa el plugin de botones
+    import 'datatables.net-buttons-dt'; // Importa los estilos de los botones
     import es_PE from '@/Components/vristo/datatables/datatables-es.js'
+
 
 
     DataTable.use(DataTablesCore);
 
     const props = defineProps({
-        documents: {
-            type: Object,
-            default: () => ({}),
-        },
-        filters: {
-            type: Object,
-            default: () => ({}),
-        },
         affectations: {
             type: Object,
             default: () => ({}),
@@ -46,11 +41,9 @@
         }
     });
 
-    const form = useForm({
-        search: props.filters.search,
-    });
-    
+
     const displayModalDetails = ref(false);
+    const displayLoaderDetails = ref(false);
     const documentDetails = ref([]);
     const disabledButtonDetailsSave = ref(false);
     const opemModalDetails = async (sales) => {
@@ -61,7 +54,6 @@
         }
 
         documentDetails.value = sales.documents[0];
-        initializeDropdownItems();
         displayModalDetails.value = true;
     }
 
@@ -71,7 +63,6 @@
     }
 
     const sendSunatDocument = (document) => {
-        initializeDropdownItems();
         Swal.fire({
             title: document.serie+'-'+document.number,
             text: 'Enviar documento',
@@ -87,12 +78,6 @@
                             cadena += `<br>Nota: ${notes}`;
                         }
                         Swal.showValidationMessage(cadena)
-                        router.visit(route('saledocuments_list'),{
-                            method: 'get',
-                            replace: false,
-                            preserveState: true,
-                            preserveScroll: true,
-                        });
                     }
                     return res
                 });
@@ -113,26 +98,13 @@
                     padding: '2em',
                     customClass: 'sweet-alerts',
                 }).then(() => {
-                    router.visit(route('saledocuments_list'),{
-                        method: 'get',
-                        replace: false,
-                        preserveState: true,
-                        preserveScroll: true,
-                    });
+                    refreshTable();
                 });
 
             }
         });
     }
-    const dropdownItems = ref([]);
 
-    const initializeDropdownItems = () => {
-        dropdownItems.value = props.documents.data.map(() => ({ showDropdown: false }));
-    };
-
-    onMounted(() => {
-        initializeDropdownItems();
-    });
 
     const getAffectation = (id) => {
         const selectedAffectation = props.affectations.find(affectation => affectation.id === id);
@@ -158,6 +130,7 @@
     }
 
     const saveChangesDetails = () =>{
+        displayLoaderDetails.value = true;
         axios.post(route('saledocuments_update_details'), documentDetails.value ).then((response) => {
             if(response.data.success){
                 Swal.fire({
@@ -167,12 +140,8 @@
                     padding: '2em',
                     customClass: 'sweet-alerts',
                 }).then(() => {
-                    router.visit(route('saledocuments_list'),{
-                        method: 'get',
-                        replace: false,
-                        preserveState: true,
-                        preserveScroll: true,
-                    });
+                    displayLoaderDetails.value = false;
+                    refreshTable();
                 });
             }else{
                 Swal.fire({
@@ -205,7 +174,7 @@
 
     const downloadDocument = (id,type,file,format = 'A4') => {
         let url = route('saledocuments_download',[id, type,file,format])
-        window.open(url, "_blank");      
+        window.open(url, "_blank");
     }
 
     const displayEditDocument = ref(false);
@@ -221,7 +190,8 @@
         client_phone: null,
         client_email: null,
         invoice_broadcast_date: null,
-        invoice_due_date: null
+        invoice_due_date: null,
+        invoice_status: null
     });
     const closeModalEditDocument = () => {
         displayEditDocument.value = false ;
@@ -239,28 +209,24 @@
         formHead.client_email = document.client_email;
         formHead.invoice_broadcast_date = document.invoice_broadcast_date;
         formHead.invoice_due_date = document.invoice_due_date;
+        formHead.invoice_status = document.invoice_status;
         displayEditDocument.value = true ;
     }
 
     const saveHeadDocument = () => {
-        formHead.post(route('saledocuments_update_head'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                Swal.fire({
-                    title: `Enhorabuena`,
-                    html: `Documento Actualizado correctamente`,
-                    icon: 'success',
-                    padding: '2em',
-                    customClass: 'sweet-alerts',
-                });
-                formHead.reset();
-                router.visit(route('saledocuments_list'),{
-                    method: 'get',
-                    replace: false,
-                    preserveState: true,
-                    preserveScroll: true,
-                });
-            }
+        formHead.processing = true;
+        axios.post(route('saledocuments_update_head'),formHead).then(() =>{
+            Swal.fire({
+                title: `Enhorabuena`,
+                html: `Documento Actualizado correctamente`,
+                icon: 'success',
+                padding: '2em',
+                customClass: 'sweet-alerts',
+            });
+            formHead.processing = false;
+            formHead.reset();
+            displayEditDocument.value = false ;
+            refreshTable();
         });
     }
 
@@ -326,7 +292,7 @@ const cancelDocument = (index, item) => {
                     if(textarea){
                         resp = axios.post(route('saledocuments_cancel_document'), {
                             reason: textarea,
-                            id: item.id,
+                            id: item.document_id,
                             type: item.invoice_type_doc
                         }).then((res) => {
                             if (!res.data.success) {
@@ -343,19 +309,15 @@ const cancelDocument = (index, item) => {
             }).then((res) => {
                 if (res.isConfirmed) {
                     showMessage('El documento fue anulado correctamente');
-                    router.visit(route('saledocuments_list'),{
-                        method: 'get',
-                        replace: false,
-                        preserveState: true,
-                        preserveScroll: true,
-                    });
+                    //refreshTable();
                 }
+                refreshTable();
             });
         }
     });
 }
 
-const showMessage = (msg = '', type = 'success') => {
+    const showMessage = (msg = '', type = 'success') => {
         const toast = Swal.mixin({
             toast: true,
             position: 'top',
@@ -384,10 +346,10 @@ const showMessage = (msg = '', type = 'success') => {
         { data: null, render: '#status', title: 'Estado' },
     ];
 
-    const options = { 
-        responsive: true, 
+    const options = {
+        responsive: true,
         language: es_PE,
-        order: [[3, 'desc']]
+        order: [[2, 'desc']]
     }
 
     const documentTable = ref(null);
@@ -395,9 +357,13 @@ const showMessage = (msg = '', type = 'success') => {
     const refreshTable = () => {
         const dataTableInstance = documentTable.value?.dt; // accede a la instancia del DataTable
         if (dataTableInstance) {
-            dataTableInstance.ajax.reload();
+            setInterval(function () {
+                dataTableInstance.ajax.reload();
+            }, 30000);
         }
     };
+
+
 </script>
 
 <template>
@@ -414,7 +380,9 @@ const showMessage = (msg = '', type = 'success') => {
                     <div class="flex gap-3">
                         <Keypad>
                             <template #botones>
-                                <Link :href="route('saledocuments_create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</Link>
+                                <div v-can="'invo_documento_nuevo'">
+                                    <Link :href="route('saledocuments_create')" class="inline-block px-6 py-2.5 bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Nuevo</Link>
+                                </div>
                             </template>
                         </Keypad>
 
@@ -422,7 +390,7 @@ const showMessage = (msg = '', type = 'success') => {
                 </div>
             </div>
             <div class="panel pb-1.5 mt-6">
-            
+
                 <DataTable ref="documentTable" :options="options" :ajax="route('saledocuments_table_document')" :columns="columns">
                     <template #action="props">
                         <div class="flex gap-4 items-center justify-center">
@@ -436,7 +404,7 @@ const showMessage = (msg = '', type = 'success') => {
                                         <li v-if="props.rowData.invoice_status != 'Aceptada'">
                                             <a @click="showModalEditDocument(props.rowData)" href="javascript:;">Editar</a>
                                         </li>
-                                        <li v-if="props.rowData.invoice_status == 'Pendiente'">
+                                        <li v-if="props.rowData.invoice_status == 'Pendiente' && props.rowData.invoice_type_doc != '03'">
                                             <a @click="sendSunatDocument(props.rowData)" v-can="'invo_documento_envio_sunat'" href="javascript:;">Enviar a Sunat</a>
                                         </li>
                                         <li>
@@ -452,10 +420,10 @@ const showMessage = (msg = '', type = 'success') => {
                                             <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'PDF','t80')" href="javascript:;">PDF 80x250</a>
                                         </li>
                                         <li v-if="props.rowData.invoice_status === 'Aceptada'">
-                                            <a @click="downloadDocument(document.document_id,document.invoice_type_doc,'XML')" href="javascript:;">Descargar XML</a>
+                                            <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'XML')" href="javascript:;">Descargar XML</a>
                                         </li>
                                         <li v-if="props.rowData.invoice_status === 'Aceptada'">
-                                            <a @click="downloadDocument(document.document_id,document.invoice_type_doc,'CDR')" href="javascript:;">Descargar CDR</a>
+                                            <a @click="downloadDocument(props.rowData.document_id,props.rowData.invoice_type_doc,'CDR')" href="javascript:;">Descargar CDR</a>
                                         </li>
                                     </ul>
                                     </template>
@@ -468,7 +436,7 @@ const showMessage = (msg = '', type = 'success') => {
                             <h6 class="font-semibold" :class="props.rowData.status == 3 ? 'line-through': ''" >
                                 {{ props.rowData.serie }}-{{ props.rowData.invoice_correlative }}
                             </h6>
-                            <span v-if="props.rowData.invoice_status =='Rechazada' || props.rowData.invoice_status === 'Aceptada' || props.rowData.invoice_status === 'Anulada'" class="block text-xs">
+                            <span v-if="props.rowData.invoice_response_description" class="block text-xs">
                                 <code v-if="props.rowData.invoice_response_code != 0">
                                     Código: {{ props.rowData.invoice_response_code }}
                                 </code>
@@ -493,7 +461,7 @@ const showMessage = (msg = '', type = 'success') => {
                         </span>
                     </template>
                 </DataTable>
-                        
+
             </div>
         </div>
 
@@ -549,34 +517,34 @@ const showMessage = (msg = '', type = 'success') => {
                                 </th>
                                 <td class="px-4 py-2">
                                     <span v-show="!showteButtonSave">{{ item.decription_product }}</span>
-                                    <textarea v-show="showteButtonSave" v-model="item.decription_product" class="invoice-textarea"></textarea>
+                                    <textarea v-show="showteButtonSave" v-model="item.decription_product" class="form-textarea" rows="3"></textarea>
                                 </td>
                                 <td class="px-4 py-2 text-center">
                                     <span v-show="!showteButtonSave">{{ getUnitTypes(item.unit_type) }}</span>
-                                    <select v-show="showteButtonSave" v-model="item.unit_type" class="invoice-select">
+                                    <select v-show="showteButtonSave" v-model="item.unit_type" class="form-select form-select-sm">
                                         <option v-for="(row, ci) in unitTypes" :value="row.id">{{ row.description }}</option>
                                     </select>
                                 </td>
                                 <td style="display: none;" class="px-4 py-2">
                                     <span v-show="!showteButtonSave">{{ getAffectation(item.type_afe_igv) }}</span>
-                                    <select v-show="showteButtonSave" v-model="item.type_afe_igv" class="invoice-select">
+                                    <select v-show="showteButtonSave" v-model="item.type_afe_igv" class="form-select form-select-sm">
                                         <option v-for="(row, ci) in affectations" :value="row.id">{{ row.description }}</option>
                                     </select>
                                 </td>
                                 <td style="width: 110px;" class="px-4 py-2 text-right">
                                     <span v-show="!showteButtonSave">{{ item.quantity }}</span>
-                                    <input v-show="showteButtonSave" v-model="item.quantity" @input="calculateItemTotals(ko)"  class="invoice-imput text-right" type="text" />
+                                    <input v-show="showteButtonSave" v-model="item.quantity" @input="calculateItemTotals(ko)"  class="form-input form-input-sm text-right" type="text" />
                                 </td>
                                 <td style="width: 110px;" class="px-4 py-2 text-right">
                                     <span v-show="!showteButtonSave">{{ item.price_sale }}</span>
-                                    <input v-show="showteButtonSave" v-model="item.price_sale" @input="calculateItemTotals(ko)"  class="invoice-imput text-right" type="text" />
+                                    <input v-show="showteButtonSave" v-model="item.price_sale" @input="calculateItemTotals(ko)"  class="form-input form-input-sm text-right" type="text" />
                                 </td>
                                 <td style="width: 120px;" class="px-4 py-2 text-right">
                                     {{ (item.quantity * item.price_sale).toFixed(2) }}
                                 </td>
                                 <td style="width: 120px;" class="px-4 py-2 text-right">
                                     <span v-show="!showteButtonSave">{{ item.mto_discount }}</span>
-                                    <input v-show="showteButtonSave" v-model="item.mto_discount" @input="calculateItemTotals(ko)"  class="invoice-imput text-right" type="text" />
+                                    <input v-show="showteButtonSave" v-model="item.mto_discount" @input="calculateItemTotals(ko)"  class="form-input form-input-sm text-right" type="text" />
                                 </td>
                                 <td style="width: 120px;" class="px-4 py-2 text-right">
                                     {{ item.mto_total }}
@@ -591,10 +559,19 @@ const showMessage = (msg = '', type = 'success') => {
                     :disabled="disabledButtonDetailsSave"
                     @click="editDetailsDocument"
                     class="mr-2"
-               >Modificar</GreenButton> 
+                >
+                    Modificar
+                </GreenButton>
                <PrimaryButton v-if="showteButtonSave" class="mr-2"
-               @click="saveChangesDetails"
-               >Guardar Cambios</PrimaryButton> 
+                    :class="{ 'opacity-25': displayLoaderDetails }" :disabled="displayLoaderDetails"
+                    @click="saveChangesDetails"
+                >
+                    <svg v-show="displayLoaderDetails" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                    </svg>
+                    Guardar Cambios
+                </PrimaryButton>
             </template>
         </ModalLargeX>
         <DialogModal :show="displayEditDocument" @close="closeModalEditDocument">
@@ -660,18 +637,32 @@ const showMessage = (msg = '', type = 'success') => {
                         <TextInput id="invoice_due_date" v-model="formHead.invoice_due_date" type="date" class="block w-full mt-1"/>
                         <InputError :message="formHead.errors.invoice_due_date" class="mt-2" />
                     </div>
+                    <div class="col-span-6 sm:col-span-2">
+                        <InputLabel for="invoice_status" value="Esatdo sunat" />
+                        <select v-model="formHead.invoice_status" id="invoice_status" class="form-select">
+                            <option :value="'Pendiente'">Pendiente</option>
+                            <option :value="'Rechazada'">Rechazada</option>
+                        </select>
+                        <InputError :message="formHead.errors.invoice_status" class="mt-2" />
+                    </div>
                 </div>
             </template>
 
             <template #footer>
-                <PrimaryButton class="mr-2"
+                <PrimaryButton class="mr-2" type="button"
                     @click="saveHeadDocument"
+                    :class="{ 'opacity-25': formHead.processing }"
+                    :disabled="formHead.processing"
                 >
+                    <svg v-show="formHead.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                    </svg>
                     Guardar Cambios
-                </PrimaryButton> 
-                <SecondaryButton @click="closeModalEditDocument">
+                </PrimaryButton>
+                <DangerButton @click="closeModalEditDocument" type="button">
                     Cancel
-                </SecondaryButton>
+                </DangerButton>
             </template>
         </DialogModal>
     </AppLayout>

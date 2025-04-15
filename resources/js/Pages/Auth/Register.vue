@@ -82,7 +82,14 @@ const company = usePage().props.company;
                     <div class="relative flex w-full flex-col items-center justify-center gap-6 px-4 pb-16 pt-6 sm:px-6 lg:max-w-[667px]">
                         <div class="flex w-full max-w-[440px] items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full">
                             <Link :href="route('index_main')" class="w-8 block lg:hidden">
-                                <img :src="`${baseUrl}/img/isotipo.png`" alt="Logo" class="mx-auto w-10" />
+                                <template v-if="store.theme === 'light'">
+                                    <img v-if="company.isotipo == '/img/isotipo.png'" :src="`${baseUrl}/img/isotipo.png`" alt="Logo" class="mx-auto w-10" />
+                                    <img v-else :src="`${baseUrl}storage/${company.isotipo}`" alt="Logo" class="mx-auto w-10" />
+                                </template>
+                                <template v-if="store.theme === 'dark'">
+                                    <img v-if="company.isotipo_negative == '/img/isotipo_negativo.png'" :src="`${baseUrl}/img/isotipo_negativo.png`" alt="Logo" class="mx-auto w-10" />
+                                    <img v-else :src="`${baseUrl}storage/${company.isotipo_negative}`" alt="Logo" class="mx-auto w-10" />
+                                </template>
                             </Link>
                             <!-- <div class="dropdown ms-auto w-max">
                                 <Popper :placement="store.rtlClass === 'rtl' ? 'bottom-start' : 'bottom-end'" offsetDistance="8">
@@ -127,7 +134,7 @@ const company = usePage().props.company;
                                 <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Registrate</h1>
                                 <p class="text-base font-bold leading-normal text-white-dark">Ingresa tu email y contraseña para registrarte</p>
                             </div>
-                            <form class="space-y-5 dark:text-white" @submit.prevent="submit">
+                            <form class="space-y-5 dark:text-white" @submit.prevent="submit" novalidate>
                                 <div>
                                     <label for="name">Nombre</label>
                                     <div class="relative text-white-dark">
@@ -152,7 +159,7 @@ const company = usePage().props.company;
                                     <div class="relative text-white-dark">
                                         <TextInput
                                             id="email"
-                                            type="email"
+                                            type="text"
                                             class="ps-10 placeholder:text-white-dark"
                                             v-model="form.email"
                                             required

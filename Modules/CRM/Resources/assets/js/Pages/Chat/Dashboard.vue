@@ -28,17 +28,29 @@
     import AudioPlay from '@/Components/AudioPlayer.vue';
     import FileDownload from './Partials/FileDownload.vue';
     import Swal from 'sweetalert2';
+    import ModalLargeX from '@/Components/ModalLargeX.vue';
+    import PrimaryButton from '@/Components/PrimaryButton.vue';
+
+    const props = defineProps({
+        P000015: {
+            type: String,
+            default: null
+        }
+    });
 
     const data = reactive({
         posts: []
     });
+
+    const appCodeUnique = import.meta.env.VITE_APP_CODE ?? 'ARACODE';
+    const channelListenChat = "message-notification-" + appCodeUnique;
 
     const loadingContacts = ref(false);
 
     const fetchPosts = async () => {
         try {
             axios.get(route('crm_chat_contacts_data')).then( (response) => {
-                data.posts = response.data; 
+                data.posts = response.data;
             });
         } catch (error) {
             console.log(error);
@@ -52,7 +64,7 @@
                     data.posts.data.push(item);
                 });
             });
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -67,7 +79,7 @@
 
     onBeforeMount(() => fetchPosts());
 
-
+    const displayModalAi = ref(false);
     const store = useAppStore();
     const isShowUserChat = ref(false);
     const isShowChatMenu = ref(false);
@@ -81,7 +93,8 @@
     const searchUsers = async () => {
         try {
             const response = await axios.get(`${route('crm_chat_contacts_data')}?search=${searchUser.value}`);
-            data.posts = response.data; 
+            console.log(response);
+            data.posts = response.data;
         } catch (error) {
             console.log(error);
         }
@@ -91,13 +104,13 @@
         isShowLoadingMessages.value = true;
         data.posts.data[iidex].newMessage = false;
         // Cambia 'miDiv' por el ID de tu div
-        let myDiv = document.getElementById('header-total-news'); 
+        let myDiv = document.getElementById('header-total-news');
 
         // Verifica si el div existe
         if (myDiv) {
             myDiv.style.display = 'none'; // Oculta el div
         }
-        
+
         try {
             axios.post(route('crm_list_message'),{
                 conversationId: user.conversationId,
@@ -163,7 +176,7 @@
     const sendAudioMessage = (audio) => {
         if (audio.file_name.trim()) {
             isShowLoadingSend.value = true;
-            
+
             const msg = {
                 fromUserId: selectedUser.value.userId,
                 toUserId: 0,
@@ -207,7 +220,7 @@
     const authUser = usePage().props.auth.user;
 
     onMounted(() => {
-        window.socketIo.on('message-notification', (result) => {
+        window.socketIo.on(channelListenChat, (result) => {
             let participants = result.data.participants;
             let conversationId = result.data.message.conversation_id;
 
@@ -219,7 +232,7 @@
                 type: result.data.message.type,
                 id: result.data.message.id
             };
-            
+
             participants.forEach(item => {
                 if(authUser.id == item){
                     fetchPosts()
@@ -229,14 +242,14 @@
                             scrollToBottom();
                         }
                     }
-                    
+
                 }
             });
         });
     });
 
     onUnmounted(() => {
-        window.socketIo.off('message-notification'); // Dejar el canal cuando se desmonte el componente
+        window.socketIo.off(channelListenChat); // Dejar el canal cuando se desmonte el componente
     });
 
     const showMessage = (msg = '', type = 'success') => {
@@ -253,6 +266,155 @@
             padding: '10px 20px',
         });
     };
+
+    const formIaconsulta = useForm({
+        messageText: null,
+        instructions: null,
+        csrfToken: null,
+        respond: null,
+        routeBackend: null,
+        userId: null
+    });
+    const openModalQuestionAI = (item) => {
+        formIaconsulta.messageText = item.content
+        formIaconsulta.instructions = item.content
+        displayModalAi.value = true;
+    };
+
+    const closeModalQuestionAI = () => {
+        displayModalAi.value = false;
+        formIaconsulta.reset();
+    };
+
+    const selectServerAI = () => {
+        if(props.P000015 == 1){
+            sendPromptOpenAI();
+        }else if(props.P000015 == 2){
+            sendPromptGeminiAI();
+        }
+    }
+
+    const sendPromptOpenAI = () => {
+        formIaconsulta.processing = true;
+        const url = route('crm_application_ai_prompt_send_message_openai');
+        axios.post(url,formIaconsulta,{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 0,
+        }).then((result) => {
+            formIaconsulta.respond = result.data.responseText
+        }).finally(()=>{
+            formIaconsulta.processing = false;;
+        });
+    }
+
+
+    const sendPromptGeminiAI = () => {
+        formIaconsulta.processing = true;
+        const url = import.meta.env.VITE_SOCKET_IO_SERVER + '/api/ai/basicquestion'; // Cambia por la URL de tu API
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        formIaconsulta.csrfToken = csrfToken;
+
+        axios.post(url,formIaconsulta,{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 0,
+        }).then((result) => {
+            formIaconsulta.respond = result.data.responseText
+        }).finally(()=>{
+            formIaconsulta.processing = false;;
+        });
+    }
+
+    const sendMessageAi = () => {
+        if (formIaconsulta.respond.trim()) {
+            isShowLoadingSend.value = true;
+            const msg = {
+                fromUserId: selectedUser.value.userId,
+                toUserId: 0,
+                text: formIaconsulta.respond,
+                time: 'En este momento',
+                type: 'text',
+                id: null,
+                answer_ai: true
+            };
+            axios.post(route('crm_send_message'), msg).then((response) => {
+                return response.data;
+            }).then((res) => {
+                if(res.success){
+                    selectedUser.value.messages.push(msg);
+                    textMessage.value = '';
+                    scrollToBottom();
+                }else{
+                    showMessage('No puede enviar mensajes en este momento. Por favor, complete su información personal en su perfil para habilitar esta función.','info');
+                }
+                isShowLoadingSend.value = false;
+            }).finally(() => {
+                closeModalQuestionAI();
+            });
+        }
+    };
+
+    const clearHTMLdelimiters = (cadena) => {
+        return cadena.replace(/```html\s*|\s*```/g, '');
+    }
+
+    const saveQuestionResult = () => {
+        // formIaconsulta
+        if(props.P000015 == 1){
+            sendCensorTextOpenAI();
+        }else if(props.P000015 == 2){
+            sendCensorTextGeminiAI();
+        }
+    }
+
+    const censorLoader = ref(false);
+    const sendCensorTextGeminiAI = () => {
+        censorLoader.value = true;
+        const url = import.meta.env.VITE_SOCKET_IO_SERVER + '/api/ai/basiccensortext'; // Cambia por la URL de tu API
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        formIaconsulta.csrfToken = csrfToken;
+        formIaconsulta.routeBackend = route('crm_chat_frequently_questions_store');
+        formIaconsulta.userId = authUser.id;
+
+        axios.post(url, formIaconsulta,{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 0,
+        }).then((result) => {
+            if(result.data.success){
+                showMessage('Información guardada correctamente.','success');
+            }
+        }).finally(()=>{
+            censorLoader.value = false;
+        });
+    }
+
+    const sendCensorTextOpenAI = () => {
+        formIaconsulta.processing = true;
+        const url = route('crm_respond_frequently_questions_store');
+        axios.post(url,formIaconsulta,{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 0,
+        }).then((result) => {
+            if(result.data.success){
+                showMessage('Información guardada correctamente. puede visualizarlo en DUDAS COMUNES','success');
+            }
+        }).finally(()=>{
+            formIaconsulta.processing = false;;
+        });
+    }
+
+    const stripHtml = (html) => {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        return div.textContent || div.innerText || '';
+    }
 </script>
 <template>
     <AppLayout title="Chat">
@@ -262,7 +424,7 @@
             </li>
         </Navigation>
         <div class="mt-5">
-            
+
             <div class="flex gap-5 relative sm:h-[calc(100vh_-_150px)] h-full sm:min-h-0" :class="{ 'min-h-[999px]': isShowChatMenu }">
                 <div
                     class="panel p-4 flex-none max-w-xs w-full absolute xl:relative z-10 space-y-4 h-full hidden xl:block overflow-hidden"
@@ -295,7 +457,7 @@
                                                 Mi perfil
                                             </Link>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <a href="javascript:;">
                                                 <icon-help-circle class="w-4.5 h-4.5 ltr:mr-1 rtl:ml-1 shrink-0" />
                                                 Help & feedback
@@ -307,7 +469,7 @@
 
                                                 Sign Out
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </template>
                             </Popper>
@@ -319,7 +481,7 @@
                             <icon-search />
                         </div>
                     </div>
-                    <div class="flex justify-between items-center text-xs">
+                    <!-- <div class="flex justify-between items-center text-xs">
                         <button type="button" class="hover:text-primary">
                             <icon-messages-dot class="mx-auto mb-1" />
                             Chats
@@ -339,7 +501,7 @@
                             <icon-bell class="w-5 h-5 mx-auto mb-1" />
                             Notification
                         </button>
-                    </div>
+                    </div> -->
                     <div class="h-px w-full border-b border-[#e0e6ed] dark:border-[#1b2e4b]"></div>
                     <div class="!mt-0">
                         <perfect-scrollbar
@@ -383,28 +545,29 @@
                                                         alt="ava"
                                                     />
                                                     <img v-else :src="'https://ui-avatars.com/api/?name='+person.full_name+'&size=54&rounded=true'" :alt="person.full_name" class="rounded-full h-12 w-12 object-cover" />
-                                                    
+
                                                     <template v-if="person.active">
                                                         <div class="absolute bottom-0 ltr:right-0 rtl:left-0">
                                                             <div class="w-4 h-4 bg-success rounded-full"></div>
                                                         </div>
                                                     </template>
                                                 </div>
-                                                
+
                                                 <div class="mx-3 ltr:text-left rtl:text-right">
-                                                    <p 
+                                                    <p
                                                         :class="person.newMessage == true ? 'text-gray-900 font-semibold dark:text-white' : 'text-gray-700 dark:text-white-dark'"
                                                         class="mb-1 "
                                                     >{{ person.full_name }} </p>
-                                                    <p 
-                                                        :class="person.newMessage == true ? 'text-gray-900 dark:text-white' : 'text-white-dark'"
-                                                        class="text-xs truncate max-w-[185px]"
-                                                    >{{ person.preview }}</p>
+                                                    <p :class="person.newMessage == true ? 'text-gray-900 dark:text-white' : 'text-white-dark'"
+                                                        class="text-xs truncate max-w-[180px] whitespace-nowrap"
+                                                        v-text="stripHtml(person.preview)"
+                                                    >
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="person.time" class="font-semibold whitespace-nowrap text-xs">
-                                            <p>{{ person.time }}</p>
+                                        <div v-if="person.time" class="font-semibold text-xs">
+                                            <p class="truncate whitespace-nowrap max-w-[80px]">{{ person.time }}</p>
                                         </div>
                                     </button>
                                 </template>
@@ -689,34 +852,31 @@
                                                     </div>
                                                     <div class="space-y-2">
                                                         <div class="flex items-center gap-3">
-                                                            
+
                                                                 <div class="dark:bg-gray-800 p-4 py-2 rounded-md bg-black/10"
-                                                                    :class="message.fromUserId == selectedUser.userId
-                                                                            ? 'ltr:rounded-br-none rtl:rounded-bl-none !bg-primary text-white'
-                                                                            : 'ltr:rounded-tl-none rtl:rounded-tr-none'
-                                                                    "
+                                                                    :class="message.fromUserId == selectedUser.userId ? 'ltr:rounded-br-none rtl:rounded-bl-none !bg-primary text-white': 'ltr:rounded-tl-none rtl:rounded-tr-none'"
                                                                 >
                                                                     <template v-if="message.type == 'text'">
-                                                                        {{ message.text }}
+                                                                        <div v-html="message.text"></div>
                                                                     </template>
                                                                     <template v-if="message.type == 'audio'">
                                                                         <AudioPlay :audioSrc="message.text" :position="message.fromUserId == selectedUser.userId ? 'right' : 'left'" />
                                                                     </template>
                                                                     <template v-if="message.type == 'file'">
-                                                                        <FileDownload 
-                                                                            :fileDate="message.text" 
-                                                                            :position="message.fromUserId == selectedUser.userId
-                                                                                    ? 'right'
-                                                                                    : 'left'
-                                                                            "
+                                                                        <FileDownload
+                                                                            :fileDate="message.text"
+                                                                            :position="message.fromUserId == selectedUser.userId ? 'right' : 'left'"
                                                                         />
                                                                     </template>
                                                                 </div>
-                                                           
-                                                            
-                                                            
+
+
+
                                                             <div :class="{ hidden: selectedUser.userId === message.fromUserId }">
-                                                                <icon-mood-smile class="hover:text-primary" />
+                                                                <!-- <icon-mood-smile class="hover:text-primary" /> -->
+                                                                <svg @click="openModalQuestionAI(message)" class="hover:text-primary w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                                    <path fill="currentColor" d="M156.6 384.9L125.7 354c-8.5-8.5-11.5-20.8-7.7-32.2c3-8.9 7-20.5 11.8-33.8L24 288c-8.6 0-16.6-4.6-20.9-12.1s-4.2-16.7 .2-24.1l52.5-88.5c13-21.9 36.5-35.3 61.9-35.3l82.3 0c2.4-4 4.8-7.7 7.2-11.3C289.1-4.1 411.1-8.1 483.9 5.3c11.6 2.1 20.6 11.2 22.8 22.8c13.4 72.9 9.3 194.8-111.4 276.7c-3.5 2.4-7.3 4.8-11.3 7.2l0 82.3c0 25.4-13.4 49-35.3 61.9l-88.5 52.5c-7.4 4.4-16.6 4.5-24.1 .2s-12.1-12.2-12.1-20.9l0-107.2c-14.1 4.9-26.4 8.9-35.7 11.9c-11.2 3.6-23.4 .5-31.8-7.8zM384 168a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/>
+                                                                </svg>
                                                             </div>
                                                         </div>
                                                         <div
@@ -733,7 +893,7 @@
                                 </perfect-scrollbar>
                             </template>
                             <div class="p-4 absolute bottom-0 left-0 w-full">
-                                
+
                                 <div class="sm:flex w-full space-x-3 rtl:space-x-reverse items-center">
                                     <div class="relative flex-1">
                                         <input
@@ -771,5 +931,53 @@
                 </div>
             </div>
         </div>
+        <ModalLargeX :show="displayModalAi" :onClose="closeModalQuestionAI" :icon="'/img/ai.png'">
+            <template #title>Inteligencia Artificial</template>
+            <template #message>Mejora tu respuesta</template>
+            <template #content>
+
+                <div v-if="formIaconsulta.respond" class="p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
+                    <div class="flex items-center">
+                        <svg class="shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <h3 class="text-lg font-medium">Respuesta IA</h3>
+                    </div>
+                    <div class="mt-2 mb-4 text-sm" v-html="clearHTMLdelimiters(formIaconsulta.respond)"></div>
+                    <div class="flex">
+                        <button @click="saveQuestionResult" type="button" class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-200 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                            <svg v-if="censorLoader" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                            </svg>
+                            <svg v-else class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path fill="currentColor" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-242.7c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32L64 32zm0 96c0-17.7 14.3-32 32-32l192 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32L96 224c-17.7 0-32-14.3-32-32l0-64zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
+                            </svg>
+                            Guardar respuesta
+                        </button>
+                        <button @click="sendMessageAi"  :class="{ 'opacity-25': isShowLoadingSend }" :disabled="isShowLoadingSend" type="button" class="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2l0 64-112 0C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96l96 0 0 64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/>
+                            </svg>
+                            Enviar al alumno
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label>Instrucciones</label>
+                    <textarea v-model="formIaconsulta.instructions" class="form-textarea" rows="8"></textarea>
+                </div>
+            </template>
+            <template #buttons>
+                <PrimaryButton @click="selectServerAI" type="button" :class="{ 'opacity-25': formIaconsulta.processing }" :disabled="formIaconsulta.processing">
+                    <svg v-show="formIaconsulta.processing" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                    </svg>
+                    Consultar
+                </PrimaryButton>
+            </template>
+        </ModalLargeX>
     </AppLayout>
 </template>

@@ -38,7 +38,11 @@ const form = useForm({
     image_preview: null,
     modality_id: null,
     type_description: null,
-    sector_description: null
+    sector_description: null,
+    price: 0,
+    certificate_description: null,
+    discount: 0,
+    discount_applies: '02'
 });
 
 const createCourse = () => {
@@ -122,6 +126,15 @@ const handleImageCompressed = (file) => {
                 </select>
                 <InputError :message="form.errors.sector_description" class="mt-2" />
             </div>
+            <div class="col-span-6 sm:col-span-4 ">
+                <InputLabel for="description" value="Nombre *" />
+                <TextInput
+                    id="description"
+                    v-model="form.description"
+                    type="text"
+                />
+                <InputError :message="form.errors.description" class="mt-2" />
+            </div>
             <div class="col-span-6">
                 <InputLabel for="file_input" value="Imagen *" />
                 <div class="flex justify-center space-x-2">
@@ -130,31 +143,62 @@ const handleImageCompressed = (file) => {
                         <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Imagen Actual</figcaption>
                     </figure>
                 </div>
-                <ImageCompressorjs :onImageCompressed="handleImageCompressed" /> 
+                <ImageCompressorjs :onImageCompressed="handleImageCompressed" />
                 <!-- <input @input="form.image = $event.target.files[0]" accept=".svg, .png, .jpg, .jpeg, .gif" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file"> -->
                 <InputError :message="form.errors.image" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-3 ">
-                <InputLabel for="description" value="Nombre *" />
-                <TextInput
-                    id="description"
-                    v-model="form.description"
-                    type="text"
-                    class="block w-full mt-1"
-                    
-                />
-                <InputError :message="form.errors.description" class="mt-2" />
-            </div>
+
             <div class="col-span-6 sm:col-span-3 ">
                 <InputLabel for="course_date" value="Fecha Inicio *" />
                 <TextInput
                     id="course_date"
                     v-model="form.course_date"
                     type="date"
-                    class="block w-full mt-1"
-                    
                 />
                 <InputError :message="form.errors.course_date" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-3 ">
+                <InputLabel for="price" value="Precio *" />
+                <TextInput
+                    id="price"
+                    v-model="form.price"
+                    type="number"
+                />
+                <InputError :message="form.errors.price" class="mt-2" />
+            </div>
+            <div class="col-span-6">
+                <InputLabel for="certificate_description" value="Descripción de los certificados *" />
+                <textarea
+                    id="certificate_description"
+                    v-model="form.certificate_description"
+                    class="form-textarea"
+                    rows="6"
+                >
+                </textarea>
+                <InputError :message="form.errors.certificate_description" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="discount" value="Descuento (Opcional)" />
+                <div>
+                    <input type="range" id="discount" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" min="0" max="100" v-model="form.discount" />
+                    <div class="font-bold ltr:text-right rtl:text-left">
+                        <input type="text" class="form-input text-xs form-input-sm w-10 text-right px-2" :value="form.discount"> <span>%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-6 sm:col-span-2">
+                <InputLabel value="¿A que alumnos les aplica el descuento?" />
+                <div class="flex items-center space-x-2">
+                    <label class="inline-flex">
+                        <input v-model="form.discount_applies" value="01" type="radio" name="square_radio" class="form-radio rounded-none" />
+                        <span>Todos</span>
+                    </label>
+                    <label class="inline-flex">
+                        <input v-model="form.discount_applies" value="02" type="radio" name="square_radio" class="form-radio rounded-none" />
+                        <span>Suscripción</span>
+                    </label>
+                </div>
             </div>
             <div class="col-span-6 sm:col-span-3">
                 <div class="flex items-center">
@@ -165,7 +209,7 @@ const handleImageCompressed = (file) => {
         </template>
 
         <template #actions>
-            
+
             <Keypad>
                 <template #botones>
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

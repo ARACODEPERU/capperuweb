@@ -69,7 +69,8 @@
                         ></div>
                         <div class="ltr:xl:-skew-x-[14deg] rtl:xl:skew-x-[14deg]">
                             <Link href="/" class="w-48 block lg:w-72 ms-10">
-                                <img :src="`${baseUrl}/img/logo176x32_negativo.png`" alt="Logo" class="w-full" />
+                                <img v-if="company.logo_negative == '/img/logo176x32_negativo.png'" :src="`${baseUrl}/img/logo176x32_negativo.png`" alt="Logo" class="w-full" />
+                                <img v-else :src="`${baseUrl}storage/${company.logo_negative}`" alt="Logo" class="w-full" />
                             </Link>
                             <div class="mt-24 hidden w-full max-w-[430px] lg:block">
                                 <img :src="`${baseUrl}/themes/vristo/images/auth/login.svg`" alt="Cover Image" class="w-full" />
@@ -79,7 +80,14 @@
                     <div class="relative flex w-full flex-col items-center justify-center gap-6 px-4 pb-16 pt-6 sm:px-6 lg:max-w-[667px]">
                         <div class="flex w-full max-w-[440px] items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full">
                             <Link :href="route('index_main')" class="w-8 block lg:hidden">
-                                <img :src="`${baseUrl}/img/isotipo.png`" alt="Logo" class="mx-auto w-10" />
+                                <template v-if="store.theme === 'light'">
+                                    <img v-if="company.isotipo == '/img/isotipo.png'" :src="`${baseUrl}/img/isotipo.png`" alt="Logo" class="mx-auto w-10" />
+                                    <img v-else :src="`${baseUrl}storage/${company.isotipo}`" alt="Logo" class="mx-auto w-10" />
+                                </template>
+                                <template v-if="store.theme === 'dark'">
+                                    <img v-if="company.isotipo_negative == '/img/isotipo_negativo.png'" :src="`${baseUrl}/img/isotipo_negativo.png`" alt="Logo" class="mx-auto w-10" />
+                                    <img v-else :src="`${baseUrl}storage/${company.isotipo_negative}`" alt="Logo" class="mx-auto w-10" />
+                                </template>
                             </Link>
                             <!-- <div class="dropdown ms-auto w-max">
                                 <Popper :placement="store.rtlClass === 'rtl' ? 'bottom-start' : 'bottom-end'" offsetDistance="8">
@@ -124,11 +132,18 @@
                                 <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Iniciar sesión</h1>
                                 <p class="text-base font-bold leading-normal text-white-dark">Ingrese su correo electrónico y contraseña para iniciar sesión</p>
                             </div>
-                            <form class="space-y-5 dark:text-white" @submit.prevent="submit">
+                            <form class="space-y-5 dark:text-white" @submit.prevent="submit" novalidate>
                                 <div>
                                     <label for="Email">Correo Electrónico</label>
                                     <div class="relative text-white-dark">
-                                        <input v-model="form.email" id="Email" type="email" placeholder="Ingrese correo electrónico" class="form-input ps-10 placeholder:text-white-dark" tabindex="1" />
+                                        <input
+                                            v-model="form.email"
+                                            id="Email"
+                                            type="text"
+                                            placeholder="Ingrese correo electrónico"
+                                            class="form-input ps-10 placeholder:text-white-dark" tabindex="1"
+                                            @input="(e) => form.email = e.target.value.trim()"
+                                        />
                                         <span class="absolute start-4 top-1/2 -translate-y-1/2">
                                             <icon-mail :fill="true" />
                                         </span>
@@ -141,7 +156,13 @@
                                         <Link :href="route('password.request')" class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500">¿Has olvidado tu contraseña?</Link>
                                     </div>
                                     <div class="relative text-white-dark">
-                                        <input v-model="form.password" id="Password" type="password" placeholder="Ingrese la contraseña" class="form-input ps-10 placeholder:text-white-dark" tabindex="2" />
+                                        <input
+                                            v-model="form.password"
+                                            id="Password" type="password"
+                                            placeholder="Ingrese la contraseña"
+                                            class="form-input ps-10 placeholder:text-white-dark" tabindex="2"
+                                            @input="(e) => form.password = e.target.value.trim()"
+                                        />
                                         <span class="absolute start-4 top-1/2 -translate-y-1/2">
                                             <icon-lock-dots :fill="true" />
                                         </span>

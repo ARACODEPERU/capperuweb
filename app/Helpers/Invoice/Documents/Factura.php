@@ -18,12 +18,14 @@ use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Charge;
+use Greenter\Model\Sale\Detraction;
 use App\Helpers\Invoice\QrCodeGenerator;
 use App\Models\Kardex;
 use App\Models\KardexSize;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleDocumentItem;
+use App\Models\SaleProduct;
 use Illuminate\Support\Facades\DB;
 
 class Factura
@@ -58,7 +60,12 @@ class Factura
                 $codeError = $cdr->getCode();
                 $messageError = $cdr->getDescription();
                 $notes = json_encode($cdr->getNotes(), JSON_UNESCAPED_UNICODE);
-                $status = $cdr->getCode() == 0 ? 'Aceptada' : null;
+                if ($cdr->getCode() == 0) {
+                    $status = 'Aceptada';
+                } elseif ($cdr->getCode() == 2325) {
+                    $status = 'Pendiente';
+                }
+
                 $document->invoice_cdr = $this->util->writeCdr($invoice, $res->getCdrZip());
             } else {
                 $error = $res->getError();
@@ -81,7 +88,7 @@ class Factura
         }
     }
 
-    public function setDocument($document)
+    public function setDocument($document, $tipDet = '022', $ipMeP = '001')
     {
         $establishment = LocalSale::find($document->sale->local_id);
         $province = $establishment->district->province;
@@ -107,6 +114,8 @@ class Factura
             ->setRuc($this->mycompany->ruc)
             ->setRazonSocial($this->mycompany->business_name)
             ->setNombreComercial($this->mycompany->tradename)
+            ->setEmail($this->mycompany->email)
+            ->setTelephone($this->mycompany->phone)
             ->setAddress($address);
 
         // Venta
@@ -127,6 +136,12 @@ class Factura
             ->setValorVenta($document->invoice_value_sale)
             ->setSubTotal($document->invoice_subtotal)
             ->setMtoImpVenta($document->invoice_mto_imp_sale);
+
+        if ($document->additional_description) {
+            $invoice->setObservacion($document->additional_description);
+        }
+
+
 
         $details = $document->items;
         $items = [];
@@ -150,6 +165,7 @@ class Factura
             $descuent = $detail->mto_discount;
 
             if ($descuent > 0) {
+                $item->setDescuento($descuent);
                 $json_discounts = json_decode($detail->json_discounts);
 
                 $charges = [];
@@ -169,11 +185,42 @@ class Factura
         }
 
         $legend = new Legend();
+
         $legend->setCode($document->invoice_legend_code)
             ->setValue($document->invoice_legend_description);
 
-        $invoice->setDetails($items)
-            ->setLegends([$legend]);
+
+        if ($document->invoice_type_operation == '1001') {
+            $valuePercent = 0.12; // 12% del total de la venta
+            $percent = 12;
+            $totalV = $document->invoice_mto_imp_sale;
+            $detMount = $totalV * $valuePercent;
+            $invoice->setDetraccion(
+                // MONEDA SIEMPRE EN SOLES
+                (new Detraction())
+                    // Carnes y despojos comestibles
+                    ->setCodBienDetraccion($tipDet) // catalog. 54
+                    // Deposito en cuenta
+                    ->setCodMedioPago($ipMeP) // catalog. 59
+                    ->setCtaBanco($this->mycompany->withdrawal_account_number)
+                    ->setPercent($percent)
+                    ->setMount($detMount)
+            );
+
+            $legendDetraccion =  new Legend();
+
+            $legendDetraccion->setCode('2006')
+                ->setValue('Operación sujeta a detracción');
+
+            $invoice->setLegends([$legend, $legendDetraccion]);
+        } else {
+            $invoice->setLegends([$legend]);
+        }
+
+
+        $invoice->setDetails($items);
+
+        //dd($invoice);
         return $invoice;
     }
 
@@ -182,15 +229,17 @@ class Factura
         try {
             $document = SaleDocument::find($id);
             $invoice = $this->setDocument($document);
+
             $generator = new QrCodeGenerator(300);
             $dir = public_path() . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'tmp_qr';
+
             $cadenaqr = $this->stringQr($document);
 
             $qr_path = $generator->generateQR($cadenaqr, $dir, $invoice->getName() . '.png', 8, 2);
 
 
             $seller = User::find($document->user_id);
-            $pdf = $this->util->generatePdf($invoice, $seller, $qr_path, $format);
+            $pdf = $this->util->generatePdf($invoice, $seller, $qr_path, $format, $document->status);
             $document->invoice_pdf = $pdf;
             $document->save();
 

@@ -37,26 +37,44 @@ class PermissionTableSeeder extends Seeder
         array_push($permissions, Permission::create(['name' => 'aca_estudiante_listado']));
         array_push($permissions, Permission::create(['name' => 'aca_estudiante_nuevo']));
         array_push($permissions, Permission::create(['name' => 'aca_estudiante_editar']));
+        array_push($permissions, Permission::create(['name' => 'aca_estudiante_importar_excel']));
         array_push($permissions, Permission::create(['name' => 'aca_estudiante_eliminar']));
         array_push($permissions, Permission::create(['name' => 'aca_estudiante_certificados_crear']));
         array_push($permissions, Permission::create(['name' => 'aca_cursos_listado']));
         array_push($permissions, Permission::create(['name' => 'aca_cursos_nuevo']));
         array_push($permissions, Permission::create(['name' => 'aca_cursos_editar']));
         array_push($permissions, Permission::create(['name' => 'aca_cursos_eliminar']));
+        array_push($permissions, Permission::create(['name' => 'aca_cursos_listado_estudiantes']));
         array_push($permissions, Permission::create(['name' => 'aca_cursos_modulos']));
-
         array_push($permissions, Permission::create(['name' => 'aca_miscursos']));
 
+        array_push($permissions, Permission::create(['name' => 'aca_estudiante_listar_comprobantes']));
         array_push($permissions, Permission::create(['name' => 'aca_estudiante_cobrar']));
+        array_push($permissions, Permission::create(['name' => 'aca_certificados_listado']));
+        array_push($permissions, Permission::create(['name' => 'aca_certificados_editar']));
+        array_push($permissions, Permission::create(['name' => 'aca_certificados_nuevo']));
+        array_push($permissions, Permission::create(['name' => 'aca_certificados_eliminar']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_cortos']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_lista']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_lista_nuevo']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_lista_editar']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_lista_eliminar']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_videos']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_videos_nuevo']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_videos_editar']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_videos_eliminar']));
+        array_push($permissions, Permission::create(['name' => 'aca_tutoriales_lista_agregar_video']));
 
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission->name);
         }
 
         $alumno = Role::create(['name' => 'Alumno']);
+        $alumno->givePermissionTo('aca_dashboard');
         $alumno->givePermissionTo('aca_miscursos');
 
         $docente = Role::create(['name' => 'Docente']);
+        $docente->givePermissionTo('aca_dashboard');
         $docente->givePermissionTo('aca_cursos_listado');
     }
 }

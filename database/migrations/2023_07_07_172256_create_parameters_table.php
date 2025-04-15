@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('parameter_code')->unique();
             $table->string('description');
-            $table->char('control_type', 2)->nullable()->comment('in=text,ra=radio,sq=select(query),sa=select(json),ch=checkbox,tx=textarea,rg=range,fl=file');
+            $table->char('control_type', 3)->nullable()->comment('in=text,sq=select(query),sa=select(json),chq=checkbox(query),chj=checkbox(json),tx=textarea,rgq=range(query),rgj=range(json),fl=file');
             $table->text('json_query_data')->nullable();
             $table->text('value_default')->nullable();
             $table->timestamps();
@@ -33,8 +33,8 @@ return new class extends Migration
         Parameter::create([
             'parameter_code'    => 'P000002',
             'description'       => 'Tipo de operacion Venta - Catalog. 51 Sunat',
-            'control_type'      => 'se',
-            'json_query_data'   => null,
+            'control_type'      => 'sq',
+            'json_query_data'   => 'SELECT id,description FROM sunat_operation_types',
             'value_default'     => '0101'
         ]);
 
@@ -73,9 +73,57 @@ return new class extends Migration
         Parameter::create([
             'parameter_code'    => 'P000008',
             'description'       => 'Tipo de afectación del IGV por defecto compras y ventas',
-            'control_type'      => 'se',
-            'json_query_data'   => null,
+            'control_type'      => 'sq',
+            'json_query_data'   => "SELECT id,description FROM sunat_affectation_igv_types",
             'value_default'     => '10'
+        ]);
+
+        Parameter::create([
+            'parameter_code'    => 'P000009',
+            'description'       => 'Tipo de negocio o empresa, para ventas en linea',
+            'control_type'      => 'sa',
+            'json_query_data'   => '[{"value": "1","label":"Cursos y capacitaciones"},{"value": "2","label":"Productos"},{"value": "3","label":"Productos con Especificaciónes"},{"value": "99","label":"Todos"}]',
+            'value_default'     => 1
+        ]);
+
+        Parameter::create([
+            'parameter_code'    => 'P000010',
+            'description'       => 'Token de Editor en linea Tiny',
+            'control_type'      => 'tx',
+            'json_query_data'   => null,
+            'value_default'     => 'xmpsrss1dh49by6nnf83jicfv477cz0o31h0xu3ejsnnhsnz'
+        ]);
+
+        Parameter::create([
+            'parameter_code'    => 'P000011',
+            'description'       => 'Correo electronico a donde llegaran los mensajes del modulo CRM  Buzón de correo',
+            'control_type'      => 'tx',
+            'json_query_data'   => null,
+            'value_default'     => 'aracode_atencion@gmail.com'
+        ]);
+
+        Parameter::create([
+            'parameter_code'    => 'P000012',
+            'description'       => 'token para consultas reniec y sunat',
+            'control_type'      => 'tx',
+            'json_query_data'   => null,
+            'value_default'     => 'apis-token-9042.kSfEdAqdNoOW8-fGfu-cKQoWOH7Tzg2Z'
+        ]);
+
+        Parameter::create([
+            'parameter_code'    => 'P000013',
+            'description'       => 'Correo electronico remitente de mensajes del modulo CRM, correos enviados a estudiantes',
+            'control_type'      => 'tx',
+            'json_query_data'   => null,
+            'value_default'     => 'aracode_atencion@gmail.com'
+        ]);
+
+        Parameter::create([
+            'parameter_code'    => 'P000014',
+            'description'       => 'Como se mostrará el cuadro de selección en el formulario de nuevo y editar categoría',
+            'control_type'      => 'rdj',
+            'json_query_data'   => '[{"value": "1","label":"Lista de niveles (básico)"},{"value": "2","label":"Lista en Cascada (Avanzada)"}]',
+            'value_default'     => 1
         ]);
     }
 

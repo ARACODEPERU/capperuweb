@@ -1,11 +1,16 @@
-import { 
-    faBook, 
-    faUserGraduate, 
-    faLandmarkFlag, 
-    faUserTie, 
+import {
+    faBook,
+    faUserGraduate,
+    faLandmarkFlag,
+    faUserTie,
     faBookOpen,
-    faRocket
+    faRocket,
+    faCertificate,
+    faPlay,
+    faUserGroup
 } from "@fortawesome/free-solid-svg-icons";
+import { ref } from 'vue';
+import axios from 'axios';
 
 const menuAcademic = {
     status: false,
@@ -50,13 +55,47 @@ const menuAcademic = {
             permissions: "aca_cursos_listado",
         },
         {
+            route: route("aca_certificate_list"),
+            status: false,
+            text: "Certificados",
+            icom: faCertificate,
+            permissions: "aca_certificados_listado",
+        },
+        {
+            route: null,
+            status: false,
+            text: "Tutoriales Cortos",
+            icom: faPlay,
+            permissions: "aca_tutoriales_cortos",
+            items: [
+                {
+                    route: route("aca_tutorials_playlist"),
+                    status: false,
+                    text: "Lista de reproduccion",
+                    icom: faCertificate,
+                    permissions: "aca_tutoriales_lista",
+                },
+                {
+                    route: route("aca_tutorials_videos_list"),
+                    status: false,
+                    text: "Videos",
+                    icom: faCertificate,
+                    permissions: "aca_tutoriales_videos",
+                },
+            ]
+        },
+        {
             route: route("aca_mycourses"),
             status: false,
             text: "Mis Cursos",
             icom: faBookOpen,
             permissions: "aca_miscursos",
+            id: 'btnMenuMycourses'
         }
     ],
 };
 
+
+
+// Llamamos la función para cargar los docentes al menú
 export default menuAcademic;

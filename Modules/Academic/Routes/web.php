@@ -11,8 +11,17 @@
 |
 */
 
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
+use Modules\Academic\Http\Controllers\AcaAuthController;
+use Modules\Academic\Http\Controllers\AcaCertificateController;
+use Modules\Academic\Http\Controllers\AcaContentController;
+use Modules\Academic\Http\Controllers\AcaCourseController;
+use Modules\Academic\Http\Controllers\AcaListVideoController;
 use Modules\Academic\Http\Controllers\AcaModuleController;
+use Modules\Academic\Http\Controllers\AcaSaleDocumentController;
+use Modules\Academic\Http\Controllers\AcaSalesController;
+use Modules\Academic\Http\Controllers\AcaShortVideoController;
 use Modules\Academic\Http\Controllers\AcaStudentController;
 use Modules\Academic\Http\Controllers\MercadopagoController;
 
@@ -69,13 +78,16 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
         ->name('aca_students_create');
 
     Route::middleware(['permission:aca_estudiante_certificados_crear'])
-        ->get('students/certificates/{id}', 'AcaCertificateController@create')
+        ->get('students/certificates/{id}', 'AcaCertificateController@studentCreate')
         ->name('aca_students_certificates_create');
 
-    Route::post('students/certificates_store', 'AcaCertificateController@store')
+    Route::post('students/certificates_store', [AcaCertificateController::class, 'studentStore'])
         ->name('aca_students_certificates_store');
 
-    Route::delete('students/certificates_destroy/{id}', 'AcaCertificateController@destroy')
+    Route::post('students/history_store', [AcaStudentController::class, 'historyStore'])
+        ->name('aca_students_history_store');
+
+    Route::delete('students/certificates_destroy/{id}', 'AcaCertificateController@studentDestroy')
         ->name('aca_students_certificates_destroy');
 
     Route::middleware(['permission:aca_estudiante_certificados_crear'])
@@ -84,6 +96,12 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
 
     Route::post('students/registrations_store', 'AcaCapRegistrationController@store')
         ->name('aca_students_registrations_store');
+
+    Route::post('students/subscriptions_store', 'AcaCapRegistrationController@subscriptionStore')
+        ->name('aca_students_subscriptions_store');
+
+    Route::delete('students/subscriptions_destroy/{student_id}/{subscription_id}', 'AcaCapRegistrationController@subscriptionDestroy')
+        ->name('aca_students_subscriptions_destroy');
 
     Route::delete('students/registrations_destroy/{id}', 'AcaCapRegistrationController@destroy')
         ->name('aca_students_registrations_destroy');
@@ -133,13 +151,14 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
 
     Route::post('courses/modules/store', 'AcaModuleController@store')->name('aca_courses_module_store');
     Route::put('courses/modules/update/{id}', 'AcaModuleController@update')->name('aca_courses_module_update');
+    Route::post('courses/modules/teacher/update', 'AcaModuleController@updateTeacher')->name('aca_courses_module_teacher_update');
     Route::delete('courses/modules/destroy/{id}', 'AcaModuleController@destroy')->name('aca_courses_module_destroy');
     Route::get('courses/modules/themes/list/{id}', 'AcaModuleController@getThemeByModelId')->name('aca_courses_module_themes_list');
     Route::post('courses/modules/themes/store', 'AcaThemeController@store')->name('aca_courses_module_themes_store');
     Route::put('courses/modules/themes/update/{id}', 'AcaThemeController@update')->name('aca_courses_module_themes_update');
     Route::delete('courses/modules/themes/destroy/{id}', 'AcaThemeController@destroy')->name('aca_courses_module_themes_destroy');
     Route::put('courses/modules/themes/content/update/{id}', 'AcaContentController@update')->name('aca_courses_module_themes_content_update');
-    Route::post('courses/modules/themes/content/store', 'AcaContentController@store')->name('aca_courses_module_themes_content_store');
+    Route::post('courses/modules/themes/content/store', [AcaContentController::class, 'store'])->name('aca_courses_module_themes_content_store');
     Route::delete('courses/modules/themes/content/destroy/{id}', 'AcaContentController@destroy')->name('aca_courses_module_themes_content_destroy');
 
 
@@ -187,14 +206,36 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
         ->post('student/sale/store', 'AcaSalesController@store')
         ->name('aca_student_invoice_store');
 
+    Route::middleware(['middleware' => 'permission:aca_estudiante_listar_comprobantes'])
+        ->get('student/sale/list/{id}', 'AcaSalesController@listDocumentByStudent')
+        ->name('aca_student_invoice_list');
+
+    Route::get('student/sale/listtable/{id}', [AcaSalesController::class, 'tableDocumentStudent'])
+        ->name('aca_student_invoice_list_table');
+
+    Route::post('student/send/mail/student/ticket', [AcaSaleDocumentController::class, 'sendEmailBoleta'])
+        ->name('aca_send_email_student_document');
+
     Route::middleware(['middleware' => 'permission:aca_miscursos'])
         ->post('student/dashboard/courses', 'AcaStudentController@getCourses')
         ->name('aca_student_dashboard_courses');
+
+    Route::middleware(['middleware' => 'permission:aca_estudiante_importar_excel'])
+        ->post('student/import/excel', 'AcaStudentController@import')
+        ->name('aca_student_import_file_excel');
+
+    Route::middleware(['middleware' => 'permission:aca_estudiante_importar_excel'])
+        ->get('student/import/{importKey}/progress', 'AcaStudentController@getProgress')
+        ->name('aca_student_import_progress');
 
 
     Route::middleware(['middleware' => 'permission:aca_dashboard'])
         ->get('dashboard/total/registration/student', 'AcademicController@studentsEnrolledMonth')
         ->name('aca_student_registration_total');
+
+    Route::middleware(['middleware' => 'permission:aca_dashboard'])
+        ->get('dashboard/courses/registration/student/genero', 'AcademicController@getStudentsCourses')
+        ->name('aca_student_registration_courses');
 
     ////subscriptions/////
     Route::middleware(['middleware' => 'permission:aca_suscripciones'])
@@ -224,6 +265,79 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
     Route::post('subscriptions/free/user', [AcaStudentController::class, 'startStudentFree'])
         ->name('aca_subscriptions_free_user');
 
-    Route::put('mercadopago/{id}/processpayment', [MercadopagoController::class, 'processPayment'])
-        ->name('aca_mercadopago_processpayment');
+    Route::get('certificate/list', [AcaCertificateController::class, 'index'])
+        ->name('aca_certificate_list');
+
+    Route::get('certificate/create', [AcaCertificateController::class, 'create'])
+        ->name('aca_certificate_create');
+
+    Route::post('certificate/store', [AcaCertificateController::class, 'store'])
+        ->name('aca_certificate_store');
+
+    Route::get('certificate/{id}/edit', [AcaCertificateController::class, 'edit'])
+        ->name('aca_certificate_edit');
+
+    Route::post('certificate/update/info', [AcaCertificateController::class, 'updateInfo'])
+        ->name('aca_certificate_update_info');
+
+    Route::middleware(['middleware' => 'permission:aca_cursos_listado_estudiantes'])
+        ->get('courses/enrolledstudents/{id}/registered', [AcaCourseController::class, 'enrolledStudents'])
+        ->name('aca_enrolledstudents_list');
+
+    Route::put('certificate/massive/{id}/store', [AcaCertificateController::class, 'storeMassive'])
+        ->name('aca_certificate_massive_store');
+
+    Route::post('student/certificates/menu', [AcaStudentController::class, 'getCertificates'])
+        ->name('aca_certificate_by_student');
+
+    Route::middleware(['middleware' => 'permission:aca_tutoriales_lista'])->get('tutorials/playlist', [AcaListVideoController::class, 'index'])
+        ->name('aca_tutorials_playlist');
+
+    Route::middleware(['middleware' => 'permission:aca_tutoriales_lista_nuevo'])->post('tutorials/playlist/store', [AcaListVideoController::class, 'storeOrUpdate'])
+        ->name('aca_tutorials_playlist_store');
+
+    Route::middleware(['middleware' => 'permission:aca_tutoriales_videos_nuevo'])->post('tutorials/video/store', [AcaShortVideoController::class, 'store'])
+        ->name('aca_tutorials_video_store');
+
+    Route::post('tutorials/video/todos', [AcaShortVideoController::class, 'studentVideos'])
+        ->name('aca_tutorials_video_todos_estudiante');
+
+    Route::middleware(['middleware' => 'permission:aca_tutoriales_videos_eliminar'])
+        ->post('tutorials/video/destroy', [AcaShortVideoController::class, 'destroyOrUpdate'])
+        ->name('aca_tutorials_video_eliminar_actualizar');
+
+    Route::middleware(['middleware' => 'permission:aca_tutoriales_lista_eliminar'])
+        ->delete('tutorials/playlist/destroy/{id}', [AcaListVideoController::class, 'destroy'])
+        ->name('aca_tutorials_playlist_eliminar');
+
+    Route::middleware(['middleware' => 'permission:aca_tutoriales_videos'])
+        ->get('tutorials/video/list', [AcaShortVideoController::class, 'index'])
+        ->name('aca_tutorials_videos_list');
+
+    ////////////////verificar datos///////////////////////////
+    Route::post('buy/course/mercadopago', [MercadopagoController::class, 'createPreference'])->name('academic_create_preference_course');
+    Route::post('buy/course/items/mercadopago', [MercadopagoController::class, 'createItemsPreference'])->name('academic_create_items_preference_course');
+    Route::post('buy/course/processpayment/mercadopago', [MercadopagoController::class, 'processPaymentCourses'])->name('academic_processpayment_courses_mercadopago');
 });
+
+/////////no nesesita aver iniciado session//////////
+Route::get('academic/certificate/image/{id}/download', [AcaCertificateController::class, 'generateCertificateStudent'])->name('aca_image_download');
+
+Route::get('create/payment/{id}/account', [LandingController::class, 'academiCreatePayment'])->name('academic_step_account');
+
+Route::put('create/payment/{id}/login', [AcaAuthController::class, 'login'])
+    ->name('academic_step_account_login');
+Route::put('create/payment/{id}/create', [AcaAuthController::class, 'create'])
+    ->name('academic_step_account_create');
+
+Route::middleware(['auth'])->get('create/payment/{id}/Verification', [AcaAuthController::class, 'userVerification'])
+    ->name('academic_step_verification');
+
+Route::middleware(['auth'])->get('create/payment/{id}/pay', [MercadopagoController::class, 'formPay'])
+    ->name('academic_step_pay');
+
+Route::middleware(['auth'])->put('mercadopago/{id}/academic', [MercadopagoController::class, 'processPayment'])
+    ->name('aca_mercadopago_processpayment');
+
+
+Route::middleware(['auth'])->get('thank/purchasing/{id}', [MercadopagoController::class, 'thankYou'])->name('web_gracias_por_comprar');
