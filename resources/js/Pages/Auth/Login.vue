@@ -182,7 +182,7 @@
 
                             <div class="relative my-7 text-center md:mb-9">
                                 <span class="absolute inset-x-0 top-1/2 h-px w-full -translate-y-1/2 bg-white-light dark:bg-white-dark"></span>
-                                <span class="relative bg-white px-2 font-bold uppercase text-white-dark dark:bg-dark dark:text-white-light">or</span>
+                                <span class="relative bg-white px-2 font-bold uppercase text-white-dark dark:bg-dark dark:text-white-light">Soguenos en</span>
                             </div>
                             <div class="mb-10 md:mb-[60px]">
                                 <ul class="flex justify-center gap-3.5 text-white">
@@ -224,14 +224,14 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="text-center dark:text-white">
+                            <!-- <div class="text-center dark:text-white">
                                 ¿No tienes una cuenta?
                                 <Link :href="route('register')" class="uppercase text-primary underline transition hover:text-black dark:hover:text-white">
                                     REGISTRATE
                                 </Link>
-                            </div>
+                            </div> -->
                         </div>
-                        <p class="absolute bottom-6 w-full text-center dark:text-white">© {{ new Date().getFullYear() }}.ARACODE All Rights Reserved.</p>
+                        <p class="absolute bottom-6 w-full text-center dark:text-white">© {{ new Date().getFullYear() }}. <a href="https://www.aracodeperu.com/">ARACODE SMART SOLUTIONS</a> All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

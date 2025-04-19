@@ -178,7 +178,7 @@ const handleImageCompressed = (file) => {
                 />
                 <InputError :message="form.errors.price" class="mt-2" />
             </div>
-            <div class="col-span-6">
+            <!-- <div class="col-span-6">
                 <InputLabel for="certificate_description" value="Descripción de los certificados *" />
                 <textarea
                     id="certificate_description"
@@ -188,8 +188,8 @@ const handleImageCompressed = (file) => {
                 >
                 </textarea>
                 <InputError :message="form.errors.certificate_description" class="mt-2" />
-            </div>
-            <div class="col-span-6 sm:col-span-4">
+            </div> -->
+            <!-- <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="discount" value="Descuento (Opcional)" />
                 <div>
                     <input type="range" id="discount" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" min="0" max="100" v-model="form.discount" />
@@ -210,7 +210,7 @@ const handleImageCompressed = (file) => {
                         <span>Suscripción</span>
                     </label>
                 </div>
-            </div>
+            </div> -->
             <div class="col-span-6 sm:col-span-3">
                 <div class="flex items-center">
                     <input v-model="form.status" id="link-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">

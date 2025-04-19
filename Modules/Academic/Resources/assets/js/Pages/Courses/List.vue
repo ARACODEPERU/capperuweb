@@ -259,9 +259,9 @@ const dataModalContent = ref(null);
                                                     <MenuItem>
                                                         <Link :href="route('aca_courses_edit',course.id)" >Editar</Link>
                                                     </MenuItem>
-                                                    <MenuItem>
+                                                    <!-- <MenuItem>
                                                         <Link :href="route('aca_enrolledstudents_list',course.id)" >Alumnos</Link>
-                                                    </MenuItem>
+                                                    </MenuItem> -->
                                                     <MenuItem>
                                                         <Link :href="route('aca_courses_information',course.id)" >Información</Link>
                                                     </MenuItem>
