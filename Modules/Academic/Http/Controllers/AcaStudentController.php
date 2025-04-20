@@ -387,7 +387,11 @@ class AcaStudentController extends Controller
                 ->with('teacher.person')->whereHas('registrations', function ($query) use ($student_id) {
                     $query->where('student_id', $student_id);
                 })->orderBy('id', 'DESC')
-                ->get();
+                ->get()
+                ->map(function ($course) use ($studentSubscribed, $student_id) {
+                    $course->can_view = true;
+                    return $course;
+                });
             // $courses = AcaCourse::with(['modules.themes.contents', 'modality', 'category', 'teacher.person'])
             //     ->with('registrations') // Para validar los cursos registrados
             //     ->get()
