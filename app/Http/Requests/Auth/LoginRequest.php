@@ -59,7 +59,7 @@ class LoginRequest extends FormRequest
 
         $email = trim($this->input('email'));
         $password = trim($this->input('password'));
-
+        dd($password);
         // Log temporal para revisar si los datos llegan bien
         Log::info('Intento de login', [
             'email_original' => $this->input('email'),

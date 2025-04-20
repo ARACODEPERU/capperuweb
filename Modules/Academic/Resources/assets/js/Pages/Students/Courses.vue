@@ -127,7 +127,7 @@
                                         </div>
 
                                         <div class="mt-1 p-2">
-                                            <p class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
+                                            <p v-if="course.modality" class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
                                             <h2 class="text-slate-700 dark:text-slate-400">{{ course.description }}</h2>
                                         </div>
                                     </Link>
@@ -138,7 +138,7 @@
                                         <img :src="getImage(course.image)" alt="Hotel Photo" class="max-h-[105.05px]" />
                                     </div>
                                     <div class="mt-1 p-2">
-                                        <p class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
+                                        <p v-if="course.modality" class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
                                         <p class="mt-1 text-sm text-slate-400">{{ course.type_description }}</p>
                                         <h2 class="text-slate-700 dark:text-slate-400">{{ course.description }}</h2>
                                     </div>
