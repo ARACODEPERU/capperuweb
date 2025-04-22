@@ -232,8 +232,11 @@
                             <a href="{{ route('web_convenios') }}">Convenios</a>
                         </li>
                         <li>
-                            <a href="{{ env('URL_CAMPUS') }}">Aula Virtual</a>
+                            <a href="https://capperu.com/login">Aula Virtual</a>
                         </li>
+                        {{-- <li>
+                            <a href="{{ env('URL_CAMPUS') }}">Aula Virtual</a>
+                        </li> --}}
                         <li>
                             <a href="{{ route('web_blog') }}">Blog</a>
                         </li>
