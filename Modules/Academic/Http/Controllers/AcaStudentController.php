@@ -382,7 +382,6 @@ class AcaStudentController extends Controller
                     $course->can_view = true; // Campo adicional
                     return $course;
                 });
-                dd("adminORDocente", $courses);
         } else {
             $courses = AcaCourse::with('modules.themes.contents')
                 ->with('teacher.person')->whereHas('registrations', function ($query) use ($student_id) {
@@ -393,7 +392,6 @@ class AcaStudentController extends Controller
                     $course->can_view = true;
                     return $course;
                 });
-                dd($courses, "Student");
             // $courses = AcaCourse::with(['modules.themes.contents', 'modality', 'category', 'teacher.person'])
             //     ->with('registrations') // Para validar los cursos registrados
             //     ->get()
