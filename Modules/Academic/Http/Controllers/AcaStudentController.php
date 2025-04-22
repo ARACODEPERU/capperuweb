@@ -384,6 +384,7 @@ class AcaStudentController extends Controller
                 });
         } else {
             $courses = AcaCourse::with('modules.themes.contents')
+                ->with('modality')
                 ->with('teacher.person')->whereHas('registrations', function ($query) use ($student_id) {
                     $query->where('student_id', $student_id);
                 })->orderBy('id', 'DESC')
