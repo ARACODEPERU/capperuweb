@@ -116,7 +116,7 @@
         </ul>
         <div class="pt-5">
             <div class="grid gap-6 grid-cols-6">
-                <section class="col-span-6 sm:col-span-6">
+                <section class="col-span-6 sm:col-span-4">
                     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <template v-for="(course, index) in courses">
                             <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 dark:bg-gray-900">
@@ -127,7 +127,7 @@
                                         </div>
 
                                         <div class="mt-1 p-2">
-                                            <p v-if="course.modality" class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
+                                            <p class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
                                             <h2 class="text-slate-700 dark:text-slate-400">{{ course.description }}</h2>
                                         </div>
                                     </Link>
@@ -138,7 +138,7 @@
                                         <img :src="getImage(course.image)" alt="Hotel Photo" class="max-h-[105.05px]" />
                                     </div>
                                     <div class="mt-1 p-2">
-                                        <p v-if="course.modality" class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
+                                        <p class="mt-1 text-sm text-slate-400">{{ course.modality.description }}</p>
                                         <p class="mt-1 text-sm text-slate-400">{{ course.type_description }}</p>
                                         <h2 class="text-slate-700 dark:text-slate-400">{{ course.description }}</h2>
                                     </div>
@@ -186,9 +186,9 @@
                         </template>
                     </div>
                 </section>
-                <!-- <section class="col-span-6 sm:col-span-2 rounded-md">
+                <section class="col-span-6 sm:col-span-2 rounded-md">
                     <shortVideos />
-                </section> -->
+                </section>
             </div>
         </div>
 
