@@ -57,13 +57,13 @@ const props = defineProps({
                 </Keypad>
             </div>
             <div class="grid grid-cols-6 gap-6">
-                <!-- <div class="col-span-6 sm:col-span-3 space-y-4">
+                <div class="col-span-6 sm:col-span-3 space-y-4">
                     <SubscriptionForm
                         :subscriptionStudent="subscriptionStudent" 
                         :student="student" 
                         :subscriptions="subscriptions" 
                     />
-                </div> -->
+                </div>
                 <div class="col-span-6 sm:col-span-3 space-y-4">
                     <RegistrationForm 
                         :faTrashAlt="faTrashAlt"

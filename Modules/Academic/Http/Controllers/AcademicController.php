@@ -84,7 +84,6 @@ class AcademicController extends Controller
     }
 
 
-
     /**
      * Show the specified resource.
      * @param int $id

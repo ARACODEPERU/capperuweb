@@ -316,7 +316,7 @@
                     <button type="button" class="btn btn-primary">Chatea con nosotros</button>
                 </div>
             </div> -->
-            <!-- <div class="mt-10">
+            <div class="mt-10">
                 <h3 ref="h3CoursesPopulares" class="mb-6 text-xl font-bold md:text-3xl">Cursos populares</h3>
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
                     <template v-for="(item, index) in interests.popularCourses">
@@ -342,7 +342,7 @@
                         </div>
                     </template>
                 </div>
-            </div> -->
+            </div>
 
             <div v-if="interests.popularArticles.length > 0" class="mt-10 lg:mt-16">
                 <h3 class="mb-6 text-xl font-bold md:text-3xl">Artículos más buscados</h3>
