@@ -38,7 +38,7 @@
         }
 
         getStudentCertificates();
-        loadTeachers();
+        //loadTeachers();
     });
 
     const toggleMobileMenu = () => {
@@ -297,7 +297,7 @@
                                 </HeightTransition>
                             </li>
                         </template>
-                        <template v-if="hasAnyRole(['Alumno'])">
+                        <!-- <template v-if="hasAnyRole(['Alumno'])">
                             <li v-if="menuChatAI.permissions" class="menu nav-item">
                                 <button
                                     type="button"
@@ -341,7 +341,7 @@
                                     </ul>
                                 </HeightTransition>
                             </li>
-                        </template>
+                        </template> -->
                     </ul>
 
                 </perfect-scrollbar>

@@ -89,7 +89,7 @@
 
     onMounted(() => {
         setActiveDropdown();
-        loadTeachers();
+        //loadTeachers();
     });
 
     watch(route, (to, from) => {
@@ -383,9 +383,9 @@
                             </template>
                         </Popper>
                     </div> -->
-                    <div v-can="'crm_chat_notifications'" class="dropdown shrink-0">
+                    <!-- <div v-can="'crm_chat_notifications'" class="dropdown shrink-0">
                         <ChatNotifications />
-                    </div>
+                    </div> -->
                     <ShoppingCartMenu />
                     <div class="dropdown shrink-0">
                         <Popper :placement="store.rtlClass === 'rtl' ? 'bottom-end' : 'bottom-start'" offsetDistance="8" class="!block">
@@ -529,11 +529,11 @@
                         </li>
                     </template>
                 </template>
-                <template v-if="hasAnyRole(['Alumno'])">
+                <!-- <template v-if="hasAnyRole(['Alumno'])">
                     <li v-can="menuChatAI.permissions" class="menu nav-item relative">
                         <a href="javascript:;" class="nav-link">
                             <div class="flex items-center">
-                                <!-- <font-awesome-icon :icon="menuChatAI.icom" class="shrink-0" /> -->
+                                <font-awesome-icon :icon="menuChatAI.icom" class="shrink-0" />
                                 <span class="px-2">{{ menuChatAI.text }}</span>
                             </div>
                             <div class="right_arrow">
@@ -550,7 +550,7 @@
                             </template>
                         </ul>
                     </li>
-                </template>
+                </template> -->
             </ul>
         </div>
     </header>

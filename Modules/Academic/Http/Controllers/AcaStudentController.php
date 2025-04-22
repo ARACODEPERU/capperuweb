@@ -383,36 +383,45 @@ class AcaStudentController extends Controller
                     return $course;
                 });
         } else {
-            $courses = AcaCourse::with(['modules.themes.contents', 'modality', 'category', 'teacher.person'])
-                ->with('registrations') // Para validar los cursos registrados
+            $courses = AcaCourse::with('modules.themes.contents')
+                ->with('teacher.person')->whereHas('registrations', function ($query) use ($student_id) {
+                    $query->where('student_id', $student_id);
+                })->orderBy('id', 'DESC')
                 ->get()
                 ->map(function ($course) use ($studentSubscribed, $student_id) {
-                    // Verificar si el curso es gratuito
-                    $isFree = is_null($course->price) || floatval($course->price) == 0.00;
-                    $isProgram = $course->type_description == 'Programas de especialización' ? true : false;
-                    // Verificar si el alumno está registrado en este curso
-                    $isRegistered = $course->registrations->contains('student_id', $student_id);
-
-                    // Verificar si el alumno tiene una suscripción activa
-                    $hasActiveSubscription = $studentSubscribed !== null;
-
-                    // Lógica para determinar si puede ver
-                    if ($hasActiveSubscription || $isRegistered || $isFree) {
-                        if ($isProgram) {
-                            if ($isRegistered) {
-                                $course->can_view = true;
-                            } else {
-                                $course->can_view = false;
-                            }
-                        } else {
-                            $course->can_view = true;
-                        }
-                    } else {
-                        $course->can_view = false; // Campo adicional
-                    }
-
+                    $course->can_view = true;
                     return $course;
                 });
+            // $courses = AcaCourse::with(['modules.themes.contents', 'modality', 'category', 'teacher.person'])
+            //     ->with('registrations') // Para validar los cursos registrados
+            //     ->get()
+            //     ->map(function ($course) use ($studentSubscribed, $student_id) {
+            //         // Verificar si el curso es gratuito
+            //         $isFree = is_null($course->price) || floatval($course->price) == 0.00;
+            //         $isProgram = $course->type_description == 'Programas de especialización' ? true : false;
+            //         // Verificar si el alumno está registrado en este curso
+            //         $isRegistered = $course->registrations->contains('student_id', $student_id);
+
+            //         // Verificar si el alumno tiene una suscripción activa
+            //         $hasActiveSubscription = $studentSubscribed !== null;
+
+            //         // Lógica para determinar si puede ver
+            //         if ($hasActiveSubscription || $isRegistered || $isFree) {
+            //             if ($isProgram) {
+            //                 if ($isRegistered) {
+            //                     $course->can_view = true;
+            //                 } else {
+            //                     $course->can_view = false;
+            //                 }
+            //             } else {
+            //                 $course->can_view = true;
+            //             }
+            //         } else {
+            //             $course->can_view = false; // Campo adicional
+            //         }
+
+            //         return $course;
+            //     });
         }
 
         $certificates = AcaCertificate::with('course')
