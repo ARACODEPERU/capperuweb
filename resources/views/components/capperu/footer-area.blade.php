@@ -230,7 +230,7 @@
                                         <li>
                                             <b>
                                                 <i class="fa fa-home" style="color: orange;"></i> 
-                                                Sede Nvo. Chimbote:
+                                                Sede Chimbote:
                                             </b> 
                                             {{$footer[3]->content }}
                                         </li>
