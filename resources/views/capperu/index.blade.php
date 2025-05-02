@@ -19,7 +19,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <img style="width: 100%;" src="{{ $popup[0]->content }}" alt="">
+              <img style="width: 100%;" src="{{ asset($popup[0]->content) }}" alt="">
             </div>
             <div class="modal-footer">
               <a href="{{ $popup[1]->content }}" type="button" class="btn btn-secondary">Más Información</a>
