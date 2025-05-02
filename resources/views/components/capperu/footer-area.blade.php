@@ -224,7 +224,8 @@
                                             <b>
                                                 <i class="fa fa-home" style="color: orange;"></i> 
                                                 Sede Lima:
-                                            </b> 
+                                            </b>
+                                            <br> 
                                             {{$footer[2]->content }}
                                         </li>
                                         <li>
@@ -232,6 +233,7 @@
                                                 <i class="fa fa-home" style="color: orange;"></i> 
                                                 Sede Chimbote:
                                             </b> 
+                                            <br>
                                             {{$footer[3]->content }}
                                         </li>
                                         <li>
