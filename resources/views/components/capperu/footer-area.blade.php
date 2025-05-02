@@ -123,7 +123,7 @@
                         </div>
                     </a>
                     <br>
-                    <a href="https://api.whatsapp.com/send?phone=51953106530&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?" target="_blank"
+                    <a href="https://api.whatsapp.com/send?phone=51908934095&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?" target="_blank"
                        class="animate__animated animate__fadeInUp">
                         <div class="row" style="padding: 10px 15px;
                                                 border-left: 5px solid #25D366; 
