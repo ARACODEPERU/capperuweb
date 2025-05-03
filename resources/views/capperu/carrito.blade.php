@@ -338,9 +338,9 @@
             color: #f2f2f2 !important;
         }
     </style>
-    {!! htmlScriptTagJsApi([
+    {{-- {!! htmlScriptTagJsApi([
         'callback_then' => 'callbackThen',
 
         'callback_catch' => 'callbackCatch',
-    ]) !!}
+    ]) !!} --}}
 @endsection
