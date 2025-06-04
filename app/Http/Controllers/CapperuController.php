@@ -140,7 +140,8 @@ class CapperuController extends Controller
             ->where('onli_items.additional2', $sector)->get();  //Sector publico , derecho ,etc
 
         return view('capperu/sector-cursos', [
-            'programs' => $programs
+            'programs' => $programs,
+            'sector' => $sector,
         ]);
     }
 

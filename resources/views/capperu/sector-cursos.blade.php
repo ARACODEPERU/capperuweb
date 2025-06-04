@@ -6,25 +6,25 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
-    
+
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
     <!-- search popup area start -->
     <x-capperu.search-popup-area></x-capperu.search-popup-area>
     <!-- //. search Popup -->
-    
+
     <!-- Encabezado inicio -->
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
+
     <!-- Banner Area Start-->
     <section class="banner-area style-3" style="padding: 80px; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 align-self-center">
                     <div class="banner-inner text-center">
-                        <h1>Cursos Especializados en Sector Empresarial</h1>
+                        <h1>Cursos Especializados en Sector {{ $sector }}</h1>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
     <!-- Banner Area End -->
 
 
-    
+
     <!-- trending courses Area Start-->
     <section class="trending-courses-area pd-top-50 pd-bottom-50">
         <div class="container">
@@ -53,9 +53,9 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-01" role="tabpanel" aria-labelledby="pill-1">
                             <div class="row">
-                                
 
-                               
+
+
                                 @foreach ($programs as $program)
                                     @if ($program->additional1 == "E-Learning")
                                         <div class="col-md-3">
@@ -93,9 +93,9 @@
                                                         <div class="row align-items-center">
                                                             <div class="col-md-12">
                                                                 <a href="#" class="btn btn-primary" onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })">
-                                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                                     Comprar Ahora
-                                                                    <b style="text-end"> S/. {{ $program->price }}</b>  
+                                                                    <b style="text-end"> S/. {{ $program->price }}</b>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -107,7 +107,7 @@
                                 @endforeach
 
 
-                                
+
                             </div>
                             {{-- <div class="row">
                                 <div class="col-lg-12 text-center">
@@ -126,8 +126,8 @@
 
                         <div class="tab-pane fade" id="pills-02" role="tabpanel" aria-labelledby="pill-2">
                             <div class="row">
-                                
-                                
+
+
 
                                 @foreach ($programs as $program)
                                     @if ($program->additional1 == "En Vivo")
@@ -166,9 +166,9 @@
                                                         <div class="row align-items-center">
                                                             <div class="col-md-12">
                                                                 <a href="#" class="btn btn-primary" onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })">
-                                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                                     Comprar Ahora
-                                                                    <b style="text-end"> S/. {{ $program->price }}</b>  
+                                                                    <b style="text-end"> S/. {{ $program->price }}</b>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -198,7 +198,7 @@
 
                         <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
                             <div class="row">
-                                
+
 
                                 @foreach ($programs as $program)
                                     @if ($program->additional1 == "Presencial")
@@ -215,7 +215,7 @@
                                                             <img style="width: 30px; height: 30px; border-radius: 50%;" src="{{ $program->avatar }}" alt="img">
                                                             <a href="{{ route('web_perfil_docente', $program->teacher_id) }}">{{ $program->teacher }}</a>
                                                         </div>
-                                                        <div class="user-rating">                                                            
+                                                        <div class="user-rating">
                                                                 @if ( $program->category_description=="Empresarial")
                                                                 <span title="Empresarial">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ff8000}</style><path d="M64 32C46.3 32 32 46.3 32 64V304v48 80c0 26.5 21.5 48 48 48H496c26.5 0 48-21.5 48-48V304 152.2c0-18.2-19.4-29.7-35.4-21.1L352 215.4V152.2c0-18.2-19.4-29.7-35.4-21.1L160 215.4V64c0-17.7-14.3-32-32-32H64z"/></svg>
@@ -237,9 +237,9 @@
                                                         <div class="row align-items-center">
                                                             <div class="col-md-12">
                                                                 <a href="#" class="btn btn-primary" onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })">
-                                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                                     Comprar Ahora
-                                                                    <b style="text-end"> S/. {{ $program->price }}</b>  
+                                                                    <b style="text-end"> S/. {{ $program->price }}</b>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -249,8 +249,8 @@
                                         </div>
                                     @endif
                                 @endforeach
-                                
-                                
+
+
                             </div>
                             {{-- PAGINACION  NO HABILITADA POR AHORA     <div class="row">
                                 <div class="col-lg-12 text-center">
@@ -274,7 +274,7 @@
     </section>
     <!-- trending courses Area End -->
 
-    
+
     <!-- Más Populares Area Start-->
     <x-capperu.programas-populares-area></x-capperu.programas-populares-area>
     <!-- Más Populares Area End -->
