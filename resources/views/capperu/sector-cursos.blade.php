@@ -28,7 +28,7 @@
     <!-- Banner Area Start-->
     <section class="banner-area style-3" style="
         padding: 80px;
-        padding-top: 120px; /* Ajusta según la altura del header (ej: 80px + 40px extra) */
+        padding-top: 200px; /* Ajusta según la altura del header (ej: 80px + 40px extra) */
         background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});
     ">
         <div class="container">
