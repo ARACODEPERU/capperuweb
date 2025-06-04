@@ -24,7 +24,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 align-self-center">
                     <div class="banner-inner text-center">
-                        <h1>Cursos Especializados en Sector {{ $sector }}</h1>
+                        <h1>Cursos Especializados en Sector {{ $sector == "Publico" ? "Público" : $sector }}</h1>
                     </div>
                 </div>
             </div>
