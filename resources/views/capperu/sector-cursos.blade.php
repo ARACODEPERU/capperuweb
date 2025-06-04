@@ -14,12 +14,23 @@
     <!-- //. search Popup -->
 
     <!-- Encabezado inicio -->
-    <x-capperu.header-area></x-capperu.header-area>
+    <x-capperu.header-area style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Para que esté por encima de otros elementos */
+    background: white; /* Opcional: fondo sólido para que no sea transparente */
+"></x-capperu.header-area>
     <!-- Encabezado fin -->
 
 
     <!-- Banner Area Start-->
-    <section class="banner-area style-3" style="padding: 80px; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
+    <section class="banner-area style-3" style="
+        padding: 80px;
+        padding-top: 120px; /* Ajusta según la altura del header (ej: 80px + 40px extra) */
+        background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});
+    ">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 align-self-center">
