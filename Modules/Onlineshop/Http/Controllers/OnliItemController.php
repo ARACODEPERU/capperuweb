@@ -151,6 +151,7 @@ class OnliItemController extends Controller
             'status'                    => true,
             'additional'                => $request->get('additional'),
             'additional1'                => $request->get('additional1'),
+            'additional2'                => $request->get('category_description'),
         ]);
 
         $destination = 'uploads/onlineshop/items';
@@ -283,7 +284,7 @@ class OnliItemController extends Controller
         $OnliItem->status = $request->get('status') ? true : false;
         $OnliItem->additional = $request->get('additional');
         $OnliItem->additional1 = $request->get('additional1');
-        $OnliItem->additional2 = $request->get('additional2');
+        $OnliItem->additional2 = $request->get('category_description'); //no existe en el formulario pero se repite el valor
         $OnliItem->additional3 = $request->get('additional3');
         $OnliItem->additional4 = $request->get('additional4');
         $OnliItem->additional5 = $request->get('additional5');
@@ -326,7 +327,6 @@ class OnliItemController extends Controller
             $OnliItem->additional2 = $additional2;
         }
 
-        $OnliItem->additional2 = $request->get('additional2');
         $OnliItem->additional3 = $request->get('additional3');
         $OnliItem->additional4 = $request->get('additional4');
         $OnliItem->additional5 = $request->get('additional5');
