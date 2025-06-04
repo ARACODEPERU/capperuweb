@@ -326,7 +326,7 @@ class OnliItemController extends Controller
 
             $OnliItem->additional2 = $additional2;
         }
-
+        $OnliItem->additional2 = $request->get('category_description'); //no existe en el formulario pero se repite el valor
         $OnliItem->additional3 = $request->get('additional3');
         $OnliItem->additional4 = $request->get('additional4');
         $OnliItem->additional5 = $request->get('additional5');
