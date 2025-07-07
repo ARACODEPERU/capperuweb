@@ -35,12 +35,12 @@
                 <div class="col-lg-12 align-self-center">
                     <div class="section-title mb-0">
                         {{-- <h2><b>POLÍTICAS DE PRIVACIDAD</b></h2> --}}
-                        <h5>Última actualización: [Fecha Actual]</h5>
+                        <h5>Última actualización: 06/07/2025</h5>
                         <p>
-                            En [Nombre de tu Empresa/Sitio Web] (en adelante, "nosotros", "nuestro" o "la empresa"), valoramos tu privacidad y 
+                            En <b>CAPPERU</b> (en adelante, "nosotros", "nuestro" o "la empresa"), valoramos tu privacidad y 
                             nos comprometemos a proteger la información personal que compartes con nosotros. Esta política de privacidad 
                             describe cómo recopilamos, usamos y protegemos tus datos personales cuando accedes a nuestros cursos en línea a 
-                            través de nuestro sitio web [URL del sitio web].
+                            través de nuestro sitio web <b>https://capperu.com/</b>.
                         </p>
                         <br>
                         <h5>1. Información que Recopilamos</h5>
@@ -121,8 +121,7 @@
                         <h5>7. Contacto</h5>
                         <p>
                             Si tienes preguntas o inquietudes sobre nuestra política de privacidad o el manejo de tu información personal, 
-                            puedes contactarnos a través de [Dirección de correo electrónico de contacto] o [Dirección física de la empresa, 
-                            si aplica].
+                            puedes contactarnos a través de <b>capperuacademica@gmail.com</b> o <b>Sede Chimbote: Av. Francisco Boleognesi N°549 oficina 210-119</b>.
                         </p>
                     </div>
                 </div>                

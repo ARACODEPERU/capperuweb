@@ -6,7 +6,7 @@
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
     <!-- Modal-->
-    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered" 
             style="display: flex; justify-content: center;
             align-items: center;
@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> --}}
     {{-- <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" >
         <div class="modal-content" style="width: 100%;">
