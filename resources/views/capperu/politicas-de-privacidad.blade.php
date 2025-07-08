@@ -84,8 +84,7 @@
                         </p>
                         <p>
                             3.2 Cumplimiento Legal: Podemos divulgar tu información si es necesario para cumplir con la ley, 
-                            responder a una orden judicial, o proteger los derechos, la propiedad o la seguridad de [Nombre de 
-                            tu Empresa/Sitio Web], nuestros usuarios u otros.
+                            responder a una orden judicial, o proteger los derechos, la propiedad o la seguridad de <b>CAPPERU</b>, nuestros usuarios u otros.
                         </p>
                         <br>
                         <h5>4. Seguridad de la Información</h5>
