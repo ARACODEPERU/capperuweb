@@ -5,18 +5,18 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
-    
+
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
     <!-- search popup area start -->
     <x-capperu.search-popup-area></x-capperu.search-popup-area>
     <!-- //. search Popup -->
-    
+
     <!-- Encabezado inicio -->
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
+
     <!-- Banner Area Start-->
     <section class="head-page">
         <div class="container">
@@ -48,9 +48,9 @@
                                     <input type="email" placeholder="E-mail" name="email">
                                 </div>
                                 <div class="col-md-12 single-input-wrap">
-                                    <textarea rows="5" placeholder="Escribe tu mensaje" name="message"></textarea>
-                                </div>    
-                            </div>                                
+                                    <textarea rows="5" placeholder="Escribe tu mensaje" name="message" id="messagePageContact"></textarea>
+                                </div>
+                            </div>
                             <button id="submitPageContactButton" type="submit" class="btn btn-base w-100">Enviar Ahora</button>
                         </form>
                     </div>
@@ -159,7 +159,7 @@
             xhr.send(formData);
         });
     </script>
-    
+
     <!-- Más Populares Area Start-->
     <x-capperu.programas-populares-area></x-capperu.programas-populares-area>
     <!-- Más Populares Area End -->
