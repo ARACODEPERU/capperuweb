@@ -115,12 +115,8 @@
 <!-- Fin de Cookies -->
 
     <script src="{{ asset('themes/capperu/assets/js/capperu-carrito.js') }}"></script>
+    
     @yield('content')
-
-    <!-- back-to-top end -->
-    {{-- <div class="back-to-top">
-        <span class="back-top"><i class="fas fa-angle-double-up"></i></span>
-    </div> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

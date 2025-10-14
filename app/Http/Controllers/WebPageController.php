@@ -45,12 +45,17 @@ class WebPageController extends Controller
             ->get();
     }
 
-    public function index()
+    public function home()
     {
-        return view('pages.home', [
-            'listcard' => $this->listcard
-        ]);
+        return view('pages.home');
     }
+
+    // public function index()
+    // {
+    //     return view('pages.home', [
+    //         'listcard' => $this->listcard
+    //     ]);
+    // }
 
     public function nosotros()
     {

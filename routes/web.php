@@ -16,6 +16,7 @@ use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\WebPageController;
 use App\Mail\StudentRegistrationMailable;
 use App\Models\District;
 use App\Models\Person;
@@ -24,6 +25,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Modules\Blog\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
+
+
+
+// NUEVO SITIO WEB 2025
+
+Route::get('/home', [WebPageController::class, 'home'])->name('web_home');
 
 Route::get('cookies_policy', function () {
     return view('cookies_policy');
