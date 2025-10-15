@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Netflix Style || Streamo - Media Streaming App Site Bootstrap 5 Template</title>
+    <title>CAP PERU || Sitio Web</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('themes/webpage/assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('themes/capperu/assets/img/fevicon-cap.png') }}">
 
     <!-- CSS
     ========================= -->

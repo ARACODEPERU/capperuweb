@@ -14,14 +14,16 @@
                     <div class="main-menu main-theme-color-four">
                         <nav class="main-navigation">
                             <ul>
-                                <li class="active"><a href="">Home</a></li>
-                                <li><a href="series.html">Series </a>
+                                <li class="active"><a href="{{ route('web_home') }}">Home</a></li>
+                                <li>
+                                    <a href="">Sobre Nosotros</a>
                                     <ul class="sub-menu">
-                                        <li><a href="horror-series.html">Horror Series</a></li>
-                                        <li><a href="romantic-series.html">Romantic Series</a></li>
+                                        <li><a href="">¿Quienes Somos? </a></li>
+                                        <li><a href="">Politica De Calidad</a></li>
+                                        <li><a href="">Alcance Del SIG</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="movie.html">Movies</a>
+                                {{-- <li><a href="movie.html">Movies</a>
                                     <ul class="sub-menu">
                                         <li><a href="horror-movie.html">Horror Movies</a></li>
                                         <li><a href="romantic-movie.html">Romantic Movies</a></li>
@@ -39,9 +41,9 @@
                                         <li><a href="my-account-2.html">My Account</a></li>
                                         <li><a href="landing-page.html">Landing Page</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="pricing-plan-2.html">Pricing</a></li>
-                                <li><a href="contact-2.html">Contact</a></li>
+                                </li> --}}
+                                <li><a href="">Blog</a></li>
+                                <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -99,7 +101,7 @@
                             </div>
                         </div> --}}
                     <div class="notifications-bar btn-group">
-                        <a href="{{ route('web_carrito') }}" class="notifications-iocn white">
+                        <a href="{{ route('web_carrito') }}" class="notifications-iocn black">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>5</span>
                         </a>
                     </div>
@@ -108,7 +110,7 @@
                     <div class="our-profile-area ">
                         <a href="#" class="our-profile-pc" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img src="assets/images/review/author-01.png" alt="">
+                            <img src="{{ asset('themes/webpage/assets/images/review/author-01.png') }}" alt="">
                         </a>
                         <div class="dropdown-menu netflix-profile-style red">
                             <ul>

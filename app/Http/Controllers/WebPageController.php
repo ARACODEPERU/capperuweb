@@ -45,10 +45,23 @@ class WebPageController extends Controller
             ->get();
     }
 
+
+
     public function home()
     {
         return view('pages.home');
     }
+
+    public function contact()
+    {
+        return view('pages.contact');
+    }
+
+
+
+
+
+
 
     // public function index()
     // {
