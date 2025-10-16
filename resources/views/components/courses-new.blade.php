@@ -11,7 +11,7 @@
                         <div class="movie-wrap-plr">
                             <div class="movie-wrap text-center">
                                 <div class="movie-img">
-                                    <a href="{{ route('web_descripcion_programa', $program->id) }}">
+                                    <a href="{{ route('web_program_description', $program->id) }}">
                                         <img src="{{ asset('themes/webpage/assets/images/product/movie-17.jpg') }}"
                                             alt="">
                                     </a>
@@ -21,13 +21,13 @@
                                 </div>
                                 <div class="movie-content">
                                     <h3 class="title">
-                                        <a href="{{ route('web_descripcion_programa', $program->id) }}">
+                                        <a href="{{ route('web_program_description', $program->id) }}">
                                             {{ $program->name }}
                                         </a>
                                     </h3>
                                     <span>Precio : {{ $program->price }}</span>
                                     <div class="movie-btn">
-                                        <a href="{{ route('web_descripcion_programa', $program->id) }}" class="btn-style-hm4-2 animated">
+                                        <a href="{{ route('web_program_description', $program->id) }}" class="btn-style-hm4-2 animated">
                                             Más Información
                                         </a>
                                     </div>

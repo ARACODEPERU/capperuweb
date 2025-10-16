@@ -6,11 +6,11 @@
                     <div class="col-lg-3">
                         <!-- footer-widget -->
                         <div class="footer-widget footer-about">
-                            <div class="footer-logo">
+                            {{-- <div class="footer-logo">
                                 <a href="{{ route('web_home') }}">
-                                    <img style="height: 80px;" src="{{ asset('storage/'.$header[0]->content) }}" alt="">
+                                    <img style="height: 80px;" src="{{ asset('storage/'.$footer[14]->content) }}" alt="image">
                                 </a>
-                            </div>
+                            </div> --}}
                             <p>
                                 El Centro de Actualización Profesional CAP – PERÚ SAC tiene como objetivo contribuir a la 
                                 actualización y perfeccionamiento académico de profesionales y egresados de las diferentes carreras 
@@ -96,8 +96,8 @@
                     <div class="col-lg-6">
                         <div class="copyright">
                             <p class="copyright-text">
-                                Copyright ©2025 All rights reserved | Made with <i class="zmdi zmdi-favorite"></i>
-                                by <a href=""> Aracode Smart Solutions</a>.
+                                Copyright ©2025 All rights reserved | Desarrollado <i class="zmdi zmdi-favorite"></i>
+                                por <a href=""> Aracode Smart Solutions</a>.
                             </p>
                         </div>
                     </div>

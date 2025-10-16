@@ -57,6 +57,36 @@ class WebPageController extends Controller
         return view('pages.contact');
     }
 
+    
+    public function programDescription($id)
+    {
+        $item = OnliItem::find($id);
+
+        $course = AcaCourse::with('category')
+            ->with('modality')
+            ->with('modules')
+            ->with('teachers.teacher.person.resumes')
+            ->with('brochure')
+            ->with('agreements')
+            ->where('id', $item->item_id)
+            ->first();
+
+        $whatsappAsesor = CmsSection::where('component_id', 'peru_whatsapp_asesora_area_13')  //siempre cambiar el id del componente
+            ->join('cms_section_items', 'section_id', 'cms_sections.id')
+            ->join('cms_items', 'cms_section_items.item_id', 'cms_items.id')
+            ->select(
+                'cms_items.content',
+                'cms_section_items.position'
+            )
+            ->orderBy('cms_section_items.position')
+            ->get();
+
+        return view('pages.program-description', [
+            'course' => $course,
+            'item' => $item,
+            'whatsappAsesor' => $whatsappAsesor
+        ]);
+    }
 
 
 
