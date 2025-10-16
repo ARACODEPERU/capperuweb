@@ -175,7 +175,7 @@
                 <div class="logo">
                     <a class="main-logo" href="{{ route('cms_principal') }}">
                         <img style="width:196px; height:61px;"
-                            src="{{$header[0]->content }}" alt="img">
+                            src="{{ asset('storage/'.$header[0]->content) }}" alt="img">
                     </a>
                 </div>
                 <div class="nav-right-part nav-right-part-mobile">

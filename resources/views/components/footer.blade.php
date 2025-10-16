@@ -7,10 +7,15 @@
                         <!-- footer-widget -->
                         <div class="footer-widget footer-about">
                             <div class="footer-logo">
-                                <a href="index-4.html"><img src="assets/images/logo/logo.png" alt=""></a>
+                                <a href="{{ route('web_home') }}">
+                                    <img src="{{ asset('storage/'.$header[0]->content) }}" alt="">
+                                </a>
                             </div>
-                            <p>Eiusmod tempor incididunt ut la abore et minim ven exerc itation ulla mco lboris
-                                naliquip comm.</p>
+                            <p>
+                                El Centro de Actualización Profesional CAP – PERÚ SAC tiene como objetivo contribuir a la 
+                                actualización y perfeccionamiento académico de profesionales y egresados de las diferentes carreras 
+                                profesionales.
+                            </p>
                             <div class="social-style-1">
                                 <a class="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a>
                                 <a class="twitter" href="#"><i class="zmdi zmdi-twitter"></i></a>

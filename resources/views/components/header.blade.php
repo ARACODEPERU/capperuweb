@@ -5,9 +5,9 @@
                 <div class="logo-menu-wrap">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="">
+                        <a href="{{ route('web_home') }}">
                             {{-- <img src="{{ asset('themes/webpage/assets/images/logo/logo.png') }}" alt=""> --}}
-                            <img style="height: 60px;" src="{{$header[0]->content }}" alt="">
+                            <img style="height: 60px;" src="{{ asset('storage/'.$header[0]->content) }}" alt="">
                         </a>
                     </div>
                     <!-- Logo -->
