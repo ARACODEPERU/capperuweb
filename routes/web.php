@@ -33,6 +33,12 @@ use App\Http\Controllers\DashboardController;
 Route::get('/home', [WebPageController::class, 'home'])->name('web_home');
 Route::get('/contacto2', [WebPageController::class, 'contact'])->name('web_contact');
 
+// NUEVO SITIO WEB 2025
+
+
+
+
+
 Route::get('cookies_policy', function () {
     return view('cookies_policy');
 })->name('cookies_policy');
