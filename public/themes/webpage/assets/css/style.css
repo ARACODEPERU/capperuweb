@@ -4942,6 +4942,13 @@ nav.sidebar-menu ul li a:hover {
   background-color: transparent;
   border: 1px solid #0A66C2;
 }
+.social-style-1 a.tiktok {
+  background-color: #000000;
+}
+.social-style-1 a.tiktok:hover {
+  background-color: transparent;
+  border: 1px solid #212121;
+}
 .social-style-1 a.instagram {
   background-color: #E4405F;
 }

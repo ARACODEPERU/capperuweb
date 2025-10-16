@@ -8,7 +8,7 @@
                         <div class="footer-widget footer-about">
                             <div class="footer-logo">
                                 <a href="{{ route('web_home') }}">
-                                    <img src="{{ asset('storage/'.$header[0]->content) }}" alt="">
+                                    <img style="height: 80px;" src="{{ asset('storage/'.$header[0]->content) }}" alt="">
                                 </a>
                             </div>
                             <p>
@@ -17,10 +17,10 @@
                                 profesionales.
                             </p>
                             <div class="social-style-1">
-                                <a class="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a>
-                                <a class="twitter" href="#"><i class="zmdi zmdi-twitter"></i></a>
-                                <a class="linkedin" href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                                <a class="instagram" href="#"><i class="zmdi zmdi-instagram"></i></a>
+                                <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                                <a class="instagram" href="#"><i class="fa fa-instagram"></i></a>
+                                <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                                <a class="tiktok" href="#"><i class="fa fa-tiktok"></i></a>
                             </div>
                         </div>
                         <!--// footer-widget -->
@@ -29,57 +29,47 @@
                         <div class="footer-top-right">
                             <div class="footer-quicklink">
                                 <ul>
-                                    <li><a href="index-4.html">Home</a></li>
-                                    <li><a href="about-2.html">About US</a></li>
-                                    <li><a href="series.html">Series</a></li>
-                                    <li><a href="contact-2.html">Contact Us</a></li>
-                                    <li><a href="index-4.html">Tv Series</a></li>
-                                    <li><a href="index-4.html">Tech</a></li>
-                                    <li><a href="movie.html">Movie</a></li>
-                                    <li><a href="index-4.html">Video</a></li>
-                                    <li><a href="index-4.html">Live</a></li>
-                                    <li><a href="index-4.html">Tv Series</a></li>
+                                    <li><a href="{{ route('web_home') }}">Home</a></li>
+                                    <li><a href="">Sobre Nosotros</a></li>
+                                    <li><a href="">Series</a></li>
+                                    <li><a href="">Contact Us</a></li>
+                                    <li><a href="">Tv Series</a></li>
+                                    <li><a href="">Tech</a></li>
+                                    <li><a href="">Movie</a></li>
+                                    <li><a href="">Video</a></li>
+                                    <li><a href="">Blog</a></li>
+                                    <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                                 </ul>
                             </div>
                             <div class="brand-logo-active brand-logo-wrap">
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/1.png" alt=""></a>
+                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/2.png" alt=""></a>
+                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/3.png" alt=""></a>
+                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/4.png" alt=""></a>
+                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/5.png" alt=""></a>
+                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/6.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="brand-logo-plr">
-                                    <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/1.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="brand-logo-plr">
-                                    <div class="brand-logo">
-                                        <a href="#"><img src="assets/images/brand/2.png" alt=""></a>
+                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
                                     </div>
                                 </div>
                             </div>
