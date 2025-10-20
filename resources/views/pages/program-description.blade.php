@@ -13,14 +13,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="breadcrumb-style-2">
-                                <h2>The Love Of Mind</h2>
+                                <h2>{{ $course->description }}</h2>
                                 <!-- breadcrumb-list start -->
-                                <ul class="breadcrumb-list-2">
+                                {{-- <ul class="breadcrumb-list-2">
                                     <li>Total 5 Episodes</li>
                                     <li>1 hr 45 Min</li>
                                     <li>2021</li>
                                     <li>Romantic Drama</li>
-                                </ul>
+                                </ul> --}}
                                 <!-- breadcrumb-list end -->
                             </div>
                         </div>
@@ -31,12 +31,21 @@
         <!--// Breadcrumb -->
         <div class="movie-details-wrap section-ptb-50">
             <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        
+                                <div class="movie-img">
+                                    <img src="{{ asset('storage/'.$course->image) }}"
+                                            alt="">
+                                </div>
+                    </div>
+                </div>
                 <div class="movie-details-video-content-wrap">
-                    <div class="video-wrap">
+                    {{-- <div class="video-wrap">
                         <video controls loop="loop" poster="assets/images/bg/bg-5.jpg">
                             <source src="assets/video/video.mp4" type="video/mp4">
                         </video>
-                    </div>
+                    </div> --}}
                     <div class="movie-details-content">
                         <div class="movie-details-info">
                             <ul>
@@ -52,7 +61,7 @@
                             popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
                             and more recently with desktop publishing software like Aldus PageMaker including versions of
                             Lorem Ipsum.</p>
-                        <div class="like-share-wrap">
+                        {{-- <div class="like-share-wrap">
                             <div class="social-share-wrap">
                                 <span>Share:</span>
                                 <div class="social-style-1">
@@ -66,12 +75,12 @@
                                 <button class="like-dislike-style"><i class="zmdi zmdi-thumb-up"></i></button>
                                 <button class="like-dislike-style"><i class="zmdi zmdi-thumb-down"></i></button>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="movie-list section-pb-50">
+        {{-- <div class="movie-list section-pb-50">
             <div class="container">
                 <div class="section-title-4 st-border-bottom">
                     <h2>Season 1</h2>
@@ -164,7 +173,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
+
+        <x-courses-new />
+        <br>
         <!-- Footer Area -->
         <x-footer />
         
