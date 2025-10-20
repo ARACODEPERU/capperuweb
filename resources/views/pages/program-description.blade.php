@@ -35,8 +35,8 @@
                     <div class="col-md-3">
                         
                                 <div class="movie-img">
-                                    <img src="{{ asset('storage/'.$course->image) }}"
-                                            alt="">
+                                    <img src="{{ asset('storage/'.$item->image) }}"
+                                            alt="Imagen">
                                 </div>
                     </div>
                 </div>
