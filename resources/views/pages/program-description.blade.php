@@ -32,9 +32,170 @@
         <div class="movie-details-wrap section-ptb-50">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <img style="width: 100%;" src="{{ asset('storage/'.$course->image) }}" alt="Imagen">
+                    <div class="col-md-4">
+                        <img style="width: 100%;" src="{{ asset('themes/webpage/assets/images/product/movie-17.jpg') }}" alt="Imagen">
                     </div>
+                    
+                <div class="col-md-8">
+                    <div class="row">
+                        <ul class="course-tab nav nav-pills">
+                            <li class="nav-item">
+                                <button class="nav-link active" id="pill-1" data-bs-toggle="pill"
+                                    data-bs-target="#pills-01" type="button" role="tab" aria-controls="pills-01"
+                                    aria-selected="true">
+                                    Presentación <span style="color: #8B0E06;"> ></span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="pill-2" data-bs-toggle="pill"
+                                    data-bs-target="#pills-02" type="button" role="tab" aria-controls="pills-02"
+                                    aria-selected="true">
+                                    Malla Curricular <span style="color: #8B0E06;"> ></span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="pill-3" data-bs-toggle="pill" 
+                                    data-bs-target="#pills-03" type="button" role="tab" aria-controls="pills-03" 
+                                    aria-selected="false">
+                                    Beneficios <span style="color: #8B0E06;"> ></span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="pill-4" data-bs-toggle="pill" 
+                                    data-bs-target="#pills-04" type="button" role="tab" aria-controls="pills-04" 
+                                    aria-selected="false">
+                                    Plana Docente <span style="color: #8B0E06;"> ></span>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="pill-5" data-bs-toggle="pill" 
+                                    data-bs-target="#pills-05" type="button" role="tab" aria-controls="pills-05" 
+                                    aria-selected="false">
+                                    Preguntas Frecuentes
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-01" role="tabpanel" aria-labelledby="pill-1">
+                                @if ($course->brochure)
+                                    <div class="overview-area">
+                                        {!! $course->brochure->presentation !!}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="tab-pane fade" id="pills-02" role="tabpanel" aria-labelledby="pill-2">
+                                @php
+                                    $modules = $course->modules;
+                                    $c = 1;
+                                @endphp
+                                @foreach ($modules as $k => $module)
+                                    <div class="accordion-item">
+                                        <p style="padding: 5px 15px;"><b>{{ $c . '. ' . $module->description }}</b></p>
+                                    </div>
+                                    @php
+                                        $c++;
+                                    @endphp
+                                @endforeach
+                            </div>
+                            <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
+                                @if ($course->brochure)
+                                    {!! $course->brochure->benefits !!}
+                                @endif
+                            </div>
+                            <div class="tab-pane fade" id="pills-04" role="tabpanel" aria-labelledby="pill-4">
+                                @if (count($course->teachers) > 0)
+                                    @foreach ($course->teachers as $teach)
+                                        <div class="row" style="margin-bottom: 20px;">
+                                            <div class="col-md-2">
+                                                <a href="{{ route('web_perfil_docente', 1) }}">
+                                                    <img style="width: 90px; margin-bottom: 10px; margin-left: 10px;"
+                                                        src="{{ $teach->teacher->person->image }}" alt="img">
+                                                </a>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <h6>{{ $teach->teacher->person->father_lastname . ' ' . $teach->teacher->person->mother_lastname . ' ' . $teach->teacher->person->names }}
+                                                </h6>
+                                                @if (count($teach->teacher->person->resumes))
+                                                    <ul>
+                                                        @foreach ($teach->teacher->person->resumes as $resume)
+                                                            <li>
+                                                                {{ $resume->description }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="tab-pane fade" id="pills-05" role="tabpanel" aria-labelledby="pill-5">
+                                @if ($course->brochure)
+                                    {!! $course->brochure->frequent_questions !!}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    @if ($item->additional1 == 'E-Learning')
+                        <br>
+                        <div class="row bg-gray" style="padding: 15px;">
+                            <div class="col-md-12">
+                                <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
+                            </div>
+                            <div class="col-md-12">
+                                <h6>ESTA MODALIDAD PERMITE:</h6>
+                                <ul>
+                                    <li>
+                                        Una formación completamente a distancia, donde los alumnos acceden a
+                                        los contenidos, actividades, tareas, tutores del curso, etc.
+                                    </li>
+                                    <li>
+                                        El proceso de aprendizaje se lleve a cabo a través de cualquier dispositivo
+                                        electrónico. (laptop, Tablet, PC o dispositivo móvil).
+                                    </li>
+                                    <li>
+                                        FLEXIBILIDAD DE ESTUDIO: permite que el estudiante pueda estudiar conforme a su
+                                        disponibilidad de tiempo y desde el lugar físico que él elija.
+                                        (las 24 horas y los 7 días de la semana).
+                                    </li>
+                                    <li>
+                                        DISPOSICIÓN DE RECURSOS ON-LINE Y MULTIMEDIA, como PPTS, PDF, formatos en Excel y
+                                        Word, que forman parte de los estudios.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="reviewers-area">
+                                <div class="meta-area d-flex">
+                                    <div class="user-rating ms-0">
+                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                        <b>Modalidad de Estudios Mixta</b>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <i class="fa fa-video" aria-hidden="true"></i>
+                                        Google Meet
+                                    </div>
+                                    <div class="ms-md-5 ms-auto mb-0">
+                                        <a href="">
+                                            <i class="fa fa-laptop" aria-hidden="true"></i>
+                                            Campus Virtual
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <br>
+
+                    <div class="row overview-area">
+                        <div class="col-md-12 bg-gray">
+                            El alumno obtendrá su diplomado con la siguiente mención:
+                            <h5>"{{ $course->description }}"</h5>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <div class="movie-details-video-content-wrap">
                     {{-- <div class="video-wrap">
