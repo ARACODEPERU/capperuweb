@@ -32,12 +32,8 @@
         <div class="movie-details-wrap section-ptb-50">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
-                        
-                                <div class="movie-img">
-                                    <img src="{{ asset('storage/'.$item->image) }}"
-                                            alt="Imagen">
-                                </div>
+                    <div class="col-md-12">
+                        <img style="width: 100%;" src="{{ asset('storage/'.$course->image) }}" alt="Imagen">
                     </div>
                 </div>
                 <div class="movie-details-video-content-wrap">
