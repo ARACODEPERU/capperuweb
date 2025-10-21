@@ -140,7 +140,7 @@
                             <div class="col-md-12">
                                 @if ($item->additional1 == 'E-Learning')
                                     <br>
-                                    <div class="row bg-gray" style="padding: 15px;">
+                                    <div class="row" style="padding: 15px; background: #c3c3c3;">
                                         <div class="col-md-12">
                                             <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
                                         </div>
@@ -172,7 +172,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="row">
+                                    <div class="row" style="padding: 15px; background: #f5f5f5;">
                                         <div class="reviewers-area">
                                             <div class="meta-area d-flex">
                                                 <div class="user-rating ms-0">
@@ -367,9 +367,9 @@
                     </div> --}}
                     <div class="movie-details-content">
                         <div class="row overview-area">
-                            <div class="col-md-12 bg-gray">
+                            <div class="col-md-12"  style="padding: 15px; background: #f5f5f5;">
                                 El alumno obtendrá su diplomado con la siguiente mención:
-                                <h5>"{{ $course->description }}"</h5>
+                                <h4>"{{ $course->description }}"</h4>
                             </div>
                         </div>
                     </div>

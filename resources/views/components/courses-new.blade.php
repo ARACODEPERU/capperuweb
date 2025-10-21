@@ -15,9 +15,11 @@
                                         <img src="{{ asset('themes/webpage/assets/images/product/movie-17.jpg') }}"
                                             alt="">
                                     </a>
-                                    <button title="Watchlist" class="Watch-list-btn" type="button">
-                                        <i class="zmdi zmdi-plus"></i>
-                                    </button>
+                                    <a href="{{ route('web_program_description', $program->id) }}">
+                                        <button title="Watchlist" class="Watch-list-btn" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </a>
                                 </div>
                                 <div class="movie-content">
                                     <h3 class="title">
@@ -27,7 +29,8 @@
                                     </h3>
                                     <span>Precio : {{ $program->price }}</span>
                                     <div class="movie-btn">
-                                        <a href="{{ route('web_program_description', $program->id) }}" class="btn-style-hm4-2 animated">
+                                        <a href="{{ route('web_program_description', $program->id) }}"
+                                            class="btn-style-hm4-2 animated">
                                             Más Información
                                         </a>
                                     </div>
