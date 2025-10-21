@@ -75,10 +75,9 @@
                                             $c = 1;
                                         @endphp
                                         @foreach ($modules as $k => $module)
-                                            <div class="accordion-item">
-                                                <p style="padding: 5px 15px;"><b>{{ $c . '. ' . $module->description }}</b>
-                                                </p>
-                                            </div>
+                                            <p style="padding: 5px 15px;">
+                                                <b>{{ $c . '. ' . $module->description }}</b>
+                                            </p>
                                             @php
                                                 $c++;
                                             @endphp
