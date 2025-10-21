@@ -75,8 +75,8 @@
                                             $c = 1;
                                         @endphp
                                         @foreach ($modules as $k => $module)
-                                            <p style="padding: 5px 15px;">
-                                                <b>{{ $c . '. ' . $module->description }}</b>
+                                            <p style="padding: 0px 15px;">
+                                                {{ $c . '. ' . $module->description }}
                                             </p>
                                             @php
                                                 $c++;
