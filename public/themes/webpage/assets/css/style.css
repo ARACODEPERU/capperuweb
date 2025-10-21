@@ -7148,17 +7148,17 @@ nav.sidebar-menu ul li a:hover {
   }
 }
 .dashboard-list .tablist-btn.active {
-  border-bottom: 2px solid #0259ae;
+  border-bottom: 2px solid #f4181c;
 }
 .dashboard-list.white .tablist-btn {
-  color: #ffffff;
+  color: #000;
 }
 .dashboard-list.white .tablist-btn.active {
   border-bottom: 2px solid #f4181c;
 }
 
 .white .section-title-plan h3 {
-  color: #ffffff;
+  color: #000;
 }
 .white .dic-pricing {
   background-color: #1E272D;
