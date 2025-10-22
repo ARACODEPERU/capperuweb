@@ -16,9 +16,9 @@
                             <ul>
                                 <li class="active"><a href="{{ route('web_home') }}">Home</a></li>
                                 <li>
-                                    <a href="">Sobre Nosotros</a>
+                                    <a href="{{ route('web_about_us') }}">Sobre Nosotros</a>
                                     <ul class="sub-menu">
-                                        <li><a href="">¿Quienes Somos? </a></li>
+                                        <li><a href="{{ route('web_about_us') }}">¿Quienes Somos? </a></li>
                                         <li><a href="">Politica De Calidad</a></li>
                                         <li><a href="">Alcance Del SIG</a></li>
                                     </ul>

@@ -31,12 +31,6 @@
                                 <ul>
                                     <li><a href="{{ route('web_home') }}">Home</a></li>
                                     <li><a href="">Sobre Nosotros</a></li>
-                                    <li><a href="">Series</a></li>
-                                    <li><a href="">Contact Us</a></li>
-                                    <li><a href="">Tv Series</a></li>
-                                    <li><a href="">Tech</a></li>
-                                    <li><a href="">Movie</a></li>
-                                    <li><a href="">Video</a></li>
                                     <li><a href="">Blog</a></li>
                                     <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                                 </ul>
@@ -77,12 +71,6 @@
                                 <ul>
                                     <li><a href="contact-2.html">Report a Bug</a></li>
                                     <li><a href="contact-2.html">Request a Feature</a></li>
-                                    <li><a href="about-2.html">Content Grievance</a></li>
-                                    <li><a href="contact-2.html">Movie Request</a></li>
-                                    <li><a href="contact-2.html">Submit Your Story</a></li>
-                                    <li><a href="contact-2.html">Privacy Policy</a></li>
-                                    <li><a href="contact-2.html">Terms of Services</a></li>
-                                    <li><a href="contact-2.html">Support</a></li>
                                 </ul>
                             </div>
                         </div>

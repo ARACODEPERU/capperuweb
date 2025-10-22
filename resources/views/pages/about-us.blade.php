@@ -13,15 +13,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="breadcrumb-style-2">
-                                <h2>{{ $course->description }}</h2>
-                                <!-- breadcrumb-list start -->
-                                {{-- <ul class="breadcrumb-list-2">
-                                    <li>Total 5 Episodes</li>
-                                    <li>1 hr 45 Min</li>
-                                    <li>2021</li>
-                                    <li>Romantic Drama</li>
-                                </ul> --}}
-                                <!-- breadcrumb-list end -->
+                                <h2>¿QUIENES SOMOS?</h2>
                             </div>
                         </div>
                     </div>
@@ -37,164 +29,7 @@
                             alt="Imagen">
                     </div>
                     <div class="col-md-8">
-                        <!-- Nav tabs -->
-                        <ul role="tablist" class="nav dashboard-list white mb--10">
-                            <li class="active" role="presentation">
-                                <a href="#presentacion" data-bs-toggle="tab" class="tablist-btn active">Presentación ></a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#malla" data-bs-toggle="tab" class="tablist-btn">Malla Curricular ></a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#beneficios" data-bs-toggle="tab" class="tablist-btn">Beneficios ></a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#docentes" data-bs-toggle="tab" class="tablist-btn">Plana Docente ></a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#preguntas" data-bs-toggle="tab" class="tablist-btn">Preguntas Frecuentes ></a>
-                            </li>
-                        </ul>
-                        <div class="tab-content dashboard-content">
-                            <div class="tab-pane active" id="presentacion">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @if ($course->brochure)
-                                            <div class="overview-area">
-                                                {!! $course->brochure->presentation !!}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="malla">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @php
-                                            $modules = $course->modules;
-                                            $c = 1;
-                                        @endphp
-                                        @foreach ($modules as $k => $module)
-                                            <p style="padding: 0px 15px;">
-                                                {{ $c . '. ' . $module->description }}
-                                            </p>
-                                            @php
-                                                $c++;
-                                            @endphp
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="beneficios">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @if ($course->brochure)
-                                            {!! $course->brochure->benefits !!}
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="docentes">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @if (count($course->teachers) > 0)
-                                            @foreach ($course->teachers as $teach)
-                                                <div class="row" style="margin-bottom: 20px;">
-                                                    <div class="col-md-2">
-                                                        <a href="{{ route('web_perfil_docente', 1) }}">
-                                                            <img style="width: 90px; margin-bottom: 10px; margin-left: 10px;"
-                                                                src="{{ $teach->teacher->person->image }}" alt="img">
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <h6>{{ $teach->teacher->person->names . ' ' . $teach->teacher->person->father_lastname . ' ' . $teach->teacher->person->mother_lastname }}
-                                                        </h6>
-                                                        @if (count($teach->teacher->person->resumes))
-                                                            <ul>
-                                                                @foreach ($teach->teacher->person->resumes as $resume)
-                                                                    <li>
-                                                                        {{ $resume->description }}
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="preguntas">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @if ($course->brochure)
-                                            {!! $course->brochure->frequent_questions !!}
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br><br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @if ($item->additional1 == 'E-Learning')
-                                    <br>
-                                    <div class="row" style="padding: 15px; background: #c3c3c3;">
-                                        <div class="col-md-12">
-                                            <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h6>ESTA MODALIDAD PERMITE:</h6>
-                                            <ul>
-                                                <li>
-                                                    Una formación completamente a distancia, donde los alumnos acceden a
-                                                    los contenidos, actividades, tareas, tutores del curso, etc.
-                                                </li>
-                                                <li>
-                                                    El proceso de aprendizaje se lleve a cabo a través de cualquier
-                                                    dispositivo
-                                                    electrónico. (laptop, Tablet, PC o dispositivo móvil).
-                                                </li>
-                                                <li>
-                                                    FLEXIBILIDAD DE ESTUDIO: permite que el estudiante pueda estudiar
-                                                    conforme a su
-                                                    disponibilidad de tiempo y desde el lugar físico que él elija.
-                                                    (las 24 horas y los 7 días de la semana).
-                                                </li>
-                                                <li>
-                                                    DISPOSICIÓN DE RECURSOS ON-LINE Y MULTIMEDIA, como PPTS, PDF, formatos
-                                                    en Excel
-                                                    y
-                                                    Word, que forman parte de los estudios.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="row" style="padding: 15px; background: #f5f5f5;">
-                                        <div class="reviewers-area">
-                                            <div class="meta-area d-flex">
-                                                <div class="user-rating ms-0">
-                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                                    <b>Modalidad de Estudios Mixta</b>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <i class="fa fa-video" aria-hidden="true"></i>
-                                                    Google Meet
-                                                </div>
-                                                <div class="ms-md-5 ms-auto mb-0">
-                                                    <a href="">
-                                                        <i class="fa fa-laptop" aria-hidden="true"></i>
-                                                        Campus Virtual
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                        DF
                     </div>
                     {{-- <div class="col-md-8">
                         <div class="row">
@@ -357,22 +192,6 @@
                             </div>
                         </div>
                     </div> --}}
-                </div>
-                <br><br>
-                <div class="movie-details-video-content-wrap">
-                    {{-- <div class="video-wrap">
-                        <video controls loop="loop" poster="assets/images/bg/bg-5.jpg">
-                            <source src="assets/video/video.mp4" type="video/mp4">
-                        </video>
-                    </div> --}}
-                    <div class="movie-details-content">
-                        <div class="row overview-area">
-                            <div class="col-md-12"  style="padding: 15px; background: #f5f5f5;">
-                                El alumno obtendrá su diplomado con la siguiente mención:
-                                <h4>"{{ $course->description }}"</h4>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

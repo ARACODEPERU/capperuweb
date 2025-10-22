@@ -75,8 +75,8 @@
         fade: true,
         infinite: true,
         slidesToShow: 1,
-        prevArrow: '<button type="button" class="slick-prev"><i class="zmdi zmdi-chevron-left"></i> </button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="zmdi zmdi-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>',
         responsive: [
             {
               breakpoint: 767,
@@ -101,8 +101,8 @@
         fade: true,
         infinite: true,
         slidesToShow: 1,
-        prevArrow: '<button type="button" class="slick-prev"><i class="zmdi zmdi-chevron-left"></i> </button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="zmdi zmdi-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>',
         responsive: [
             {
               breakpoint: 767,
@@ -194,8 +194,8 @@
         slidesToShow: 6,
         slidesToScroll: 1,
         autoplay: false,
-        prevArrow: '<button type="button" class="slick-prev"><i class="zmdi zmdi-chevron-left"></i> </button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="zmdi zmdi-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>',
         responsive: [
             {
                 breakpoint: 1365,
@@ -280,8 +280,8 @@
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: false,
-        prevArrow: '<button type="button" class="slick-prev"><i class="zmdi zmdi-chevron-left"></i> </button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="zmdi zmdi-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>',
         responsive: [
             {
                 breakpoint: 1200,
@@ -391,8 +391,8 @@
         slidesToScroll: 1,
         autoplay: false,
         infinite: true,
-        prevArrow: '<button type="button" class="slick-prev"><i class="zmdi zmdi-chevron-left"></i> </button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="zmdi zmdi-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>',
         responsive: [
             {
                 breakpoint: 1199,
@@ -439,8 +439,8 @@
         slidesToScroll: 1,
         autoplay: false,
         infinite: true,
-        prevArrow: '<button type="button" class="slick-prev"><i class="zmdi zmdi-chevron-left"></i> </button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="zmdi zmdi-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>',
         responsive: [
             {
                 breakpoint: 991,
@@ -565,7 +565,7 @@
         ScrollUp Active
     ------------------------*/
     $.scrollUp({
-        scrollText: '<i class="zmdi zmdi-long-arrow-up"></i>',
+        scrollText: '<i class="fa fa-arrow-up" aria-hidden="true"></i>',
         easingType: 'linear',
         scrollSpeed: 900,
         animation: 'fade'
