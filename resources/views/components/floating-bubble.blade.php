@@ -72,22 +72,21 @@
                             </span>
                         </div>
                         <div class="col-md-10">
-                                    Necesitas ayuda? <br>
+                                    <b style="font-size: 20px;">Necesitas ayuda?</b> <br>
                                     ¡Hola! Haga clic en el Whatsapp y chatee.
                         </div>
                     </div>
                     <a href="https://api.whatsapp.com/send?phone=51977662460&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?"
-                        target="_blank" class="animate__animated animate__fadeInUp">
+                        target="_blank" class="animate__animated animate__fadeInUp" style="width: 100%;">
                         <div class="row"
                             style="padding: 10px 15px;
                                                 border-left: 5px solid #25D366; 
-                                                padding-left: 10px; 
                                                 background: #f8f8f8;
                                                 box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);">
-                            <div class="col-md-2" style="display: flex; align-items: center;">
-                                <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
+                            <div class="col-md-1" style="display: flex; align-items: center;">
+                                <img style="100%;" src="{{ asset('themes/capperu/assets/img/redes/whatsapp.png') }}">
                             </div>
-                            <div class="col-md-8" style="margin-top: 5px;">
+                            <div class="col-md-9" style="margin-top: 5px;">
                                 <p style="font-size: 20px; display: flex; align-items: center;">Asesora 1</p>
                             </div>
                             <div class="col-md-2" style="display: flex; align-items: center;">
@@ -99,17 +98,16 @@
                     </a>
                     <br>
                     <a href="https://api.whatsapp.com/send?phone=51908934095&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?"
-                        target="_blank" class="animate__animated animate__fadeInUp">
+                        target="_blank" class="animate__animated animate__fadeInUp" style="width: 100%;">
                         <div class="row"
                             style="padding: 10px 15px;
                                                 border-left: 5px solid #25D366; 
-                                                padding-left: 10px; 
                                                 background: #f8f8f8;
                                                 box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra en todos los lados */">
-                            <div class="col-md-2" style="display: flex; align-items: center;">
-                                <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
+                            <div class="col-md-1" style="display: flex; align-items: center;">
+                                <img style="100%;" src="{{ asset('themes/capperu/assets/img/redes/whatsapp.png') }}">
                             </div>
-                            <div class="col-md-8" style="margin-top: 5px;">
+                            <div class="col-md-9" style="margin-top: 5px;">
                                 <p style="font-size: 20px; display: flex; align-items: center;">Asesora 2</p>
                             </div>
                             <div class="col-md-2" style="display: flex; align-items: center;">
@@ -121,17 +119,16 @@
                     </a>
                     <br>
                     <a href="https://api.whatsapp.com/send?phone=51963331758&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?"
-                        target="_blank" class="animate__animated animate__fadeInUp">
+                        target="_blank" class="animate__animated animate__fadeInUp" style="width: 100%;">
                         <div class="row"
                             style="padding: 10px 15px;
                                                 border-left: 5px solid #25D366; 
-                                                padding-left: 10px; 
                                                 background: #f8f8f8;
                                                 box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);">
-                            <div class="col-md-2" style="display: flex; align-items: center;">
-                                <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
+                            <div class="col-md-1" style="display: flex; align-items: center;">
+                                <img style="100%;" src="{{ asset('themes/capperu/assets/img/redes/whatsapp.png') }}">
                             </div>
-                            <div class="col-md-8" style="margin-top: 5px;">
+                            <div class="col-md-9" style="margin-top: 5px;">
                                 <p style="font-size: 20px; display: flex; align-items: center;">Asesora 3</p>
                             </div>
                             <div class="col-md-2" style="display: flex; align-items: center;">
@@ -143,8 +140,8 @@
                     </a>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+                    <button style="width: 180px;" type="button" class="btn theme-color-four" data-bs-dismiss="modal">Cerrar</button>
+                </div> 
             </div>
         </div>
     </div>
