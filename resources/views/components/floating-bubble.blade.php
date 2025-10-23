@@ -60,4 +60,92 @@
             }
         }
     </style>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    
+                    <div class="row" style="background: #00b147; padding: 10px 25px; color: #fff;">
+                        <div class="col-md-2">
+                            <span style="color: #fff; padding: 5px 15px; font-size: 50px;">
+                                <i class="fa fa-whatsapp"></i>
+                            </span>
+                        </div>
+                        <div class="col-md-10">
+                                    Necesitas ayuda? <br>
+                                    ¡Hola! Haga clic en el Whatsapp y chatee.
+                        </div>
+                    </div>
+                    <a href="https://api.whatsapp.com/send?phone=51977662460&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?"
+                        target="_blank" class="animate__animated animate__fadeInUp">
+                        <div class="row"
+                            style="padding: 10px 15px;
+                                                border-left: 5px solid #25D366; 
+                                                padding-left: 10px; 
+                                                background: #f8f8f8;
+                                                box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);">
+                            <div class="col-md-2" style="display: flex; align-items: center;">
+                                <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
+                            </div>
+                            <div class="col-md-8" style="margin-top: 5px;">
+                                <p style="font-size: 20px; display: flex; align-items: center;">Asesora 1</p>
+                            </div>
+                            <div class="col-md-2" style="display: flex; align-items: center;">
+                                <span style="color: #989898; padding: 5px 15px; font-size: 20px;">
+                                    <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <br>
+                    <a href="https://api.whatsapp.com/send?phone=51908934095&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?"
+                        target="_blank" class="animate__animated animate__fadeInUp">
+                        <div class="row"
+                            style="padding: 10px 15px;
+                                                border-left: 5px solid #25D366; 
+                                                padding-left: 10px; 
+                                                background: #f8f8f8;
+                                                box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra en todos los lados */">
+                            <div class="col-md-2" style="display: flex; align-items: center;">
+                                <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
+                            </div>
+                            <div class="col-md-8" style="margin-top: 5px;">
+                                <p style="font-size: 20px; display: flex; align-items: center;">Asesora 2</p>
+                            </div>
+                            <div class="col-md-2" style="display: flex; align-items: center;">
+                                <span style="color: #989898; padding: 5px 15px; font-size: 20px;">
+                                    <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <br>
+                    <a href="https://api.whatsapp.com/send?phone=51963331758&text=Hola&nbsp;CapPeru!&nbsp;me&nbsp;pueden&nbsp;ayudar?"
+                        target="_blank" class="animate__animated animate__fadeInUp">
+                        <div class="row"
+                            style="padding: 10px 15px;
+                                                border-left: 5px solid #25D366; 
+                                                padding-left: 10px; 
+                                                background: #f8f8f8;
+                                                box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);">
+                            <div class="col-md-2" style="display: flex; align-items: center;">
+                                <img style="100%;" src="themes/capperu/assets/img/redes/whatsapp.png">
+                            </div>
+                            <div class="col-md-8" style="margin-top: 5px;">
+                                <p style="font-size: 20px; display: flex; align-items: center;">Asesora 3</p>
+                            </div>
+                            <div class="col-md-2" style="display: flex; align-items: center;">
+                                <span style="color: #989898; padding: 5px 15px; font-size: 20px;">
+                                    <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

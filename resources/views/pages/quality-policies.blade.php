@@ -78,7 +78,7 @@
 
         <!--// Footer Area -->
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal">
+        {{-- <div class="modal fade" id="exampleModal">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- Main Wrapper End -->
 @endsection
