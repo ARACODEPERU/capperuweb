@@ -12,8 +12,10 @@
                                 </a>
                             </div> --}}
                             <p>
-                                El Centro de Actualización Profesional CAP – PERÚ SAC tiene como objetivo contribuir a la 
-                                actualización y perfeccionamiento académico de profesionales y egresados de las diferentes carreras 
+                                El Centro de Actualización Profesional CAP – PERÚ SAC tiene como objetivo contribuir a
+                                la
+                                actualización y perfeccionamiento académico de profesionales y egresados de las
+                                diferentes carreras
                                 profesionales.
                             </p>
                             <div class="social-style-1">
@@ -30,7 +32,7 @@
                             <div class="footer-quicklink">
                                 <ul>
                                     <li><a href="{{ route('web_home') }}">Home</a></li>
-                                    <li><a href="">Sobre Nosotros</a></li>
+                                    <li><a href="{{ route('web_about_us') }}">¿Quienes Somos? </a></li>
                                     <li><a href="">Blog</a></li>
                                     <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                                 </ul>
@@ -38,39 +40,51 @@
                             <div class="brand-logo-active brand-logo-wrap">
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                                 <div class="brand-logo-plr">
                                     <div class="brand-logo">
-                                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}" alt=""></a>
+                                        <a href="#"><img
+                                                src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                                alt=""></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="footer-quicklink-2">
                                 <ul>
-                                    <li><a href="contact-2.html">Report a Bug</a></li>
-                                    <li><a href="contact-2.html">Request a Feature</a></li>
+                                    <li><a href="{{ route('web_quality_policies') }}">Politica De Calidad</a></li>
+                                    <li><a href="{{ route('web_quality_management') }}">Alcance Del SIG</a></li>
                                 </ul>
                             </div>
                         </div>

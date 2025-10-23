@@ -19,8 +19,8 @@
                                     <a href="{{ route('web_about_us') }}">Sobre Nosotros</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{ route('web_about_us') }}">¿Quienes Somos? </a></li>
-                                        <li><a href="">Politica De Calidad</a></li>
-                                        <li><a href="">Alcance Del SIG</a></li>
+                                        <li><a href="{{ route('web_quality_policies') }}">Politica De Calidad</a></li>
+                                        <li><a href="{{ route('web_quality_management') }}">Alcance Del SIG</a></li>
                                     </ul>
                                 </li>
                                 {{-- <li><a href="movie.html">Movies</a>
@@ -123,8 +123,7 @@
                     </div>
                     <!-- our-profile-area end -->
                     <div class="subscribe-btn-wrap">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            class="subscribe-btn">Aula Virtual</button>
+                        <a href="{{ route('login') }}" class="subscribe-btn">Aula Virtual</a>
                     </div>
                     <!-- mobile-menu start -->
                     <div class="mobile-menu d-block d-lg-none"></div>

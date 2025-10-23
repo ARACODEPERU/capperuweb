@@ -32,6 +32,8 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/home', [WebPageController::class, 'home'])->name('web_home');
 Route::get('/nosotros2', [WebPageController::class, 'about_us'])->name('web_about_us');
+Route::get('/politicas-de-calidad2', [WebPageController::class, 'quality_policies'])->name('web_quality_policies');
+Route::get('/gestion-de-calidad2', [WebPageController::class, 'quality_management'])->name('web_quality_management');
 Route::get('/contacto2', [WebPageController::class, 'contact'])->name('web_contact');
 Route::get('/descripcion-programa2/{id}', [WebPageController::class, 'programDescription'])->name('web_program_description');
 

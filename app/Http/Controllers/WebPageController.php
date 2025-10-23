@@ -57,6 +57,16 @@ class WebPageController extends Controller
         return view('pages.about-us');
     }
 
+    public function quality_policies()
+    {
+        return view('pages.quality-policies');
+    }
+
+    public function quality_management()
+    {
+        return view('pages.quality-management');
+    }
+
     public function contact()
     {
         return view('pages.contact');
