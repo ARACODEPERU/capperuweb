@@ -45,7 +45,7 @@ class ProgramasNuevos extends Component
             )
             // ->where('onli_items.status', true)
             // ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
-            ->orderBy('onli_items.item_id', 'DESC')
+            ->orderBy('onli_items.created_at', 'DESC')
             ->limit(20)
             ->paginate(15);
 
