@@ -5,8 +5,8 @@
             <div class="ara-linea-cap"></div>
         </div>
         <div class="grid-container">
-            @if (count($programsNews) > 0)
-                @foreach ($programsNews as $key => $program)
+            @if (count($programsnew) > 0)
+                @foreach ($programsnew as $key => $program)
                 <div class="grid-item">
                     <div class="single-course-wrap  box-zoom" style="background-color: #F9FAFD;">
                         <a  href="{{ route('web_descripcion_programa', $program->id) }}">
@@ -29,7 +29,7 @@
             @endif
         </div>
         <div class="container" style="text-align: center;">
-            {{ $programsNews->links() }}
+            {{ $programsnew->links() }}
         </div>
         
         <style>

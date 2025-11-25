@@ -23,7 +23,7 @@ class ProgramasNuevos extends Component
      */
     public function render(): View|Closure|string
     {
-        $programsNews = OnliItem::join('aca_courses', 'onli_items.item_id', '=', 'aca_courses.id')
+        $programsnew = OnliItem::join('aca_courses', 'onli_items.item_id', '=', 'aca_courses.id')
             ->join('aca_category_courses', 'aca_category_courses.id', 'aca_courses.category_id')
             ->join('aca_teachers', 'aca_teachers.id', '=', 'aca_courses.teacher_id')
             ->leftJoin('people', 'people.id', '=', 'aca_teachers.person_id')
@@ -43,15 +43,15 @@ class ProgramasNuevos extends Component
                 'aca_courses.id as course_id',
                 'aca_category_courses.description as category_description'
             )
-            // ->where('onli_items.status', true)
-            // ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
-            // ->orderBy('onli_items.id', 'DESC')
+            ->where('onli_items.status', true)
+            ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
+            ->orderBy('onli_items.id', 'DESC')
             ->limit(20)
-            ->paginate(10);
+            ->paginate(15);
 
         // return view('components.programas-nuevos');
         return view('components.programas-nuevos', [
-            'programsNews' => $programsNews
+            'programsnew' => $programsnew
         ]);
     }
 }
