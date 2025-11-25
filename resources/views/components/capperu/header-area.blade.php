@@ -175,7 +175,7 @@
                 <div class="logo">
                     <a class="main-logo" href="{{ route('cms_principal') }}">
                         <img style="width:196px; height:61px;"
-                            src="{{ asset('storage/'.$header[0]->content) }}" alt="img">
+                            src="{{ asset('storage/'.$header[0]->content) }}" alt="Logo">
                     </a>
                 </div>
                 <div class="nav-right-part nav-right-part-mobile">
@@ -231,15 +231,15 @@
                         <li>
                             <a href="{{ route('web_convenios') }}">Convenios</a>
                         </li>
-                        <li>
-                            <a href="https://capperu.com/login">Aula Virtual</a>
-                        </li>
+                        {{-- <li>
+                            <a href="{{ route('login') }}">Aula Virtual</a>
+                        </li> --}}
                         {{-- <li>
                             <a href="{{ env('URL_CAMPUS') }}">Aula Virtual</a>
                         </li> --}}
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('web_blog') }}">Blog</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('web_contacto') }}">Contacto</a>
                         </li>
@@ -247,6 +247,18 @@
                     </ul>
                 </div>
                 <div class="nav-right-part nav-right-part-desktop">
+                    <ul>
+                        <li>
+                            <a href="{{ route('login') }}" class="btn btn-base">
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i> &nbsp;&nbsp;
+                                <b>
+                                    Aula Virtual
+                                </b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {{-- <div class="nav-right-part nav-right-part-desktop">
                     <ul>
                         <li>
                             <a href="{{ route('web_carrito') }}" class="btn btn-base">
@@ -257,7 +269,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </nav>
         <div class="container" style="margin-top: -40px; padding: 10px 0px;">

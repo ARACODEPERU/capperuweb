@@ -69,6 +69,7 @@
                                         <div class="item">
                                             <div class="single-course-wrap">
                                                 <div class="thumb">
+                                                    sed
                                                     <a href="#" class="cat cat-blue">{{ $program->additional }}</a>
                                                     <img style="height: 260px; object-fit: cover;" src="{{ $program->image }}" alt="img">
                                                 </div>

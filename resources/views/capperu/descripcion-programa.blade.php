@@ -272,7 +272,7 @@
                         </div>
                     </div> --}}
                     <div class="price-wrap">
-                        <div class="row align-items-center" style="padding: 5px 0px;">
+                        {{-- <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
                                 <a class="btn btn-primary" href="#" style="width: 100%;"
                                     onclick="agregarAlCarrito({ id: {{ $item->id }}, nombre: '{{ $item->name }}', precio: {{ $item->price }} })">
@@ -281,7 +281,7 @@
                                     <b style="text-end">  S/. {{ $item->price }}</b>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         @if ($course->brochure)
                             <div class="row align-items-center" style="padding: 5px 0px;">
                                 <div class="col-md-12">

@@ -7,7 +7,7 @@
                     <div class="logo">
                         <a href="{{ route('web_home') }}">
                             {{-- <img src="{{ asset('themes/webpage/assets/images/logo/logo.png') }}" alt=""> --}}
-                            <img style="height: 60px;" src="{{ asset('storage/'.$header[0]->content) }}" alt="">
+                            <img style="height: 60px;" src="{{ asset('storage/'.$header[0]->content) }}" alt="Logo">
                         </a>
                     </div>
                     <!-- Logo -->

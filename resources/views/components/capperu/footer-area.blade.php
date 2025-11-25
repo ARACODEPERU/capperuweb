@@ -204,7 +204,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="footer-widget widget widget_link">
-                            <h4 class="widget-title">SOBRE NOSOTROS?</h4>
+                            <h4 class="widget-title">SOBRE NOSOTROS</h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>

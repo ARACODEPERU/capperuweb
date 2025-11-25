@@ -311,6 +311,8 @@
     </section> --}}
     <!-- enllor courses Area End -->
 
+    <x-programas-nuevos />
+
     <section style="padding: 40px 0px 90px 0px;">
         <div class="section-title" style="padding: 0px 80px;">
             <h5 style="font-weight: 700; color: #8B0E06;">Programas de Especialización</h5>

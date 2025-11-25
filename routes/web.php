@@ -76,8 +76,8 @@ Route::get('/descripcion-e-learning',       [CapperuController::class, 'descripc
 Route::get('/perfil-docente/{teacher_id}',  [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
 Route::match(['get', 'post'], '/alumnos',   [CapperuController::class, 'alumnos'])->name('web_alumnos');
 Route::get('/perfil-alumno/{id}',           [CapperuController::class, 'perfilalumno'])->name('web_perfil_alumno');
-Route::get('/articles',                     [CapperuController::class, 'blog'])->name('web_blog');
-Route::get('/article/{url}/article',        [CapperuController::class, 'blogdescripcion'])->name('web_blog_descripcion');
+// Route::get('/articles',                     [CapperuController::class, 'blog'])->name('web_blog');
+// Route::get('/article/{url}/article',        [CapperuController::class, 'blogdescripcion'])->name('web_blog_descripcion');
 Route::get('/carrito',                      [CapperuController::class, 'carrito'])->name('web_carrito');
 Route::get('/pagar',                        [CapperuController::class, 'pagar'])->name('web_pagar');
 Route::get('/gracias/{sale_id}',            [CapperuController::class, 'gracias'])->name('web_gracias');
