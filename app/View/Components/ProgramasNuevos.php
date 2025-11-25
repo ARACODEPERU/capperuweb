@@ -43,7 +43,7 @@ class ProgramasNuevos extends Component
                 'aca_courses.id as course_id',
                 'aca_category_courses.description as category_description'
             )
-            ->where('onli_items.status', true)
+            // ->where('onli_items.status', true)
             // ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
             ->orderBy('onli_items.item_id', 'DESC')
             ->limit(20)
