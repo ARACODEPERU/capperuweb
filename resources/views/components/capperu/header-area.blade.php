@@ -381,9 +381,9 @@
                         <li>
                             <a href="{{ env('URL_CAMPUS') }}">Aula Virtual</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('web_blog') }}">Blog</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('web_contacto') }}">Contacto</a>
                         </li>
