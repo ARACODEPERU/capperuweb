@@ -151,6 +151,7 @@
                                         $c++;
                                     @endphp
                                 @endforeach
+                                
                             </div>
                             <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
                                 @if ($course->brochure)
