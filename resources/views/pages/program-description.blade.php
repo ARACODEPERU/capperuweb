@@ -33,7 +33,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <img style="width: 100%;" src="{{ asset($course->image) }}"
+                        <img style="width: 100%;" src="{{ asset('storage/'.$course->image) }}"
                             alt="{{ $course->description }}">
                     </div>
                     <div class="col-md-8">
