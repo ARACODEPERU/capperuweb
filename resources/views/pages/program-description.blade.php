@@ -71,7 +71,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         @if ($course->brochure)
+                                            <div class="overview-area">
                                                 {!! $course->brochure->curriculum_plan !!}
+                                            </div>
                                         @endif
                                         {{-- @php
                                             $modules = $course->modules;
