@@ -25,11 +25,11 @@
             </div>
         </div>
     </section>
-    
+
     <!-- courses-details Area Start-->
     <section class="courses-details-area pd-bottom-100">
         <div class="container">
-            
+
             {{-- <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -56,29 +56,25 @@
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-2" data-bs-toggle="pill"
-                                    data-bs-target="#pills-02" type="button" role="tab" aria-controls="pills-02"
-                                    aria-selected="true">
+                                <button class="nav-link" id="pill-2" data-bs-toggle="pill" data-bs-target="#pills-02"
+                                    type="button" role="tab" aria-controls="pills-02" aria-selected="true">
                                     Malla Curricular <span style="color: #8B0E06;"> ></span>
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-3" data-bs-toggle="pill" 
-                                    data-bs-target="#pills-03" type="button" role="tab" aria-controls="pills-03" 
-                                    aria-selected="false">
+                                <button class="nav-link" id="pill-3" data-bs-toggle="pill" data-bs-target="#pills-03"
+                                    type="button" role="tab" aria-controls="pills-03" aria-selected="false">
                                     Beneficios <span style="color: #8B0E06;"> ></span>
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-4" data-bs-toggle="pill" 
-                                    data-bs-target="#pills-04" type="button" role="tab" aria-controls="pills-04" 
-                                    aria-selected="false">
+                                <button class="nav-link" id="pill-4" data-bs-toggle="pill" data-bs-target="#pills-04"
+                                    type="button" role="tab" aria-controls="pills-04" aria-selected="false">
                                     Plana Docente <span style="color: #8B0E06;"> ></span>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" id="pill-5" data-bs-toggle="pill" 
-                                    data-bs-target="#pills-05" type="button" role="tab" aria-controls="pills-05" 
-                                    aria-selected="false">
+                                <button class="nav-link" id="pill-5" data-bs-toggle="pill" data-bs-target="#pills-05"
+                                    type="button" role="tab" aria-controls="pills-05" aria-selected="false">
                                     Preguntas Frecuentes
                                 </button>
                             </li>
@@ -110,7 +106,7 @@
                                         $c++;
                                     @endphp
                                 @endforeach --}}
-                                
+
                             </div>
                             <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
                                 @if ($course->brochure)
@@ -247,7 +243,8 @@
                                 <div class="col-md-12">
                                     <a class="btn btn-primary" href="{{ $course->brochure->path_file ?? '#' }}"
                                         style="width: 100%;">
-                                        <i class="fa fa-file" aria-hidden="true" style="font-size: 20px;"></i>&nbsp;&nbsp;
+                                        <i class="fa fa-file" aria-hidden="true"
+                                            style="font-size: 20px;"></i>&nbsp;&nbsp;
                                         Descargar Brochure
                                     </a>
                                 </div>
@@ -256,8 +253,9 @@
                         <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
                                 <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[0]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
-                                target="_blanck" class="btn btn-success" style="width: 100%;">
-                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true"
+                                        style="font-size: 22px;"></i>&nbsp;&nbsp;
                                     ¡Escribenos al whatsapp!
                                 </a>
                             </div>
@@ -265,8 +263,9 @@
                         <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
                                 <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[1]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
-                                target="_blanck" class="btn btn-success" style="width: 100%;">
-                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true"
+                                        style="font-size: 22px;"></i>&nbsp;&nbsp;
                                     ¡Escribenos al whatsapp!
                                 </a>
                             </div>
@@ -274,8 +273,9 @@
                         <div class="row align-items-center" style="padding: 5px 0px;">
                             <div class="col-md-12">
                                 <a href="https://api.whatsapp.com/send?phone=51{{ $whatsappAsesor[2]->content }}&text=Hola&nbsp;CAPPERU,&nbsp;necesito&nbsp;información&nbsp;del&nbsp;programa&nbsp;académico"
-                                target="_blanck" class="btn btn-success" style="width: 100%;">
-                                    <i class="fab fa-whatsapp" aria-hidden="true" style="font-size: 22px;"></i>&nbsp;&nbsp; 
+                                    target="_blanck" class="btn btn-success" style="width: 100%;">
+                                    <i class="fab fa-whatsapp" aria-hidden="true"
+                                        style="font-size: 22px;"></i>&nbsp;&nbsp;
                                     ¡Escribenos al whatsapp!
                                 </a>
                             </div>

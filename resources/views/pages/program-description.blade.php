@@ -33,7 +33,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <img style="width: 100%;" src="{{ asset('storage/'.$course->image) }}"
+                        <img style="width: 100%;" src="{{ asset('storage/' . $course->image) }}"
                             alt="{{ $course->description }}">
                     </div>
                     <div class="col-md-8">
@@ -70,7 +70,12 @@
                             <div class="tab-pane" id="malla">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        @php
+                                        @if ($course->brochure)
+                                            <div class="overview-area">
+                                                {!! $course->brochure->curriculum_plan !!}
+                                            </div>
+                                        @endif
+                                        {{-- @php
                                             $modules = $course->modules;
                                             $c = 1;
                                         @endphp
@@ -81,7 +86,7 @@
                                             @php
                                                 $c++;
                                             @endphp
-                                        @endforeach
+                                        @endforeach --}}
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +372,7 @@
                     </div> --}}
                     <div class="movie-details-content">
                         <div class="row overview-area">
-                            <div class="col-md-12"  style="padding: 15px; background: #f5f5f5;">
+                            <div class="col-md-12" style="padding: 15px; background: #f5f5f5;">
                                 El alumno obtendrá su diplomado con la siguiente mención:
                                 <h4>"{{ $course->description }}"</h4>
                             </div>
