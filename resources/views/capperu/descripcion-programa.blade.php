@@ -15,81 +15,34 @@
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-
-    <!-- Banner Area Start-->
-    {{-- <section class="banner-area style-3"
-        style="padding: 40px; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
+    <!-- Banner Area End -->
+    <section style="background:#8B0E06; margin-top: 180px; padding: 40px;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 align-self-center">
-                    <div class="banner-inner text-center">
-                        <h3 style="color: #fff;">
-                            {{ $course->description }}
-                        </h3>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 style="color: #fff;">{{ $course->description }}</h1>
                 </div>
             </div>
         </div>
-    </section> --}}
-    <!-- Banner Area End -->
+    </section>
     
     <!-- courses-details Area Start-->
-    <section class="courses-details-area pd-top-190 pd-bottom-100">
+    <section class="courses-details-area pd-bottom-100">
         <div class="container">
-            <div class="row">
+            
+            {{-- <div class="row">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="single-course-wrap mb-0">
                                 <div class="thumb">
-                                    {{-- <span class="play-btn"><i class="fa fa-play"></i></span> --}}
                                     <img style="width: 100%; heigth: 210px;" src="{{ asset('storage/'.$course->image) }}" alt="img">
                                 </div>
-                                {{-- <div class="wrap-details">
-                                    <h5>{{ $course->description }}</h5>
-                                    @if ($course->brochure)
-                                        <p>{!! $course->brochure->resolution !!}</p>
-                                    @endif
-                                    <div class="user-area">
-                                        <div class="user-details">
-                                            <a href="">
-                                                <span style="color:orange;">
-                                                    Sector:
-                                                </span>
-                                                <b>{{ $course->sector_description }}</b>
-                                            </a>
-                                        </div>
-                                        @if ($course->modality)
-                                            <div class="user-rating">
-                                                <span style="color:orange;">
-                                                    <i>Modalidad:</i>
-                                                </span>
-                                                <b>{{ $item->additional1 }}</b>
-                                            </div>
-                                        @endif
-                                        @if ($course->category)
-                                            <div class="user-rating">
-                                                <span style="color:orange;">
-                                                    <i>Tipo:</i>
-                                                </span>
-                                                <b>{{ $course->type_description }}</b>
-                                            </div>
-                                        @endif
-                                        @if ($item->additional1 != 'E-Learning')
-                                            <div class="user-rating">
-                                                <span style="color:orange;">
-                                                    <i>Inicio:</i>
-                                                </span>
-                                                <b>{{ $course->course_day . '/' . $course->course_month . '/' . $course->course_year }}</b>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <br>
             <div class="row">
                 <div class="col-lg-8">
@@ -139,7 +92,13 @@
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="pills-02" role="tabpanel" aria-labelledby="pill-2">
-                                @php
+                                @if ($course->brochure)
+                                    <div class="overview-area">
+                                        {!! $course->brochure->curriculun_plan !!}
+                                    </div>
+                                @endif
+
+                                {{-- @php
                                     $modules = $course->modules;
                                     $c = 1;
                                 @endphp
@@ -150,7 +109,7 @@
                                     @php
                                         $c++;
                                     @endphp
-                                @endforeach
+                                @endforeach --}}
                                 
                             </div>
                             <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">

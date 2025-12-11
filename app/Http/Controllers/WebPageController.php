@@ -78,6 +78,8 @@ class WebPageController extends Controller
         $item = OnliItem::find($id);
 
         $course = AcaCourse::with('category')
+        
+            ->with('name')
             ->with('modality')
             ->with('modules')
             ->with('teachers.teacher.person.resumes')
