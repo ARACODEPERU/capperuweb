@@ -33,8 +33,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <img style="width: 100%;" src="{{ asset('themes/webpage/assets/images/product/movie-17.jpg') }}"
-                            alt="Imagen">
+                        <img style="width: 100%;" src="{{ asset($course->image) }}"
+                            alt="{{ $course->description }}">
                     </div>
                     <div class="col-md-8">
                         <!-- Nav tabs -->
