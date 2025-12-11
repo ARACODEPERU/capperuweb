@@ -12,8 +12,8 @@
                             <div class="movie-wrap text-center">
                                 <div class="movie-img">
                                     <a href="{{ route('web_program_description', $program->id) }}">
-                                        <img src="{{ asset('themes/webpage/assets/images/product/movie-17.jpg') }}"
-                                            alt="">
+                                        <img src="{{ asset($program->image) }}"
+                                            alt="{{ $program->name }}">
                                     </a>
                                     <a href="{{ route('web_program_description', $program->id) }}">
                                         <button title="Watchlist" class="Watch-list-btn" type="button">
