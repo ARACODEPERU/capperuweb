@@ -94,7 +94,7 @@
                             <div class="tab-pane fade" id="pills-02" role="tabpanel" aria-labelledby="pill-2">
                                 @if ($course->brochure)
                                     <div class="overview-area">
-                                        {!! $course->brochure->curriculun_plan !!}
+                                        {!! $course->brochure->curriculum_plan !!}
                                     </div>
                                 @endif
 
