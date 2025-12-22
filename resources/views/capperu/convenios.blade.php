@@ -34,22 +34,22 @@
             <div class="row">
                 <div class="col-md-3"> 
                     <a href="">
-                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/logoIng.png') }}" alt="img">
+                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/co01.png') }}" alt="img">
                     </a>
                 </div>
                 <div class="col-md-3">
                     <a href="">
-                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/logoCallao.png') }}" alt="img">
+                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/co02.png') }}" alt="img">
                     </a>
                 </div>
                 <div class="col-md-3">
                     <a href="">
-                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/logoAdm.png') }}" alt="img">
+                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/co03.png') }}" alt="img">
                     </a>
                 </div>
                 <div class="col-md-3">
                     <a href="">
-                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/logoUnhv.png') }}" alt="img">
+                        <img style="100%;" src="{{ asset('themes/capperu/assets/img/convenios/co04.png') }}" alt="img">
                     </a>
                 </div>
             </div>

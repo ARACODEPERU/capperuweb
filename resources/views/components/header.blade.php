@@ -42,7 +42,7 @@
                                         <li><a href="landing-page.html">Landing Page</a></li>
                                     </ul>
                                 </li> --}}
-                                <li><a href="">Blog</a></li>
+                                {{-- <li><a href="">Blog</a></li> --}}
                                 <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                             </ul>
                         </nav>
@@ -100,11 +100,11 @@
                                 </ul>
                             </div>
                         </div> --}}
-                    <div class="notifications-bar btn-group">
+                    {{-- <div class="notifications-bar btn-group">
                         <a href="{{ route('web_carrito') }}" class="notifications-iocn black">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>5</span>
                         </a>
-                    </div>
+                    </div> --}}
                     <!-- notifications end -->
                     <!-- our-profile-area start -->
                     <div class="our-profile-area ">
@@ -114,10 +114,10 @@
                         </a>
                         <div class="dropdown-menu netflix-profile-style red">
                             <ul>
-                                <li class="single-list"><a href="history.html">History</a></li>
-                                <li class="single-list"><a href="watchlist.html">Watchlist</a></li>
-                                <li class="single-list"><a href="my-account-2.html">My Account</a></li>
-                                <li class="single-list"><a href="login-and-register-2.html">Log Out</a></li>
+                                {{-- <li class="single-list"><a href="history.html">History</a></li>
+                                <li class="single-list"><a href="watchlist.html">Watchlist</a></li> --}}
+                                <li class="single-list"><a href="">Mi Perfil</a></li>
+                                <li class="single-list"><a href="">Cerrar Sesión</a></li>
                             </ul>
                         </div>
                     </div>

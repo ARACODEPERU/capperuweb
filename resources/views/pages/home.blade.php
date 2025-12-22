@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Main Wrapper Start -->
     <div class="main-wrapper">
 
@@ -9,17 +11,27 @@
         <x-header />
         <!-- slider area start -->
 
-        <x-slider />
+        <div data-aos="zoom-in" data-aos-duration="1200">
+            <x-slider />
+        </div>
 
-        <x-courses-new />
+        <div data-aos="fade-right" data-aos-duration="1500">
+            <x-courses-new />
+        </div>
 
-        <x-graduates />
+        <div data-aos="fade-left" data-aos-duration="1500">
+            <x-graduates />
+        </div>
 
-        <x-courses />
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <x-courses />
+        </div>
 
-        <x-promotion />
+        <div data-aos="zoom-in-up" data-aos-duration="1300">
+            <x-promotion />
+        </div>
 
-        <div class="movie-list section-padding-lr section-ptb-50">
+        <div class="movie-list section-padding-lr section-ptb-50" data-aos="fade-right" data-aos-duration="1800">
             <div class="container-fluid">
                 <div class="section-title-4 st-border-bottom">
                     <h2>Watch With Family</h2>
@@ -197,14 +209,14 @@
             </div>
         </div>
 
-        <div class="banner-area">
+        <div class="banner-area" data-aos="flip-left" data-aos-duration="1500">
             <div class="series-banner-img">
                 <a href="">
                     <img src="{{ asset('themes/webpage/assets/images/slider/series-2.png') }}" alt="">
                 </a>
             </div>
         </div>
-        <div class="movie-list section-padding-lr section-ptb-50">
+        <div class="movie-list section-padding-lr section-ptb-50" data-aos="fade-left" data-aos-duration="1800">
             <div class="container-fluid">
                 <div class="section-title-4 st-border-bottom">
                     <h2>Award Winning Movie</h2>
@@ -390,7 +402,9 @@
             </div>
         </div>
 
-        <x-footer />
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <x-footer />
+        </div>
 
         <!-- Modal -->
         {{-- <div class="modal fade" id="exampleModal">
@@ -414,4 +428,13 @@
     </div>
     <!-- Main Wrapper End -->
     
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            mirror: true,
+            once: false
+        });
+    </script>
+
 @endsection

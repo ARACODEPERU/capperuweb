@@ -1,5 +1,6 @@
-
-    <section class="trending-courses-area pd-top-100 pd-bottom-100"  style="background-color: #F9FAFD;">
+<div>
+    
+    {{-- <section class="trending-courses-area pd-top-100 pd-bottom-100"  style="background-color: #F9FAFD;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -43,26 +44,13 @@
                                                 }
                                             </style>
                                         </a>
-                                        {{-- <div class="price-wrap" style="margin-top: -15px;">
-                                            <div class="row align-items-center">
-                                                <div class="col-md-12">
-                                                    <button style="width: 100%;"
-                                                        onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
-                                                        class="btn btn-primary">
-                                                        <i class="fa fa-cart-plus"></i>
-                                                        Comprar Ahora S/. {{ $program->price }}
-                                                    </button>
-                                                    <div id="wallet_container"></div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                                 @endforeach
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="pills-2"> <!-- Empresarial -->
+                        <div class="tab-pane fade" id="pills-2"> 
                             <div class="course-slider owl-carousel">
                                 @foreach ($programs as $program)                                
                                     @if($program->category_description == "Empresarial")
@@ -111,16 +99,6 @@
                                                             <b><div style="text-align: right;">{{ $program->additional1 }}</div></b>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="price-wrap">
-                                                        <div class="row align-items-center">
-                                                            <div class="col-md-12">
-                                                                <button onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} });" class="btn btn-primary">
-                                                                    <i class="fa fa-cart-plus"></i>
-                                                                    Comprar Ahora S/. {{ $program->price }}
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +109,7 @@
                         </div>
 
 
-                        <div class="tab-pane fade" id="pills-3">  <!-- Derecho -->
+                        <div class="tab-pane fade" id="pills-3">  
                             <div class="course-slider owl-carousel">
                                 
                                 
@@ -181,16 +159,6 @@
                                                         <b>{{ $program->additional1 }}</b>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="price-wrap">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-12">
-                                                            <button onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} });" class="btn btn-primary">
-                                                                <i class="fa fa-cart-plus"></i>
-                                                                Comprar Ahora S/. {{ $program->price }}
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -248,16 +216,6 @@
                                                             <b>{{ $program->additional1 }}</b>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="price-wrap">
-                                                        <div class="row align-items-center">
-                                                            <div class="col-md-12">
-                                                                <button onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} });" class="btn btn-primary">
-                                                                    <i class="fa fa-cart-plus"></i>
-                                                                    Comprar Ahora S/. {{ $program->price }}
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -269,5 +227,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+</div>
     

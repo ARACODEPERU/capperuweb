@@ -33,7 +33,6 @@
                                 <ul>
                                     <li><a href="{{ route('web_home') }}">Home</a></li>
                                     <li><a href="{{ route('web_about_us') }}">¿Quienes Somos? </a></li>
-                                    <li><a href="">Blog</a></li>
                                     <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                                 </ul>
                             </div>
