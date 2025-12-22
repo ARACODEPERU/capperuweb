@@ -72,6 +72,28 @@ class WebPageController extends Controller
         return view('pages.contact');
     }
 
+    public function catalog()
+    {
+        $coursesQuery = OnliItem::with(['course.category'])
+            ->where('status', true)
+            ->where('entitie', 'Modules-Academic-Entities-AcaCourse');
+
+        if (request()->category) {
+            $coursesQuery->whereHas('course', function ($q) {
+                $q->where('category_id', request()->category);
+            });
+        }
+
+        $courses = $coursesQuery->paginate(9);
+        $categories = AcaCategoryCourse::all();
+
+        return view('pages.catalog', [
+            'courses' => $courses,
+            'categories' => $categories
+        ]);
+    }
+
+
     
     public function programDescription($id)
     {
