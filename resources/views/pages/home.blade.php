@@ -216,6 +216,7 @@
                 </a>
             </div>
         </div>
+        
         <div class="movie-list section-padding-lr section-ptb-50" data-aos="fade-left" data-aos-duration="1800">
             <div class="container-fluid">
                 <div class="section-title-4 st-border-bottom">
