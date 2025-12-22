@@ -43,6 +43,7 @@
                                     </ul>
                                 </li> --}}
                                 {{-- <li><a href="">Blog</a></li> --}}
+                                <li><a href="{{ route('web_catalog') }}">Programas de Especialización</a></li>
                                 <li><a href="{{ route('web_contact') }}">Contacto</a></li>
                             </ul>
                         </nav>
