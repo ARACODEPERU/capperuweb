@@ -1,195 +1,71 @@
 <div>
-    {{-- <div class="slider-area bg-black">
-        <div class="container-fluid p-0">
-            <div class="hero-slider-four dot-style-1 nav-style-1">
-                <div class="single-hero-slider-wrap single-animation-wrap slider-height-hm4 bg-image-hm4 slider-bg-color-black d-flex align-items-center slider-bg-position-1 bg-black"
-                    style="background-image:url({{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }});">
-                    <div class="slider-content-hm4 slider-animated">
-                        <h1 class="title animated">Out Of Network </h1>
-                        <div class="sub-title-time-wrap">
-                            <span class="sub-title animated">Feel Good</span>
-                            <span class="time animated">45 Mins</span>
-                        </div>
-                        <div class="slider-button">
-                            <a href="movie-details.html" class="btn-style-hm4 animated">Watch Now</a>
-                        </div>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <div class="slider-area-modern">
+        <div class="swiper mainSwiper">
+            <div class="swiper-wrapper">
+                @foreach ($sliders as $k => $slide)
+                    <div class="swiper-slide">
+                        <a href="{{ $slide->item->items[1]->content ?? '#' }}" class="d-block">
+                            <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}" 
+                                 alt="Slider {{ $k }}" 
+                                 class="img-fluid w-100">
+                        </a>
                     </div>
-                </div>
-                <div class="single-hero-slider-wrap single-animation-wrap slider-height-hm4 bg-image-hm4 slider-bg-color-black d-flex align-items-center slider-bg-position-3 bg-black"
-                    style="background-image:url({{ asset('themes/webpage/assets/images/slider/slider-hm4-2.jpg') }});">
-                    <div class="slider-content-hm4 slider-animated">
-                        <h1 class="title animated">The Love of Mind </h1>
-                        <div class="sub-title-time-wrap">
-                            <span class="sub-title animated">Romantic Movie</span>
-                            <span class="time animated">1 hr 45 Mins</span>
-                        </div>
-                        <div class="slider-button">
-                            <a href="movie-details.html" class="btn-style-hm4 animated">Watch Now</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
+            
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
-    </div> --}}
-
-
-    
-    <div class="slider-container">
-        <div class="slider">
-            {{-- @foreach ($sliders as $slide)
-                <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}" alt="Imagen 1"> 
-            @endforeach --}}
-                    @foreach ($sliders as $k => $slide)
-                            <a href="{{ $slide->item->items[1]->content }}">
-                                <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}" alt="Imagen"
-                                    class="w-full">
-                            </a>
-                    @endforeach
-
-            {{-- <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
-            <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
-            <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
-            <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt=""> --}}
-
-        </div>
-        <button class="prev-button">&#10094;</button>
-        <button class="next-button">&#10095;</button>
     </div>
 
-
     <style>
-        .slider-container {
+        .slider-area-modern {
             position: relative;
-            max-width: 100%;
-            margin-top: 0px;
-            overflow: hidden;
-            /* Oculta las imágenes fuera del contenedor */
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
         }
-
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            /* Transición suave del deslizamiento */
-        }
-
-        .slider img {
+        .swiper-slide img {
             width: 100%;
             height: auto;
-            flex-shrink: 0;
-            /* Impide que las imágenes se encojan */
-            display: block;
+            object-fit: cover;
+            /* Ajusta la altura máxima según necesites */
+            max-height: 600px; 
         }
-
-        .prev-button,
-        .next-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 12px;
-            cursor: pointer;
-            font-size: 24px;
-            z-index: 5;
-            /* Asegura que los botones estén por encima del slider */
-        }
-
-        .prev-button {
-            left: 10px;
-            border-radius: 50%;
-        }
-
-        .next-button {
-            right: 10px;
-            border-radius: 50%;
+        .swiper-button-next, .swiper-button-prev {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
     </style>
 
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const slider = document.querySelector('.slider');
-            const prevButton = document.querySelector('.prev-button');
-            const nextButton = document.querySelector('.next-button');
-            const images = document.querySelectorAll('.slider img');
-
-            let currentIndex = 0;
-            const totalImages = images.length;
-            let autoSlideInterval;
-
-            // Función para actualizar la posición del slider
-            function updateSlider() {
-                const imageWidth = images[0].clientWidth; // Obtener el ancho de la primera imagen
-                slider.style.transform = `translateX(${-currentIndex * imageWidth}px)`;
-            }
-
-            // Función para avanzar al siguiente slide
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % totalImages;
-                updateSlider();
-            }
-
-            // Función para iniciar el deslizamiento automático
-            function startAutoSlide() {
-                // Cambiar de imagen cada 3 segundos (3000 milisegundos)
-                autoSlideInterval = setInterval(nextSlide, 3000);
-            }
-
-            // Función para detener el deslizamiento automático
-            function stopAutoSlide() {
-                clearInterval(autoSlideInterval);
-            }
-
-            // Manejador del botón "Siguiente"
-            nextButton.addEventListener('click', () => {
-                stopAutoSlide(); // Detener el auto-deslizamiento al interactuar
-                nextSlide();
-                startAutoSlide(); // Reiniciar el auto-deslizamiento después de un clic
+            const swiper = new Swiper('.mainSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
             });
-
-            // Manejador del botón "Anterior"
-            prevButton.addEventListener('click', () => {
-                stopAutoSlide(); // Detener el auto-deslizamiento al interactuar
-                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-                updateSlider();
-                startAutoSlide(); // Reiniciar el auto-deslizamiento después de un clic
-            });
-
-            // Añade soporte para deslizamiento táctil (opcional)
-            let startX = 0;
-            let endX = 0;
-
-            slider.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                stopAutoSlide(); // Detener al empezar a tocar
-            });
-
-            slider.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                if (startX > endX + 50) {
-                    nextSlide();
-                } else if (startX < endX - 50) {
-                    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-                    updateSlider();
-                }
-                startAutoSlide(); // Reiniciar al soltar
-            });
-
-            // Detener el auto-deslizamiento cuando el cursor está sobre el slider
-            slider.addEventListener('mouseenter', stopAutoSlide);
-            // Reiniciar el auto-deslizamiento cuando el cursor sale del slider
-            slider.addEventListener('mouseleave', startAutoSlide);
-
-            // Se asegura de que el slider se adapte al cambiar el tamaño de la ventana
-            window.addEventListener('resize', updateSlider);
-
-            // Iniciar el deslizamiento automático al cargar la página
-            startAutoSlide();
         });
     </script>
-
-
-
 </div>
