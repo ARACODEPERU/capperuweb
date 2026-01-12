@@ -39,11 +39,17 @@
             {{-- @foreach ($sliders as $slide)
                 <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}" alt="Imagen 1"> 
             @endforeach --}}
+                    @foreach ($sliders as $k => $slide)
+                            <a href="{{ $slide->item->items[1]->content }}">
+                                <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}" alt="Imagen"
+                                    class="w-full">
+                            </a>
+                    @endforeach
 
+            {{-- <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
             <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
             <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
-            <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
-            <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt="">
+            <img src="{{ asset('themes/webpage/assets/images/slider/slider-hm4-1.jpg') }}" alt=""> --}}
 
         </div>
         <button class="prev-button">&#10094;</button>
