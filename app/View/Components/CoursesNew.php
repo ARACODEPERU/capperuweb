@@ -36,7 +36,7 @@ class CoursesNew extends Component
                 'aca_category_courses.description as category_description'
             )
             ->where('onli_items.status', true)
-            ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
+            // ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
             ->orderBy('onli_items.id', 'DESC')
             ->limit(15)
             ->paginate(15);
