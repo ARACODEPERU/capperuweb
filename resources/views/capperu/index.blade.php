@@ -94,7 +94,7 @@
             @foreach ($sliders as $key => $slide)
             <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
                 <a href="{{ $slide->item->items[1]->content }}">
-                    <img src="{{ $slide->item->items[0]->content }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}" class="d-block w-100" alt="...">
                 </a>
             </div>
             @endforeach
