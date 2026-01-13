@@ -35,12 +35,12 @@
             <x-sector-business />
         </div>
 
-        <div data-aos="fade-left" data-aos-duration="2200">
-            <x-sector-right />
-        </div>
-
         <div data-aos="fade-right" data-aos-duration="2500">
             <x-sector-public />
+        </div>
+
+        <div data-aos="fade-left" data-aos-duration="2200">
+            <x-sector-right />
         </div>
 
         <div data-aos="fade-up" data-aos-duration="1000">
