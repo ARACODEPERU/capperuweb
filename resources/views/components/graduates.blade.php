@@ -4,188 +4,92 @@
             <div class="section-title-4 st-border-bottom">
                 <h2>Diplomados</h2>
             </div>
-            <div class="movie-slider-active nav-style-2">
-                @if (count($programs) > 0)
-                    @foreach ($programs as $key => $program)
-                        <div class="movie-wrap-plr">
-                            <div class="movie-wrap text-center">
-                                <div class="movie-img">
-                                    <a href="{{ route('web_program_description', $program->id) }}">
-                                        <img src="{{ asset($program->image) }}"
-                                            alt="{{ $program->name }}">
-                                    </a>
-                                    <a href="{{ route('web_program_description', $program->id) }}">
-                                        <button title="Watchlist" class="Watch-list-btn" type="button">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="movie-content">
-                                    <h3 class="title">
-                                        <a href="{{ route('web_program_description', $program->id) }}">
-                                            {{ $program->name }}
-                                        </a>
-                                    </h3>
-                                    <span>Precio : {{ $program->price }}</span>
-                                    <div class="movie-btn">
-                                        <a href="{{ route('web_program_description', $program->id) }}"
-                                            class="btn-style-hm4-2 animated">
-                                            Más Información
-                                        </a>
+            <div class="swiper coursesSwiper">
+                <div class="swiper-wrapper">
+                    @if (count($programs) > 0)
+                        @foreach ($programs as $key => $program)
+                            <div class="swiper-slide">
+                                <div class="movie-wrap-plr">
+                                    <div class="movie-wrap text-center">
+                                        <div class="movie-img">
+                                            <a href="{{ route('web_program_description', $program->id) }}">
+                                                <img src="{{ asset($program->image) }}"
+                                                    alt="{{ $program->name }}">
+                                            </a>
+                                            <a href="{{ route('web_program_description', $program->id) }}">
+                                                <button title="Watchlist" class="Watch-list-btn" type="button">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="movie-content">
+                                            <h3 class="title">
+                                                <a href="{{ route('web_program_description', $program->id) }}">
+                                                    {{ $program->name }}
+                                                </a>
+                                            </h3>
+                                            <span>Precio : {{ $program->price }}</span>
+                                            <div class="movie-btn">
+                                                <a href="{{ route('web_program_description', $program->id) }}"
+                                                    class="btn-style-hm4-2 animated">
+                                                    Más Información
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                @endif
-                {{-- <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
                 </div>
-                <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-wrap-plr">
-                    <div class="movie-wrap text-center">
-                        <div class="movie-img">
-                            <a href="">
-                                <img src="{{ asset('themes/webpage/assets/images/product/movie-15.jpg') }}" alt="">
-                            </a>
-                            <button title="Watchlist" class="Watch-list-btn" type="button">
-                                <i class="zmdi zmdi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="movie-content">
-                            <h3 class="title">
-                                <a href="">The Love Of Mine</a>
-                            </h3>
-                            <span>Inversión : S/ 350</span>
-                            <div class="movie-btn">
-                                <a href="" class="btn-style-hm4-2 animated">Más Información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
+    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const swiper = new Swiper('.coursesSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                loop: true,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                    },
+                },
+            });
+        });
+    </script>
+    <style>
+        .coursesSwiper {
+            padding-bottom: 40px;
+        }
+        .coursesSwiper .swiper-button-next,
+        .coursesSwiper .swiper-button-prev {
+            color: #000;
+        }
+    </style>
 </div>

@@ -46,6 +46,8 @@
                     @endif
                 </div>
                 <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
@@ -59,9 +61,9 @@
                 slidesPerView: 1,
                 spaceBetween: 10,
                 loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -87,6 +89,10 @@
     <style>
         .coursesSwiper {
             padding-bottom: 40px;
+        }
+        .coursesSwiper .swiper-button-next,
+        .coursesSwiper .swiper-button-prev {
+            color: #000;
         }
     </style>
 </div>
