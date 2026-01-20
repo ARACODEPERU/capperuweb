@@ -30,19 +30,16 @@ use App\Http\Controllers\DashboardController;
 
 // NUEVO SITIO WEB 2025
 
+Route::get('/', [WebPageController::class, 'home'])->name('cms_principal');
 Route::get('/home', [WebPageController::class, 'home'])->name('web_home');
-Route::get('/nosotros2', [WebPageController::class, 'about_us'])->name('web_about_us');
+Route::get('/nosotros', [WebPageController::class, 'about_us'])->name('web_about_us');
 Route::get('/catalogo', [WebPageController::class, 'catalog'])->name('web_catalog');
-Route::get('/politicas-de-calidad2', [WebPageController::class, 'quality_policies'])->name('web_quality_policies');
-Route::get('/gestion-de-calidad2', [WebPageController::class, 'quality_management'])->name('web_quality_management');
-Route::get('/contacto2', [WebPageController::class, 'contact'])->name('web_contact');
-Route::get('/descripcion-programa2/{id}', [WebPageController::class, 'programDescription'])->name('web_program_description');
+Route::get('/politicas-de-calidad', [WebPageController::class, 'quality_policies'])->name('web_quality_policies');
+Route::get('/gestion-de-calidad', [WebPageController::class, 'quality_management'])->name('web_quality_management');
+Route::get('/contacto', [WebPageController::class, 'contact'])->name('web_contact');
+Route::get('/descripcion-programa/{id}', [WebPageController::class, 'programDescription'])->name('web_program_description');
 
 // NUEVO SITIO WEB 2025
-
-
-
-
 
 Route::get('cookies_policy', function () {
     return view('cookies_policy');
@@ -58,33 +55,33 @@ Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController:
 
 // SITE WEB //
 Route::post('/send-claim',                  [CapperuController::class, 'send_claim'])->name('send_claim');
-Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
-Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
-Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
-Route::get('/politicas-de-privacidad',      [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
-Route::get('/gestion-de-calidad',           [CapperuController::class, 'gestioncalidad'])->name('web_gestion_calidad');
-Route::get('/libro-de-reclamaciones',       [CapperuController::class, 'claims'])->name('web_claims');
-Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
-Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
-Route::get('/categoria-modalidad-en-vivo',  [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
-Route::get('/categoria-modalidad-e-learning', [CapperuController::class, 'categoriamodalidadelearning'])->name('web_categoria_modalidad_e_learning');
-Route::get('/categoria-programa-cursos',    [CapperuController::class, 'categoriaprogramacursos'])->name('web_categoria_programa_cursos');
-Route::get('/categoria-programa-diplomados', [CapperuController::class, 'categoriaprogramadiplomados'])->name('web_categoria_programa_diplomados');
-Route::get('/modalidad-presencial',         [CapperuController::class, 'modalidadpresencial'])->name('web_modalidad_presencial');
-Route::get('/sectors/{sector}/{tipo}',      [CapperuController::class, 'sector_programs'])->name('web_sectors');
-Route::get('/descripcion-programa/{id}',    [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
-Route::get('/descripcion-e-learning',       [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
-Route::get('/perfil-docente/{teacher_id}',  [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
-Route::match(['get', 'post'], '/alumnos',   [CapperuController::class, 'alumnos'])->name('web_alumnos');
-Route::get('/perfil-alumno/{id}',           [CapperuController::class, 'perfilalumno'])->name('web_perfil_alumno');
+// Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
+// Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
+// Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
+// Route::get('/politicas-de-privacidad',      [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
+// Route::get('/gestion-de-calidad',           [CapperuController::class, 'gestioncalidad'])->name('web_gestion_calidad');
+// Route::get('/libro-de-reclamaciones',       [CapperuController::class, 'claims'])->name('web_claims');
+// Route::get('/categoria-sector/{sector}',    [CapperuController::class, 'categoriasector'])->name('web_categoria_sector');
+// Route::get('/categoria-modalidad',          [CapperuController::class, 'categoriamodalidad'])->name('web_categoria_modalidad');
+// Route::get('/categoria-modalidad-en-vivo',  [CapperuController::class, 'categoriamodalidadenvivo'])->name('web_categoria_modalidad_en_vivo');
+// Route::get('/categoria-modalidad-e-learning', [CapperuController::class, 'categoriamodalidadelearning'])->name('web_categoria_modalidad_e_learning');
+// Route::get('/categoria-programa-cursos',    [CapperuController::class, 'categoriaprogramacursos'])->name('web_categoria_programa_cursos');
+// Route::get('/categoria-programa-diplomados', [CapperuController::class, 'categoriaprogramadiplomados'])->name('web_categoria_programa_diplomados');
+// Route::get('/modalidad-presencial',         [CapperuController::class, 'modalidadpresencial'])->name('web_modalidad_presencial');
+// Route::get('/sectors/{sector}/{tipo}',      [CapperuController::class, 'sector_programs'])->name('web_sectors');
+// Route::get('/descripcion-programa/{id}',    [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
+// Route::get('/descripcion-e-learning',       [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
+// Route::get('/perfil-docente/{teacher_id}',  [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
+// Route::match(['get', 'post'], '/alumnos',   [CapperuController::class, 'alumnos'])->name('web_alumnos');
+// Route::get('/perfil-alumno/{id}',           [CapperuController::class, 'perfilalumno'])->name('web_perfil_alumno');
 // Route::get('/articles',                     [CapperuController::class, 'blog'])->name('web_blog');
 // Route::get('/article/{url}/article',        [CapperuController::class, 'blogdescripcion'])->name('web_blog_descripcion');
-Route::get('/carrito',                      [CapperuController::class, 'carrito'])->name('web_carrito');
-Route::get('/pagar',                        [CapperuController::class, 'pagar'])->name('web_pagar');
-Route::get('/gracias/{sale_id}',            [CapperuController::class, 'gracias'])->name('web_gracias');
+// Route::get('/carrito',                      [CapperuController::class, 'carrito'])->name('web_carrito');
+// Route::get('/pagar',                        [CapperuController::class, 'pagar'])->name('web_pagar');
+// Route::get('/gracias/{sale_id}',            [CapperuController::class, 'gracias'])->name('web_gracias');
 
-Route::get('/convenios',                    [CapperuController::class, 'convenios'])->name('web_convenios');
-Route::get('/contacto',                     [CapperuController::class, 'contacto'])->name('web_contacto');
+// Route::get('/convenios',                    [CapperuController::class, 'convenios'])->name('web_convenios');
+// Route::get('/contacto',                     [CapperuController::class, 'contacto'])->name('web_contacto');
 
 Route::get('/main/vue', [LandingController::class, 'index'])->name('index_main');
 Route::get('/facturador', [LandingController::class, 'biller'])->name('biller_main');
