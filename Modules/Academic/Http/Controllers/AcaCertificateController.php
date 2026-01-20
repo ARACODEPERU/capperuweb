@@ -53,7 +53,7 @@ class AcaCertificateController extends Controller
 
     public function create()
     {
-        $courses = AcaCourse::where('status', true)->get();
+        $courses = AcaCourse::where('status', true)->orderBy('id', 'desc')->get();
         return Inertia::render('Academic::Certificates/Create', [
             'courses' => $courses
         ]);
@@ -166,7 +166,7 @@ class AcaCertificateController extends Controller
                             $q2->where('student_id', $student_id);
                         });
                 });
-            })->get();
+            })->orderBy('id', 'desc')->get();
 
 
         $certificates = AcaCertificate::with('course')

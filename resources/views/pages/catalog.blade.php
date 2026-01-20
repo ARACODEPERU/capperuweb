@@ -187,7 +187,7 @@
                                         <a href="{{ route('web_program_description', $course->id) }}">
                                             <img src="{{ asset($course->image) }}" alt="{{ $course->name }}">
                                         </a>
-                                        <span class="course-badge">{{ $course->course->category->description ?? 'Curso' }}</span>
+                                        {{-- <span class="course-badge">{{ $course->course->category->description ?? 'Curso' }}</span> --}}
                                     </div>
                                     <div class="course-content">
                                         <h3><a href="{{ route('web_program_description', $course->id) }}">{{ $course->name }}</a></h3>
