@@ -76,7 +76,8 @@ class WebPageController extends Controller
     {
         $coursesQuery = OnliItem::with(['course.category'])
             ->where('status', true)
-            ->where('entitie', 'Modules-Academic-Entities-AcaCourse');
+            ->where('entitie', 'Modules-Academic-Entities-AcaCourse')
+            ->orderBy('id', 'desc');
 
         if (request()->category) {
             $coursesQuery->whereHas('course', function ($q) {
