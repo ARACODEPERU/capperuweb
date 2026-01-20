@@ -103,6 +103,11 @@
             </div>
         </div>
 
+        <!-- Brand Logos Area -->
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <x-brand-logos />
+        </div>
+
         <!-- Footer Area -->
         <div data-aos="fade-up" data-aos-duration="1000">
             <x-footer />
