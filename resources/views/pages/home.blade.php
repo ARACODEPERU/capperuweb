@@ -26,9 +26,9 @@
             <x-courses />
         </div>
 
-        <div data-aos="zoom-in-up" data-aos-duration="1300">
+        {{-- <div data-aos="zoom-in-up" data-aos-duration="1300">
             <x-promotion />
-        </div>
+        </div> --}}
 
         <div data-aos="fade-right" data-aos-duration="1800">
             <x-sector-business />

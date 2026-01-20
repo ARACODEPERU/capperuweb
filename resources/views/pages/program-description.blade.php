@@ -387,7 +387,7 @@
                                 <p><i class="fa fa-check-circle"></i> Certificación válida</p>
                             </div>
 
-                            <a href="#" class="btn-modern-cta">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSecTVbgfJpQjsvDj7zJ9onAU318dOrhlU6B6FWlbzJ8yXtnpA/viewform?usp=header" target="_blank" class="btn-modern-cta">
                                 INSCRIBIRME AHORA <i class="fa fa-arrow-right ms-2"></i>
                             </a>
                             
