@@ -84,13 +84,8 @@
         </div>
     </section> --}}
     <!-- Banner Area End -->
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
+    {{-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
         <div class="carousel-inner">
-            {{-- @foreach ($sliders as $key => $slide)
-            <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
-                <a href="https://www.capperu.com/descripcion-programa/105"><img src="{{ $slide->content }}" class="d-block w-100" alt="..."></a>
-            </div>
-            @endforeach --}}
             @foreach ($sliders as $key => $slide)
             <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
                 <a href="{{ $slide->item->items[1]->content }}">
@@ -107,7 +102,7 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-    </div>
+    </div> --}}
     {{-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: 160px;">
         <div class="carousel-inner">
           <div class="carousel-item active">
