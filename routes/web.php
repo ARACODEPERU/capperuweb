@@ -83,9 +83,9 @@ Route::post('/send-claim',                  [CapperuController::class, 'send_cla
 // Route::get('/convenios',                    [CapperuController::class, 'convenios'])->name('web_convenios');
 // Route::get('/contacto',                     [CapperuController::class, 'contacto'])->name('web_contacto');
 
-// Route::get('/main/vue', [LandingController::class, 'index'])->name('index_main');
-// Route::get('/facturador', [LandingController::class, 'biller'])->name('biller_main');
-// Route::get('/news', [LandingController::class, 'blog'])->name('blog_main');
+Route::get('/main/vue', [LandingController::class, 'index'])->name('index_main');
+Route::get('/facturador', [LandingController::class, 'biller'])->name('biller_main');
+Route::get('/news', [LandingController::class, 'blog'])->name('blog_main');
 // Route::get('/terms', [LandingController::class, 'terms'])->name('terms_main');
 // Route::get('/computer/store', [LandingController::class, 'computerStore'])->name('index_computer_store');
 // Route::get('/prices/academic', [LandingController::class, 'academicPrices'])->name('academic_prices');
