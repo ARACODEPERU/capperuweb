@@ -6,29 +6,19 @@
 
         <x-header />
 
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-area breadcrumb-modify-padding bg-black-3">
+        {{-- <div class="breadcrumb-area breadcrumb-modify-padding bg-black-3">
             <div class="container">
                 <div class="in-breadcrumb">
                     <div class="row">
                         <div class="col">
                             <div class="breadcrumb-style-2">
                                 <h2>{{ $course->description }}</h2>
-                                <!-- breadcrumb-list start -->
-                                {{-- <ul class="breadcrumb-list-2">
-                                    <li>Total 5 Episodes</li>
-                                    <li>1 hr 45 Min</li>
-                                    <li>2021</li>
-                                    <li>Romantic Drama</li>
-                                </ul> --}}
-                                <!-- breadcrumb-list end -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--// Breadcrumb -->
         <div class="movie-details-wrap section-ptb-50 section-padding-lr">
             <div class="container-fluid">
                 <div class="row">
@@ -37,7 +27,6 @@
                             alt="{{ $course->description }}">
                     </div>
                     <div class="col-md-8">
-                        <!-- Nav tabs -->
                         <ul role="tablist" class="nav dashboard-list white mb--10">
                             <li class="active" role="presentation">
                                 <a href="#presentacion" data-bs-toggle="tab" class="tablist-btn active">Presentación ></a>
@@ -75,18 +64,6 @@
                                                 {!! $course->brochure->curriculum_plan !!}
                                             </div>
                                         @endif
-                                        {{-- @php
-                                            $modules = $course->modules;
-                                            $c = 1;
-                                        @endphp
-                                        @foreach ($modules as $k => $module)
-                                            <p style="padding: 0px 15px;">
-                                                {{ $c . '. ' . $module->description }}
-                                            </p>
-                                            @php
-                                                $c++;
-                                            @endphp
-                                        @endforeach --}}
                                     </div>
                                 </div>
                             </div>
@@ -201,175 +178,9 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-8">
-                        <div class="row">
-                            <ul class="course-tab nav nav-pills">
-                                <li class="nav-item">
-                                    <button class="nav-link active" id="pill-1" data-bs-toggle="pill"
-                                        data-bs-target="#pills-01" type="button" role="tab" aria-controls="pills-01"
-                                        aria-selected="true">
-                                        Presentación <span style="color: #8B0E06;"> ></span>
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" id="pill-2" data-bs-toggle="pill" data-bs-target="#pills-02"
-                                        type="button" role="tab" aria-controls="pills-02" aria-selected="true">
-                                        Malla Curricular <span style="color: #8B0E06;"> ></span>
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" id="pill-3" data-bs-toggle="pill" data-bs-target="#pills-03"
-                                        type="button" role="tab" aria-controls="pills-03" aria-selected="false">
-                                        Beneficios <span style="color: #8B0E06;"> ></span>
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" id="pill-4" data-bs-toggle="pill"
-                                        data-bs-target="#pills-04" type="button" role="tab"
-                                        aria-controls="pills-04" aria-selected="false">
-                                        Plana Docente <span style="color: #8B0E06;"> ></span>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" id="pill-5" data-bs-toggle="pill"
-                                        data-bs-target="#pills-05" type="button" role="tab"
-                                        aria-controls="pills-05" aria-selected="false">
-                                        Preguntas Frecuentes
-                                    </button>
-                                </li>
-                            </ul>
-                            <br><br>
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-01" role="tabpanel"
-                                    aria-labelledby="pill-1">
-                                    @if ($course->brochure)
-                                        <div class="overview-area">
-                                            {!! $course->brochure->presentation !!}
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="tab-pane fade" id="pills-02" role="tabpanel" aria-labelledby="pill-2">
-                                    @php
-                                        $modules = $course->modules;
-                                        $c = 1;
-                                    @endphp
-                                    @foreach ($modules as $k => $module)
-                                        <div class="accordion-item">
-                                            <p style="padding: 5px 15px;"><b>{{ $c . '. ' . $module->description }}</b></p>
-                                        </div>
-                                        @php
-                                            $c++;
-                                        @endphp
-                                    @endforeach
-                                </div>
-                                <div class="tab-pane fade" id="pills-03" role="tabpanel" aria-labelledby="pill-3">
-                                    @if ($course->brochure)
-                                        {!! $course->brochure->benefits !!}
-                                    @endif
-                                </div>
-                                <div class="tab-pane fade" id="pills-04" role="tabpanel" aria-labelledby="pill-4">
-                                    @if (count($course->teachers) > 0)
-                                        @foreach ($course->teachers as $teach)
-                                            <div class="row" style="margin-bottom: 20px;">
-                                                <div class="col-md-2">
-                                                    <a href="{{ route('web_perfil_docente', 1) }}">
-                                                        <img style="width: 90px; margin-bottom: 10px; margin-left: 10px;"
-                                                            src="{{ $teach->teacher->person->image }}" alt="img">
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <h6>{{ $teach->teacher->person->father_lastname . ' ' . $teach->teacher->person->mother_lastname . ' ' . $teach->teacher->person->names }}
-                                                    </h6>
-                                                    @if (count($teach->teacher->person->resumes))
-                                                        <ul>
-                                                            @foreach ($teach->teacher->person->resumes as $resume)
-                                                                <li>
-                                                                    {{ $resume->description }}
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div class="tab-pane fade" id="pills-05" role="tabpanel" aria-labelledby="pill-5">
-                                    @if ($course->brochure)
-                                        {!! $course->brochure->frequent_questions !!}
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        @if ($item->additional1 == 'E-Learning')
-                            <br>
-                            <div class="row bg-gray" style="padding: 15px;">
-                                <div class="col-md-12">
-                                    <h5><b>¿En qué consiste la modalidad de estudios E-Learning?</b></h5>
-                                </div>
-                                <div class="col-md-12">
-                                    <h6>ESTA MODALIDAD PERMITE:</h6>
-                                    <ul>
-                                        <li>
-                                            Una formación completamente a distancia, donde los alumnos acceden a
-                                            los contenidos, actividades, tareas, tutores del curso, etc.
-                                        </li>
-                                        <li>
-                                            El proceso de aprendizaje se lleve a cabo a través de cualquier dispositivo
-                                            electrónico. (laptop, Tablet, PC o dispositivo móvil).
-                                        </li>
-                                        <li>
-                                            FLEXIBILIDAD DE ESTUDIO: permite que el estudiante pueda estudiar conforme a su
-                                            disponibilidad de tiempo y desde el lugar físico que él elija.
-                                            (las 24 horas y los 7 días de la semana).
-                                        </li>
-                                        <li>
-                                            DISPOSICIÓN DE RECURSOS ON-LINE Y MULTIMEDIA, como PPTS, PDF, formatos en Excel
-                                            y
-                                            Word, que forman parte de los estudios.
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        @else
-                            <div class="row">
-                                <div class="reviewers-area">
-                                    <div class="meta-area d-flex">
-                                        <div class="user-rating ms-0">
-                                            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            <b>Modalidad de Estudios Mixta</b>
-                                        </div>
-                                        <div class="ms-auto">
-                                            <i class="fa fa-video" aria-hidden="true"></i>
-                                            Google Meet
-                                        </div>
-                                        <div class="ms-md-5 ms-auto mb-0">
-                                            <a href="">
-                                                <i class="fa fa-laptop" aria-hidden="true"></i>
-                                                Campus Virtual
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                        <br>
-
-                        <div class="row overview-area">
-                            <div class="col-md-12 bg-gray">
-                                El alumno obtendrá su diplomado con la siguiente mención:
-                                <h5>"{{ $course->description }}"</h5>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
                 <br><br>
                 <div class="movie-details-video-content-wrap">
-                    {{-- <div class="video-wrap">
-                        <video controls loop="loop" poster="assets/images/bg/bg-5.jpg">
-                            <source src="assets/video/video.mp4" type="video/mp4">
-                        </video>
-                    </div> --}}
                     <div class="movie-details-content">
                         <div class="row overview-area">
                             <div class="col-md-12" style="padding: 15px; background: #f5f5f5;">
@@ -380,101 +191,217 @@
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- <div class="movie-list section-pb-50">
+        </div> --}}
+
+        <!-- ============================================================== -->
+        <!-- SEPARADOR PARA COMPARACIÓN (BORRAR LUEGO) -->
+        <!-- ============================================================== -->
+        {{-- <div style="background: #000; color: #fff; padding: 40px; text-align: center; margin: 50px 0;">
+            <h2>⬇️ PROPUESTA DE DISEÑO MODERNO (LANDING PAGE) ⬇️</h2>
+            <p>Estructura enfocada en conversión con Sidebar "Sticky" y contenido vertical.</p>
+        </div> --}}
+
+        <!-- ============================================================== -->
+        <!-- INICIO PROPUESTA MODERNA -->
+        <!-- ============================================================== -->
+        <style>
+            /* Estilos específicos para la propuesta moderna */
+            .modern-hero {
+                position: relative;
+                background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%), url('{{ asset('storage/' . $course->image) }}');
+                background-size: cover;
+                background-position: center;
+                color: #fff;
+                padding: 80px 0;
+                margin-bottom: 40px;
+            }
+            .modern-hero h1 { color: #fff; font-weight: 800; font-size: 2.5rem; line-height: 1.2; margin-bottom: 15px; }
+            .modern-hero p { font-size: 1.1rem; opacity: 0.9; }
+            .hero-meta span { margin-right: 25px; font-size: 1rem; display: inline-block; margin-top: 10px; }
+            .hero-meta i { color: #f5c518; margin-right: 8px; }
+
+            .sticky-sidebar-wrapper {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 100px; /* Se pega al bajar el scroll */
+                z-index: 10;
+            }
+            .purchase-card {
+                background: #fff;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border: 1px solid #eee;
+            }
+            .purchase-card img { border-radius: 8px; margin-bottom: 20px; width: 100%; object-fit: cover; }
+            .price-tag { font-size: 2.2rem; font-weight: 800; color: #333; display: block; margin-bottom: 5px; }
+            .price-label { font-size: 0.9rem; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+            
+            .btn-modern-cta {
+                background-color: #ce1212; /* Color de acción */
+                color: #fff;
+                width: 100%;
+                padding: 16px;
+                font-size: 1.1rem;
+                font-weight: 700;
+                border: none;
+                border-radius: 6px;
+                margin-top: 20px;
+                display: block;
+                text-align: center;
+                text-transform: uppercase;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(206, 18, 18, 0.3);
+            }
+            .btn-modern-cta:hover { background-color: #a00000; color: #fff; transform: translateY(-2px); }
+
+            .modern-section {
+                background: #fff;
+                padding: 30px;
+                margin-bottom: 30px;
+                border-radius: 10px;
+                border: 1px solid #f0f0f0;
+            }
+            .modern-section h3 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 25px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid #f5f5f5;
+                color: #222;
+            }
+            
+            .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+            .teacher-card-modern { text-align: center; }
+            .teacher-card-modern img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid #f0f0f0; }
+            .teacher-card-modern h5 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+            .teacher-card-modern span { font-size: 0.8rem; color: #666; }
+
+            .features-list p { margin-bottom: 8px; font-size: 0.95rem; color: #555; }
+            .features-list i { color: #28a745; margin-right: 10px; }
+        </style>
+
+        <!-- 1. HERO SECTION -->
+        <div class="modern-hero">
             <div class="container">
-                <div class="section-title-4 st-border-bottom">
-                    <h2>Season 1</h2>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <span class="badge bg-danger mb-3" style="font-size: 0.9rem; padding: 8px 12px;">DIPLOMADO / CURSO</span>
+                        <h1>{{ $course->description }}</h1>
+                        <p class="mb-4">Especialízate con los mejores profesionales y lleva tu carrera al siguiente nivel con nuestra metodología práctica.</p>
+                        
+                        <div class="hero-meta">
+                            <span><i class="fa fa-clock-o"></i> Duración: Consultar</span>
+                            <span><i class="fa fa-laptop"></i> Modalidad: {{ $item->additional1 ?? 'Online / Mixta' }}</span>
+                            <span><i class="fa fa-certificate"></i> Certificado Incluido</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="movie-slider-active-3 nav-style-3">
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-30.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
+            </div>
+        </div>
+
+        <!-- 2. CONTENIDO PRINCIPAL + SIDEBAR -->
+        <div class="container pb-5">
+            <div class="row">
+                <!-- COLUMNA IZQUIERDA (CONTENIDO) -->
+                <div class="col-lg-8">
+                    
+                    <!-- Presentación -->
+                    <div class="modern-section">
+                        <h3>Presentación</h3>
+                        @if ($course->brochure)
+                            <div class="overview-area">
+                                {!! $course->brochure->presentation !!}
                             </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 01</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
+                        @endif
+                    </div>
+
+                    <!-- Malla Curricular -->
+                    <div class="modern-section">
+                        <h3>Malla Curricular</h3>
+                        @if ($course->brochure)
+                            <div class="overview-area">
+                                {!! $course->brochure->curriculum_plan !!}
                             </div>
+                        @endif
+                    </div>
+
+                    <!-- Beneficios -->
+                    <div class="modern-section">
+                        <h3>Beneficios y Objetivos</h3>
+                        @if ($course->brochure)
+                            <div class="overview-area">
+                                {!! $course->brochure->benefits !!}
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Docentes -->
+                    <div class="modern-section">
+                        <h3>Plana Docente</h3>
+                        <div class="teacher-grid">
+                            @if (count($course->teachers) > 0)
+                                @foreach ($course->teachers as $teach)
+                                    <div class="teacher-card-modern">
+                                        <img src="{{ $teach->teacher->person->image ? asset($teach->teacher->person->image) : asset('img/avatar_default.jpg') }}" alt="{{ $teach->teacher->person->names }}">
+                                        <h5>{{ $teach->teacher->person->names }} {{ $teach->teacher->person->father_lastname }}</h5>
+                                        <span>Docente</span>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p class="text-muted">Docentes por confirmar.</p>
+                            @endif
                         </div>
                     </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-31.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 02</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
+
+                    <!-- Preguntas Frecuentes -->
+                    <div class="modern-section">
+                        <h3>Preguntas Frecuentes</h3>
+                        @if ($course->brochure)
+                            {!! $course->brochure->frequent_questions !!}
+                        @endif
                     </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-32.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
+
+                </div>
+
+                <!-- COLUMNA DERECHA (SIDEBAR STICKY) -->
+                <div class="col-lg-4">
+                    <div class="sticky-sidebar-wrapper">
+                        <div class="purchase-card">
+                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->description }}">
+                            
+                            <div class="text-center mb-4">
+                                <span class="price-label">Inversión</span>
+                                {{-- Lógica simple para mostrar precio si existe --}}
+                                @if(isset($course->price) && $course->price > 0)
+                                    <span class="price-tag">S/ {{ $course->price }}</span>
+                                @else
+                                    <span class="price-tag">Consultar</span>
+                                @endif
                             </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 03</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
+
+                            <div class="features-list mb-4">
+                                <p><i class="fa fa-check-circle"></i> Acceso inmediato al campus</p>
+                                <p><i class="fa fa-check-circle"></i> Material descargable</p>
+                                <p><i class="fa fa-check-circle"></i> Soporte académico</p>
+                                <p><i class="fa fa-check-circle"></i> Certificación válida</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-33.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 04</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-34.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 05</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
+
+                            <a href="#" class="btn-modern-cta">
+                                INSCRIBIRME AHORA <i class="fa fa-arrow-right ms-2"></i>
+                            </a>
+                            
+                            <div class="text-center mt-3">
+                                <small class="text-muted">Compra 100% segura</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
+        <!-- ============================================================== -->
+        <!-- FIN PROPUESTA MODERNA -->
+        <!-- ============================================================== -->
 
         <x-courses-new />
         <br>
