@@ -1,149 +1,85 @@
 @extends('layouts.webpage')
 
 @section('content')
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Main Wrapper Start -->
     <div class="main-wrapper">
 
         <x-header />
 
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-area breadcrumb-modify-padding bg-black-3">
+        <style>
+            /* Hero Section Styles */
+            .about-hero {
+                background: linear-gradient(180deg, #111 0%, #2a2a2a 100%);
+                padding: 100px 0 180px;
+                text-align: center;
+                color: #fff;
+                position: relative;
+            }
+            .about-hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; color: #fff; text-transform: uppercase; }
+            .about-hero p { font-size: 1.2rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 25px; }
+            
+            .modern-breadcrumb { display: inline-flex; list-style: none; padding: 10px 25px; background: rgba(255,255,255,0.05); border-radius: 50px; margin: 0; border: 1px solid rgba(255,255,255,0.1); }
+            .modern-breadcrumb li { color: #fff; font-size: 0.9rem; font-weight: 500; }
+            .modern-breadcrumb li a { color: #ccc; text-decoration: none; transition: 0.3s; }
+            .modern-breadcrumb li a:hover { color: #fff; }
+            .modern-breadcrumb li + li::before { content: '/'; margin: 0 10px; color: #555; }
+            .modern-breadcrumb li span { color: #ce1212; }
+
+            /* Contenedor Principal con Overlap */
+            .about-container-overlap { 
+                margin-top: -100px; 
+                position: relative; 
+                z-index: 10; 
+                padding-bottom: 80px; 
+                background: #fff;
+                border-radius: 15px;
+                padding: 50px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                margin-bottom: 50px;
+            }
+        </style>
+
+        <!-- HERO SECTION -->
+        <div class="about-hero">
             <div class="container">
-                <div class="in-breadcrumb">
-                    <div class="row">
-                        <div class="col">
-                            <div class="breadcrumb-style-2">
-                                <h2>¿QUIENES SOMOS?</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h1>¿Quiénes Somos?</h1>
+                <p>Conoce nuestra historia, misión y los valores que nos impulsan a seguir adelante.</p>
+                <ul class="modern-breadcrumb">
+                    <li><a href="{{ route('web_home') }}">Inicio</a></li>
+                    <li><span>Nosotros</span></li>
+                </ul>
             </div>
         </div>
-        <!--// Breadcrumb -->
 
-        <x-welcome />
-
-        <x-vision-mission-values />
-        {{-- <div class="movie-list section-pb-50">
-            <div class="container">
-                <div class="section-title-4 st-border-bottom">
-                    <h2>Season 1</h2>
-                </div>
-                <div class="movie-slider-active-3 nav-style-3">
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-30.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 01</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-31.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 02</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-32.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 03</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-33.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 04</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movie-wrap-plr">
-                        <div class="movie-wrap text-center">
-                            <div class="movie-img">
-                                <a href="movie-details.html"><img src="assets/images/product/movie-34.jpg"
-                                        alt=""></a>
-                                <button title="Watchlist" class="Watch-list-btn" type="button"><i
-                                        class="zmdi zmdi-plus"></i></button>
-                            </div>
-                            <div class="movie-content">
-                                <h3 class="title"><a href="movie-details.html">The Love Of Mine</a></h3>
-                                <span>Episode: 05</span>
-                                <div class="movie-btn">
-                                    <a href="movie-details.html" class="btn-style-hm4-2 animated">Watch Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- CONTENIDO PRINCIPAL (OVERLAP) -->
+        <div class="container about-container-overlap">
+            <div data-aos="fade-up">
+                <x-welcome />
             </div>
-        </div> --}}
-        
+            
+            <div class="mt-5" data-aos="fade-up" data-aos-delay="100">
+                <x-vision-mission-values />
+            </div>
+        </div>
+
         <!-- Footer Area -->
-        <x-footer />
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <x-footer />
+        </div>
 
         <!--// Footer Area -->
-        <!-- Modal -->
-        {{-- <div class="modal fade" id="exampleModal">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="subscribe-btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="zmdi zmdi-close s-close"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5 id="exampleModalLabel">Ready to watch? Enter your email to create or restart your membership.
-                        </h5>
-                        <div class="create-membership-wrap modify">
-                            <input placeholder="Email Address">
-                            <button class="landing-btn-style" type="button">Get Started</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <!-- Main Wrapper End -->
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            mirror: true,
+            once: false
+        });
+    </script>
 @endsection
