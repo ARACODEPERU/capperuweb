@@ -14,7 +14,7 @@
     <!-- //. search Popup -->
 
     <!-- Encabezado inicio -->
-    <x-capperu.header-area></x-capperu.header-area>
+    {{-- <x-capperu.header-area></x-capperu.header-area> --}}
     <!-- Encabezado fin -->
 
 
@@ -161,6 +161,6 @@
 
 
 
-    <x-capperu.footer-area></x-capperu.footer-area>
+    {{-- <x-capperu.footer-area></x-capperu.footer-area> --}}
 
 @endsection

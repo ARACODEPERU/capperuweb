@@ -56,7 +56,7 @@
     <!-- //. search Popup -->
 
     <!-- Encabezado inicio -->
-    <x-capperu.header-area></x-capperu.header-area>
+    {{-- <x-capperu.header-area></x-capperu.header-area> --}}
     <!-- Encabezado fin -->
 
 
@@ -311,7 +311,7 @@
     </section> --}}
     <!-- enllor courses Area End -->
 
-    <x-programas-nuevos />
+    {{-- <x-programas-nuevos /> --}}
 
     {{-- <section style="padding: 40px 0px 90px 0px;">
         <div class="section-title" style="padding: 0px 80px;">
@@ -386,15 +386,15 @@
     <!-- Más Populares Area End -->
 
     <!-- Nuestros Beneficios Area Start-->
-    <x-capperu.nuestros-beneficios-area></x-capperu.nuestros-beneficios-area>
+    {{-- <x-capperu.nuestros-beneficios-area></x-capperu.nuestros-beneficios-area> --}}
     <!-- Nuestros Beneficios Area End -->
 
     <!-- Testimonios Area Start-->
-    <x-capperu.testimonios-area></x-capperu.testimonios-area>
+    {{-- <x-capperu.testimonios-area></x-capperu.testimonios-area> --}}
     <!-- Testimonios Area End -->
 
     <!-- Convenios Area - HOME - Start-->
-    <x-capperu.convenios-area-home></x-capperu.convenios-area-home>
+    {{-- <x-capperu.convenios-area-home></x-capperu.convenios-area-home> --}}
     <!-- Convenios Area - HOME - End -->
 
     <!-- Banner Area Start-->
@@ -449,7 +449,7 @@
     </section>
     <!-- Banner Area End -->
 
-    <x-capperu.footer-area></x-capperu.footer-area>
+    {{-- <x-capperu.footer-area></x-capperu.footer-area> --}}
 
 
 @endsection

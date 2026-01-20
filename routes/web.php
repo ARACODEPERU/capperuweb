@@ -55,7 +55,7 @@ Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController:
 
 // SITE WEB //
 Route::post('/send-claim',                  [CapperuController::class, 'send_claim'])->name('send_claim');
-// Route::get('/',                             [WebController::class, 'capperu'])->name('cms_principal');
+Route::get('/antiguo',                             [WebController::class, 'capperu'])->name('cms_principal');
 // Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
 // Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
 // Route::get('/politicas-de-privacidad',      [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
@@ -72,8 +72,8 @@ Route::post('/send-claim',                  [CapperuController::class, 'send_cla
 // Route::get('/descripcion-programa/{id}',    [CapperuController::class, 'descripcionPrograma'])->name('web_descripcion_programa'); //describe cursos, diplomados, e-learning o en vivo
 // Route::get('/descripcion-e-learning',       [CapperuController::class, 'descripcionelearning'])->name('web_descripcion_e_learning');
 // Route::get('/perfil-docente/{teacher_id}',  [CapperuController::class, 'perfildocente'])->name('web_perfil_docente');
-// Route::match(['get', 'post'], '/alumnos',   [CapperuController::class, 'alumnos'])->name('web_alumnos');
-// Route::get('/perfil-alumno/{id}',           [CapperuController::class, 'perfilalumno'])->name('web_perfil_alumno');
+Route::match(['get', 'post'], '/alumnos',   [CapperuController::class, 'alumnos'])->name('web_alumnos');
+Route::get('/perfil-alumno/{id}',           [CapperuController::class, 'perfilalumno'])->name('web_perfil_alumno');
 // Route::get('/articles',                     [CapperuController::class, 'blog'])->name('web_blog');
 // Route::get('/article/{url}/article',        [CapperuController::class, 'blogdescripcion'])->name('web_blog_descripcion');
 // Route::get('/carrito',                      [CapperuController::class, 'carrito'])->name('web_carrito');

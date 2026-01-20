@@ -25,7 +25,7 @@ class WebController extends Controller
     public function index()
     {
         //return view('kentha/index');
-        return view('pages.home');
+        return view('capperu/index');
     }
 
     public function capperu()
