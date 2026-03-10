@@ -79,8 +79,8 @@ class CmsSubscriberController extends Controller
             $request,
             [
                 'full_name' => 'required|max:255',
-                'email' => 'required|max:255',
-                'phone' => 'required|max:255',
+                'email' => 'required|max:60',
+                'phone' => 'required|max:15',
                 'message' => 'required',
             ],
             [
@@ -89,20 +89,24 @@ class CmsSubscriberController extends Controller
                 'phone.required' => 'El teléfono es requerido',
                 'message.required' => 'El mensaje es requerido',
                 'full_name.max' => 'La cantidad maxima es de 255 caracteres',
-                'email.max' => 'La cantidad maxima es de 255 caracteres',
-                'phone.max' => 'La cantidad maxima es de 255 caracteres',
+                'email.max' => 'La cantidad maxima es de 60 caracteres',
+                'phone.max' => 'La cantidad maxima es de 15 caracteres',
             ]
         );
 
-        CmsSubscriber::create([
-            'full_name'     => $request->get('full_name') ?? null,
-            'email'         => $request->get('email'),
-            'phone'         => $request->get('phone') ?? null,
-            'client_ip'     => $request->ip(),
-            'read'          => 0,
-            'subject'       => $request->get('subject') ?? null,
-            'message'       => $request->get('message') ?? null,
-        ]);
+        try {
+            CmsSubscriber::create([
+                'full_name'     => $request->get('full_name') ?? null,
+                'email'         => $request->get('email'),
+                'phone'         => $request->get('phone') ?? null,
+                'client_ip'     => $request->ip(),
+                'read'          => 0,
+                'subject'       => $request->get('subject') ?? null,
+                'message'       => $request->get('message') ?? null,
+            ]);
+        } catch (\Throwable $th) {
+            dd($th);
+        }
 
         return to_route('index_main');
     }
