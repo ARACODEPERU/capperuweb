@@ -55,7 +55,7 @@ Route::get('/test-image/{student_id}/{certificate_id}/{fecha?}', [WebController:
 
 // SITE WEB //
 Route::post('/send-claim',                  [CapperuController::class, 'send_claim'])->name('send_claim');
-Route::get('/antiguo',                             [WebController::class, 'capperu'])->name('cms_principal');
+Route::get('/antiguo',                             [WebController::class, 'capperu'])->name('cms_principal_antiguo');
 // Route::get('/nosotros',                     [CapperuController::class, 'nosotros'])->name('web_nosotros');
 // Route::get('/politicas-de-calidad',         [CapperuController::class, 'politicascalidad'])->name('web_politicas_calidad');
 // Route::get('/politicas-de-privacidad',      [CapperuController::class, 'politicasprivacidad'])->name('web_politicas_privacidad');
@@ -254,7 +254,7 @@ Route::middleware('auth')->group(function () {
     Route::post('modulos/permissions/store', [ModuloController::class, 'storePermissions'])->name('modulos_permissions_store');
 
     Route::get('calendar/index', [CalendarController::class, 'index'])->name('calendar');
-	
+
 	Route::post(
         'person/birthdays',
         [PersonController::class, 'getBirthdays']
