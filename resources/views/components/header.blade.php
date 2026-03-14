@@ -14,6 +14,10 @@
             background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") no-repeat center;
             background-size: 100%;
         }
+
+        .table-striped>tbody>tr:nth-child(odd)>* {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
     </style>
     <header class="header-area section-padding-lr">
         <div class="container-fluid">
@@ -41,6 +45,7 @@
                                     </ul>
                                 </li>
                                 <li class="{{ request()->routeIs('web_catalog') ? 'active' : '' }}"><a href="{{ route('web_catalog') }}">Programas de Especialización</a></li>
+                                <li class="{{ request()->routeIs('web_alumnos') ? 'active' : '' }}"><a href="{{ route('web_alumnos') }}">Verificar</a></li>
                                 <li class="{{ request()->routeIs('web_contact') ? 'active' : '' }}"><a href="{{ route('web_contact') }}">Contacto</a></li>
                             </ul>
                         </nav>
