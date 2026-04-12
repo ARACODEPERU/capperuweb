@@ -141,10 +141,10 @@
             .modern-breadcrumb li + li::before { content: '/'; margin: 0 10px; color: #555; }
             .modern-breadcrumb li span { color: #ce1212; }
 
-            .modern-contact-section { background-color: #f4f7f6; padding: 0 0 80px; }
+            .modern-contact-section { background-color: var(--bg-alt); padding: 0 0 80px; transition: background-color 0.3s; }
 
             /* Ajuste para que la caja flote sobre el hero (Efecto Overlap) */
-            .contact-box { background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; margin-top: -100px; position: relative; z-index: 10; }
+            .contact-box { background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; margin-top: -100px; position: relative; z-index: 10; }
 
             .info-panel { background: #1a1a1a; color: #fff; padding: 60px 40px; height: 100%; position: relative; }
             /* Patrón sutil de fondo opcional */
@@ -161,8 +161,8 @@
             .info-content a { color: #aaa; text-decoration: none; transition: 0.3s; }
             .info-content a:hover { color: #ce1212; }
 
-            .form-panel { padding: 60px 50px; background: #fff; }
-            .form-panel h3 { font-weight: 700; margin-bottom: 10px; color: #333; font-size: 1.8rem; }
+            .form-panel { padding: 60px 50px; background: var(--bg-card); color: var(--text-main); }
+            .form-panel h3 { font-weight: 700; margin-bottom: 10px; color: var(--text-main); font-size: 1.8rem; }
             .form-panel p { color: #777; margin-bottom: 30px; }
 
             .modern-input { width: 100%; padding: 15px 20px; border: 2px solid #f0f0f0; background: #f9f9f9; border-radius: 10px; margin-bottom: 20px; transition: 0.3s; outline: none; font-size: 0.95rem; color: #333; }
