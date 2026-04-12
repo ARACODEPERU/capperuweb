@@ -1,7 +1,6 @@
 @extends('layouts.webpage')
 
 @section('content')
-
     <div class="main-wrapper">
 
         <!-- header area start -->
@@ -9,26 +8,20 @@
 
         <!-- slider area start -->
         <x-slider />
-        
+
 
         <x-courses-new />
-        
 
-        <div data-aos="fade-left" data-aos-duration="1500">
-            <x-graduates />
-        </div>
+        <x-graduates />
 
-        <div data-aos="fade-up" data-aos-duration="1000">
-            <x-courses />
-        </div>
+        <x-courses />
+
 
         {{-- <div data-aos="zoom-in-up" data-aos-duration="1300">
             <x-promotion />
         </div> --}}
-
-        <div data-aos="fade-right" data-aos-duration="1800">
-            <x-sector-business />
-        </div>
+        
+        <x-sector-business />
 
         <div data-aos="fade-right" data-aos-duration="2500">
             <x-sector-public />
@@ -48,5 +41,4 @@
 
 
     </div>
-
 @endsection
