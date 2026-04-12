@@ -20,16 +20,12 @@
         {{-- <div data-aos="zoom-in-up" data-aos-duration="1300">
             <x-promotion />
         </div> --}}
-        
+
         <x-sector-business />
 
-        <div data-aos="fade-right" data-aos-duration="2500">
-            <x-sector-public />
-        </div>
-
-        <div data-aos="fade-left" data-aos-duration="2200">
-            <x-sector-right />
-        </div>
+        <x-sector-public />
+        
+        <x-sector-right />
 
         <div data-aos="fade-up" data-aos-duration="1000">
             <x-brand-logos />
