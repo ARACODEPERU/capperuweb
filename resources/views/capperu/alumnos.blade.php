@@ -11,7 +11,7 @@
         <!-- slider area start -->
 
         <div data-aos="zoom-in" data-aos-duration="1200" >
-            <section class="banner-area style-4" style="padding: 80px 0px; background-color: #f0f4f8;">
+            <section class="banner-area style-4" style="padding: 80px 0px; background-color: var(--bg-alt);">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3"></div>

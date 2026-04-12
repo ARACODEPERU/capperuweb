@@ -131,7 +131,7 @@
             bottom: 80px;
             right: 0;
             width: 320px;
-            background: white;
+            background: var(--bg-card);
             border-radius: 16px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.15);
             overflow: hidden;
@@ -198,7 +198,7 @@
         /* Body */
         .chat-body {
             padding: 15px;
-            background: #f9f9f9;
+            background: var(--bg-alt);
         }
 
         .chat-intro {
@@ -211,13 +211,13 @@
         .agent-card {
             display: flex;
             align-items: center;
-            background: white;
+            background: var(--bg-card);
             padding: 12px;
             border-radius: 12px;
             margin-bottom: 10px;
             text-decoration: none;
-            color: #333;
-            border: 1px solid #eee;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
 

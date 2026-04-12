@@ -29,9 +29,6 @@
         </div>
     </section>
     <!-- Banner Area End -->
-    @php
-        $total = 0;
-    @endphp
 
     <!-- zoom courses Area Start-->
     <section class="zoom-courses-area pd-top-100 pd-bottom-50">
@@ -91,9 +88,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                @php
-                                    $total = $total + $cart_item['price'];
-                                @endphp
                             @endforeach
                         @endif
                     </div>
@@ -114,7 +108,7 @@
                                 <i class="fa fa-heart"></i> Total:
                             </div>
                             <div class="col-md-12" style="font-size: 25px;">
-                                <p><b>S/. {{ number_format($total, 2, '.', ',') }}</b></p>
+                                <p><b>S/. {{ $cart_total }}</b></p>
                             </div>
                             <div class="col-md-12">
                                 <div id="wallet_container"></div>

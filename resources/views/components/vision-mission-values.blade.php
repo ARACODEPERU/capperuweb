@@ -1,5 +1,5 @@
 <div>
-        <div class="movie-details-wrap section-ptb-50 section-padding-lr">
+        <div class="movie-details-wrap section-ptb-50 section-padding-lr modern-themed-section">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
@@ -65,6 +65,11 @@
                 </div>
 
                 <style>
+                    .modern-themed-section {
+                        background-color: var(--bg-body);
+                        transition: background-color 0.3s ease;
+                    }
+
                     .card-about {
                         position: relative;
                         min-width: 320px;
@@ -95,7 +100,7 @@
                         left: 20px;
                         right: 20px;
                         bottom: 20px;
-                        background: #2a2b2f;
+                        background: var(--bg-card);
                         border-radius: 15px;
                         display: flex;
                         justify-content: center;
@@ -133,7 +138,7 @@
 
                     .card-about .box .content h3 {
                         font-size: 1.8rem;
-                        color: #fff;
+                        color: var(--text-main);
                         z-index: 1;
                         transition: 0.5s;
                         margin-bottom: 15px;
@@ -142,7 +147,7 @@
                     .card-about .box .content p {
                         font-size: 1rem;
                         font-weight: 300;
-                        color: rgba(255, 255, 255, 0.9);
+                        color: var(--text-muted);
                         z-index: 1;
                         transition: 0.5s;
                     }

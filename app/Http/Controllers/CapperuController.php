@@ -27,10 +27,6 @@ use App\Mail\ComplaintsBookMail;
 
 class CapperuController extends Controller
 {
-    public function nosotros()
-    {
-        return view('capperu/nosotros');
-    }
 
     public function politicascalidad()
     {

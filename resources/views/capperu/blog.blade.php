@@ -71,12 +71,7 @@
                                         </div>
                                         <div class="col-6 text-end">
                                             <div class="date">
-                                                @php
-                                                    $publication = \Carbon\Carbon::parse($article->created_at);
-
-                                                    $fechaFormateada = $publication->isoFormat('DD MMM YYYY');
-                                                @endphp
-                                                {{ $fechaFormateada }}
+                                                {{ $article->formatted_date }}
                                             </div>
                                         </div>
                                     </div>

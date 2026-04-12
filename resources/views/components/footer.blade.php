@@ -2,12 +2,13 @@
 <!-- CSS para el nuevo footer -->
 <style>
     .footer-modern {
-        background-color: #1a1a1a; /* Un poco más claro que el negro puro */
-        color: #a9a9a9;
+        background-color: var(--footer-bg);
+        color: var(--text-muted);
         font-size: 0.95rem;
+        border-top: 1px solid var(--border-color);
     }
     .footer-modern .footer-widget h4 {
-        color: #ffffff;
+        color: var(--text-main);
         font-size: 1.1rem;
         font-weight: 600;
         margin-bottom: 25px;

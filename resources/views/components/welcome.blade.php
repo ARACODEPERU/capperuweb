@@ -1,5 +1,5 @@
 <div>
-    <section class="about-section">
+    <section class="about-section modern-themed-section">
         <div class="container">
             <div class="row">
                 <div class="content-column col-lg-6 col-md-12 col-sm-12 order-2">
@@ -52,6 +52,11 @@
     </section>
 
     <style>
+        .modern-themed-section {
+            background-color: var(--bg-body);
+            transition: background-color 0.3s ease;
+        }
+
         a,
         a:active,
         a:focus {
@@ -106,7 +111,7 @@
             display: block;
             font-size: 40px;
             line-height: 1.28em;
-            color: #222222;
+            color: var(--text-main);
             font-weight: 600;
             padding-bottom: 18px;
         }
@@ -125,7 +130,7 @@
             position: relative;
             font-size: 16px;
             line-height: 26px;
-            color: #848484;
+            color: var(--text-muted);
             font-weight: 400;
             margin-top: 35px;
         }

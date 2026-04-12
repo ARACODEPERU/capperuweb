@@ -47,12 +47,7 @@
                                 {{ $article->author->name }}
                             </li>
                             <li>
-                                @php
-                                    $publication = \Carbon\Carbon::parse($article->created_at);
-
-                                    $fechaFormateada = $publication->isoFormat('DD MMM YYYY');
-                                @endphp
-                                {{ $fechaFormateada }}
+                                {{ $article->formatted_date }}
                             </li>
                             <li>{{ $article->category->description }}</li>
                         </ul>

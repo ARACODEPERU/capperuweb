@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CAP | Sitio Web</title>
+    <title>CAP125 | Sitio Web</title>
     <!--fivicon icon-->
     <link rel="icon" href="{{ asset('themes/capperu/assets/img/fevicon-cap.png') }}">
     <!--fivicon icon

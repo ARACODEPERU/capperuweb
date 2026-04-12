@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html class="" lang="es">
+<html lang="es" data-bs-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -8,6 +7,15 @@
     <title>CAP PERU || Sitio Web</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Inmediate Theme Detection -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('themes/capperu/assets/img/fevicon-cap.png') }}">
 
@@ -24,6 +32,13 @@
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('themes/webpage/assets/css/plugins.css') }}">
+    
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Swiper Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Modern Proposal Styles -->
+    <link rel="stylesheet" href="{{ asset('themes/webpage/assets/css/modern-style.css') }}">
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('themes/webpage/assets/css/style.css') }}">
@@ -53,6 +68,16 @@
     <!-- Main JS -->
     <script src="{{ asset('themes/webpage/assets/js/main.js') }}"></script>
 
+    <!-- Global Libraries & Initialization -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            mirror: true,
+            once: false
+        });
+    </script>
 
 </body>
 

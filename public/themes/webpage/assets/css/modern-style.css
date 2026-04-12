@@ -1,0 +1,85 @@
+/* === THEME VARIABLES === */
+:root {
+    --bg-body: #ffffff;
+    --bg-card: #ffffff;
+    --bg-alt: #f4f7f6;
+    --text-main: #333333;
+    --text-muted: #777777;
+    --border-color: #f0f0f0;
+    --header-bg: #ffffff;
+    --footer-bg: #1a1a1a;
+}
+
+[data-bs-theme="dark"] {
+    --bg-body: #0d1117;      /* Fondo Midnight (Estilo GitHub/Vercel) */
+    --bg-card: #161b22;      /* Tarjetas con un tono más claro para profundidad */
+    --bg-alt: #010409;       /* Fondo alternativo casi negro */
+    --text-main: #f0f6fc;    /* Blanco suave para evitar brillo excesivo */
+    --text-muted: #8b949e;   /* Gris azulado para textos secundarios */
+    --border-color: #30363d; /* Bordes sutiles y elegantes */
+    --header-bg: #0d1117;    /* Encabezado integrado */
+    --footer-bg: #010409;    /* Pie de página profundo */
+}
+
+body { background-color: var(--bg-body); color: var(--text-main); transition: background-color 0.3s, color 0.3s; }
+
+/* === GLOBAL MODERN COMPONENTS === */
+.catalog-hero, .contact-hero, .management-hero, .about-hero, .policy-hero {
+    background: linear-gradient(180deg, #111 0%, #2a2a2a 100%);
+    padding: 100px 0 180px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+.catalog-hero h1, .contact-hero h1, .management-hero h1, .about-hero h1, .policy-hero h1 { 
+    font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; color: #fff; 
+}
+
+.modern-breadcrumb { 
+    display: inline-flex; list-style: none; padding: 10px 25px; background: rgba(255,255,255,0.05); 
+    border-radius: 50px; margin: 0; border: 1px solid rgba(255,255,255,0.1); 
+}
+.modern-breadcrumb li { color: #fff; font-size: 0.9rem; font-weight: 500; }
+.modern-breadcrumb li a { color: #ccc; text-decoration: none; transition: 0.3s; }
+.modern-breadcrumb li a:hover { color: #fff; }
+.modern-breadcrumb li span { color: #ce1212; }
+
+.catalog-container-overlap, .management-container-overlap, .about-container-overlap, .policy-container-overlap, .contact-box { 
+    margin-top: -100px; position: relative; z-index: 10; 
+}
+
+/* === CATALOG & CARDS === */
+.modern-sidebar { background: var(--bg-card); color: var(--text-main); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
+.modern-course-card { 
+    background: var(--bg-card); color: var(--text-main); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+    transition: all 0.3s ease; height: 100%; border: 1px solid var(--border-color); display: flex; flex-direction: column; 
+}
+.modern-course-card:hover { transform: translateY(-10px); }
+.course-img-wrapper { position: relative; overflow: hidden; height: 220px; }
+.course-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+
+/* === CONTACT FORM === */
+.info-panel { background: #1a1a1a; color: #fff; padding: 60px 40px; height: 100%; border-radius: 20px 0 0 20px; }
+.form-panel { background: var(--bg-card); color: var(--text-main); }
+.modern-input { 
+    width: 100%; padding: 15px 20px; border: 2px solid var(--border-color); background: var(--bg-body); 
+    border-radius: 10px; margin-bottom: 20px; transition: 0.3s; outline: none; color: var(--text-main);
+}
+.modern-btn { 
+    background: #ce1212; color: #fff; padding: 16px 40px; border: none; border-radius: 10px; 
+    font-weight: 700; text-transform: uppercase; width: 100%; cursor: pointer; 
+}
+
+/* === PROGRAM DESCRIPTION (LANDING) === */
+.modern-hero {
+    position: relative;
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%);
+    background-size: cover; padding: 80px 0; color: #fff;
+}
+.sticky-sidebar-wrapper { position: sticky; top: 100px; z-index: 10; }
+.purchase-card { background: var(--bg-card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); color: var(--text-main); }
+.price-tag { font-size: 2.2rem; font-weight: 800; color: var(--text-main); }
+.btn-modern-cta {
+    background-color: #ce1212; color: #fff; width: 100%; padding: 16px; 
+    font-weight: 700; border-radius: 6px; display: block; text-align: center;
+}
