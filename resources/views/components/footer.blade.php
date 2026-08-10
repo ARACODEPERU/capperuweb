@@ -8,7 +8,7 @@
         border-top: 1px solid var(--border-color);
     }
     .footer-modern .footer-widget h4 {
-        color: var(--text-main);
+        color: #fff;
         font-size: 1.1rem;
         font-weight: 600;
         margin-bottom: 25px;
