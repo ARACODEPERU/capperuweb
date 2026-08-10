@@ -210,7 +210,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <span class="badge bg-danger mb-3" style="font-size: 0.9rem; padding: 8px 12px;">DIPLOMADO / CURSO</span>
-                        <h1>{{ $course->description }}</h1>
+                        <h1 style="color: #fff;" >{{ $course->description }}</h1>
                         <p class="mb-4">Especialízate con los mejores profesionales y lleva tu carrera al siguiente nivel con nuestra metodología práctica.</p>
                         
                         <div class="hero-meta">
@@ -224,7 +224,7 @@
         </div>
 
         <!-- 2. CONTENIDO PRINCIPAL + SIDEBAR -->
-        <div class="container pb-5">
+        <div class="container pt-5 pb-5">
             <div class="row">
                 <!-- COLUMNA IZQUIERDA (CONTENIDO) -->
                 <div class="col-lg-8">
