@@ -37,12 +37,12 @@
                     <div class="inner-column wow fadeInLeft">
                         <figure class="image-1">
                             <a href="#" class="lightbox-image" data-fancybox="images">
-                                <img src="https://i.ibb.co/QP6Nmpf/image-1-about.jpg" alt="">
+                                <img src="{{ asset('themes/webpage/assets/images/image-1-about.png') }}" alt="">
                             </a>
                         </figure>
                         <figure class="image-2">
                             <a href="#" class="lightbox-image" data-fancybox="images">
-                                <img src="https://i.ibb.co/JvN0NVB/image-2-about.jpg" alt="">
+                                <img style="width: 350px; height: 350px;" src="{{ asset('themes/webpage/assets/images/image-2-about.jpg') }}" alt="">
                             </a>
                         </figure>
                     </div>
