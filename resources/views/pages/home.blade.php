@@ -27,7 +27,7 @@
 
         <x-sector-right />
 
-        <x-brand-logos />
+        {{-- <x-brand-logos /> --}}
 
         <div data-aos="fade-up" data-aos-duration="1000">
             <x-footer />
