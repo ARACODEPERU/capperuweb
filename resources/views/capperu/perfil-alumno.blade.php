@@ -62,7 +62,7 @@
                                         <div class="single-course-wrap">
                                             <div class="thumb">
                                                 <a href="">
-                                                    <a><img style="height: 260px; object-fit: cover;" src="{{ $certificate->course_image }}" alt="img"></a>
+                                                    <a><img style="height: 260px; object-fit: cover;" src="{{ asset('storage/' .$certificate->course_image }}" alt="img"></a>
                                                 </a>
                                             </div>
                                             <div class="wrap-details">
