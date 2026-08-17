@@ -1,4 +1,3 @@
-@@ -0,0 +1,342 @@
 @extends('layouts.capperu')
 
 @section('content')
@@ -6,18 +5,18 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
-    
+
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
     <!-- search popup area start -->
     <x-capperu.search-popup-area></x-capperu.search-popup-area>
     <!-- //. search Popup -->
-    
+
     <!-- Encabezado inicio -->
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
+
     <!-- Banner Area Start-->
     <section class="banner-area style-3" style="padding: 120px 0px; z-index: -1; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
     </section>
@@ -35,7 +34,7 @@
                         <h3>{{ $teacher->names ." ". $teacher->ApellidoP }}
                         </h3>
                         <p>Staff de Docentes</p>
-                        
+
                         <ul class="achivement-fact">
                             {{-- <li class="ratting">
                                 <div class="icon">
@@ -119,10 +118,10 @@
                                         <div class="price-wrap">
                                             <div class="row align-items-center">
                                                 <div class="col-md-12">
-                                                    <a onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })" 
+                                                    <a onclick="agregarAlCarrito({ id: {{ $program->id }}, nombre: '{{ $program->name }}', precio: {{ $program->price }} })"
                                                      class="btn btn-primary">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i>Comprar Ahora
-                                                        <b style="text-end">S/. {{ $program->price }}</b>  
+                                                        <b style="text-end">S/. {{ $program->price }}</b>
                                                     </a>
                                                 </div>
                                             </div>
@@ -135,8 +134,8 @@
 
 
 
-                        
-                        
+
+
                     </div>
                     {{-- <div class="row">
                         <div class="col-lg-12 text-center">
@@ -153,8 +152,8 @@
                     </div> --}}
                 </div>
             </div>
-            
-        </div>            
+
+        </div>
     </div>
     <!-- instructor Area End -->
 
@@ -204,7 +203,7 @@
                     </div>
                 </div>
             </div>
-        </div>            
+        </div>
     </div>
     <!-- intro Area End -->
 

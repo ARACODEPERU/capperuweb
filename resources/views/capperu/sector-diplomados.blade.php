@@ -1,4 +1,3 @@
-@@ -0,0 +1,591 @@
 @extends('layouts.capperu')
 
 @section('content')
@@ -6,18 +5,18 @@
     <!-- preloader area start -->
     <x-capperu.preloader-area></x-capperu.preloader-area>
     <!-- preloader area end -->
-    
+
     <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
 
     <!-- search popup area start -->
     <x-capperu.search-popup-area></x-capperu.search-popup-area>
     <!-- //. search Popup -->
-    
+
     <!-- Encabezado inicio -->
     <x-capperu.header-area></x-capperu.header-area>
     <!-- Encabezado fin -->
 
-    
+
     <!-- Banner Area Start-->
     <section class="banner-area style-3" style="padding: 80px; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
         <div class="container">
@@ -33,7 +32,7 @@
     <!-- Banner Area End -->
 
 
-    
+
     <!-- trending courses Area Start-->
     <section class="trending-courses-area pd-top-50 pd-bottom-50">
         <div class="container">
@@ -72,9 +71,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -105,9 +104,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -138,9 +137,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -171,9 +170,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -204,9 +203,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -237,9 +236,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -270,9 +269,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -303,9 +302,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -335,9 +334,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -384,9 +383,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -417,9 +416,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -450,9 +449,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -482,9 +481,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -515,9 +514,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -548,9 +547,9 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
                                                         <a href="#" class="btn btn-primary">
-                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             Comprar Ahora
-                                                            <b style="text-end">  S/. 250</b>  
+                                                            <b style="text-end">  S/. 250</b>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -580,7 +579,7 @@
     </section>
     <!-- trending courses Area End -->
 
-    
+
     <!-- Más Populares Area Start-->
     <x-capperu.programas-populares-area></x-capperu.programas-populares-area>
     <!-- Más Populares Area End -->

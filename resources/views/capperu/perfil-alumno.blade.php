@@ -1,4 +1,3 @@
-@@ -0,0 +1,342 @@
 @extends('layouts.capperu')
 
 @section('content')
