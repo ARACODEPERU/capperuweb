@@ -1,6 +1,6 @@
 <script setup>
     import AppLayout from "@/Layouts/Vristo/AppLayout.vue";
-    import { useForm, router, Link  } from '@inertiajs/vue3';
+    import { useForm, router, Link, usePage  } from '@inertiajs/vue3';
     import Pagination from '@/Components/Pagination.vue';
     import Keypad from '@/Components/Keypad.vue';
     import Swal2 from 'sweetalert2';
@@ -10,10 +10,14 @@
     import IconSearch from '@/Components/vristo/icon/icon-search.vue';
     import iconExcel from "@/Components/vristo/icon/icon-excel.vue";
     import ModalLarge from "@/Components/ModalLarge.vue";
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
 
     import { useAppStore } from '@/stores/index';
     const store = useAppStore();
+
+    // El botón Eliminar solo es visible/funcional para los roles admin y Administrador.
+    const userRoles = usePage().props.auth.roles;
+    const canDeleteStudent = computed(() => userRoles.includes('admin') || userRoles.includes('Administrador'));
 
     const props = defineProps({
         students: {
@@ -125,6 +129,70 @@
             customClass: 'sweet-alerts',
         });
     }
+
+    const destroyStudent = (student) => {
+        Swal2.fire({
+            title: '¿Estás seguro?',
+            text: 'Se eliminará al estudiante ' + student.full_name + ' de la lista de estudiantes y de los usuarios. ¡No podrás revertir esto!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            padding: '2em',
+            customClass: 'sweet-alerts',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                confirmPasswordAndDelete(student);
+            }
+        });
+    };
+
+    const confirmPasswordAndDelete = (student) => {
+        Swal2.fire({
+            title: 'Confirmar contraseña',
+            text: 'Para eliminar al estudiante ingresa tu contraseña actual.',
+            icon: 'question',
+            input: 'password',
+            inputAttributes: {
+                autocomplete: 'current-password',
+            },
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            padding: '2em',
+            customClass: 'sweet-alerts',
+            preConfirm: (password) => {
+                return axios.delete(route('aca_students_destroy', student.id), { data: { password: password } })
+                    .then((response) => {
+                        if (!response.data.success) {
+                            throw new Error(response.data.message || 'No se pudo eliminar al estudiante.');
+                        }
+                        return response;
+                    })
+                    .catch((error) => {
+                        if (error.response && error.response.data && error.response.data.message) {
+                            throw new Error(error.response.data.message);
+                        }
+                        throw new Error(error.message || 'Ocurrió un error al eliminar al estudiante.');
+                    });
+            },
+            allowOutsideClick: () => !Swal2.isLoading(),
+        }).then((result) => {
+            if (result.isConfirmed) {
+                showAlert('Estudiante eliminado correctamente.', 'success');
+                router.visit(route('aca_students_list'), {
+                    method: 'get',
+                    replace: true,
+                    preserveScroll: false,
+                });
+            }
+        });
+    };
 </script>
 
 <template>
@@ -220,9 +288,10 @@
                                         </template>
                                         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ student.number }}</h5>
                                         <span class="text-sm text-gray-500 dark:text-gray-400 p-2">{{ student.full_name }}</span>
-                                        <div class="flex mt-4 space-x-3 mb-2 md:mt-6">
+                                        <div class="flex flex-wrap justify-center mt-4 space-x-3 mb-2 md:mt-6">
                                             <Link :href="route('aca_students_registrations_create',student.id)" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Matriculas</Link>
                                             <Link v-can="'aca_estudiante_certificados_crear'" :href="route('aca_students_certificates_create',student.id)" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Certificados</Link>
+                                            <button v-if="canDeleteStudent" @click="destroyStudent(student)" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>

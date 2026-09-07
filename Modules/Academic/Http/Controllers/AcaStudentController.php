@@ -355,9 +355,57 @@ class AcaStudentController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $message = null;
+        $success = false;
+
+        try {
+            $authUser = Auth::user();
+
+            // The delete button is only available for the roles admin and Administrador.
+            if (!$authUser || !$authUser->hasAnyRole(['admin', 'Administrador'])) {
+                throw new \Exception(__('No tienes permisos para eliminar estudiantes.'));
+            }
+
+            // Validate the password of the currently logged-in user before deleting.
+            if (!Hash::check($request->get('password'), $authUser->password)) {
+                throw new \Exception(__('La contraseña ingresada es incorrecta.'));
+            }
+
+            DB::beginTransaction();
+
+            $student = AcaStudent::findOrFail($id);
+            $person_id = $student->person_id;
+
+            // Delete the user(s) linked to the person (users table).
+            $users = User::where('person_id', $person_id)->get();
+            foreach ($users as $user) {
+                DB::table('model_has_roles')
+                    ->where('model_id', $user->id)
+                    ->where('model_type', get_class($user))
+                    ->delete();
+                $user->delete();
+            }
+
+            // Delete the student record and its person (people table).
+            $student->delete();
+            Person::findOrFail($person_id)->delete();
+
+            DB::commit();
+
+            $message = __('Estudiante eliminado correctamente');
+            $success = true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            $success = false;
+            $message = $e->getMessage();
+        }
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message
+        ]);
     }
 
     public function myCourses()

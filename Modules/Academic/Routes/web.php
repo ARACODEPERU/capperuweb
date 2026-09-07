@@ -115,6 +115,9 @@ Route::middleware(['auth', 'verified', 'invalid_updated_information'])->prefix('
 
     Route::post('students/update', 'AcaStudentController@update')->name('aca_students_update');
 
+    Route::delete('students/destroy/{id}', [AcaStudentController::class, 'destroy'])
+        ->name('aca_students_destroy');
+
     Route::middleware(['middleware' => 'permission:aca_cursos_listado'])
         ->get('courses', 'AcaCourseController@index')
         ->name('aca_courses_list');
