@@ -15,9 +15,11 @@
     import { useAppStore } from '@/stores/index';
     const store = useAppStore();
 
-    // El botón Eliminar solo es visible/funcional para los roles admin y Administrador.
+    // El botón Eliminar es visible/funcional para los roles admin y Administrador,
+    // o para usuarios con el permiso aca_estudiante_eliminar.
     const userRoles = usePage().props.auth.roles;
-    const canDeleteStudent = computed(() => userRoles.includes('admin') || userRoles.includes('Administrador'));
+    const userPermissions = usePage().props.auth.permissions;
+    const canDeleteStudent = computed(() => userRoles.includes('admin') || userRoles.includes('Administrador') || userPermissions.includes('aca_estudiante_eliminar'));
 
     const props = defineProps({
         students: {
