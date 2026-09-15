@@ -153,8 +153,9 @@
             .info-panel h3 { color: #fff; font-weight: 700; margin-bottom: 40px; font-size: 1.8rem; }
             .info-item { display: flex; margin-bottom: 35px; align-items: flex-start; }
             .info-icon { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0; transition: 0.3s; }
-            .info-item:hover .info-icon { background: #ce1212; transform: scale(1.1); }
+            .info-item:hover .info-icon { background: #ce1212; transform: scale(1.1); box-shadow: 0 6px 18px rgba(206, 18, 18, 0.4); }
             .info-icon i { font-size: 1.2rem; color: #fff; }
+            .info-icon svg { width: 22px; height: 22px; color: #fff; display: block; }
 
             .info-content h5 { color: #fff; font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; }
             .info-content p { color: #aaa; font-size: 0.95rem; margin: 0; line-height: 1.6; }
@@ -195,7 +196,12 @@
                                 <h3>Información</h3>
 
                                 <div class="info-item">
-                                    <div class="info-icon"><i class="zmdi zmdi-pin"></i></div>
+                                    <div class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+                                            <circle cx="12" cy="10" r="3"/>
+                                        </svg>
+                                    </div>
                                     <div class="info-content">
                                         <h5>Nuestra Oficina</h5>
                                         <p>Av. Principal 123, Lima<br>Perú</p>
@@ -203,7 +209,11 @@
                                 </div>
 
                                 <div class="info-item">
-                                    <div class="info-icon"><i class="zmdi zmdi-phone"></i></div>
+                                    <div class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/>
+                                        </svg>
+                                    </div>
                                     <div class="info-content">
                                         <h5>Teléfonos</h5>
                                         <p><a href="tel:+0123456789">+01 234 567 89</a></p>
@@ -212,7 +222,12 @@
                                 </div>
 
                                 <div class="info-item">
-                                    <div class="info-icon"><i class="zmdi zmdi-email"></i></div>
+                                    <div class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                        </svg>
+                                    </div>
                                     <div class="info-content">
                                         <h5>Correo Electrónico</h5>
                                         <p><a href="mailto:info@capperu.com">info@capperu.com</a></p>
@@ -221,7 +236,13 @@
                                 </div>
 
                                 <div class="info-item">
-                                    <div class="info-icon"><i class="zmdi zmdi-globe"></i></div>
+                                    <div class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                                            <path d="M2 12h20"/>
+                                        </svg>
+                                    </div>
                                     <div class="info-content">
                                         <h5>Sitio Web</h5>
                                         <p><a href="#">www.capperu.com</a></p>
@@ -259,7 +280,8 @@
         <!-- ============================================================== -->
         <!-- FIN PROPUESTA MODERNA -->
         <!-- ============================================================== -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="{{ asset('themes/webpage/assets/vendor/sweetalert2.min.css') }}">
+    <script defer src="{{ asset('themes/webpage/assets/vendor/sweetalert2.min.js') }}"></script>
         <script>
             let form = document.getElementById('pageContactForm');
             form.addEventListener('submit', function(e) {

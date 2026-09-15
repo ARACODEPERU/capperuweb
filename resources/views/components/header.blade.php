@@ -19,9 +19,46 @@
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(240, 246, 252)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
 
-        /* Estilos de navegación adaptables */
-        .main-navigation ul li a { color: var(--text-main); transition: color 0.3s; }
-        .main-navigation ul li a:hover { color: #ce1212; }
+        /* ===== Navegación: píldoras modernas con fondo transparente ===== */
+        .main-navigation ul li a {
+            color: var(--text-main);
+            padding: 9px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 15px;
+            background: transparent;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        .main-navigation ul li a:hover {
+            color: #ce1212;
+            background: rgba(206, 18, 18, 0.07);
+        }
+
+        /* Ítem activo: píldora con tinte rojo translúcido */
+        .main-navigation ul li.active > a {
+            color: #ce1212;
+            background: rgba(206, 18, 18, 0.10);
+            font-weight: 600;
+        }
+
+        /* Submenú: los enlaces internos no heredan la píldora */
+        .main-navigation ul li .sub-menu li a {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: transparent;
+            font-weight: 400;
+        }
+        .main-navigation ul li .sub-menu li a:hover,
+        .main-navigation ul li .sub-menu li.active > a {
+            background: rgba(206, 18, 18, 0.07);
+            color: #ce1212;
+        }
+
+        /* Menú móvil: mantener legibilidad (meanmenu) */
+        .mean-container .mean-nav ul li a.active {
+            color: #ce1212;
+            background: rgba(206, 18, 18, 0.10);
+        }
         
         .main-navigation ul li .sub-menu { 
             background-color: var(--bg-card); 
@@ -84,18 +121,32 @@
                     <div class="main-menu main-theme-color-four">
                         <nav class="main-navigation">
                             <ul>
-                                <li class="{{ request()->routeIs('web_home') ? 'active' : '' }}"><a href="{{ route('web_home') }}">Home</a></li>
-                                <li class="{{ request()->routeIs('web_about_us') ? 'active' : '' }}">
-                                    <a href="{{ route('web_about_us') }}">Sobre Nosotros</a>
+                                <li class="{{ request()->routeIs('web_home') ? 'active' : '' }}">
+                                    <a href="{{ route('web_home') }}" @if(request()->routeIs('web_home')) aria-current="page" @endif>Home</a>
+                                </li>
+                                <li class="{{ request()->routeIs(['web_about_us', 'web_quality_policies', 'web_quality_management']) ? 'active' : '' }}">
+                                    <a href="{{ route('web_about_us') }}" @if(request()->routeIs(['web_about_us', 'web_quality_policies', 'web_quality_management'])) aria-current="page" @endif>Sobre Nosotros</a>
                                     <ul class="sub-menu">
-                                        <li><a href="{{ route('web_about_us') }}">¿Quienes Somos? </a></li>
-                                        <li><a href="{{ route('web_quality_policies') }}">Politica De Calidad</a></li>
-                                        <li><a href="{{ route('web_quality_management') }}">Alcance Del SIG</a></li>
+                                        <li class="{{ request()->routeIs('web_about_us') ? 'active' : '' }}">
+                                            <a href="{{ route('web_about_us') }}">¿Quienes Somos?</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('web_quality_policies') ? 'active' : '' }}">
+                                            <a href="{{ route('web_quality_policies') }}">Politica De Calidad</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('web_quality_management') ? 'active' : '' }}">
+                                            <a href="{{ route('web_quality_management') }}">Alcance Del SIG</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="{{ request()->routeIs('web_catalog') ? 'active' : '' }}"><a href="{{ route('web_catalog') }}">Programas de Especialización</a></li>
-                                <li class="{{ request()->routeIs('web_alumnos') ? 'active' : '' }}"><a href="{{ route('web_alumnos') }}">Verificar</a></li>
-                                <li class="{{ request()->routeIs('web_contact') ? 'active' : '' }}"><a href="{{ route('web_contact') }}">Contacto</a></li>
+                                <li class="{{ request()->routeIs(['web_catalog', 'web_program_description', 'web_program_description_legacy']) ? 'active' : '' }}">
+                                    <a href="{{ route('web_catalog') }}" @if(request()->routeIs(['web_catalog', 'web_program_description', 'web_program_description_legacy'])) aria-current="page" @endif>Programas de Especialización</a>
+                                </li>
+                                <li class="{{ request()->routeIs('web_alumnos') ? 'active' : '' }}">
+                                    <a href="{{ route('web_alumnos') }}" @if(request()->routeIs('web_alumnos')) aria-current="page" @endif>Verificar</a>
+                                </li>
+                                <li class="{{ request()->routeIs('web_contact') ? 'active' : '' }}">
+                                    <a href="{{ route('web_contact') }}" @if(request()->routeIs('web_contact')) aria-current="page" @endif>Contacto</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>

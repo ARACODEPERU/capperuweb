@@ -52,14 +52,14 @@
                             <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
                                 <div class="modern-course-card">
                                     <div class="course-img-wrapper">
-                                        <a href="{{ route('web_program_description', $course->id) }}">
-                                            <img src="{{ asset($course->image) }}" alt="{{ $course->name }}">
+                                        <a href="{{ route('web_program_description', $course->route_slug) }}">
+                                            <x-webp-image src="{{ asset($course->image) }}" alt="{{ $course->name }}" class="w-100" />
                                         </a>
                                     </div>
                                     <div class="course-content">
-                                        <h3><a href="{{ route('web_program_description', $course->id) }}">{{ $course->name }}</a></h3>
+                                        <h3><a href="{{ route('web_program_description', $course->route_slug) }}">{{ $course->name }}</a></h3>
                                         <div class="course-footer">
-                                            <a href="{{ route('web_program_description', $course->id) }}" class="btn-course-link">
+                                            <a href="{{ route('web_program_description', $course->route_slug) }}" class="btn-course-link">
                                                 Más Información <i class="fa fa-arrow-right"></i>
                                             </a>
                                         </div>

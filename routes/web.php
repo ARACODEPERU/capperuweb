@@ -37,7 +37,8 @@ Route::get('/catalogo', [WebPageController::class, 'catalog'])->name('web_catalo
 Route::get('/politicas-de-calidad', [WebPageController::class, 'quality_policies'])->name('web_quality_policies');
 Route::get('/gestion-de-calidad', [WebPageController::class, 'quality_management'])->name('web_quality_management');
 Route::get('/contacto', [WebPageController::class, 'contact'])->name('web_contact');
-Route::get('/descripcion-programa/{id}', [WebPageController::class, 'programDescription'])->name('web_program_description');
+Route::get('/catalogo/{slug}', [WebPageController::class, 'programDescription'])->name('web_program_description');
+Route::get('/descripcion-programa/{id}', [WebPageController::class, 'programDescriptionRedirect'])->name('web_program_description_legacy');
 
 // NUEVO SITIO WEB 2025
 

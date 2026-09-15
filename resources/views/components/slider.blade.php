@@ -1,6 +1,5 @@
 <div>
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    {{-- Swiper ya se carga en el layout (CSS y JS): aquí no se duplica --}}
     <div data-aos="zoom-in" data-aos-duration="1200">
 
         <div class="slider-area-modern">
@@ -9,8 +8,12 @@
                     @foreach ($sliders as $k => $slide)
                         <div class="swiper-slide">
                             <a href="{{ $slide->item->items[1]->content ?? '#' }}" class="d-block">
-                                <img src="{{ asset('storage/' . $slide->item->items[0]->content) }}"
-                                    alt="Slider {{ $k }}" class="img-fluid w-100">
+                                <x-webp-image
+                                    src="{{ asset('storage/' . $slide->item->items[0]->content) }}"
+                                    alt="{{ $slide->item->items[2]->content ?? 'Programa destacado ' . ($k + 1) . ' - CAP PERU' }}"
+                                    :eager="$k === 0"
+                                    class="img-fluid w-100"
+                                />
                             </a>
                         </div>
                     @endforeach
@@ -44,9 +47,6 @@
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
     </style>
-
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

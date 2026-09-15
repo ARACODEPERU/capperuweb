@@ -23,6 +23,7 @@ class CoursesNew extends Component
             ->select(
                 'onli_items.id as id',
                 'onli_items.name as name',
+                'onli_items.slug as slug',
                 'onli_items.image as image',
                 'onli_items.price as price',
                 'onli_items.additional as additional',
@@ -36,10 +37,9 @@ class CoursesNew extends Component
                 'aca_category_courses.description as category_description'
             )
             ->where('onli_items.status', true)
-            // ->orderByRaw("CASE WHEN aca_category_courses.description = 'Empresarial' THEN 1 ELSE 2 END")
             ->orderBy('onli_items.id', 'DESC')
             ->limit(15)
-            ->paginate(15);
+            ->get();
     }
 
     /**

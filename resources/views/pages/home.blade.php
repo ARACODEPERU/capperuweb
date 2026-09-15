@@ -9,25 +9,41 @@
         <!-- slider area start -->
         <x-slider />
 
+        <!-- barra de confianza (métricas con contadores) -->
+        <x-trust-bar />
 
+        <!-- nuevos programas -->
         <x-courses-new />
 
-        <x-graduates />
+        <!-- próximas convocatorias -->
+        <x-upcoming-calls />
 
+        <!-- cursos -->
         <x-courses />
 
+        <!-- diplomados -->
+        <x-graduates />
 
-        {{-- <div data-aos="zoom-in-up" data-aos-duration="1300">
-            <x-promotion />
-        </div> --}}
+        <!-- ¿por qué elegirnos? -->
+        <x-why-us />
+
+        <!-- sectores -->
+        <x-sector-public />
 
         <x-sector-business />
 
-        <x-sector-public />
-
         <x-sector-right />
 
-        {{-- <x-brand-logos /> --}}
+        <!-- testimonios de egresados -->
+        <x-testimonials />
+
+        <!-- alianzas y convenios -->
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <x-brand-logos />
+        </div>
+
+        <!-- llamada final a la acción -->
+        <x-cta-band />
 
         <div data-aos="fade-up" data-aos-duration="1000">
             <x-footer />

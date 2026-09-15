@@ -23,6 +23,7 @@ class SectorBusiness extends Component
             ->select(
                 'onli_items.id as id',
                 'onli_items.name as name',
+                'onli_items.slug as slug',
                 'onli_items.image as image',
                 'onli_items.price as price',
                 'onli_items.additional as additional',

@@ -6,6 +6,12 @@
                         <div class="card-about">
                             <div class="box">
                                 <div class="content">
+                                    <div class="about-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                    </div>
                                     <h2>01</h2>
                                     <h3>VISIÓN</h3>
                                     <p>
@@ -21,6 +27,13 @@
                         <div class="card-about">
                             <div class="box">
                                 <div class="content">
+                                    <div class="about-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <circle cx="12" cy="12" r="6"/>
+                                            <circle cx="12" cy="12" r="2"/>
+                                        </svg>
+                                    </div>
                                     <h2>02</h2>
                                     <h3>MISIÓN</h3>
                                     <p>
@@ -37,6 +50,12 @@
                         <div class="card-about">
                             <div class="box">
                                 <div class="content">
+                                    <div class="about-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="8" r="6"/>
+                                            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+                                        </svg>
+                                    </div>
                                     <h2>03</h2>
                                     <h3>VALORES</h3>
                                     <p>
@@ -126,6 +145,37 @@
                     .card-about .box .content {
                         padding: 20px;
                         text-align: center;
+                    }
+
+                    /* Icono moderno de las tarjetas (mismo lenguaje que panel de Información) */
+                    .about-icon {
+                        width: 64px;
+                        height: 64px;
+                        margin: 0 auto 18px;
+                        background: rgba(206, 18, 18, 0.10);
+                        border-radius: 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        transition: all 0.3s ease;
+                    }
+
+                    .about-icon svg {
+                        width: 28px;
+                        height: 28px;
+                        color: #ce1212;
+                        display: block;
+                        transition: color 0.3s ease;
+                    }
+
+                    .card-about .box:hover .about-icon {
+                        background: #ce1212;
+                        transform: scale(1.1) rotate(-4deg);
+                        box-shadow: 0 8px 20px rgba(206, 18, 18, 0.4);
+                    }
+
+                    .card-about .box:hover .about-icon svg {
+                        color: #fff;
                     }
 
                     .card-about .box .content h2 {

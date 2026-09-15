@@ -1,6 +1,36 @@
 @extends('layouts.webpage')
 
+@php
+    $schemaName = $course->name ?? $item->name;
+    $schemaDescription = trim(strip_tags((string) ($course->description ?? $item->description)));
+    $schemaPrice = $item->discount > 0 ? $item->discount : $item->price;
+@endphp
+
 @section('content')
+    {{-- ===== Datos estructurados: Course (schema.org) ===== --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": {!! json_encode($schemaName) !!},
+        "description": {!! json_encode(mb_substr($schemaDescription ?: 'Programa de especialización de CAP PERU.', 0, 300)) !!},
+        "url": "{{ url()->current() }}",
+        "image": "{{ $item->image }}",
+        "provider": {
+            "@type": "Organization",
+            "name": "CAP PERU",
+            "sameAs": "{{ url('/') }}"
+        },
+        "offers": {
+            "@type": "Offer",
+            "category": "Paid",
+            "price": "{{ $schemaPrice }}",
+            "priceCurrency": "PEN",
+            "availability": "https://schema.org/InStock",
+            "url": "{{ url()->current() }}"
+        }
+    }
+    </script>
     <!-- Main Wrapper Start -->
     <div class="main-wrapper">
 
@@ -23,8 +53,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <img style="width: 100%;" src="{{ asset('storage/' . $course->image) }}"
-                            alt="{{ $course->description }}">
+                        <x-webp-image src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}" :eager="true" style="width: 100%;" />
                     </div>
                     <div class="col-md-8">
                         <ul role="tablist" class="nav dashboard-list white mb--10">
@@ -266,7 +295,7 @@
                             @if (count($course->teachers) > 0)
                                 @foreach ($course->teachers as $teach)
                                     <div class="teacher-card-modern">
-                                        <img src="{{ $teach->teacher->person->image ? asset($teach->teacher->person->image) : asset('img/avatar_default.jpg') }}" alt="{{ $teach->teacher->person->names }}">
+                                        <x-webp-image src="{{ $teach->teacher->person->image ? asset($teach->teacher->person->image) : asset('img/avatar_default.jpg') }}" alt="{{ $teach->teacher->person->names }}" />
                                         <h5>{{ $teach->teacher->person->names }} {{ $teach->teacher->person->father_lastname }}</h5>
                                         <span>Docente</span>
                                     </div>
@@ -291,7 +320,7 @@
                 <div class="col-lg-4">
                     <div class="sticky-sidebar-wrapper">
                         <div class="purchase-card">
-                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->description }}">
+                            <x-webp-image src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}" class="w-100" />
                             
                             <div class="text-center mb-4">
                                 <span class="price-label">Inversión</span>

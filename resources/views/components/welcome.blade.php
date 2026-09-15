@@ -37,12 +37,12 @@
                     <div class="inner-column wow fadeInLeft">
                         <figure class="image-1">
                             <a href="#" class="lightbox-image" data-fancybox="images">
-                                <img src="{{ asset('themes/webpage/assets/images/image-1-about.png') }}" alt="">
+                                <x-webp-image src="{{ asset('themes/webpage/assets/images/image-1-about.png') }}" alt="Instalaciones de CAP PERU" class="w-100" />
                             </a>
                         </figure>
                         <figure class="image-2">
                             <a href="#" class="lightbox-image" data-fancybox="images">
-                                <img style="width: 350px; height: 350px;" src="{{ asset('themes/webpage/assets/images/image-2-about.jpg') }}" alt="">
+                                <x-webp-image src="{{ asset('themes/webpage/assets/images/image-2-about.jpg') }}" alt="Equipo de CAP PERU" style="width: 350px; height: 350px; object-fit: cover;" />
                             </a>
                         </figure>
                     </div>

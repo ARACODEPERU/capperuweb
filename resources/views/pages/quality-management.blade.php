@@ -23,7 +23,16 @@
         <div class="container management-container-overlap">
             <div class="row justify-content-center">
                 <div class="col-lg-10 management-content" data-aos="fade-up">
-                    <h2>ALCANCE DEL SISTEMA DE GESTIÓN DE LA CALIDAD</h2>
+                    <div class="quality-header">
+                        <div class="quality-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="6"/>
+                                <circle cx="12" cy="12" r="2"/>
+                            </svg>
+                        </div>
+                        <h2>ALCANCE DEL SISTEMA DE GESTIÓN DE LA CALIDAD</h2>
+                    </div>
                     <p>
                         Nuestra empresa CENTRO DE ACTUALIZACION PROFESIONAL & CONSULTORIA S.A.C., ubicada en Av. 2 de
                         Mayo 516 oficina 201 distrito de Miraflores y departamento de Lima, contando con la

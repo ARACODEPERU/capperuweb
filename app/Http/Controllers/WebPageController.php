@@ -49,27 +49,42 @@ class WebPageController extends Controller
 
     public function home()
     {
-        return view('pages.home');
+        return view('pages.home', [
+            'title' => 'Inicio',
+            'metaDescription' => 'Capacitaciones, cursos y diplomados especializados para el sector público y privado en Perú. Modalidad presencial, virtual y e-learning con certificación oficial.',
+        ]);
     }
-    
+
     public function about_us()
     {
-        return view('pages.about-us');
+        return view('pages.about-us', [
+            'title' => 'Nosotros',
+            'metaDescription' => 'Conoce a CAP PERU: institución peruana de capacitación especializada en programas para el sector público y privado, con respaldo académico y certificación oficial.',
+        ]);
     }
 
     public function quality_policies()
     {
-        return view('pages.quality-policies');
+        return view('pages.quality-policies', [
+            'title' => 'Política de Calidad',
+            'metaDescription' => 'Conoce la Política de Calidad de CAP PERU: nuestro compromiso con la excelencia académica, la mejora continua y la satisfacción de nuestros participantes.',
+        ]);
     }
 
     public function quality_management()
     {
-        return view('pages.quality-management');
+        return view('pages.quality-management', [
+            'title' => 'Alcance del Sistema de Gestión de Calidad',
+            'metaDescription' => 'Alcance del Sistema de Gestión de Calidad de CAP PERU: procesos certificados bajo estándares de calidad para la formación profesional y especialización.',
+        ]);
     }
 
     public function contact()
     {
-        return view('pages.contact');
+        return view('pages.contact', [
+            'title' => 'Contacto',
+            'metaDescription' => 'Contáctanos: telefónos, WhatsApp, correo electrónico y ubicación de CAP PERU. Resuelve tus dudas sobre cursos, diplomados y procesos de matrícula.',
+        ]);
     }
 
     public function catalog()
@@ -90,15 +105,27 @@ class WebPageController extends Controller
 
         return view('pages.catalog', [
             'courses' => $courses,
-            'categories' => $categories
+            'categories' => $categories,
+            'title' => 'Catálogo de Programas',
+            'metaDescription' => 'Catálogo completo de cursos y diplomados de CAP PERU: programas para el sector público y privado en modalidad presencial, virtual y e-learning.',
         ]);
     }
 
 
     
-    public function programDescription($id)
+    public function programDescription($slug)
     {
-        $item = OnliItem::find($id);
+        $item = $this->resolveItemBySlug($slug);
+
+        if (! $item) {
+            abort(404);
+        }
+
+        // Si la URL no coincide con el slug canónico (ej: 140-diplomado-..., texto viejo),
+        // redirigir 301 a la URL limpia para consolidar el SEO.
+        if ($item->slug && $slug !== $item->slug) {
+            return redirect()->to(route('web_program_description', $item->slug), 301);
+        }
 
         $course = AcaCourse::with('category')
             ->with('modality')
@@ -119,11 +146,81 @@ class WebPageController extends Controller
             ->orderBy('cms_section_items.position')
             ->get();
 
+        // ===== SEO dinámico del programa =====
+        $programName = $course->name ?? $item->name;
+        $courseDescription = trim(strip_tags((string) ($course->description ?? '')));
+        if ($courseDescription === '') {
+            $courseDescription = trim((string) $item->description);
+        }
+        $programTitle = $programName . ' - ' . ($course->modality->name ?? ($item->additional1 ?? 'CAP PERU'));
+        $programMeta = $this->metaDescription($courseDescription ?: 'Información del programa ' . $programName . ': temario, docentes, inversión y matrícula en CAP PERU.');
+
         return view('pages.program-description', [
             'course' => $course,
             'item' => $item,
-            'whatsappAsesor' => $whatsappAsesor
+            'whatsappAsesor' => $whatsappAsesor,
+            'title' => $programTitle,
+            'metaDescription' => $programMeta,
+            'ogImage' => $item->image,
+            'ogType' => 'article',
         ]);
+    }
+
+    /**
+     * Limpia y recorta una descripción para usarla como meta description.
+     */
+    private function metaDescription(string $text, int $limit = 160): string
+    {
+        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
+        $text = preg_replace('/\s+/u', ' ', $text) ?? '';
+
+        if (mb_strlen($text) > $limit) {
+            $text = mb_substr($text, 0, $limit);
+            $pos = mb_strrpos($text, ' ');
+            $text = rtrim(mb_substr($text, 0, $pos !== false ? $pos : $limit));
+        }
+
+        return $text;
+    }
+
+    /**
+     * Redirección 301 para las URLs antiguas /descripcion-programa/{id}
+     * hacia la nueva URL con slug /catalogo/{slug}.
+     */
+    public function programDescriptionRedirect($id)
+    {
+        $item = OnliItem::find($id);
+
+        if (! $item) {
+            abort(404);
+        }
+
+        return redirect()->to(route('web_program_description', $item->route_slug), 301);
+    }
+
+    /**
+     * Resuelve un OnliItem a partir del slug de la URL.
+     * Soporta el slug puro guardado en BD y el formato antiguo {id}-{nombre} (compatibilidad).
+     */
+    private function resolveItemBySlug(string $slug): ?OnliItem
+    {
+        $slug = trim($slug);
+
+        // 1) Buscar por slug exacto guardado en BD
+        $item = OnliItem::where('slug', $slug)->first();
+        if ($item) {
+            return $item;
+        }
+
+        // 2) Compatibilidad con el formato antiguo {id}-{nombre}: extraer el id del inicio
+        if (preg_match('/^(\d+)(?:-(.*))?$/', $slug, $m)) {
+            $item = OnliItem::find((int) $m[1]);
+            if ($item) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 
 

@@ -1,148 +1,89 @@
 <div>
-
-    <div data-aos="fade-right" data-aos-duration="1800">
-
-        <div class="movie-list section-padding-lr section-ptb-50 modern-themed-section">
+    <div data-aos="fade-up" data-aos-duration="1000">
+        <div class="section-padding-lr section-ptb-50 modern-themed-section">
             <div class="container-fluid">
-                <div class="section-title-4 st-border-bottom">
-                    <h2>Sector: Empresarial</h2>
+
+                <div class="modern-section-header">
+                    <div class="section-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            <rect width="20" height="14" x="2" y="6" rx="2"/>
+                            <path d="M6 10h.01"/>
+                            <path d="M10 10h.01"/>
+                            <path d="M14 10h.01"/>
+                            <path d="M18 10h.01"/>
+                            <path d="M6 14h.01"/>
+                            <path d="M10 14h.01"/>
+                            <path d="M14 14h.01"/>
+                            <path d="M18 14h.01"/>
+                            <path d="M22 20H2"/>
+                        </svg>
+                    </div>
+                    <div class="section-texts">
+                        <span class="section-tag">Sectores</span>
+                        <h2>Programas para el Sector Empresarial</h2>
+                        <p>Formación gerencial y técnica para empresas</p>
+                    </div>
+                    <a href="{{ route('web_catalog') }}" class="section-link">Ver todos →</a>
                 </div>
-                <div class="swiper coursesSwiper">
+
+                <div class="swiper sectorBusinessSwiper">
                     <div class="swiper-wrapper">
-                        @if (count($programs) > 0)
-                            @foreach ($programs as $key => $program)
-                                <div class="swiper-slide">
-                                    <div class="movie-wrap-plr">
-                                        <div class="movie-wrap text-center modern-card-elevation">
-                                            <div class="movie-img">
-                                                <a href="{{ route('web_program_description', $program->id) }}">
-                                                    <img src="{{ asset($program->image) }}" alt="{{ $program->name }}">
-                                                </a>
-                                                <a href="{{ route('web_program_description', $program->id) }}">
-                                                    <button title="Watchlist" class="Watch-list-btn" type="button">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                            <div class="movie-content">
-                                                <h3 class="title">
-                                                    <a href="{{ route('web_program_description', $program->id) }}">
-                                                        {{ $program->name }}
-                                                    </a>
-                                                </h3>
-                                                <span class="price-text">Precio : {{ $program->price }}</span>
-                                                <div class="movie-btn">
-                                                    <a href="{{ route('web_program_description', $program->id) }}"
-                                                        class="btn-style-hm4-2 animated">
-                                                        Más Información
-                                                    </a>
-                                                </div>
-                                            </div>
+                        @foreach ($programs as $program)
+                            <div class="swiper-slide">
+                                <div class="program-card">
+                                    <div class="program-img">
+                                        <div class="program-badges">
+                                            <span class="program-badge type">{{ $program->additional ?? 'Programa' }}</span>
+                                            @if($program->additional1)
+                                                <span class="program-badge modality">{{ $program->additional1 }}</span>
+                                            @endif
                                         </div>
+                                        <a href="{{ route('web_program_description', $program->route_slug) }}">
+                                            <x-webp-image src="{{ asset($program->image) }}" alt="{{ $program->name }}" />
+                                        </a>
+                                    </div>
+                                    <div class="program-body">
+                                        <h3 class="program-title">
+                                            <a href="{{ route('web_program_description', $program->route_slug) }}">{{ $program->name }}</a>
+                                        </h3>
+                                        <div class="program-price">
+                                            <span class="amount"><small>S/</small> {{ number_format($program->price, 0) }}</span>
+                                        </div>
+                                        <a href="{{ route('web_program_description', $program->route_slug) }}" class="program-btn">Más Información</a>
                                     </div>
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
+
             </div>
         </div>
-
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const swiper = new Swiper('.coursesSwiper', {
+            new Swiper('.sectorBusinessSwiper', {
                 slidesPerView: 1,
-                spaceBetween: 10,
+                spaceBetween: 20,
                 loop: true,
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.sectorBusinessSwiper .swiper-button-next',
+                    prevEl: '.sectorBusinessSwiper .swiper-button-prev',
                 },
                 pagination: {
-                    el: '.swiper-pagination',
+                    el: '.sectorBusinessSwiper .swiper-pagination',
                     clickable: true,
                 },
                 breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    },
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 30,
-                    },
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    768: { slidesPerView: 3, spaceBetween: 24 },
+                    1024: { slidesPerView: 4, spaceBetween: 24 },
                 },
             });
         });
     </script>
-    <style>
-        .modern-themed-section {
-            background-color: var(--bg-body);
-            transition: background-color 0.3s;
-        }
-
-        .section-title-4.st-border-bottom {
-            border-color: var(--border-color);
-        }
-
-        .section-title-4 h2 {
-            color: var(--text-main);
-        }
-
-        .modern-card-elevation {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .movie-content .title a {
-            color: var(--text-main);
-            transition: color 0.3s;
-        }
-
-        .movie-content .price-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        .Watch-list-btn {
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-        }
-
-        .coursesSwiper {
-            padding-bottom: 40px;
-        }
-
-        .coursesSwiper .swiper-button-next,
-        .coursesSwiper .swiper-button-prev {
-            color: var(--text-main);
-        }
-
-        .coursesSwiper .swiper-pagination-bullet {
-            background: var(--text-muted);
-            opacity: 0.5;
-        }
-
-        .coursesSwiper .swiper-pagination-bullet-active {
-            background: #ce1212;
-            opacity: 1;
-        }
-
-        [data-bs-theme="dark"] .modern-card-elevation:hover {
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
-            border-color: #ce1212;
-        }
-    </style>
 </div>
