@@ -15,7 +15,16 @@ class UserController extends Controller
     {
         $users = (new User())->newQuery();
         if (request()->has('search')) {
-            $users->where('name', 'Like', '%' . request()->input('search') . '%');
+            $search = request()->input('search');
+            $users->where(function ($q) use ($search) {
+                $q->where('users.name', 'Like', "%{$search}%")
+                  ->orWhere('users.email', 'Like', "%{$search}%")
+                  ->orWhereHas('person', function ($q) use ($search) {
+                      $q->where('number', 'Like', "%{$search}%")
+                        ->orWhere('full_name', 'Like', "%{$search}%")
+                        ->orWhere('short_name', 'Like', "%{$search}%");
+                  });
+            });
         }
         if (request()->query('sort')) {
             $attribute = request()->query('sort');
@@ -29,7 +38,7 @@ class UserController extends Controller
             $users->latest();
         }
 
-        $users = $users->with('tokens');
+        $users = $users->with(['tokens', 'person']);
         $users = $users->paginate(10)->onEachSide(2);
         //dd($users);
         return Inertia::render('Users/List', [

@@ -364,7 +364,7 @@ class AcaStudentController extends Controller
             $authUser = Auth::user();
 
             // The delete button is only available for the roles admin and Administrador.
-            if (!$authUser || !$authUser->hasAnyRole(['admin', 'Administrador'])) {
+            if (!$authUser || !$authUser->hasAnyRole(['admin', 'Administrador', 'Campus_Nivel_3'])) {
                 throw new \Exception(__('No tienes permisos para eliminar estudiantes.'));
             }
 
