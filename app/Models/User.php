@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -68,9 +69,9 @@ class User extends Authenticatable
         return $this->morphMany(PersonalAccessToken::class, 'tokenable');
     }
 
-    public function person(): HasOne
+    public function person(): BelongsTo
     {
-        return $this->hasOne(Person::class, 'person_id', 'id');
+        return $this->belongsTo(Person::class, 'person_id', 'id');
     }
 
     public function sendEmailVerificationNotification()
