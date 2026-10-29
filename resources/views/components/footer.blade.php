@@ -158,7 +158,7 @@
                     <div class="footer-widget">
                         <h4>Contacto</h4>
                         <ul class="footer-list">
-                            <li><i class="fa fa-map-marker"></i><span><b>Sede Lima:</b><br> Av. 2 de Mayo 516, Miraflores</span></li>
+                            {{-- <li><i class="fa fa-map-marker"></i><span><b>Sede Lima:</b><br> Av. 2 de Mayo 516, Miraflores</span></li> --}}
                             <li><i class="fa fa-map-marker"></i><span><b>Sede Nuevo Chimbote:</b> <br> Av. Urb. Nicolas de Garatea Mz M, Lt 25</span></li>
                             <li><i class="fa fa-phone"></i><a href="tel:+51977662460">+51 977 662 460</a></li>
                             <li><i class="fa fa-phone"></i><a href="tel:+51946943887">+51 946 943 887</a></li>

@@ -202,10 +202,10 @@
                                             <circle cx="12" cy="10" r="3"/>
                                         </svg>
                                     </div>
-                                    <div class="info-content">
+                                    {{-- <div class="info-content">
                                         <h5>Sede Lima:</h5>
                                         <p>Av. 2 de Mayo 516, Miraflores</p>
-                                    </div>
+                                    </div> --}}
                                     <div class="info-content">
                                         <h5>Sede Nuevo Chimbote:</h5>
                                         <p>Av. Urb. Nicolas de Garatea Mz M, Lt 25</p>
