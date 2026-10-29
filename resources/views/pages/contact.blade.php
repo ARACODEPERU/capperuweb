@@ -203,8 +203,12 @@
                                         </svg>
                                     </div>
                                     <div class="info-content">
-                                        <h5>Nuestra Oficina</h5>
-                                        <p>Av. Principal 123, Lima<br>Perú</p>
+                                        <h5>Sede Lima:</h5>
+                                        <p>Av. 2 de Mayo 516, Miraflores</p>
+                                    </div>
+                                    <div class="info-content">
+                                        <h5>Sede Nuevo Chimbote:</h5>
+                                        <p>Av. Urb. Nicolas de Garatea Mz M, Lt 25</p>
                                     </div>
                                 </div>
 
@@ -216,8 +220,9 @@
                                     </div>
                                     <div class="info-content">
                                         <h5>Teléfonos</h5>
-                                        <p><a href="tel:+0123456789">+01 234 567 89</a></p>
-                                        <p><a href="tel:+0198765432">+01 987 654 32</a></p>
+                                        <p><a href="tel:+51977662460">(+51) 977 662 460</a></p>
+                                        <p><a href="tel:+51946943887">(+51) 946 943 887</a></p>
+                                        <p><a href="tel:+51908934095">(+51) 908 934 095</a></p>
                                     </div>
                                 </div>
 
@@ -230,8 +235,7 @@
                                     </div>
                                     <div class="info-content">
                                         <h5>Correo Electrónico</h5>
-                                        <p><a href="mailto:info@capperu.com">info@capperu.com</a></p>
-                                        <p><a href="mailto:soporte@capperu.com">soporte@capperu.com</a></p>
+                                        <p><a href="cap.direccion.academica@gmail.com">cap.direccion.academica@gmail.com</a></p>
                                     </div>
                                 </div>
 
@@ -245,7 +249,7 @@
                                     </div>
                                     <div class="info-content">
                                         <h5>Sitio Web</h5>
-                                        <p><a href="#">www.capperu.com</a></p>
+                                        <p><a href="https://www.capperu.com/">www.capperu.com</a></p>
                                     </div>
                                 </div>
                             </div>
