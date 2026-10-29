@@ -235,7 +235,7 @@
                                     </div>
                                     <div class="info-content">
                                         <h5>Correo Electrónico</h5>
-                                        <p><a href="cap.direccion.academica@gmail.com">cap.direccion.academica@gmail.com</a></p>
+                                        <p><a href="capperuacademica@gmail.com">capperuacademica@gmail.com</a></p>
                                     </div>
                                 </div>
 
