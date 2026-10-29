@@ -163,7 +163,7 @@
                             <li><i class="fa fa-phone"></i><a href="tel:+51977662460">+51 977 662 460</a></li>
                             <li><i class="fa fa-phone"></i><a href="tel:+51946943887">+51 946 943 887</a></li>
                             <li><i class="fa fa-phone"></i><a href="tel:+51908934095">+51 908 934 095</a></li>
-                            <li><i class="fa fa-envelope"></i><a href="mailto:info@capperu.com">info@capperu.com</a></li>
+                            <li><i class="fa fa-envelope"></i><a href="mailto:capperuacademica@gmail.com">capperuacademica@gmail.com</a></li>
                             <li><i class="fa fa-globe"></i><a href="#">WebMail</a></li>
                         </ul>
                     </div>
