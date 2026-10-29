@@ -147,8 +147,8 @@
                         <ul class="footer-list">
                             <li><a href="{{ route('web_quality_policies') }}">Política De Calidad</a></li>
                             <li><a href="{{ route('web_quality_management') }}">Alcance Del SIG</a></li>
-                            <li><a href="#">Políticas de Privacidad</a></li>
-                            <li><a href="#">Libro de Reclamaciones</a></li>
+                            <li><a href="{{ route('web_privacy_policies') }}">Políticas de Privacidad</a></li>
+                            <li><a href="{{ route('web_claims_book') }}">Libro de Reclamaciones</a></li>
                         </ul>
                     </div>
                 </div>

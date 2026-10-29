@@ -88,8 +88,20 @@
             font-size: 1.2rem;
             cursor: pointer;
             color: var(--text-main);
-            padding: 5px;
-            transition: color 0.3s;
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .theme-btn-toggle:hover {
+            color: #ce1212;
+            background: rgba(206, 18, 18, 0.10);
+            transform: rotate(-12deg) scale(1.08);
+            box-shadow: 0 4px 14px rgba(206, 18, 18, 0.25);
         }
         [data-bs-theme="dark"] .theme-btn-toggle { color: #ffc107; }
         .theme-btn-toggle .fa-sun-o { display: none; }
@@ -178,7 +190,14 @@
                     </div>
                     @else
                     <div class="subscribe-btn-wrap">
-                        <a href="{{ route('login') }}" class="subscribe-btn">Aula Virtual</a>
+                        <a href="{{ route('login') }}" class="subscribe-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                                <polyline points="10 17 15 12 10 7"/>
+                                <line x1="15" x2="3" y1="12" y2="12"/>
+                            </svg>
+                            Aula Virtual
+                        </a>
                     </div>
                     @endauth
                     <div class="mobile-menu d-block d-lg-none"></div>

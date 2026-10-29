@@ -400,3 +400,645 @@ body {
     .quality-icon { width: 52px; height: 52px; border-radius: 13px; }
     .quality-icon svg { width: 24px; height: 24px; }
 }
+
+/* === SECTION BACKGROUND ALTERNATING === */
+.section-bg-white {
+    background-color: var(--bg-body);
+}
+
+.section-bg-gray {
+    background-color: var(--bg-alt);
+}
+
+/* === SECTION HORIZONTAL ALIGNMENT (home) ===
+   La plantilla usa `.section-padding-lr .container-fluid` (selector descendente),
+   que NO aplica cuando ambas clases están en el MISMO elemento
+   (trust-bar, why-us, testimonials, cta-band, upcoming-calls).
+   Estas reglas cubren ese caso con los mismos breakpoints de style.css,
+   para que el borde del contenido quede alineado en todas las secciones. */
+.section-padding-lr.container-fluid {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
+    .section-padding-lr.container-fluid {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .section-padding-lr.container-fluid {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .section-padding-lr.container-fluid {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .section-padding-lr.container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* === ALTERNANCIA REAL DE FONDOS (pinta la sección interna visible) ===
+   Las clases section-bg-* están en el wrapper externo, pero cada componente
+   pinta su propia sección interna y la tapa. Estas reglas (mayor especificidad)
+   pintan la sección interna que realmente se ve en pantalla. */
+.section-bg-white .modern-themed-section,
+.testimonials-section.section-bg-white,
+section.trust-bar-section.section-bg-white,
+.section-bg-white .why-us-section,
+.cta-band.section-bg-white {
+    background-color: var(--bg-body);
+}
+
+.section-bg-gray .modern-themed-section,
+.cta-band.section-bg-gray,
+.brand-logo-area.modern-themed-section {
+    background-color: var(--bg-alt);
+}
+
+/* === CATÁLOGO: SIDEBAR + TOOLBAR + EMPTY STATE === */
+.catalog-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.catalog-count {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
+.catalog-count strong {
+    color: var(--text-main);
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ce1212;
+    background: rgba(206, 18, 18, 0.08);
+    border: 1px solid rgba(206, 18, 18, 0.25);
+    border-radius: 50px;
+    padding: 7px 8px 7px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.filter-chip:hover {
+    background: #ce1212;
+    color: #fff;
+}
+
+.filter-chip span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.15);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.filter-chip:hover span {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.modern-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.modern-sidebar h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(206, 18, 18, 0.2);
+}
+
+.modern-category-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modern-category-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    color: var(--text-main);
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+}
+
+.modern-category-list a i {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+}
+
+.modern-category-list a:hover {
+    background: rgba(206, 18, 18, 0.07);
+    color: #ce1212;
+    transform: translateX(4px);
+}
+
+.modern-category-list a:hover i {
+    color: #ce1212;
+}
+
+.modern-category-list a.active {
+    background: rgba(206, 18, 18, 0.1);
+    border-color: rgba(206, 18, 18, 0.3);
+    color: #ce1212;
+    font-weight: 700;
+    box-shadow: inset 3px 0 0 #ce1212;
+}
+
+.modern-category-list a.active i {
+    color: #ce1212;
+}
+
+.catalog-help {
+    margin-top: 22px;
+    padding: 22px 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #14161d 0%, #3d0d0f 100%);
+    color: #fff;
+    text-align: center;
+}
+
+.catalog-help h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #fff;
+}
+
+.catalog-help p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 14px;
+}
+
+.catalog-help .cta-btn {
+    width: 100%;
+    font-size: 0.88rem;
+    padding: 12px 18px;
+}
+
+/* === BOTONES CTA GLOBALES (base + WhatsApp con hover verde) ===
+   Antes estos estilos solo vivían dentro del <style> de cta-band, así que en
+   páginas sin ese componente (ej. catálogo) el botón caía al azul de Bootstrap. */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cta-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.cta-btn.primary {
+    background: #ce1212;
+    color: #fff;
+}
+
+.cta-btn.primary:hover {
+    background: #fff;
+    color: #ce1212;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(255, 255, 255, 0.18);
+}
+
+.cta-btn.whatsapp {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.cta-btn.whatsapp:hover {
+    background: #25D366;
+    border-color: #25D366;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* === HEADER: BOTÓN AULA VIRTUAL MODERNO ===
+   Reemplaza el rectángulo plano del tema (y su hover blanco que lo borraba)
+   por una píldora con degradado rojo, brillo y elevación al hover. */
+.header-area .subscribe-btn-wrap .subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #e01318 0%, #ce1212 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    padding: 11px 26px;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(206, 18, 18, 0.35);
+    transition: all 0.3s ease;
+}
+
+.header-area .subscribe-btn-wrap .subscribe-btn svg {
+    width: 17px;
+    height: 17px;
+}
+
+.header-area .subscribe-btn-wrap .subscribe-btn:hover {
+    background: linear-gradient(135deg, #ce1212 0%, #a50e0e 100%);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(206, 18, 18, 0.45);
+}
+
+.catalog-empty {
+    text-align: center;
+    padding: 60px 30px;
+    background: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: 16px;
+}
+
+.catalog-empty-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    background: rgba(206, 18, 18, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.catalog-empty-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #ce1212;
+}
+
+.catalog-empty h4 {
+    color: var(--text-main);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.catalog-empty p {
+    color: var(--text-muted);
+    margin-bottom: 22px;
+}
+
+.catalog-empty .program-btn {
+    display: inline-block;
+    padding: 12px 30px;
+}
+
+@media (max-width: 991px) {
+    .modern-sidebar {
+        position: static;
+    }
+}
+
+/* === CATÁLOGO: PAGINACIÓN GRIS OSCURO + SEPARACIÓN DEL FOOTER === */
+.catalog-container-overlap {
+    padding-bottom: 70px;
+}
+
+.pagination-style-1 nav {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-style-1 .pagination {
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.pagination-style-1 .page-link {
+    color: var(--text-main);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    min-width: 42px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+    transition: all 0.25s ease;
+}
+
+.pagination-style-1 .page-link:hover {
+    color: #ce1212;
+    border-color: rgba(206, 18, 18, 0.5);
+    background-color: var(--bg-card);
+}
+
+.pagination-style-1 .page-item.active .page-link {
+    color: var(--bg-body);
+    background-color: var(--text-main);
+    border-color: var(--text-main);
+}
+
+.pagination-style-1 .page-item.disabled .page-link {
+    color: var(--text-muted);
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    opacity: 0.6;
+}
+
+.pagination-style-1 .page-link:focus {
+    box-shadow: 0 0 0 3px rgba(206, 18, 18, 0.2);
+}
+
+/* === VERIFICAR (alumnos): buscador + resultados === */
+.verify-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+.verify-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-body);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    padding: 6px 6px 6px 18px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.verify-search:focus-within {
+    border-color: #ce1212;
+    box-shadow: 0 0 0 4px rgba(206, 18, 18, 0.12);
+}
+
+.verify-search > svg {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.verify-search input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.verify-search input::placeholder {
+    color: var(--text-muted);
+}
+
+.verify-btn {
+    background: #ce1212;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.verify-btn:hover {
+    background: #a50e0e;
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(206, 18, 18, 0.4);
+}
+
+.verify-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 18px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.verify-proof img {
+    height: 40px;
+    width: auto;
+}
+
+.verify-count {
+    margin: 22px 0 14px;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
+.verify-count strong {
+    color: #ce1212;
+}
+
+.verify-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.verify-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    background: var(--bg-body);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.verify-item:hover {
+    border-color: rgba(206, 18, 18, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.verify-avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.1);
+    color: #ce1212;
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verify-name {
+    flex: 1;
+    min-width: 0;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.verify-view-btn {
+    flex-shrink: 0;
+    width: auto;
+    padding: 9px 26px;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 575px) {
+    .verify-card {
+        padding: 20px 16px;
+    }
+    .verify-btn {
+        padding: 12px 20px;
+    }
+    .verify-name {
+        font-size: 0.85rem;
+    }
+}
+
+/* === PERFIL DEL ESTUDIANTE === */
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+    padding: 26px 28px;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(206, 18, 18, 0.25);
+    background: rgba(206, 18, 18, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-initials {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ce1212;
+}
+
+.profile-info h2 {
+    margin: 0 0 8px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+.profile-role {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ce1212;
+    background: rgba(206, 18, 18, 0.1);
+    border-radius: 50px;
+    padding: 5px 16px;
+}
+
+.profile-count {
+    margin: 10px 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
+.profile-count strong {
+    color: var(--text-main);
+}
+
+.profile-section-head {
+    margin: 6px 0 22px;
+}
+
+.profile-section-head h3 {
+    margin: 0 0 4px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.profile-section-head p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
+@media (max-width: 575px) {
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 22px 18px;
+    }
+    .profile-info h2 {
+        font-size: 1.15rem;
+    }
+}

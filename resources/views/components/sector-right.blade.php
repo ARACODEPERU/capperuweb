@@ -1,5 +1,5 @@
 <div>
-    <div data-aos="fade-up" data-aos-duration="1000">
+    <div data-aos="fade-up" data-aos-duration="1000" class="section-bg-gray">
         <div class="section-padding-lr section-ptb-50 modern-themed-section">
             <div class="container-fluid">
 
@@ -27,20 +27,11 @@
                             <div class="swiper-slide">
                                 <div class="program-card">
                                     <div class="program-img">
-                                        <div class="program-badges">
-                                            <span class="program-badge type">{{ $program->additional ?? 'Programa' }}</span>
-                                            @if($program->additional1)
-                                                <span class="program-badge modality">{{ $program->additional1 }}</span>
-                                            @endif
-                                        </div>
                                         <a href="{{ route('web_program_description', $program->route_slug) }}">
                                             <x-webp-image src="{{ asset($program->image) }}" alt="{{ $program->name }}" />
                                         </a>
-                                    </div>
-                                    <div class="program-body">
-                                        <h3 class="program-title">
-                                            <a href="{{ route('web_program_description', $program->route_slug) }}">{{ $program->name }}</a>
-                                        </h3>
+                                    </div><div class="program-body">
+                                        <h3 class="program-title"><a href="{{ route('web_program_description', $program->route_slug) }}">{{ $program->name }}</a></h3>
                                         <div class="program-price">
                                             <span class="amount"><small>S/</small> {{ number_format($program->price, 0) }}</span>
                                         </div>

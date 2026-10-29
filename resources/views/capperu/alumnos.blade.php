@@ -2,102 +2,87 @@
 
 @section('content')
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <div class="main-wrapper">
 
         <!-- header area start -->
         <x-header />
         <!-- slider area start -->
 
-        <div data-aos="zoom-in" data-aos-duration="1200" >
-            <section class="banner-area style-4" style="padding: 80px 0px; background-color: var(--bg-alt);">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6 align-self-center">
-                            <div class="banner-inner" >
-                                <h1>
-                                    Perfil público del
-                                    <span class="bottom-line">
-                                        Estudiante
-                                        <img src="{{ asset('themes/capperu/assets/img/banner/4.png') }}" alt="img">
-                                    </span>
-                                </h1>
+        <!-- HERO SECTION -->
+        <div class="catalog-hero">
+            <div class="container">
+                <h1>Perfil público del Estudiante</h1>
+                <p>Busca por nombres o apellidos y valida la autenticidad de tus certificados.</p>
+                <ul class="modern-breadcrumb">
+                    <li><a href="{{ route('web_home') }}">Inicio</a></li>
+                    <li><span>Verificar</span></li>
+                </ul>
+            </div>
+        </div>
 
-                                <form action="{{ route('web_alumnos') }}" method="POST">
-                                    @csrf                                    
-                                    <div class="input-group mt-xl-4 me-xl-5">
-                                        <input type="text" name="search" id="search"
-                                            placeholder="Ingresar nombres o apellidos del alumno" class="form-control rounded-start">
-                                        <button type="submit" class="btn btn-primary rounded-end" style="background-color: #007bff; border-color: #007bff;">Buscar</button>
-                                    </div>
-                                </form>
-
-                                <div class="banner-multi-user mt-xl-5 mt-4">
-                                    <div class="media">
-                                        <div class="media-left me-3">
-                                            <img src="{{ asset('themes/capperu/assets/img/banner/5.png') }}" alt="img">
-                                        </div>
-                                        <div class="media-body align-self-center">
-                                            Record de certificados
-                                        </div>
-                                    </div>
-                                </div>
+        <!-- CONTENIDO PRINCIPAL (OVERLAP) -->
+        <div class="container catalog-container-overlap">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="verify-card" data-aos="fade-up">
+                        <form action="{{ route('web_alumnos') }}" method="POST" role="search">
+                            @csrf
+                            <div class="verify-search">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.3-4.3"/>
+                                </svg>
+                                <input type="text" name="search" id="search" value="{{ request('search') }}"
+                                    placeholder="Ingresar nombres o apellidos del alumno" required minlength="3"
+                                    aria-label="Buscar alumno por nombres o apellidos">
+                                <button type="submit" class="verify-btn">Buscar</button>
                             </div>
+                        </form>
+
+                        <div class="verify-proof">
+                            <img src="{{ asset('themes/capperu/assets/img/banner/5.png') }}" alt="Egresados certificados">
+                            <span>Récord de certificados verificables en línea</span>
                         </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            @if (count($results) > 0)
-                                <div id="results">
-                                    <table class="table table-striped table-hover" style="box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" style="font-weight: bold;">#</th>
-                                                <th scope="col" style="font-weight: bold;">Alumno</th>
-                                                <th scope="col" style="font-weight: bold;">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody >
-                                            @foreach ($results as $key => $student)
-                                                <tr>
-                                                    <th scope="row">{{ $key + 1 }}</th>
-                                                    <td>{{ $student->full_name }}</td>
-                                                    <td>
-                                                        <a href="{{ route('web_perfil_alumno', $student->id) }}"
-                                                            target="_blank" class="btn-small btn-primary">Ver</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+
+                        @if (count($results) > 0)
+                            <p class="verify-count" role="status">
+                                <strong>{{ count($results) }}</strong>
+                                {{ count($results) === 1 ? 'resultado encontrado' : 'resultados encontrados' }}
+                            </p>
+                            <ul class="verify-list">
+                                @foreach ($results as $student)
+                                    @php
+                                        $initials = collect(explode(' ', trim($student->full_name)))->filter()->map(fn($w) => mb_strtoupper(mb_substr($w, 0, 1)))->take(2)->implode('');
+                                    @endphp
+                                    <li class="verify-item">
+                                        <span class="verify-avatar" aria-hidden="true">{{ $initials }}</span>
+                                        <span class="verify-name">{{ $student->full_name }}</span>
+                                        <a href="{{ route('web_perfil_alumno', $student->id) }}" target="_blank" rel="noopener" class="program-btn verify-view-btn">Ver</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @elseif(request()->isMethod('post'))
+                            <div class="catalog-empty" data-aos="fade-up">
+                                <div class="catalog-empty-icon" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <path d="m21 21-4.3-4.3"/>
+                                    </svg>
                                 </div>
-                            @endif
-                        </div>
-                        <div class="col-md-1"></div>
+                                <h4>No encontramos coincidencias</h4>
+                                <p>Revisa la ortografía o prueba solo con un apellido.</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
 
         <div data-aos="fade-up" data-aos-duration="1000">
             <x-footer />
         </div>
 
-
     </div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            mirror: true,
-            once: false
-        });
-    </script>
+    <!-- Main Wrapper End -->
 
 @endsection

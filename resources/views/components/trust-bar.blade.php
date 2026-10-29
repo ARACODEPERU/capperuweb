@@ -1,5 +1,5 @@
 <div>
-    <section class="trust-bar-section">
+    <section class="trust-bar-section section-bg-white">
         <div class="container-fluid section-padding-lr">
             <div class="row g-4 justify-content-center">
 
@@ -74,7 +74,7 @@
             background: var(--bg-card);
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
-            padding: 42px 0;
+            padding: 50px 0;
         }
 
         .trust-item {

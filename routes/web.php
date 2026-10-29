@@ -36,6 +36,8 @@ Route::get('/nosotros', [WebPageController::class, 'about_us'])->name('web_about
 Route::get('/catalogo', [WebPageController::class, 'catalog'])->name('web_catalog');
 Route::get('/politicas-de-calidad', [WebPageController::class, 'quality_policies'])->name('web_quality_policies');
 Route::get('/gestion-de-calidad', [WebPageController::class, 'quality_management'])->name('web_quality_management');
+Route::get('/politicas-de-privacidad', [WebPageController::class, 'privacy_policies'])->name('web_privacy_policies');
+Route::get('/libro-de-reclamaciones', [WebPageController::class, 'claims_book'])->name('web_claims_book');
 Route::get('/contacto', [WebPageController::class, 'contact'])->name('web_contact');
 Route::get('/catalogo/{slug}', [WebPageController::class, 'programDescription'])->name('web_program_description');
 Route::get('/descripcion-programa/{id}', [WebPageController::class, 'programDescriptionRedirect'])->name('web_program_description_legacy');

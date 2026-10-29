@@ -1,5 +1,5 @@
 <div>
-    <section class="cta-band">
+    <section class="cta-band section-bg-white">
         <div class="container-fluid section-padding-lr">
             <div class="cta-inner" data-aos="zoom-in" data-aos-duration="900">
                 <div class="cta-texts">
@@ -31,7 +31,7 @@
 
     <style>
         .cta-band {
-            padding: 30px 0 60px;
+            padding: 50px 0;
             background: var(--bg-body);
         }
 

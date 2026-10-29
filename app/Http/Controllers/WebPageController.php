@@ -79,6 +79,22 @@ class WebPageController extends Controller
         ]);
     }
 
+    public function privacy_policies()
+    {
+        return view('pages.privacy-policies', [
+            'title' => 'Políticas de Privacidad',
+            'metaDescription' => 'Políticas de Privacidad de CAP PERU: cómo protegemos tus datos personales conforme a la Ley N° 29733, tus derechos ARCO y nuestros canales de contacto.',
+        ]);
+    }
+
+    public function claims_book()
+    {
+        return view('pages.complaints-book', [
+            'title' => 'Libro de Reclamaciones',
+            'metaDescription' => 'Libro de Reclamaciones de CAP PERU: registra tu reclamo conforme a la Ley N° 29571 y te responderemos en un plazo máximo de 15 días hábiles.',
+        ]);
+    }
+
     public function contact()
     {
         return view('pages.contact', [

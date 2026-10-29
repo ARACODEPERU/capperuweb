@@ -1,165 +1,108 @@
-@extends('layouts.capperu')
+@extends('layouts.webpage')
 
 @section('content')
 
-    <!-- preloader area start -->
-    <x-capperu.preloader-area></x-capperu.preloader-area>
-    <!-- preloader area end -->
+    <div class="main-wrapper">
 
-    <x-capperu.body-overlay-area></x-capperu.body-overlay-area>
+        <!-- header area start -->
+        <x-header />
 
-    <!-- search popup area start -->
-    <x-capperu.search-popup-area></x-capperu.search-popup-area>
-    <!-- //. search Popup -->
+        @php
+            $displayName = strlen($student[0]->full_name ?? '') > 0 ? $student[0]->full_name : $student[0]->full_name2;
+            $initials = collect(explode(' ', trim((string) $displayName)))->filter()->map(fn($w) => mb_strtoupper(mb_substr($w, 0, 1)))->take(2)->implode('');
+            $photo = null;
+            if (($student[0]->student_image ?? null) !== null) {
+                $photo = file_exists($student[0]->student_image) ? $student[0]->student_image : 'https://www.capperu.com/storage/uploads/students/20231206124645.png';
+            } else {
+                $photo = 'https://www.capperu.com/storage/uploads/students/20231206124645.png';
+            }
+            $certificates = $student->filter(fn($row) => ($row->certificate_image ?? null) !== null || ($row->link_pdf ?? null) !== null)->values();
+        @endphp
 
-    <!-- Encabezado inicio -->
-    {{-- <x-capperu.header-area></x-capperu.header-area> --}}
-    <!-- Encabezado fin -->
-
-
-    <!-- Banner Area Start-->
-    <section class="banner-area style-3" style="padding: 120px 0px; z-index: -1; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
-    </section>
-    <!-- Banner Area End -->
-
-    <!-- instructor Area Start-->
-    <div class="pd-bottom-115" style="z-index: 9999999;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-4">
-                    <div class="instructor-details-area text-center">
-                        <div class="thumb">
-                            @if ($student[0]->student_image == null)
-                                <img src="https://www.capperu.com/storage/uploads/students/20231206124645.png" alt="img">
-                            @else
-                            <img src="{{ file_exists($student[0]->student_image) ? $student[0]->student_image : 'https://www.capperu.com/storage/uploads/students/20231206124645.png' }}" alt="">
-                            @endif
-
-                        </div>
-                        @if(strlen($student[0]->full_name) > 0)
-                            <h3>{{ $student[0]->full_name }}</h3>
-                        @else
-                            <h3>{{ $student[0]->full_name2 }}</h3>
-                        @endif
-                        <p>Alumno</p>
-
-                        <ul class="achivement-fact">
-                        </ul>
-
-                        <div class="text-start px-30">
-                            <h5> </h5>
-                            <p> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 pd-top-120">
-                    <h5>Lista de Diplomados y/o Cursos:</h5>
-                    <br>
-                    <div class="row">
-                            @if (count($student)>0 && ($student[0]->certificate_image !=null || $student[0]->link_pdf !=null))
-                                    @foreach ($student as $certificate)
-                                    <div class="col-md-6">
-                                        <div class="single-course-wrap">
-                                            <div class="thumb">
-                                                <a href="">
-                                                    <a><img style="height: 260px; object-fit: cover;" src="{{ asset('storage/'.$certificate->course_image) }}" alt="img"></a>
-                                                </a>
-                                            </div>
-                                            <div class="wrap-details">
-                                                <h6 title="" class="texto-oculto2">
-                                                    <a href="">{{ $certificate->course }}</a>
-                                                </h6>
-                                            </div>
-                                            <div class="wrap-details">
-                                                <h6 title="" class="texto-oculto2">
-                                                    @if ($certificate->link_pdf==null)
-                                                        <a target="_blank" href="{{ $certificate->certificate_image }}">Descargar Certificado</a>
-                                                    @else
-                                                        <a target="_blank" href="{{ $certificate->link_pdf }}">Descargar Certificado</a>
-                                                    @endif
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                            @endif
-                    </div>
-                    {{-- <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Nuevo</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> --}}
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- instructor Area End -->
-
-    <!-- intro Area Start-->
-    <div class="text-center pd-top-135 pd-top-50 pd-bottom-100" style="background-color: #F9FAFD;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title">
-                        <h2>Nuestros Beneficios</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget aenean accumsan bibendum gravida maecenas augue elementum et neque. Suspendisse imperdiet .</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single-intro-wrap-2">
-                        <div class="thumb">
-                            <img style="width: 80px;" src="{{ asset('themes/capperu/assets/img/intro/convenio.png') }}" alt="img">
-                        </div>
-                        <div class="wrap-details">
-                            <h4><a href="#">Convenios</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui praesent nam fermentum, est neque, dignissim. Phasellus feugiat elit vulputate convallis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single-intro-wrap-2">
-                        <div class="thumb">
-                            <img style="width: 80px;" src="{{ asset('themes/capperu/assets/img/intro/aprender.png') }}" alt="img">
-                        </div>
-                        <div class="wrap-details">
-                            <h4><a href="#">Campus Virtual</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui praesent nam fermentum, est neque, dignissim. Phasellus feugiat elit vulputate convallis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single-intro-wrap-2">
-                        <div class="thumb">
-                            <img style="width: 80px;" src="{{ asset('themes/capperu/assets/img/intro/diploma.png') }}" alt="img">
-                        </div>
-                        <div class="wrap-details">
-                            <h4><a href="#">Certificados</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui praesent nam fermentum, est neque, dignissim. Phasellus feugiat elit vulputate convallis.</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- HERO SECTION -->
+        <div class="catalog-hero">
+            <div class="container">
+                <h1>Perfil del Estudiante</h1>
+                <p>Valida aquí los diplomados y cursos certificados por CAP PERU.</p>
+                <ul class="modern-breadcrumb">
+                    <li><a href="{{ route('web_home') }}">Inicio</a></li>
+                    <li><a href="{{ route('web_alumnos') }}">Verificar</a></li>
+                    <li><span>Perfil del Estudiante</span></li>
+                </ul>
             </div>
         </div>
+
+        <!-- PERFIL + CERTIFICADOS (OVERLAP) -->
+        <div class="container catalog-container-overlap">
+            <div class="profile-card" data-aos="fade-up">
+                <div class="profile-photo">
+                    @if ($photo)
+                        <img src="{{ $photo }}" alt="{{ $displayName }}" loading="lazy">
+                    @else
+                        <span class="profile-initials" aria-hidden="true">{{ $initials }}</span>
+                    @endif
+                </div>
+                <div class="profile-info">
+                    <h2>{{ $displayName }}</h2>
+                    <span class="profile-role">Alumno</span>
+                    <p class="profile-count">
+                        <strong>{{ $certificates->count() }}</strong>
+                        {{ $certificates->count() === 1 ? 'certificado registrado' : 'certificados registrados' }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="profile-section-head" data-aos="fade-up">
+                <h3>Lista de Diplomados y/o Cursos</h3>
+                <p>Documentos emitidos a nombre del estudiante.</p>
+            </div>
+
+            @if ($certificates->count() > 0)
+                <div class="row g-4">
+                    @foreach ($certificates as $certificate)
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                            <div class="program-card">
+                                <div class="program-img">
+                                    <x-webp-image src="{{ asset('storage/' . $certificate->course_image) }}" alt="{{ $certificate->course }}" class="w-100" />
+                                </div>
+                                <div class="program-body">
+                                    <h3 class="program-title">{{ $certificate->course }}</h3>
+                                    @php
+                                        $docUrl = ($certificate->link_pdf ?? null) ?: $certificate->certificate_image;
+                                    @endphp
+                                    @if ($docUrl)
+                                        <a href="{{ $docUrl }}" target="_blank" rel="noopener" class="program-btn">Descargar Certificado</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="catalog-empty" data-aos="fade-up">
+                    <div class="catalog-empty-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h4>Sin certificados registrados</h4>
+                    <p>Este perfil aún no tiene documentos asociados.</p>
+                </div>
+            @endif
+        </div>
+
+        <!-- Beneficios institucionales -->
+        <x-why-us />
+
+        <!-- Llamado a la acción -->
+        <x-cta-band />
+
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <x-footer />
+        </div>
+
     </div>
-    <!-- intro Area End -->
-
-    <!-- Más Populares Area Start-->
-    <x-capperu.programas-populares-area></x-capperu.programas-populares-area>
-    <!-- Más Populares Area End -->
-
-
-
-    {{-- <x-capperu.footer-area></x-capperu.footer-area> --}}
+    <!-- Main Wrapper End -->
 
 @endsection

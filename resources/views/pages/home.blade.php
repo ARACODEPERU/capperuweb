@@ -15,8 +15,8 @@
         <!-- nuevos programas -->
         <x-courses-new />
 
-        <!-- próximas convocatorias -->
-        <x-upcoming-calls />
+        <!-- proximas convocatorias (oculto temporalmente) -->
+        {{-- <x-upcoming-calls /> --}}
 
         <!-- cursos -->
         <x-courses />

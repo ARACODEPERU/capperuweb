@@ -1,5 +1,5 @@
 <div>
-    <section class="testimonials-section modern-themed-section">
+    <section class="testimonials-section modern-themed-section section-bg-white">
         <div class="container-fluid section-padding-lr section-ptb-50">
             <div class="modern-section-header" data-aos="fade-up">
                 <div class="section-icon" aria-hidden="true">

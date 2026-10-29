@@ -1,47 +1,57 @@
 <div data-aos="fade-up" data-aos-duration="1000">
-    <div class="brand-logo-area section-padding-lr section-padding-100 modern-themed-section">
+    <div class="brand-logo-area section-padding-lr section-ptb-50 modern-themed-section">
         <div class="container-fluid">
             <div class="section-title-2 text-center mb-50">
                 <h2>Nuestros Aliados</h2>
                 <p>Colaboramos con las mejores marcas e instituciones.</p>
             </div>
             <div class="brand-logo-active brand-logo-wrap">
-                <div class="brand-logo-plr">
-                    <div class="brand-logo">
-                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
-                                alt="Logo de aliado"></a>
+                @forelse ($logos ?? [] as $logo)
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#" title="{{ $logo->name }}"><img
+                                    src="{{ \Illuminate\Support\Str::startsWith($logo->image, ['http://', 'https://']) ? $logo->image : asset($logo->image) }}"
+                                    alt="{{ $logo->name }}" loading="lazy"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="brand-logo-plr">
-                    <div class="brand-logo">
-                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
-                                alt="Logo de aliado"></a>
+                @empty
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                    alt="Logo de aliado"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="brand-logo-plr">
-                    <div class="brand-logo">
-                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
-                                alt="Logo de aliado"></a>
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                    alt="Logo de aliado"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="brand-logo-plr">
-                    <div class="brand-logo">
-                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
-                                alt="Logo de aliado"></a>
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                    alt="Logo de aliado"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="brand-logo-plr">
-                    <div class="brand-logo">
-                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
-                                alt="Logo de aliado"></a>
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                    alt="Logo de aliado"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="brand-logo-plr">
-                    <div class="brand-logo">
-                        <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
-                                alt="Logo de aliado"></a>
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                    alt="Logo de aliado"></a>
+                        </div>
                     </div>
-                </div>
+                    <div class="brand-logo-plr">
+                        <div class="brand-logo">
+                            <a href="#"><img src="{{ asset('themes/webpage/assets/images/brand/1.png') }}"
+                                    alt="Logo de aliado"></a>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
