@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="program-body">
                                         <h3 class="program-title">
-                                            <a href="{{ route('web_program_description', $course->route_slug) }}">{{ $course->name }}</a>
+                                            <a href="{{ route('web_program_description', $course->route_slug) }}" title="{{ $course->name }}">{{ \Illuminate\Support\Str::limit($course->name, 55) }}</a>
                                         </h3>
                                         <div class="program-price">
                                             <span class="amount"><small>S/</small> {{ number_format($course->price, 0) }}</span>

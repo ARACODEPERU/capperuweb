@@ -31,7 +31,7 @@
                                             <x-webp-image src="{{ asset($program->image) }}" alt="{{ $program->name }}" />
                                         </a>
                                     </div><div class="program-body">
-                                        <h3 class="program-title"><a href="{{ route('web_program_description', $program->route_slug) }}">{{ $program->name }}</a></h3>
+                                        <h3 class="program-title"><a href="{{ route('web_program_description', $program->route_slug) }}" title="{{ $program->name }}">{{ \Illuminate\Support\Str::limit($program->name, 55) }}</a></h3>
                                         <div class="program-price">
                                             <span class="amount"><small>S/</small> {{ number_format($program->price, 0) }}</span>
                                         </div>

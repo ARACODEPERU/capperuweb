@@ -132,6 +132,63 @@
             width: auto;
             filter: none;
         }
+
+        /* Móvil/tablet: solo el isotipo del logo y todo el header en una sola línea */
+        @media (max-width: 991.98px) {
+            .header-area { padding: 10px 0; }
+            .header-wrap.header-netflix-style {
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            .header-netflix-style .logo-menu-wrap {
+                width: auto;
+                flex: 0 1 auto;
+                min-width: 0;
+                justify-content: flex-start;
+            }
+            .header-netflix-style .logo img {
+                width: 44px !important;
+                height: 44px !important;
+                object-fit: cover;
+                object-position: left center;
+            }
+            .header-netflix-style .logo a {
+                padding: 4px;
+                border-radius: 10px;
+            }
+            /* Con solo el isotipo no hace falta la placa clara del modo oscuro */
+            [data-bs-theme="dark"] .header-netflix-style .logo a {
+                background: transparent;
+                box-shadow: none;
+            }
+            .header-netflix-style .right-side {
+                width: auto;
+                flex: 0 1 auto;
+                margin: 0 0 0 auto;
+                justify-content: flex-end;
+                gap: 6px;
+            }
+            .header-netflix-style .subscribe-btn-wrap .subscribe-btn {
+                margin-left: 0;
+                padding: 9px 12px;
+                font-size: 13px;
+                gap: 6px;
+                white-space: nowrap;
+            }
+            .header-netflix-style .subscribe-btn-wrap .subscribe-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+            .header-netflix-style .theme-btn-toggle {
+                width: 34px;
+                height: 34px;
+                font-size: 17px;
+            }
+            .header-netflix-style .mobile-menu { margin-left: 0; }
+        }
     </style>
     <header class="header-area section-padding-lr">
         <div class="container-fluid">
