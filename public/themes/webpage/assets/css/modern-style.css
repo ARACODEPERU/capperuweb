@@ -65,11 +65,43 @@ body {
 
 /* === GLOBAL MODERN COMPONENTS === */
 .catalog-hero, .contact-hero, .management-hero, .about-hero, .policy-hero {
-    background: linear-gradient(180deg, #111 0%, #2a2a2a 100%);
+    background: linear-gradient(120deg, #14161d 0%, #2a1215 55%, #3d0d0f 100%);
     padding: 100px 0 180px;
     text-align: center;
     color: #fff;
     position: relative;
+    overflow: hidden;
+}
+
+.catalog-hero::before, .contact-hero::before, .management-hero::before, .about-hero::before, .policy-hero::before {
+    content: '';
+    position: absolute;
+    top: -70px;
+    right: -70px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.25);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.catalog-hero::after, .contact-hero::after, .management-hero::after, .about-hero::after, .policy-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: 30%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.15);
+    filter: blur(46px);
+    pointer-events: none;
+}
+
+.catalog-hero > .container, .contact-hero > .container, .management-hero > .container, .about-hero > .container, .policy-hero > .container {
+    position: relative;
+    z-index: 1;
 }
 .catalog-hero h1, .contact-hero h1, .management-hero h1, .about-hero h1, .policy-hero h1 { 
     font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; color: #fff; 
@@ -113,8 +145,42 @@ body {
 /* === PROGRAM DESCRIPTION (LANDING) === */
 .modern-hero {
     position: relative;
-    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%);
-    background-size: cover; padding: 80px 0; color: #fff;
+    background: linear-gradient(120deg, #14161d 0%, #2a1215 55%, #3d0d0f 100%);
+    background-size: cover;
+    padding: 80px 0;
+    color: #fff;
+    overflow: hidden;
+}
+
+.modern-hero::before {
+    content: '';
+    position: absolute;
+    top: -70px;
+    right: -70px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.25);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.modern-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: 30%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.15);
+    filter: blur(46px);
+    pointer-events: none;
+}
+
+.modern-hero > .container {
+    position: relative;
+    z-index: 1;
 }
 .sticky-sidebar-wrapper { position: sticky; top: 100px; z-index: 10; }
 .purchase-card { background: var(--bg-card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); color: var(--text-main); }

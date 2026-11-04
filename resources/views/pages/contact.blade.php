@@ -125,7 +125,7 @@
         <style>
             /* Hero Section Styles (Encabezado Moderno) */
             .contact-hero {
-                background: linear-gradient(180deg, #111 0%, #2a2a2a 100%);
+                background: linear-gradient(120deg, #14161d 0%, #2a1215 55%, #3d0d0f 100%);
                 padding: 100px 0 180px; /* Padding inferior extra para el efecto de superposición */
                 text-align: center;
                 color: #fff;

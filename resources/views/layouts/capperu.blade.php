@@ -39,6 +39,60 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
+
+    {{-- Degradado unificado para los heroes de paginas internas --}}
+    <style id="internal-hero-theme">
+        .head-page,
+        .banner-area.style-3 {
+            background: linear-gradient(120deg, #14161d 0%, #2a1215 55%, #3d0d0f 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .head-page::before,
+        .banner-area.style-3::before {
+            content: '';
+            position: absolute;
+            top: -70px;
+            right: -70px;
+            bottom: auto;
+            left: auto;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(206, 18, 18, 0.25);
+            opacity: 1;
+            mix-blend-mode: normal;
+            filter: blur(50px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .head-page::after,
+        .banner-area.style-3::after {
+            content: '';
+            position: absolute;
+            top: auto;
+            right: auto;
+            bottom: -80px;
+            left: 30%;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(206, 18, 18, 0.15);
+            opacity: 1;
+            mix-blend-mode: normal;
+            filter: blur(46px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .head-page > .container,
+        .banner-area.style-3 > .container {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body class='sc5'>

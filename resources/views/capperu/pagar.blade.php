@@ -17,7 +17,7 @@
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <!-- Banner Area Start-->
     <section class="banner-area style-3"
-        style="padding: 40px; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
+        style="padding: 40px; ">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 align-self-center">

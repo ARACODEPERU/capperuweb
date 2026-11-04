@@ -18,7 +18,7 @@
 
 
     <!-- Banner Area Start-->
-    <section class="banner-area style-3" style="padding: 120px 0px; z-index: -1; background-image: url({{ asset('themes/capperu/assets/img/banner/bg-2.jpg') }});">
+    <section class="banner-area style-3" style="padding: 120px 0px; z-index: -1; ">
     </section>
     <!-- Banner Area End -->
 
