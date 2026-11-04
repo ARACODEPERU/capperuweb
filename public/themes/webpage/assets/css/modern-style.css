@@ -21,6 +21,12 @@
     --footer-bg: #010409;    /* Pie de página profundo */
 }
 
+/* style.css fija el color de body en #333; en modo oscuro debe seguir al tema
+   para que los textos que heredan color (tarjetas incluidas) se lean bien. */
+[data-bs-theme="dark"] body {
+    color: var(--text-main);
+}
+
 body { 
     background-color: var(--bg-body); 
     color: var(--text-main); 
@@ -115,6 +121,15 @@ body {
 .modern-breadcrumb li a { color: #ccc; text-decoration: none; transition: 0.3s; }
 .modern-breadcrumb li a:hover { color: #fff; }
 .modern-breadcrumb li span { color: #ce1212; }
+.modern-breadcrumb li + li::before { content: '/'; margin: 0 10px; color: #555; }
+
+/* Hero: subtitulo (mismo tratamiento que el hero de Contacto) */
+.catalog-hero p, .contact-hero p, .management-hero p, .about-hero p, .policy-hero p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto 25px;
+}
 
 .catalog-container-overlap, .management-container-overlap, .about-container-overlap, .policy-container-overlap, .contact-box { 
     margin-top: -100px; position: relative; z-index: 10; 
@@ -182,6 +197,177 @@ body {
     position: relative;
     z-index: 1;
 }
+/* El hero de las paginas de programa comparte tipografia y breadcrumb del hero global */
+.modern-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.modern-hero p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 680px;
+    margin-bottom: 25px;
+}
+
+.modern-hero .modern-breadcrumb { margin-bottom: 0; }
+
+.modern-hero .row { align-items: center; }
+
+/* === HERO: pieza visual de la capacitación (lado derecho) === */
+.hero-training-visual { position: relative; padding: 0 6px 0 18px; }
+
+.hero-training-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    padding: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.cert-preview {
+    position: relative;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 16px 18px;
+    overflow: hidden;
+}
+
+.cert-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: #ce1212;
+}
+
+.cert-top { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.cert-brand { font-size: 0.62rem; font-weight: 800; letter-spacing: 2px; color: #1a1a1a; }
+.cert-dot { width: 8px; height: 8px; border-radius: 50%; background: #ce1212; margin-left: auto; }
+
+.cert-kicker {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #ce1212;
+    margin-bottom: 8px;
+}
+
+.cert-line { display: block; height: 6px; border-radius: 6px; background: #ececec; margin-bottom: 6px; }
+.cert-line-lg { width: 88%; height: 9px; background: #e2e2e2; }
+.cert-line-sm { width: 52%; margin-bottom: 0; }
+
+.cert-seal {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(206, 18, 18, 0.1);
+    color: #ce1212;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cert-seal svg { width: 17px; height: 17px; }
+
+.hero-training-info { padding: 14px 4px 2px; }
+.modern-hero .hero-training-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #fff;
+    max-width: none;
+    margin: 0 0 10px;
+}
+
+.hero-training-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+
+.hero-training-chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50px;
+    padding: 6px 12px;
+}
+
+.hero-training-chips svg { width: 13px; height: 13px; color: #ff6b6b; flex-shrink: 0; }
+
+.hero-training-float {
+    position: absolute;
+    right: 0;
+    bottom: -16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ce1212;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 50px;
+    box-shadow: 0 10px 24px rgba(206, 18, 18, 0.45);
+}
+
+.hero-training-float svg { width: 14px; height: 14px; }
+
+/* === MODO OSCURO: contraste forzado de textos ===
+   style.css fija títulos y cajas en #333/#fff, lo que deja texto oscuro
+   sobre fondo oscuro (y texto claro sobre cajas blancas). */
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] h3,
+[data-bs-theme="dark"] h4,
+[data-bs-theme="dark"] h5,
+[data-bs-theme="dark"] h6 {
+    color: var(--text-main) !important;
+}
+
+/* Contenido del brochure (presentación, malla, beneficios, FAQ) */
+[data-bs-theme="dark"] .overview-area,
+[data-bs-theme="dark"] .overview-area p,
+[data-bs-theme="dark"] .overview-area li,
+[data-bs-theme="dark"] .overview-area span,
+[data-bs-theme="dark"] .overview-area strong,
+[data-bs-theme="dark"] .overview-area em,
+[data-bs-theme="dark"] .overview-area b,
+[data-bs-theme="dark"] .overview-area div,
+[data-bs-theme="dark"] .overview-area td,
+[data-bs-theme="dark"] .overview-area th {
+    color: var(--text-main) !important;
+}
+
+/* Cajas que Bootstrap pinta en blanco dentro del contenido */
+[data-bs-theme="dark"] .overview-area .accordion-item,
+[data-bs-theme="dark"] .overview-area .accordion-header,
+[data-bs-theme="dark"] .overview-area .accordion-body {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Textos de las tarjetas y del panel de compra */
+[data-bs-theme="dark"] .teacher-card-modern h5,
+[data-bs-theme="dark"] .teacher-card-modern span,
+[data-bs-theme="dark"] .purchase-card,
+[data-bs-theme="dark"] .purchase-card p,
+[data-bs-theme="dark"] .purchase-card small {
+    color: var(--text-main) !important;
+}
+
 .sticky-sidebar-wrapper { position: sticky; top: 100px; z-index: 10; }
 .purchase-card { background: var(--bg-card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); color: var(--text-main); }
 .price-tag { font-size: 2.2rem; font-weight: 800; color: var(--text-main); }
@@ -401,6 +587,15 @@ body {
     font-size: 0.9rem;
     color: var(--text-muted);
     text-decoration: line-through;
+}
+
+/* Contraste de los textos del card en modo oscuro */
+[data-bs-theme="dark"] .program-card .program-body,
+[data-bs-theme="dark"] .program-card .program-title,
+[data-bs-theme="dark"] .program-card .program-title a,
+[data-bs-theme="dark"] .program-card .program-price,
+[data-bs-theme="dark"] .program-card .program-price .amount {
+    color: var(--text-main);
 }
 
 .program-card .program-btn {

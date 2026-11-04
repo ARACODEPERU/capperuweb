@@ -242,10 +242,74 @@
                         <h1 style="color: #fff;" >{{ $course->description }}</h1>
                         <p class="mb-4">Especialízate con los mejores profesionales y lleva tu carrera al siguiente nivel con nuestra metodología práctica.</p>
                         
+                        <ul class="modern-breadcrumb">
+                            <li><a href="{{ route('web_home') }}">Inicio</a></li>
+                            <li><a href="{{ route('web_catalog') }}">Catálogo</a></li>
+                            <li><span>{{ \Illuminate\Support\Str::limit($course->description, 40) }}</span></li>
+                        </ul>
+
                         <div class="hero-meta">
                             <span><i class="fa fa-clock-o"></i> Duración: Consultar</span>
                             <span><i class="fa fa-laptop"></i> Modalidad: {{ $item->additional1 ?? 'Online / Mixta' }}</span>
                             <span><i class="fa fa-certificate"></i> Certificado Incluido</span>
+                        </div>
+                    </div>
+
+                    <!-- Pieza visual: elementos de la capacitación -->
+                    <div class="col-lg-4 d-none d-lg-block">
+                        <div class="hero-training-visual">
+                            <div class="hero-training-card">
+                                <div class="cert-preview" aria-hidden="true">
+                                    <div class="cert-top">
+                                        <span class="cert-brand">CAP PERU</span>
+                                        <span class="cert-dot"></span>
+                                    </div>
+                                    <span class="cert-kicker">Certificado</span>
+                                    <span class="cert-line cert-line-lg"></span>
+                                    <span class="cert-line"></span>
+                                    <span class="cert-line cert-line-sm"></span>
+                                    <div class="cert-seal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m9 12 2 2 4-4"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div class="hero-training-info">
+                                    <p class="hero-training-title">Capacitación con certificación oficial</p>
+                                    <ul class="hero-training-chips">
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <rect width="20" height="14" x="2" y="3" rx="2"/>
+                                                <path d="M8 21h8"/>
+                                                <path d="M12 17v4"/>
+                                            </svg>
+                                            {{ $item->additional1 ?? 'Online / Mixta' }}
+                                        </li>
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <circle cx="12" cy="12" r="10"/>
+                                                <path d="M12 6v6l4 2"/>
+                                            </svg>
+                                            Duración: Consultar
+                                        </li>
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <circle cx="12" cy="8" r="6"/>
+                                                <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/>
+                                            </svg>
+                                            Certificado incluido
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <span class="hero-training-float">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 6 9 17l-5-5"/>
+                                </svg>
+                                Acceso al campus 24/7
+                            </span>
                         </div>
                     </div>
                 </div>

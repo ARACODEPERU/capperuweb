@@ -1,30 +1,27 @@
 <div>
     {{-- Swiper ya se carga en el layout (CSS y JS): aquí no se duplica --}}
-    <div data-aos="zoom-in" data-aos-duration="1200">
-
-        <div class="slider-area-modern">
-            <div class="swiper mainSwiper">
-                <div class="swiper-wrapper">
-                    @foreach ($sliders as $k => $slide)
-                        <div class="swiper-slide">
-                            <a href="{{ $slide->item->items[1]->content ?? '#' }}" class="d-block">
-                                <x-webp-image
-                                    src="{{ asset('storage/' . $slide->item->items[0]->content) }}"
-                                    alt="{{ $slide->item->items[2]->content ?? 'Programa destacado ' . ($k + 1) . ' - CAP PERU' }}"
-                                    :eager="$k === 0"
-                                    class="img-fluid w-100"
-                                />
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Navigation buttons -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
+    <div class="slider-area-modern">
+        <div class="swiper mainSwiper">
+            <div class="swiper-wrapper">
+                @foreach ($sliders as $k => $slide)
+                    <div class="swiper-slide">
+                        <a href="{{ $slide->item->items[1]->content ?? '#' }}" class="d-block">
+                            <x-webp-image
+                                src="{{ asset('storage/' . $slide->item->items[0]->content) }}"
+                                alt="{{ $slide->item->items[2]->content ?? 'Programa destacado ' . ($k + 1) . ' - CAP PERU' }}"
+                                :eager="$k === 0"
+                                class="img-fluid w-100"
+                            />
+                        </a>
+                    </div>
+                @endforeach
             </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
     <style>
@@ -63,10 +60,6 @@
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
-                },
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
                 },
             });
         });

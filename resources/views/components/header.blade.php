@@ -112,9 +112,25 @@
 
         [data-bs-theme="dark"] .header-area { background-color: var(--header-bg) !important; }
         
-        /* Ajuste de logo en modo oscuro si es necesario (opcional) */
+        /* Logo legible en modo oscuro: el logotipo trae el texto en azul oscuro,
+           así que se coloca sobre una placa clara para conservar sus colores. */
+        [data-bs-theme="dark"] .logo a {
+            display: inline-flex;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 6px 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        [data-bs-theme="dark"] .logo a:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+        }
         [data-bs-theme="dark"] .logo img {
-            filter: brightness(1.1);
+            height: 48px !important;
+            width: auto;
+            filter: none;
         }
     </style>
     <header class="header-area section-padding-lr">

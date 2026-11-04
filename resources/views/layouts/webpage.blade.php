@@ -68,7 +68,7 @@
     <!-- Swiper Library (local) -->
     <link rel="stylesheet" href="{{ asset('themes/webpage/assets/vendor/swiper-bundle.min.css') }}" />
     <!-- Modern Proposal Styles -->
-    <link rel="stylesheet" href="{{ asset('themes/webpage/assets/css/modern-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/webpage/assets/css/modern-style.css') }}?v={{ filemtime(public_path('themes/webpage/assets/css/modern-style.css')) }}">
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('themes/webpage/assets/css/style.css') }}">
