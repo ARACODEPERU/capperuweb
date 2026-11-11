@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1726520166190227"
+     crossorigin="anonymous"></script>
 
     {{-- ===== SEO ===== --}}
     @php
